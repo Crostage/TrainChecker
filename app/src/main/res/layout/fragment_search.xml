@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/parent_padding"
+    tools:context=".SearchFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/city_from"
+        android:textSize="@dimen/l_text_size" />
+
+
+    <EditText
+        android:id="@+id/etCityFrom"
+        style="@style/appEditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="@string/city_from_hint"
+        android:hint="@string/city_from_hint" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/city_to"
+        android:textSize="@dimen/l_text_size" />
+
+    <EditText
+        android:id="@+id/etCityTo"
+        style="@style/appEditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="@string/city_from_hint"
+        android:hint="@string/city_from_hint" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/start_date"
+        android:textSize="@dimen/l_text_size" />
+
+    <EditText
+        android:id="@+id/etDate"
+        style="@style/appEditTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints="дата"
+        android:ems="10"
+        android:inputType="date" />
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/btn_search"
+        android:textAllCaps="false"
+        android:textSize="@dimen/m_text_size" />
+
+</LinearLayout>

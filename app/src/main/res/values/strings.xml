@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">TrainChecker</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="city_from">Город отправления</string>
+    <string name="city_from_hint">Введите город</string>
+    <string name="city_to">Город назначения</string>
+    <string name="start_date">Дата отправления</string>
+    <string name="btn_search">Поиск</string>
+    <string name="menu_search">Поиск</string>
+    <string name="menu_observ">Отслеживаемые</string>
+    <string name="list_is_empty">Список пуст</string>
+</resources>

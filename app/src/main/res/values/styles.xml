@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="descriptionTextViewStyle" parent="Widget.MaterialComponents.TextView">
+
+
+
+
+    </style>
+
+
+    <style name="appEditTextStyle">
+
+        android:textSize="@dimen/l_text_size"
+        android:maxLines="1"
+    </style>
+
+
+
+
+
+
+</resources>

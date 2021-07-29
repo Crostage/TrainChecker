@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:padding="@dimen/parent_padding">
+
+    <TextView
+        android:id="@+id/trainType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Пассажирский"
+        app:layout_constraintStart_toStartOf="@+id/trainNumber"
+        app:layout_constraintTop_toBottomOf="@+id/trainNumber" />
+
+    <TextView
+        android:id="@+id/trainNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity=""
+        android:ems="8"
+        android:text="номер поезда"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dayMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Ежедневно"
+        app:layout_constraintStart_toStartOf="@+id/trainType"
+        app:layout_constraintTop_toBottomOf="@+id/trainType" />
+
+    <TextView
+        android:id="@+id/tvFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="МОСКВА"
+        app:layout_constraintStart_toEndOf="@+id/trainNumber"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="САНКТ-ПЕТЕРБУРГ"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvFrom"
+        app:layout_constraintTop_toTopOf="@+id/tvFrom" />
+
+
+    <TextView
+        android:id="@+id/startTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="14:20"
+        app:layout_constraintEnd_toEndOf="@+id/tvFrom"
+        app:layout_constraintStart_toStartOf="@+id/tvFrom"
+        app:layout_constraintTop_toBottomOf="@+id/tvFrom" />
+
+    <TextView
+        android:id="@+id/endTime"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:text="17:43"
+        app:layout_constraintEnd_toEndOf="@+id/tvTo"
+        app:layout_constraintStart_toStartOf="@+id/tvTo"
+        app:layout_constraintTop_toBottomOf="@+id/tvTo" />
+
+    <TextView
+        android:id="@+id/inWay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3:23"
+        app:layout_constraintEnd_toStartOf="@+id/endTime"
+        app:layout_constraintStart_toEndOf="@+id/startTime"
+        app:layout_constraintTop_toBottomOf="@+id/startTime" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
