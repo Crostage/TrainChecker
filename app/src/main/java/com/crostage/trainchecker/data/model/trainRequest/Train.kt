@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.model.trainRequest
+package com.crostage.trainchecker.data.model.trainRequest
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -14,8 +14,8 @@ data class Train(
     val code1: Int, //код станции прибытия
     val route0: String, //название станции отправления
     val route1: String, //название станции прибытия
-    val date0: String, //дата оптравления
     val date1: String, //дата прибытия
+    val date0: String, //дата оптравления
     val number: String, //номер поезда
     val time0: String,  //время отправления
     val time1: String,  //время прибытия

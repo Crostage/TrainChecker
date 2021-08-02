@@ -9,4 +9,6 @@
     <string name="menu_search">Поиск</string>
     <string name="menu_observ">Отслеживаемые</string>
     <string name="list_is_empty">Список пуст</string>
+    <string name="choice_date">Выберите дату</string>
+    <string name="fill_all_fields">Заполните все поля</string>
 </resources>

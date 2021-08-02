@@ -1,10 +1,10 @@
-package com.crostage.trainchecker.adapter
+package com.crostage.trainchecker.domain.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
-import com.crostage.trainchecker.model.trainRequest.Train
+import com.crostage.trainchecker.data.model.trainRequest.Train
 
 class TrainListAdapter : RecyclerView.Adapter<TrainViewHolder>() {
 

@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.network
+package com.crostage.trainchecker.data.network
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

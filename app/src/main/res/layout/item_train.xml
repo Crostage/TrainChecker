@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -35,52 +36,69 @@
         app:layout_constraintStart_toStartOf="@+id/trainType"
         app:layout_constraintTop_toBottomOf="@+id/trainType" />
 
-    <TextView
-        android:id="@+id/tvFrom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="МОСКВА"
-        app:layout_constraintStart_toEndOf="@+id/trainNumber"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvTo"
+    <LinearLayout
+        android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="САНКТ-ПЕТЕРБУРГ"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvFrom"
-        app:layout_constraintTop_toTopOf="@+id/tvFrom" />
+        app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/startTime"
+            android:layout_margin="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="14:20" />
 
-    <TextView
-        android:id="@+id/startTime"
+        <TextView
+            android:id="@+id/endTime"
+            android:layout_margin="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="17:43" />
+
+        <TextView
+            android:id="@+id/inWay"
+            android:layout_margin="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3:23" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/textTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="14:20"
-        app:layout_constraintEnd_toEndOf="@+id/tvFrom"
-        app:layout_constraintStart_toStartOf="@+id/tvFrom"
-        app:layout_constraintTop_toBottomOf="@+id/tvFrom" />
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/time"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/endTime"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:text="17:43"
-        app:layout_constraintEnd_toEndOf="@+id/tvTo"
-        app:layout_constraintStart_toStartOf="@+id/tvTo"
-        app:layout_constraintTop_toBottomOf="@+id/tvTo" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Отправление" />
 
-    <TextView
-        android:id="@+id/inWay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="3:23"
-        app:layout_constraintEnd_toStartOf="@+id/endTime"
-        app:layout_constraintStart_toEndOf="@+id/startTime"
-        app:layout_constraintTop_toBottomOf="@+id/startTime" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Прибытие" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="В пути" />
+
+    </LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

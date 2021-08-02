@@ -1,11 +1,11 @@
-package com.crostage.trainchecker.repository
+package com.crostage.trainchecker.data.repository
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.crostage.trainchecker.model.stationRequest.Station
-import com.crostage.trainchecker.model.trainRequest.Train
+import com.crostage.trainchecker.data.model.stationRequest.Station
+import com.crostage.trainchecker.data.model.trainRequest.Train
 
 
 @Database(

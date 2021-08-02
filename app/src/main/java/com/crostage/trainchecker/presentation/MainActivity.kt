@@ -1,13 +1,11 @@
-package com.crostage.trainchecker
+package com.crostage.trainchecker.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.crostage.trainchecker.network.RetrofitBuilder
+import com.crostage.trainchecker.R
+import com.crostage.trainchecker.data.network.RetrofitBuilder
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {

@@ -1,7 +1,7 @@
-package com.crostage.trainchecker.network
+package com.crostage.trainchecker.data.network
 
-import com.crostage.trainchecker.model.stationRequest.StationResult
-import com.crostage.trainchecker.model.trainRequest.SearchResult
+import com.crostage.trainchecker.data.model.stationRequest.StationResult
+import com.crostage.trainchecker.data.model.trainRequest.SearchResult
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

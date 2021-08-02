@@ -1,118 +1,81 @@
 package com.crostage.trainchecker.viewmodel
 
-import android.util.Log
-import android.widget.Toast
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.crostage.trainchecker.adapter.TrainListAdapter
-import com.crostage.trainchecker.model.stationRequest.Station
-import com.crostage.trainchecker.network.RetrofitBuilder
-import com.crostage.trainchecker.repository.TrainRepository
-import kotlinx.coroutines.Dispatchers
+import com.crostage.trainchecker.data.model.trainRequest.Train
+import com.crostage.trainchecker.data.network.TrainResponses
+import com.crostage.trainchecker.data.repository.TrainRepository
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import retrofit2.awaitResponse
 import java.util.*
 
-class TrainViewModel(private val repository: TrainRepository) : ViewModel() {
-
+class TrainViewModel(
+    private val repository: TrainRepository,
+    private val responses: TrainResponses
+) : ViewModel() {
 
     companion object {
         private const val TAG = "TrainViewModel"
     }
 
-    private val retrofitApi = RetrofitBuilder.getApi()
+    private var _trains = MutableLiveData<List<Train>>()
+    val trains: LiveData<List<Train>> = _trains
 
-    private lateinit var stations: MutableList<Station>
+    private var _error = MutableLiveData<Exception>()
+    val error: LiveData<java.lang.Exception> = _error
+    fun getTrains(nameFrom: String, nameTo: String, date: String) {
 
-    private suspend fun getStationCode(stationName: String): Int {
-
-        var result = 0
-
-        val name = stationName
+        val from = nameFrom
             .uppercase(Locale.getDefault())
             .trim()
 
-        stations = repository.getStationList().toMutableList()
+        val to = nameTo
+            .uppercase(Locale.getDefault())
+            .trim()
 
-        for (st in stations) {
-            if (st.n == name) {
-                return st.c
-            }
-        }
-
-        try {
-            val response =
-                retrofitApi.getStations(
-                    stationName = name
-                )
-                    .awaitResponse()
-            if (response.isSuccessful) {
-                val data = response.body()
-                Log.d(TAG, "stationName = ${response.raw()}")
-
-                if (data != null) {
-                    for (station in data) {
-                        repository.insertStation(station)
-                        if (station.n == name) {
-                            result = station.c
-                        }
-                    }
-
-
-                }
-            }
-
-        } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-
-            }
-        }
-
-        return result
-    }
-
-
-    fun getTrains(nameFrom: String, nameTo: String, date: String, adapter: TrainListAdapter) {
+        var codeFrom: Int? = null
+        var codeTo: Int? = null
 
         viewModelScope.launch {
-            val codeFrom = getStationCode(nameFrom)
-            val codeTo = getStationCode(nameTo)
-            getTrainList(adapter, codeFrom, codeTo, date)
-        }
 
-    }
 
-    private suspend fun getTrainList(
-        adapter: TrainListAdapter,
-        codeFrom: Int,
-        codeTo: Int,
-        date: String
-    ) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val response =
-                    retrofitApi.getTrains(codeFrom = codeFrom, codeTo = codeTo, date = date)
-                        .awaitResponse()
-                if (response.isSuccessful) {
-                    val data = response.body()
+            val stations = repository.getStationList().toMutableList()
 
-                    Log.d(TAG, "trains = ${response.raw()}")
-                    val l = data?.tp?.get(0)?.list
+            for (st in stations) {
 
-                    withContext(Dispatchers.Main) {
-                        l?.let { adapter.setData(it) }
-                        //убрать адаптер отсюда
+                if (codeFrom != null && codeTo != null)
+                    break
 
-                    }
+                if (st.n == from) {
+                    codeFrom = st.c
                 }
-
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
+                if (st.n == to) {
+                    codeTo = st.c
                 }
             }
+
+
+
+            try {
+
+                if (codeFrom == null)
+                    codeFrom = responses.getStationCode(nameFrom)
+
+
+                if (codeTo == null)
+                    codeTo = responses.getStationCode(nameTo)
+
+                val trainList = responses.getTrainList(codeFrom!!, codeTo!!, date)
+
+                _trains.postValue(trainList)
+            } catch (e: Exception) {
+//                throw e
+                _error.postValue(e)
+            }
+
         }
+
     }
 
 

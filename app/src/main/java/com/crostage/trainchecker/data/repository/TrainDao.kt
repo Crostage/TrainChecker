@@ -1,9 +1,9 @@
-package com.crostage.trainchecker.repository
+package com.crostage.trainchecker.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.crostage.trainchecker.model.stationRequest.Station
-import com.crostage.trainchecker.model.trainRequest.Train
+import com.crostage.trainchecker.data.model.stationRequest.Station
+import com.crostage.trainchecker.data.model.trainRequest.Train
 
 
 @Dao

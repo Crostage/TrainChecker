@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.crostage.trainchecker.SearchFragment"
+        android:name="com.crostage.trainchecker.presentation.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search">
         <action
@@ -19,11 +19,11 @@
     </fragment>
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.crostage.trainchecker.ListFragment"
+        android:name="com.crostage.trainchecker.presentation.ListFragment"
         android:label="fragment_list"/>
     <fragment
         android:id="@+id/searchResultFragment"
-        android:name="com.crostage.trainchecker.SearchResultFragment"
+        android:name="com.crostage.trainchecker.presentation.SearchResultFragment"
         android:label="fragment_result"
         tools:layout="@layout/fragment_result" />
 </navigation>

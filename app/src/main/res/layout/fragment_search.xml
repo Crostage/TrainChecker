@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/parent_padding"
-    tools:context=".SearchFragment">
+    tools:context=".presentation.SearchFragment">
 
     <TextView
         android:layout_width="wrap_content"
@@ -44,14 +44,16 @@
         android:text="@string/start_date"
         android:textSize="@dimen/l_text_size" />
 
-    <EditText
-        android:id="@+id/etDate"
+    <TextView
+        android:id="@+id/tvDate"
         style="@style/appEditTextStyle"
+        android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
+        android:hint="@string/choice_date"
         android:layout_height="wrap_content"
+        android:textSize="20sp"
         android:autofillHints="дата"
-        android:ems="10"
-        android:inputType="date" />
+        android:ems="8" />
 
     <Button
         android:id="@+id/btnSearch"
