@@ -25,5 +25,14 @@
         android:id="@+id/searchResultFragment"
         android:name="com.crostage.trainchecker.presentation.SearchResultFragment"
         android:label="fragment_result"
-        tools:layout="@layout/fragment_result" />
+        tools:layout="@layout/fragment_result" >
+        <action
+            android:id="@+id/action_searchResultFragment_to_routesFragment"
+            app:destination="@id/routesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/routesFragment"
+        android:name="com.crostage.trainchecker.presentation.RoutesFragment"
+        android:label="fragment_routes"
+        tools:layout="@layout/fragment_routes" />
 </navigation>

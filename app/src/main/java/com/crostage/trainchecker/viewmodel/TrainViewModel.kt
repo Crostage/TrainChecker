@@ -5,14 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.crostage.trainchecker.data.model.trainRequest.Train
-import com.crostage.trainchecker.data.network.TrainResponses
+import com.crostage.trainchecker.data.network.TrainService
 import com.crostage.trainchecker.data.repository.TrainRepository
 import kotlinx.coroutines.launch
 import java.util.*
 
 class TrainViewModel(
     private val repository: TrainRepository,
-    private val responses: TrainResponses
+    private val responses: TrainService
 ) : ViewModel() {
 
     companion object {
@@ -56,7 +56,6 @@ class TrainViewModel(
             }
 
 
-
             try {
 
                 if (codeFrom == null)
@@ -70,7 +69,7 @@ class TrainViewModel(
 
                 _trains.postValue(trainList)
             } catch (e: Exception) {
-//                throw e
+                throw e
                 _error.postValue(e)
             }
 

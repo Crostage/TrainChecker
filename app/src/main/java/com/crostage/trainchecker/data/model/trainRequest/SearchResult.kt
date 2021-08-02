@@ -2,7 +2,7 @@ package com.crostage.trainchecker.data.model.trainRequest
 
  class SearchResult(
     val tp: List<Tp>,
-    val message:String
+    val result:String
 )
 
  class Tp(

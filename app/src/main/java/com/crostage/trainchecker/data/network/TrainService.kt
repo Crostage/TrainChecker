@@ -2,7 +2,7 @@ package com.crostage.trainchecker.data.network
 
 import com.crostage.trainchecker.data.model.trainRequest.Train
 
-interface TrainResponses {
+interface TrainService {
 
     suspend fun getTrainList(
         codeFrom: Int,

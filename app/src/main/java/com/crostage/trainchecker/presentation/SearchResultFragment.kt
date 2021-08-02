@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
-import com.crostage.trainchecker.data.network.TrainResponseImp
+import com.crostage.trainchecker.data.network.TrainServiceImp
 import com.crostage.trainchecker.domain.adapter.TrainListAdapter
 import com.crostage.trainchecker.helper.Constant
 import com.crostage.trainchecker.data.repository.TrainDao
@@ -27,7 +27,7 @@ class SearchResultFragment : Fragment(R.layout.fragment_result) {
     private lateinit var dao: TrainDao
     private lateinit var viewModel: TrainViewModel
     private lateinit var repository: TrainRepoImp
-    private lateinit var responses: TrainResponseImp
+    private lateinit var responses: TrainServiceImp
     private lateinit var progress: ProgressBar
 
 
@@ -42,7 +42,7 @@ class SearchResultFragment : Fragment(R.layout.fragment_result) {
 
         dao = TrainDatabase.invoke(requireActivity()).trainDao()
         repository = TrainRepoImp(dao)
-        responses = TrainResponseImp()
+        responses = TrainServiceImp()
         viewModel = TrainViewModelFactory(repository, responses).create(TrainViewModel::class.java)
 
         val cityFrom = arguments?.getString(Constant.SEARCH_CITY_FROM)

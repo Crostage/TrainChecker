@@ -15,7 +15,6 @@
         android:text="@string/city_from"
         android:textSize="@dimen/l_text_size" />
 
-
     <EditText
         android:id="@+id/etCityFrom"
         style="@style/appEditTextStyle"
@@ -44,7 +43,7 @@
         android:text="@string/start_date"
         android:textSize="@dimen/l_text_size" />
 
-    <TextView
+    <EditText
         android:id="@+id/tvDate"
         style="@style/appEditTextStyle"
         android:layout_marginTop="5dp"
@@ -53,7 +52,7 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:autofillHints="дата"
-        android:ems="8" />
+        android:ems="8"/>
 
     <Button
         android:id="@+id/btnSearch"

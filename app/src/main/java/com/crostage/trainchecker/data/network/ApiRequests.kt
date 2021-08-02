@@ -1,5 +1,6 @@
 package com.crostage.trainchecker.data.network
 
+import com.crostage.trainchecker.data.model.BaseRequest
 import com.crostage.trainchecker.data.model.stationRequest.StationResult
 import com.crostage.trainchecker.data.model.trainRequest.SearchResult
 import retrofit2.Call
@@ -14,13 +15,24 @@ interface ApiRequests {
 
     @GET("timetable/public/ru?")
     fun getTrains(
-        @Query("layer_id") id: Int = 5827,
+        @Query("layer_id") layerId:Int,
         @Query("dir") dir: Int = 0,
-        @Query("tfl") tfl: Int = 3,
+        @Query("tfl") tfl: Int = 1,
         @Query("code0") codeFrom: Int,
         @Query("code1") codeTo: Int,
         @Query("dt0") date: String
 
+    ): Call<BaseRequest>
+
+
+    //https://pass.rzd.ru/timetable/public/ru?layer_id=5804&rid=16637067931&json=y
+
+
+    @GET("timetable/public/ru?")
+    fun getRequestFromRid(
+        @Query("layer_id") layerId: Int,
+        @Query("rid") requestId: Long,
+        @Query("json") json: String = "y"
     ): Call<SearchResult>
 
 

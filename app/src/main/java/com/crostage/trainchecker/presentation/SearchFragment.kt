@@ -17,22 +17,24 @@ import java.util.*
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
 
-
     private lateinit var cityFrom: EditText
     private lateinit var cityTo: EditText
-    private lateinit var date: TextView
+    private lateinit var date: EditText
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         cityFrom = view.findViewById(R.id.etCityFrom)
+        cityFrom.setText("Москва")
         cityTo = view.findViewById(R.id.etCityTo)
+        cityTo.setText("Сочи")
         date = view.findViewById(R.id.tvDate)
 
-        date.setOnClickListener {
-            dataPick(date)
+        date.apply {
+            setOnClickListener {
+                dataPick(date)
+            }
+            date.setText(getActualDate())
         }
 
         view.findViewById<Button>(R.id.btnSearch).setOnClickListener {
@@ -41,6 +43,18 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     }
 
+    private fun getActualDate(): String {
+        val c = Calendar.getInstance()
+        val mYear = c.get(Calendar.YEAR)
+        val mMonth = c.get(Calendar.MONTH)
+        val mDay = c.get(Calendar.DAY_OF_MONTH)
+
+        val month = if (mMonth.toString().length == 1) {
+            "0${mMonth+1}"
+        } else "${mMonth+1}"
+
+        return "$mDay.$month.$mYear"
+    }
 
     @SuppressLint("SetTextI18n")
     private fun dataPick(textView: TextView) {
@@ -61,7 +75,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         dpd.show()
     }
-
 
 
     private fun btnClickListener() {

@@ -2,9 +2,12 @@ package com.crostage.trainchecker.domain.adapter
 
 import android.view.View
 import android.widget.TextView
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
 import com.crostage.trainchecker.data.model.trainRequest.Train
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class TrainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -27,4 +30,4 @@ class TrainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     }
 
-}
+    }
