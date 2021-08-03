@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.crostage.trainchecker.data.model.routRequset.TrainStop
 import com.crostage.trainchecker.data.model.trainRequest.Train
 import com.crostage.trainchecker.data.network.TrainService
 import com.crostage.trainchecker.data.repository.TrainRepository
@@ -22,8 +23,12 @@ class TrainViewModel(
     private var _trains = MutableLiveData<List<Train>>()
     val trains: LiveData<List<Train>> = _trains
 
+    private var _routes = MutableLiveData<List<TrainStop>>()
+    val routes: LiveData<List<TrainStop>> = _routes
+
     private var _error = MutableLiveData<Exception>()
     val error: LiveData<java.lang.Exception> = _error
+
     fun getTrains(nameFrom: String, nameTo: String, date: String) {
 
         val from = nameFrom
@@ -38,7 +43,6 @@ class TrainViewModel(
         var codeTo: Int? = null
 
         viewModelScope.launch {
-
 
             val stations = repository.getStationList().toMutableList()
 
@@ -75,6 +79,12 @@ class TrainViewModel(
 
         }
 
+    }
+
+    fun getRoutes(train: Train) {
+        viewModelScope.launch {
+            _routes.postValue(responses.getTrainRoutes(train))
+        }
     }
 
 

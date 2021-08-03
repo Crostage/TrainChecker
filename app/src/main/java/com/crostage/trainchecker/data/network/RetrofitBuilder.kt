@@ -8,7 +8,6 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
 const val BASE_URL = "https://pass.rzd.ru/"
 
 object RetrofitBuilder {
@@ -46,9 +45,6 @@ private class UvCookieJar : CookieJar {
     override fun saveFromResponse(url: HttpUrl, cookieList: List<Cookie>) {
         if (cookies.isEmpty())
             cookies.addAll(cookieList)
-// или так?
-//        cookies.clear()
-//        cookies.addAll(cookieList)
     }
 
     override fun loadForRequest(url: HttpUrl): List<Cookie> {

@@ -4,14 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
-import com.crostage.trainchecker.data.model.routRequset.Route
+import com.crostage.trainchecker.data.model.routRequset.TrainStop
 
 class RouteListAdapter: RecyclerView.Adapter<RouteViewHolder>() {
 
-    private var dataList = mutableListOf<Route>()
+    private var dataList = mutableListOf<TrainStop>()
 
-    fun setData(list: List<Route>) {
-        dataList = list as MutableList<Route>
+    fun setData(list: List<TrainStop>) {
+        dataList = list as MutableList<TrainStop>
         notifyDataSetChanged()
     }
 

@@ -7,6 +7,7 @@ class Constant {
         const val SEARCH_DATE = "SEARCH_DATE"
         const val TRAIN_ROUTS = "TRAIN_ROUTS"
         const val TRAIN_LAYER_ID = 5827
+        const val ROUTES_LAYER_ID = 5804
     }
 
 }

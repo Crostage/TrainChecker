@@ -1,5 +1,6 @@
 package com.crostage.trainchecker.data.network
 
+import com.crostage.trainchecker.data.model.routRequset.TrainStop
 import com.crostage.trainchecker.data.model.trainRequest.Train
 
 interface TrainService {
@@ -12,6 +13,6 @@ interface TrainService {
 
     suspend fun getStationCode(stationName: String): Int
 
-//    suspend fun getTrainRoutes(train: Train)
+    suspend fun getTrainRoutes(train: Train): List<TrainStop>
 
 }

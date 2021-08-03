@@ -1,6 +1,8 @@
 package com.crostage.trainchecker.data.network
 
-import com.crostage.trainchecker.data.model.BaseRequest
+import com.crostage.trainchecker.data.model.BaseRoutesRequest
+import com.crostage.trainchecker.data.model.BaseSearchRequest
+import com.crostage.trainchecker.data.model.routRequset.RoutesResult
 import com.crostage.trainchecker.data.model.stationRequest.StationResult
 import com.crostage.trainchecker.data.model.trainRequest.SearchResult
 import retrofit2.Call
@@ -22,25 +24,45 @@ interface ApiRequests {
         @Query("code1") codeTo: Int,
         @Query("dt0") date: String
 
-    ): Call<BaseRequest>
+    ): Call<BaseSearchRequest>
 
 
     //https://pass.rzd.ru/timetable/public/ru?layer_id=5804&rid=16637067931&json=y
 
 
     @GET("timetable/public/ru?")
-    fun getRequestFromRid(
+    fun getResultFromSearchRid(
         @Query("layer_id") layerId: Int,
         @Query("rid") requestId: Long,
         @Query("json") json: String = "y"
     ): Call<SearchResult>
 
 
+    @GET("timetable/public/ru?")
+    fun getResultFromRoutesRid(
+        @Query("layer_id") layerId: Int,
+        @Query("rid") requestId: Long,
+        @Query("json") json: String = "y"
+    ): Call<RoutesResult>
+
+
     @GET("suggester?")
-    fun getStations(
+    fun getStation(
         @Query("lang") lang: String = "ru",
         @Query("stationNamePart") stationName: String
     ): Call<StationResult>
+
+
+    //http://pass.rzd.ru/timetable/public/ru?layer_id=5804&train_num=072E&date=13.03.2020&json=y&format=array
+
+    @GET("timetable/public/ru?")
+    fun getRouters(
+        @Query("layer_id") layerId:Int = 5804,
+        @Query("train_num") number: String,
+        @Query("date") date: String = "13.03.2020",
+        @Query("json") json: String = "y",
+        @Query("format") format: String ="array",
+    ): Call<BaseRoutesRequest>
 
 
 }

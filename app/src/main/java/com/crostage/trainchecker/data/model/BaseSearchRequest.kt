@@ -1,7 +1,6 @@
 package com.crostage.trainchecker.data.model
 
-data class BaseRequest(
+data class BaseSearchRequest(
     val result: String,
-    val RID: Long,
-    val timestamp: String
+    val RID: Long
 )

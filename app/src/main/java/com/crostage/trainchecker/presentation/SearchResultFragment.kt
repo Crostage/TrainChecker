@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
+import com.crostage.trainchecker.data.model.trainRequest.Train
 import com.crostage.trainchecker.data.network.TrainServiceImp
 import com.crostage.trainchecker.domain.adapter.TrainListAdapter
 import com.crostage.trainchecker.helper.Constant
@@ -67,6 +68,10 @@ class SearchResultFragment : Fragment(R.layout.fragment_result) {
             viewModel.getTrains(cityFrom, cityTo, date)
             progress.visibility = View.VISIBLE
         }
+
+//
+//        viewModel.getRoutes(Train("1","1","",1,
+//            1,"","","","03.08.2021","083М","","",""))
 
     }
 }

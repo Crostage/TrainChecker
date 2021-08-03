@@ -1,7 +1,10 @@
 package com.crostage.trainchecker.data.network
 
 import android.util.Log
-import com.crostage.trainchecker.data.model.BaseRequest
+import com.crostage.trainchecker.data.model.BaseRoutesRequest
+import com.crostage.trainchecker.data.model.BaseSearchRequest
+import com.crostage.trainchecker.data.model.routRequset.RoutesResult
+import com.crostage.trainchecker.data.model.routRequset.TrainStop
 import com.crostage.trainchecker.data.model.trainRequest.SearchResult
 import com.crostage.trainchecker.data.model.trainRequest.Train
 import com.crostage.trainchecker.helper.Constant
@@ -28,73 +31,106 @@ class TrainServiceImp : TrainService {
             )
                 .awaitResponse()
 
-        Log.d(
-            TAG,
-            "response= $response"
-        )
+        Log.d(TAG, "response= $response")
 
         if (response.isSuccessful) {
-            val body = response.body() as BaseRequest
+            val body = response.body() as BaseSearchRequest
 
-            Log.d(
-                TAG,
-                "body= ${response.body()}"
+            Log.d(TAG, "body= ${response.body()}")
+
+            val rid = body.RID
+
+            val data = getResponseFromId(rid, Constant.TRAIN_LAYER_ID)
+
+            val l = data?.tp?.get(0)?.list
+            l?.let { return l }
+
+        }
+        return mutableListOf()
+    }
+
+
+    private suspend fun getResponseFromId(rid: Long, layerId: Int): SearchResult? {
+
+        var data: SearchResult? = null
+
+        val response1 =
+            retrofitApi.getResultFromSearchRid(
+                layerId = layerId,
+                requestId = rid
             )
+                .awaitResponse()
 
-            var rid = body.RID
+        Log.d(TAG, "response1= $response1")
 
-            Thread.sleep(3000)
-            val response1 =
-                retrofitApi.getRequestFromRid(layerId = Constant.TRAIN_LAYER_ID, requestId = rid)
-                    .awaitResponse()
+        if (response1.isSuccessful) {
+            data = response1.body() as SearchResult
+            val responseResult = data.result
 
-            Log.d(
-                TAG,
-                "response1= $response1"
-            )
+            Log.d(TAG, "body1= ${response1.body()}")
 
+            if (responseResult == "RID") {
+                Thread.sleep(3000) //todo сделасть последовательные функции
 
-            if (response1.isSuccessful) {
-                val data = response1.body()
-                 val responseResult = (data as SearchResult).result
-
-                Log.d(
-                    TAG,
-                    "body1= ${response1.body()}"
-                )
+                val response2 =
+                    retrofitApi.getResultFromSearchRid(
+                        layerId = layerId,
+                        requestId = rid
+                    ).awaitResponse()
 
 
-                if (responseResult == "RID") {
-                    Thread.sleep(3000) //todo сделасть последовательные функции
-                    val response2 =
-                        retrofitApi.getRequestFromRid(
-                            layerId = Constant.TRAIN_LAYER_ID,
-                            requestId = rid
-                        )
-                            .awaitResponse()
+                Log.d(TAG, "response2= $response2")
 
-                    Log.d(
-                        TAG,
-                        "response2= $response2"
-                    )
-
-
-                    if (response2.isSuccessful) {
-                        val data1 = response2.body()
-                        val l = data1?.tp?.get(0)?.list
-                        l?.let { return l }
-
-                    }
-
-
-                } else if (responseResult == "OK") {
-                    val l = data?.tp?.get(0)?.list
-                    l?.let { return l }
+                if (response2.isSuccessful) {
+                    data = response2.body() as SearchResult
                 }
 
             }
+
         }
-        return mutableListOf()
+        return data
+    }
+
+
+    private suspend fun getResponseFromRotesId(rid: Long, layerId: Int): RoutesResult? {
+
+        var data: RoutesResult? = null
+
+        val response1 =
+            retrofitApi.getResultFromRoutesRid(
+                layerId = layerId,
+                requestId = rid
+            )
+                .awaitResponse()
+
+        Log.d(TAG, "response1= $response1")
+
+        if (response1.isSuccessful) {
+            data = response1.body() as RoutesResult
+//            val responseResult = data.type
+
+            Log.d(TAG, "body1= ${response1.body()}")
+
+//            if (responseResult == "REQUEST_ID") {
+            Thread.sleep(1000) //todo сделасть последовательные функции
+
+            val response2 =
+                retrofitApi.getResultFromRoutesRid(
+                    layerId = layerId,
+                    requestId = rid
+                ).awaitResponse()
+
+
+            Log.d(TAG, "response2= $response2")
+
+            if (response2.isSuccessful) {
+                data = response2.body() as RoutesResult
+            }
+
+        }
+
+//        }
+        return data
     }
 
     override suspend fun getStationCode(stationName: String): Int {
@@ -104,27 +140,45 @@ class TrainServiceImp : TrainService {
             .uppercase(Locale.getDefault())
             .trim()
 
+        val response = retrofitApi.getStation(stationName = name).awaitResponse()
 
-        val response =
-            retrofitApi.getStations(
-                stationName = name
-            )
-                .awaitResponse()
         if (response.isSuccessful) {
             val data = response.body()
-
             if (data != null) {
-
                 for (station in data) {
                     if (station.n == name) {
                         result = station.c
                     }
                 }
-
             }
         }
 
-
         return result
+    }
+
+    override suspend fun getTrainRoutes(train: Train): List<TrainStop> {
+        val response =
+            retrofitApi.getRouters(
+                date = train.date0,
+                number = train.number
+            )
+                .awaitResponse()
+
+        Log.d(TAG, "response= $response")
+
+        if (response.isSuccessful) {
+            val body = response.body() as BaseRoutesRequest
+
+            Log.d(TAG, "body= ${response.body()}")
+
+            val rid = body.rid
+
+            val data = getResponseFromRotesId(rid, Constant.ROUTES_LAYER_ID)
+
+            val l = data?.response?.routes?.routList
+            l?.let { return l }
+
+        }
+        return mutableListOf()
     }
 }
