@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.presentation
+package com.crostage.trainchecker.presentation.fragments
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.crostage.trainchecker.R
-import com.crostage.trainchecker.helper.Constant
+import com.crostage.trainchecker.utils.Constant
 import java.util.*
 
 

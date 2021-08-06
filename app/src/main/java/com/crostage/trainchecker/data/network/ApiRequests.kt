@@ -37,7 +37,6 @@ interface ApiRequests {
         @Query("json") json: String = "y"
     ): Call<SearchResult>
 
-
     @GET("timetable/public/ru?")
     fun getResultFromRoutesRid(
         @Query("layer_id") layerId: Int,
@@ -45,13 +44,11 @@ interface ApiRequests {
         @Query("json") json: String = "y"
     ): Call<RoutesResult>
 
-
     @GET("suggester?")
     fun getStation(
         @Query("lang") lang: String = "ru",
         @Query("stationNamePart") stationName: String
     ): Call<StationResult>
-
 
     //http://pass.rzd.ru/timetable/public/ru?layer_id=5804&train_num=072E&date=13.03.2020&json=y&format=array
 

@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.domain.adapter
+package com.crostage.trainchecker.presentation.adapter
 
 import android.view.View
 import android.widget.TextView
@@ -13,7 +13,6 @@ class RouteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val stationName = itemView.findViewById<TextView>(R.id.stationName)
         val time = itemView.findViewById<TextView>(R.id.timeOnStation)
         val distance = itemView.findViewById<TextView>(R.id.distance)
-
 
         stationName.text = route.Station
         time.text = route.DepTime

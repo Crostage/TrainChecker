@@ -7,5 +7,4 @@ data class Test(
     @SerializedName("Routes")
     @Expose
     val routes: Routes
-) {
-}
+)

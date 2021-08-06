@@ -2,7 +2,7 @@ package com.crostage.trainchecker.data.model.trainRequest
 
 import java.io.Serializable
 
-data class Car(
+data class Ticket(
     val bFreeInvisible: Boolean,
     val carDataType: Int,
     val disabledPerson: Boolean,

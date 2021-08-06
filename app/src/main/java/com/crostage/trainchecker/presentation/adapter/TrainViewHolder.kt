@@ -1,13 +1,10 @@
-package com.crostage.trainchecker.domain.adapter
+package com.crostage.trainchecker.presentation.adapter
 
 import android.view.View
 import android.widget.TextView
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
 import com.crostage.trainchecker.data.model.trainRequest.Train
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class TrainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -21,11 +18,11 @@ class TrainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val inWay = itemView.findViewById<TextView>(R.id.inWay)
 
 
-        trainNumber.text = train.number
+        trainNumber.text = train.trainNumber
         trainType.text = train.carrier
         dayMode.text = train.subtrainCatName
-        startTime.text = train.time0
-        endTime.text = train.time1
+        startTime.text = train.timeStart
+        endTime.text = train.timeEnd
         inWay.text = train.timeInWay
 
     }

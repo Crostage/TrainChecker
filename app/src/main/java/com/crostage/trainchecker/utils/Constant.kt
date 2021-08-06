@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.helper
+package com.crostage.trainchecker.utils
 
 class Constant {
     companion object {

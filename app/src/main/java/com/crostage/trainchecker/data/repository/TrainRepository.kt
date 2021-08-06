@@ -10,7 +10,7 @@ interface TrainRepository {
 
     suspend fun insertStation(station: Station)
 
-    suspend fun getTrainList(): LiveData<List<Train>>
+//    suspend fun getTrainList(): LiveData<List<Train>>
 
 //    suspend fun getStationCode(stationName: String): Int
 

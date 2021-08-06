@@ -7,7 +7,7 @@ import com.crostage.trainchecker.data.model.routRequset.RoutesResult
 import com.crostage.trainchecker.data.model.routRequset.TrainStop
 import com.crostage.trainchecker.data.model.trainRequest.SearchResult
 import com.crostage.trainchecker.data.model.trainRequest.Train
-import com.crostage.trainchecker.helper.Constant
+import com.crostage.trainchecker.utils.Constant
 import retrofit2.awaitResponse
 import java.util.*
 
@@ -70,7 +70,7 @@ class TrainServiceImp : TrainService {
             Log.d(TAG, "body1= ${response1.body()}")
 
             if (responseResult == "RID") {
-                Thread.sleep(3000) //todo сделасть последовательные функции
+                Thread.sleep(2000) //todo сделасть последовательные функции
 
                 val response2 =
                     retrofitApi.getResultFromSearchRid(
@@ -146,8 +146,8 @@ class TrainServiceImp : TrainService {
             val data = response.body()
             if (data != null) {
                 for (station in data) {
-                    if (station.n == name) {
-                        result = station.c
+                    if (station.stationName == name) {
+                        result = station.stationCode
                     }
                 }
             }
@@ -159,8 +159,8 @@ class TrainServiceImp : TrainService {
     override suspend fun getTrainRoutes(train: Train): List<TrainStop> {
         val response =
             retrofitApi.getRouters(
-                date = train.date0,
-                number = train.number
+                date = train.dateStart,
+                number = train.trainNumber
             )
                 .awaitResponse()
 

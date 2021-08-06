@@ -9,7 +9,7 @@ import com.crostage.trainchecker.data.model.trainRequest.Train
 
 
 @Database(
-    entities = [Train::class,Station::class],
+    entities = [Station::class],
     version = 1,
     exportSchema = false
 )
@@ -18,7 +18,7 @@ abstract class TrainDatabase : RoomDatabase() {
 
     companion object {
         private var instance: TrainDatabase? = null
-        private const val DB_NAME = "trains.db"
+        private const val DB_NAME = "stations.db"
         private val LOCK = Any()
 
         fun invoke(context: Context): TrainDatabase {

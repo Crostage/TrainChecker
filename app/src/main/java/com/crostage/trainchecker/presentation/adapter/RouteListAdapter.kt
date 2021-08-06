@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.domain.adapter
+package com.crostage.trainchecker.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

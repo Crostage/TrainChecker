@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.presentation
+package com.crostage.trainchecker.presentation.fragments
 
 import android.os.Bundle
 import android.view.View
@@ -8,15 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
-import com.crostage.trainchecker.data.model.trainRequest.Train
 import com.crostage.trainchecker.data.network.TrainServiceImp
-import com.crostage.trainchecker.domain.adapter.TrainListAdapter
-import com.crostage.trainchecker.helper.Constant
+import com.crostage.trainchecker.presentation.adapter.TrainListAdapter
+import com.crostage.trainchecker.utils.Constant
 import com.crostage.trainchecker.data.repository.TrainDao
 import com.crostage.trainchecker.data.repository.TrainDatabase
 import com.crostage.trainchecker.data.repository.TrainRepoImp
-import com.crostage.trainchecker.viewmodel.TrainViewModel
-import com.crostage.trainchecker.viewmodel.TrainViewModelFactory
+import com.crostage.trainchecker.presentation.viewmodel.TrainViewModel
+import com.crostage.trainchecker.presentation.viewmodel.ViewModelFactory
 import java.util.*
 
 class SearchResultFragment : Fragment(R.layout.fragment_result) {
@@ -41,15 +40,16 @@ class SearchResultFragment : Fragment(R.layout.fragment_result) {
         rv.adapter = adapter
         progress = view.findViewById(R.id.progressResult)
 
-        dao = TrainDatabase.invoke(requireActivity()).trainDao()
-        repository = TrainRepoImp(dao)
-        responses = TrainServiceImp()
-        viewModel = TrainViewModelFactory(repository, responses).create(TrainViewModel::class.java)
 
         val cityFrom = arguments?.getString(Constant.SEARCH_CITY_FROM)
         val cityTo = arguments?.getString(Constant.SEARCH_CITY_TO)
         val date = arguments?.getString(Constant.SEARCH_DATE)
 
+
+        dao = TrainDatabase.invoke(requireActivity()).trainDao()
+        repository = TrainRepoImp(dao)
+        responses = TrainServiceImp()
+        viewModel = ViewModelFactory(repository, responses).create(TrainViewModel::class.java)
         viewModel.error.observe(viewLifecycleOwner, {
             Toast.makeText(activity, "Connection problem", Toast.LENGTH_SHORT).show()
             progress.visibility = View.GONE
@@ -65,7 +65,7 @@ class SearchResultFragment : Fragment(R.layout.fragment_result) {
         if (cityFrom != null && cityTo != null && date != null) {
             activity?.title =
                 "${cityFrom.uppercase(Locale.getDefault())} -> ${cityTo.uppercase(Locale.getDefault())}  $date"
-            viewModel.getTrains(cityFrom, cityTo, date)
+            viewModel.trainsFromSearchRequest(cityFrom, cityTo, date)
             progress.visibility = View.VISIBLE
         }
 
@@ -74,4 +74,11 @@ class SearchResultFragment : Fragment(R.layout.fragment_result) {
 //            1,"","","","03.08.2021","083М","","",""))
 
     }
+
+
+
+    private fun createViewModel(){
+
+    }
+
 }
