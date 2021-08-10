@@ -1,6 +1,6 @@
 package com.crostage.trainchecker.data.network
 
-import android.util.Log
+import com.crostage.trainchecker.utils.Constant.Companion.BASE_URL
 import okhttp3.Cookie
 import okhttp3.CookieJar
 import okhttp3.HttpUrl
@@ -8,7 +8,6 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-const val BASE_URL = "https://pass.rzd.ru/"
 
 object RetrofitBuilder {
 
@@ -17,7 +16,6 @@ object RetrofitBuilder {
     fun getClient(): Retrofit {
 
         if (retrofit == null) {
-
             val client = OkHttpClient.Builder()
                 .cookieJar(UvCookieJar())
 
@@ -38,6 +36,11 @@ object RetrofitBuilder {
 }
 
 
+/**
+ * Класс для сохранения и отправки куки
+ *
+ */
+
 private class UvCookieJar : CookieJar {
 
     private val cookies = mutableListOf<Cookie>()
@@ -47,11 +50,6 @@ private class UvCookieJar : CookieJar {
             cookies.addAll(cookieList)
     }
 
-    override fun loadForRequest(url: HttpUrl): List<Cookie> {
-        val TAG = "RetrofitBuilder"
-
-        Log.d(TAG, cookies.toString())
-        return cookies
-    }
+    override fun loadForRequest(url: HttpUrl): List<Cookie> = cookies
 
 }

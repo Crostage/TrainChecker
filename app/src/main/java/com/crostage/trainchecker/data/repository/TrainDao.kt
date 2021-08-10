@@ -10,10 +10,10 @@ import com.crostage.trainchecker.data.model.trainRequest.Train
 interface TrainDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertStation(station: Station)
+     fun insertStation(station: Station)
 
     @Query("SELECT*FROM stations ORDER BY stationName DESC ")
-    suspend fun getStationList(): List<Station>
+     fun getStationList(): List<Station>
 
 //    @Query("SELECT*FROM trains ORDER BY id DESC ")
 //    fun getTrainList(): LiveData<List<Train>>

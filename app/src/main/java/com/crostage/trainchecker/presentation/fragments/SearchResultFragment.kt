@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
@@ -29,6 +30,7 @@ class SearchResultFragment : Fragment(R.layout.fragment_result) {
     private lateinit var repository: TrainRepoImp
     private lateinit var responses: TrainServiceImp
     private lateinit var progress: ProgressBar
+    private lateinit var adapter: TrainListAdapter
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,7 +38,7 @@ class SearchResultFragment : Fragment(R.layout.fragment_result) {
 
         val rv = view.findViewById<RecyclerView>(R.id.recyclerTrainList)
         rv.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-        val adapter = TrainListAdapter()
+        adapter = TrainListAdapter()
         rv.adapter = adapter
         progress = view.findViewById(R.id.progressResult)
 
@@ -45,11 +47,29 @@ class SearchResultFragment : Fragment(R.layout.fragment_result) {
         val cityTo = arguments?.getString(Constant.SEARCH_CITY_TO)
         val date = arguments?.getString(Constant.SEARCH_DATE)
 
+        createViewModel()
 
+        setObservers()
+
+        if (cityFrom != null && cityTo != null && date != null) {
+            activity?.title =
+                "${cityFrom.uppercase(Locale.getDefault())} -> ${cityTo.uppercase(Locale.getDefault())}  $date"
+
+            viewModel.trainsFromSearchRequest(cityFrom, cityTo, date)
+            progress.visibility = View.VISIBLE
+        }
+
+    }
+
+    private fun createViewModel() {
         dao = TrainDatabase.invoke(requireActivity()).trainDao()
         repository = TrainRepoImp(dao)
         responses = TrainServiceImp()
-        viewModel = ViewModelFactory(repository, responses).create(TrainViewModel::class.java)
+        val factory = ViewModelFactory(repository, responses)
+        viewModel = ViewModelProvider(this, factory).get(TrainViewModel::class.java)
+    }
+
+    private fun setObservers() {
         viewModel.error.observe(viewLifecycleOwner, {
             Toast.makeText(activity, "Connection problem", Toast.LENGTH_SHORT).show()
             progress.visibility = View.GONE
@@ -61,24 +81,6 @@ class SearchResultFragment : Fragment(R.layout.fragment_result) {
                 progress.visibility = View.GONE
             }
         })
-
-        if (cityFrom != null && cityTo != null && date != null) {
-            activity?.title =
-                "${cityFrom.uppercase(Locale.getDefault())} -> ${cityTo.uppercase(Locale.getDefault())}  $date"
-            viewModel.trainsFromSearchRequest(cityFrom, cityTo, date)
-            progress.visibility = View.VISIBLE
-        }
-
-//
-//        viewModel.getRoutes(Train("1","1","",1,
-//            1,"","","","03.08.2021","083М","","",""))
-
-    }
-
-
-
-    private fun createViewModel(){
-
     }
 
 }

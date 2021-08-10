@@ -6,9 +6,9 @@ import com.crostage.trainchecker.data.model.trainRequest.Train
 
 interface TrainRepository {
 
-    suspend fun getStationList(): List<Station>
+     fun getStationList(): List<Station>
 
-    suspend fun insertStation(station: Station)
+     fun insertStation(station: Station)
 
 //    suspend fun getTrainList(): LiveData<List<Train>>
 

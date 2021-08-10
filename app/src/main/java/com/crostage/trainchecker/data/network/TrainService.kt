@@ -5,14 +5,14 @@ import com.crostage.trainchecker.data.model.trainRequest.Train
 
 interface TrainService {
 
-    suspend fun getTrainList(
+     fun getTrainList(
         codeFrom: Int,
         codeTo: Int,
         date: String
     ): List<Train>
 
-    suspend fun getStationCode(stationName: String): Int
+     fun getStationCode(stationName: String): Int
 
-    suspend fun getTrainRoutes(train: Train): List<TrainStop>
+     fun getTrainRoutes(train: Train): List<TrainStop>
 
 }

@@ -7,6 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.crostage.trainchecker.data.model.trainRequest.Train
 import com.crostage.trainchecker.data.network.TrainService
 import com.crostage.trainchecker.data.repository.TrainRepository
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.core.SingleEmitter
+import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -18,8 +22,11 @@ class TrainViewModel(
     private var _trains = MutableLiveData<List<Train>>()
     val trains: LiveData<List<Train>> = _trains
 
-    private var _error = MutableLiveData<Exception>()
-    val error: LiveData<java.lang.Exception> = _error
+    private var _error = MutableLiveData<Throwable>()
+    val error: LiveData<Throwable> = _error
+
+    private var _progress = MutableLiveData<Boolean>()
+    val progress: LiveData<Boolean> = _progress
 
 
     fun trainsFromSearchRequest(nameFrom: String, nameTo: String, date: String) {
@@ -28,49 +35,49 @@ class TrainViewModel(
 
         val to = nameTo.uppercase(Locale.getDefault()).trim()
 
-        var codeFrom: Int? = null
-        var codeTo: Int? = null
+        Single.fromCallable {
+            val codeFrom = getStationsCode(from)
+            val codeTo = getStationsCode(to)
 
-        viewModelScope.launch {
+            getTrains(codeTo, codeFrom, date)
 
-            //получение станций из кэша (бд)
-            val stations = repository.getStationList().toMutableList()
+        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+            .doFinally { _progress.value = false }
+            .doOnSubscribe { _progress.value = true }
+            .subscribe(
+                _trains::setValue
+            )
+//                _error::setValue
+            { e -> throw e }
 
-            //получение номера станции из бд
-            for (st in stations) {
-                if (codeFrom != null && codeTo != null)
-                    break
-                if (st.stationName == from) {
-                    codeFrom = st.stationCode
-                }
-                if (st.stationName == to) {
-                    codeTo = st.stationCode
-                }
+
+    }
+
+
+    private fun getStationsCode(stationName: String): Int? {
+        //получение станций из кэша (бд)
+        var code: Int? = null
+        val stations = repository.getStationList().toMutableList()
+
+        //получение кода станции из бд
+        for (st in stations) {
+            if (st.stationName == stationName) {
+                code = st.stationCode
+                break
             }
+        }
+        //получение кодов станции если их нет в бд
+        if (code == null)
+            code = responses.getStationCode(stationName)
+        return code
+    }
 
-            try {
-                //получение кодов станции если их нет в бд
-                if (codeFrom == null)
-                    codeFrom = responses.getStationCode(nameFrom)
-                if (codeTo == null)
-                    codeTo = responses.getStationCode(nameTo)
-
-                if (codeTo != null && codeFrom != null) {
-                    val trainList = responses.getTrainList(codeFrom!!, codeTo!!, date)
-                    _trains.postValue(trainList)
-                }
-            } catch (e: Exception) {
-                _error.postValue(e)
-            }
+    private fun getTrains(codeTo: Int?, codeFrom: Int?, date: String): List<Train>? {
+        if (codeTo != null && codeFrom != null) {
+            return responses.getTrainList(codeFrom, codeTo, date)
 
         }
-
+        return null
     }
-
-
-    private fun getStationFromName(stationName: String) {
-
-    }
-
 
 }

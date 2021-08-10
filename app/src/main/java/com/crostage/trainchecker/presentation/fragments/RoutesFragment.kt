@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
@@ -15,6 +16,7 @@ import com.crostage.trainchecker.data.repository.TrainRepoImp
 import com.crostage.trainchecker.presentation.adapter.RouteListAdapter
 import com.crostage.trainchecker.utils.Constant
 import com.crostage.trainchecker.presentation.viewmodel.RouteViewModel
+import com.crostage.trainchecker.presentation.viewmodel.TrainViewModel
 import com.crostage.trainchecker.presentation.viewmodel.ViewModelFactory
 
 class RoutesFragment : Fragment(R.layout.fragment_routes) {
@@ -61,7 +63,8 @@ class RoutesFragment : Fragment(R.layout.fragment_routes) {
         dao = TrainDatabase.invoke(requireActivity()).trainDao()
         repository = TrainRepoImp(dao)
         responses = TrainServiceImp()
-        viewModel = ViewModelFactory(repository, responses).create(RouteViewModel::class.java)
+        val factory = ViewModelFactory(repository,responses)
+        viewModel =  ViewModelProvider(this, factory).get(RouteViewModel::class.java)
     }
 
     private fun setObservers() {

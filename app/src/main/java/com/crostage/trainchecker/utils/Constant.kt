@@ -2,6 +2,8 @@ package com.crostage.trainchecker.utils
 
 class Constant {
     companion object {
+
+        const val BASE_URL = "https://pass.rzd.ru/"
         const val SEARCH_CITY_FROM = "SEARCH_CITY_FROM"
         const val SEARCH_CITY_TO = "SEARCH_CITY_TO"
         const val SEARCH_DATE = "SEARCH_DATE"
