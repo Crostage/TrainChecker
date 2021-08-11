@@ -20,6 +20,10 @@ class ViewModelFactory(
                 repository,
                 responses
             ) as T
+            modelClass.isAssignableFrom(StationViewModel::class.java) -> StationViewModel(
+                repository,
+                responses
+            ) as T
             else -> throw  IllegalArgumentException("Unknown View Model class")
         }
     }

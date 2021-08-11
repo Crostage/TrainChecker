@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.crostage.trainchecker.R
+import com.crostage.trainchecker.data.model.stationRequest.Station
 import com.crostage.trainchecker.presentation.StationChoiseActivity
 import com.crostage.trainchecker.utils.Constant
 import com.crostage.trainchecker.utils.Helper
@@ -25,28 +26,41 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private lateinit var cityTo: TextView
     private lateinit var date: TextView
 
+
+    private var codeFrom = 0
+    private var codeTo = 0
+
+
+    private var isFrom = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         cityFrom = view.findViewById(R.id.etCityFrom)
-        cityFrom.text = "Москва"
+//        cityFrom.text = "Москва"
         cityTo = view.findViewById(R.id.etCityTo)
-        cityTo.text = "Сочи"
+//        cityTo.text = "Сочи"
         date = view.findViewById(R.id.tvDate)
 
         date.apply {
             setOnClickListener {
                 dataPick(date)
             }
-            date.setText(Helper.getActualDate())
+            date.text = Helper.getActualDate()
         }
 
         view.findViewById<Button>(R.id.btnSearch).setOnClickListener {
             btnClickListener()
         }
 
-        cityFrom.setOnClickListener { pickStation() }
-        cityTo.setOnClickListener { pickStation() }
+        cityFrom.setOnClickListener {
+            isFrom = true
+            pickStation()
+        }
+        cityTo.setOnClickListener {
+            isFrom = false
+            pickStation()
+        }
 
 
     }
@@ -55,9 +69,15 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private var resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                // There are no request codes
                 val data: Intent? = result.data
-
+                val station = data?.getSerializableExtra(Constant.STATION) as Station
+                if (isFrom) {
+                    cityFrom.text = station.stationName
+                    codeFrom = station.stationCode
+                } else {
+                    cityTo.text = station.stationName
+                    codeTo = station.stationCode
+                }
             }
         }
 
@@ -98,7 +118,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         val bundle = Bundle()
 
         bundle.putString(Constant.SEARCH_CITY_FROM, "${cityFrom.text}")
+        bundle.putInt(Constant.SEARCH_CODE_FROM, codeFrom)
         bundle.putString(Constant.SEARCH_CITY_TO, "${cityTo.text}")
+        bundle.putInt(Constant.SEARCH_CODE_TO, codeTo)
         bundle.putString(Constant.SEARCH_DATE, "${date.text}")
 
         findNavController().navigate(R.id.action_searchFragment_to_searchResultFragment, bundle)

@@ -49,19 +49,21 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
         initRecyclerView()
 
         val cityFrom = arguments?.getString(Constant.SEARCH_CITY_FROM)
+        val codeFrom = arguments?.getInt(Constant.SEARCH_CODE_FROM)
         val cityTo = arguments?.getString(Constant.SEARCH_CITY_TO)
+        val codeTo = arguments?.getInt(Constant.SEARCH_CODE_TO)
         val date = arguments?.getString(Constant.SEARCH_DATE)
 
         createViewModel()
 
         setObservers()
 
-        if (cityFrom != null && cityTo != null && date != null) {
+        if (cityFrom != null && cityTo != null && date != null&&codeFrom!=null&&codeTo!=null) {
             activity?.title =
                 "${cityFrom.uppercase(Locale.getDefault())} -> ${cityTo.uppercase(Locale.getDefault())}  $date"
 
             if (savedInstanceState == null)
-                viewModel.trainsFromSearchRequest(cityFrom, cityTo, date)
+                viewModel.trainsFromSearchRequest(codeFrom, codeTo, date)
         }
 
     }

@@ -11,15 +11,14 @@ import retrofit2.http.Query
 
 interface ApiRequests {
 
-    //https://pass.rzd.ru/timetable/public/ru?layer_id=5827&dir=0&tfl=3&code0=2000002&dt0=30.07.2021&code1=2001320
 
-    //https://pass.rzd.ru/timetable/public/ru?&layer_id=5827&dir=0&tfl=3&code0=0&code1=2001320&dt0=30.07.2021
+    //https://pass.rzd.ru/timetable/public/ru?layer_id=5827&dir=0&tfl=3&code0=2000002&code1=2001320&dt0=27.07.2021
 
     @GET("timetable/public/ru?")
     fun getTrains(
         @Query("layer_id") layerId:Int,
         @Query("dir") dir: Int = 0,
-        @Query("tfl") tfl: Int = 1,
+        @Query("tfl") tfl: Int = 1, //только поезда
         @Query("code0") codeFrom: Int,
         @Query("code1") codeTo: Int,
         @Query("dt0") date: String

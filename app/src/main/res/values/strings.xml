@@ -12,4 +12,5 @@
     <string name="choice_date">Выберите дату</string>
     <string name="fill_all_fields">Заполните все поля</string>
     <string name="ok">OK</string>
+    <string name="write_station_name">Введите название станции</string>
 </resources>

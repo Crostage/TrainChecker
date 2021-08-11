@@ -3,6 +3,7 @@ package com.crostage.trainchecker.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.crostage.trainchecker.data.model.stationRequest.Station
 import com.crostage.trainchecker.data.model.trainRequest.Train
 import com.crostage.trainchecker.data.network.ITrainService
 import com.crostage.trainchecker.data.repository.TrainRepository
@@ -26,15 +27,11 @@ class TrainViewModel(
     val progress: LiveData<Boolean> = _progress
 
 
-    fun trainsFromSearchRequest(nameFrom: String, nameTo: String, date: String) {
+    fun trainsFromSearchRequest(codeFrom: Int, codeTo: Int, date: String) {
 
-        val from = nameFrom.uppercase(Locale.getDefault()).trim()
 
-        val to = nameTo.uppercase(Locale.getDefault()).trim()
 
         Single.fromCallable {
-            val codeFrom = getStationsCode(from)
-            val codeTo = getStationsCode(to)
             getTrains(codeTo, codeFrom, date)
         }
             .subscribeOn(Schedulers.io())
@@ -48,25 +45,6 @@ class TrainViewModel(
 
     }
 
-
-    private fun getStationsCode(stationName: String): Int? {
-        //получение станций из кэша (бд)
-        var code: Int? = null
-        val stations = repository.getStationList().toMutableList()
-
-        //получение кода станции из бд
-        for (st in stations) {
-            if (st.stationName == stationName) {
-                code = st.stationCode
-                break
-            }
-        }
-
-        //получение кодов станции если их нет в бд
-        if (code == null)
-            code = responses.getStationCode(stationName)
-        return code
-    }
 
     private fun getTrains(codeTo: Int?, codeFrom: Int?, date: String): List<Train>? {
         if (codeTo != null && codeFrom != null) {
