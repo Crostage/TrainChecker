@@ -1,17 +1,16 @@
 package com.crostage.trainchecker.data.network
 
 import com.crostage.trainchecker.utils.Constant.Companion.BASE_URL
-import okhttp3.Cookie
-import okhttp3.CookieJar
-import okhttp3.HttpUrl
-import okhttp3.OkHttpClient
+import okhttp3.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
 
 
 object RetrofitBuilder {
 
     private var retrofit: Retrofit? = null
+
 
     fun getClient(): Retrofit {
 

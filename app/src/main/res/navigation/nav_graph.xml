@@ -19,11 +19,11 @@
     </fragment>
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.crostage.trainchecker.presentation.fragments.ListFragment"
+        android:name="com.crostage.trainchecker.presentation.fragments.FaivoriteFragment"
         android:label="fragment_list"/>
     <fragment
         android:id="@+id/searchResultFragment"
-        android:name="com.crostage.trainchecker.presentation.fragments.SearchResultFragment"
+        android:name="com.crostage.trainchecker.presentation.fragments.ResultFragment"
         android:label="fragment_result"
         tools:layout="@layout/fragment_result" >
         <action

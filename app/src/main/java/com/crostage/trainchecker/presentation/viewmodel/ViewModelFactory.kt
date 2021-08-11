@@ -2,13 +2,13 @@ package com.crostage.trainchecker.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.crostage.trainchecker.data.network.TrainService
+import com.crostage.trainchecker.data.network.ITrainService
 import com.crostage.trainchecker.data.repository.TrainRepository
 import java.lang.IllegalArgumentException
 
 class ViewModelFactory(
     private val repository: TrainRepository,
-    private val responses: TrainService
+    private val responses: ITrainService
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return when {

@@ -3,20 +3,17 @@ package com.crostage.trainchecker.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.crostage.trainchecker.data.model.trainRequest.Train
-import com.crostage.trainchecker.data.network.TrainService
+import com.crostage.trainchecker.data.network.ITrainService
 import com.crostage.trainchecker.data.repository.TrainRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.core.SingleEmitter
 import io.reactivex.rxjava3.schedulers.Schedulers
-import kotlinx.coroutines.launch
 import java.util.*
 
 class TrainViewModel(
     private val repository: TrainRepository,
-    private val responses: TrainService
+    private val responses: ITrainService
 ) : ViewModel() {
 
     private var _trains = MutableLiveData<List<Train>>()
@@ -38,18 +35,16 @@ class TrainViewModel(
         Single.fromCallable {
             val codeFrom = getStationsCode(from)
             val codeTo = getStationsCode(to)
-
             getTrains(codeTo, codeFrom, date)
-
-        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .doFinally { _progress.value = false }
             .doOnSubscribe { _progress.value = true }
             .subscribe(
-                _trains::setValue
+                _trains::setValue,
+                _error::setValue
             )
-//                _error::setValue
-            { e -> throw e }
-
 
     }
 
@@ -66,6 +61,7 @@ class TrainViewModel(
                 break
             }
         }
+
         //получение кодов станции если их нет в бд
         if (code == null)
             code = responses.getStationCode(stationName)

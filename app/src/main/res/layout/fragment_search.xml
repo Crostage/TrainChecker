@@ -15,9 +15,10 @@
         android:text="@string/city_from"
         android:textSize="@dimen/l_text_size" />
 
-    <EditText
+    <TextView
         android:id="@+id/etCityFrom"
-        style="@style/appEditTextStyle"
+        style="@style/appTextViewStyle"
+        android:textAllCaps="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints="@string/city_from_hint"
@@ -29,9 +30,10 @@
         android:text="@string/city_to"
         android:textSize="@dimen/l_text_size" />
 
-    <EditText
+    <TextView
         android:id="@+id/etCityTo"
-        style="@style/appEditTextStyle"
+        android:textAllCaps="true"
+        style="@style/appTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints="@string/city_from_hint"
@@ -43,12 +45,12 @@
         android:text="@string/start_date"
         android:textSize="@dimen/l_text_size" />
 
-    <EditText
+    <TextView
+
         android:id="@+id/tvDate"
-        style="@style/appEditTextStyle"
+        style="@style/appTextViewStyle"
         android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
-        android:hint="@string/choice_date"
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:autofillHints="дата"

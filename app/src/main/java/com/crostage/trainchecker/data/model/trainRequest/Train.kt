@@ -43,7 +43,6 @@ data class Train(
     @Expose
     val timeEnd: String,  //время прибытия
     val timeInWay: String //время в пути
-//    val mvMode: String //когда ходит
 ): Serializable
 //{
 //    @PrimaryKey(autoGenerate = true)

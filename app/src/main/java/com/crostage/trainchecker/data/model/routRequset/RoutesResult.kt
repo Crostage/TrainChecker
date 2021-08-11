@@ -25,12 +25,19 @@ data class Response(
 )
 
 data class TrainStop(
-    val ArvTime: String,
-    val Code: Int,
-    val Days: String,
-    val DepTime: String,
-    val Distance: Int,
-    val Station: String,
-    val TailForward: String,
-    val WaitingTime: String
+    @SerializedName("Code")
+    @Expose
+    val code: Int,
+    @SerializedName("DepTime")
+    @Expose
+    val arriveTime: String,
+    @SerializedName("Distance")
+    @Expose
+    val distance: Int,
+    @SerializedName("Station")
+    @Expose
+    val stationName: String,
+    @SerializedName("WaitingTime")
+    @Expose
+    val waitingTime: String
 )

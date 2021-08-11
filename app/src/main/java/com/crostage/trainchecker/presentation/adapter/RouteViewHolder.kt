@@ -14,8 +14,8 @@ class RouteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val time = itemView.findViewById<TextView>(R.id.timeOnStation)
         val distance = itemView.findViewById<TextView>(R.id.distance)
 
-        stationName.text = route.Station
-        time.text = route.DepTime
-        distance.text = route.Distance.toString()
+        stationName.text = route.stationName
+        time.text = route.arriveTime
+        distance.text = route.distance.toString()
     }
 }

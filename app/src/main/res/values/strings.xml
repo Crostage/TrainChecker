@@ -11,4 +11,5 @@
     <string name="list_is_empty">Список пуст</string>
     <string name="choice_date">Выберите дату</string>
     <string name="fill_all_fields">Заполните все поля</string>
+    <string name="ok">OK</string>
 </resources>

@@ -1,7 +1,7 @@
 package com.crostage.trainchecker.data.network
 
 import com.crostage.trainchecker.data.model.BaseRoutesRequest
-import com.crostage.trainchecker.data.model.BaseSearchRequest
+import com.crostage.trainchecker.data.model.BaseRequest
 import com.crostage.trainchecker.data.model.routRequset.RoutesResult
 import com.crostage.trainchecker.data.model.stationRequest.StationResult
 import com.crostage.trainchecker.data.model.trainRequest.SearchResult
@@ -24,7 +24,7 @@ interface ApiRequests {
         @Query("code1") codeTo: Int,
         @Query("dt0") date: String
 
-    ): Call<BaseSearchRequest>
+    ): Call<BaseRequest>
 
 
     //https://pass.rzd.ru/timetable/public/ru?layer_id=5804&rid=16637067931&json=y
