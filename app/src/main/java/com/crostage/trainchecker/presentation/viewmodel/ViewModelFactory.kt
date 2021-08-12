@@ -2,7 +2,7 @@ package com.crostage.trainchecker.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.crostage.trainchecker.data.network.ITrainService
+import com.crostage.trainchecker.data.network.services.ITrainService
 import com.crostage.trainchecker.data.repository.TrainRepository
 import java.lang.IllegalArgumentException
 

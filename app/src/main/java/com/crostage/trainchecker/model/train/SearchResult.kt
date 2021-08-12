@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.data.model.trainRequest
+package com.crostage.trainchecker.model.train
 
 import java.io.Serializable
 

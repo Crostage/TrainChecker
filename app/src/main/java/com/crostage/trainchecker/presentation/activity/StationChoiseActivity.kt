@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.presentation
+package com.crostage.trainchecker.presentation.activity
 
 import android.os.Bundle
 import android.text.Editable
@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.crostage.trainchecker.data.network.TrainService
+import com.crostage.trainchecker.data.network.services.TrainService
 import com.crostage.trainchecker.data.repository.TrainDatabase
 import com.crostage.trainchecker.data.repository.TrainRepoImp
 import com.crostage.trainchecker.databinding.ActivityStationChoiseBinding
@@ -49,12 +49,10 @@ class StationChoiseActivity : AppCompatActivity() {
 
             override fun afterTextChanged(s: Editable?) {
                 val text = s.toString().uppercase(Locale.getDefault()).trim()
-                if (text.length > 2)
-                    viewModel.getStation(text)
+                if (text.length > 2) viewModel.getStation(text)
             }
 
         })
-
 
     }
 
@@ -66,8 +64,7 @@ class StationChoiseActivity : AppCompatActivity() {
 
         binding.stationRecyclerview.addItemDecoration(
             DividerItemDecoration(
-                binding.stationRecyclerview.context,
-                LinearLayoutManager.VERTICAL
+                binding.stationRecyclerview.context, LinearLayoutManager.VERTICAL
             )
         )
         adapter = StationListAdapter()

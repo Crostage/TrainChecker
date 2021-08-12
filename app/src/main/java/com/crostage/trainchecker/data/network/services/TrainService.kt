@@ -1,13 +1,14 @@
-package com.crostage.trainchecker.data.network
+package com.crostage.trainchecker.data.network.services
 
 import android.util.Log
-import com.crostage.trainchecker.data.model.BaseRequest
-import com.crostage.trainchecker.data.model.BaseRoutesRequest
-import com.crostage.trainchecker.data.model.routRequset.RoutesResult
-import com.crostage.trainchecker.data.model.routRequset.TrainStop
-import com.crostage.trainchecker.data.model.stationRequest.Station
-import com.crostage.trainchecker.data.model.trainRequest.SearchResult
-import com.crostage.trainchecker.data.model.trainRequest.Train
+import com.crostage.trainchecker.data.network.RetrofitBuilder
+import com.crostage.trainchecker.model.BaseRequest
+import com.crostage.trainchecker.model.BaseRoutesRequest
+import com.crostage.trainchecker.model.rout.RoutesResult
+import com.crostage.trainchecker.model.rout.TrainStop
+import com.crostage.trainchecker.model.station.Station
+import com.crostage.trainchecker.model.train.SearchResult
+import com.crostage.trainchecker.model.train.Train
 import com.crostage.trainchecker.utils.Constant
 import com.crostage.trainchecker.utils.Error401
 import com.crostage.trainchecker.utils.Error404
@@ -26,14 +27,9 @@ class TrainService : ITrainService {
 
     override fun getTrainList(codeFrom: Int, codeTo: Int, date: String): List<Train> {
 
-        val response =
-            retrofitApi.getTrains(
-                layerId = Constant.TRAIN_LAYER_ID,
-                codeFrom = codeFrom,
-                codeTo = codeTo,
-                date = date
-            )
-                .executeAndExceptionChek()
+        val response = retrofitApi.getTrains(
+            layerId = Constant.TRAIN_LAYER_ID, codeFrom = codeFrom, codeTo = codeTo, date = date
+        ).executeAndExceptionChek()
 
         response?.let {
 
@@ -55,11 +51,9 @@ class TrainService : ITrainService {
 
         var data: SearchResult? = null
 
-        val response1 =
-            retrofitApi.getResultFromSearchRid(
-                layerId = Constant.TRAIN_LAYER_ID,
-                requestId = rid
-            ).executeAndExceptionChek()
+        val response1 = retrofitApi.getResultFromSearchRid(
+            layerId = Constant.TRAIN_LAYER_ID, requestId = rid
+        ).executeAndExceptionChek()
 
         response1?.let {
             if (it.isSuccessful) {
@@ -67,15 +61,12 @@ class TrainService : ITrainService {
                 val responseResult = data?.result
 
                 if (responseResult == "RID") {
+                    //сервер сразу не обрабатывает запросы, пришлось воткнуть задержку
+                    Thread.sleep(2000)
 
-                    Thread.sleep(2000)  //сервер сразу не обрабатывает запросы, пришлось воткнуть задержку
-
-                    val response2 =
-                        retrofitApi.getResultFromSearchRid(
-                            layerId = Constant.TRAIN_LAYER_ID,
-                            requestId = rid
-                        ).executeAndExceptionChek()
-
+                    val response2 = retrofitApi.getResultFromSearchRid(
+                        layerId = Constant.TRAIN_LAYER_ID, requestId = rid
+                    ).executeAndExceptionChek()
 
                     response2?.let {
 
@@ -93,11 +84,9 @@ class TrainService : ITrainService {
 
         var data: RoutesResult? = null
 
-        val response1 =
-            retrofitApi.getResultFromRoutesRid(
-                layerId = Constant.ROUTES_LAYER_ID,
-                requestId = rid
-            ).executeAndExceptionChek()
+        val response1 = retrofitApi.getResultFromRoutesRid(
+            layerId = Constant.ROUTES_LAYER_ID, requestId = rid
+        ).executeAndExceptionChek()
 
 
         response1?.let {
@@ -108,11 +97,9 @@ class TrainService : ITrainService {
 
                 Thread.sleep(1000)
 
-                val response2 =
-                    retrofitApi.getResultFromRoutesRid(
-                        layerId = Constant.ROUTES_LAYER_ID,
-                        requestId = rid
-                    ).executeAndExceptionChek()
+                val response2 = retrofitApi.getResultFromRoutesRid(
+                    layerId = Constant.ROUTES_LAYER_ID, requestId = rid
+                ).executeAndExceptionChek()
 
                 response2?.let {
 
@@ -127,19 +114,16 @@ class TrainService : ITrainService {
 
     override fun getStationCode(stationName: String): List<Station>? {
 
-        val name = stationName
-            .uppercase(Locale.getDefault())
-            .trim()
+        val name = stationName.uppercase(Locale.getDefault()).trim()
 
-        val response = retrofitApi.getStation(stationName = name)
-            .executeAndExceptionChek()
+        val response = retrofitApi.getStation(stationName = name).executeAndExceptionChek()
 
         response?.let {
 
             if (it.isSuccessful) {
                 val data = it.body()
                 if (data != null) {
-                   return  data
+                    return data
                 }
             }
         }
@@ -148,11 +132,9 @@ class TrainService : ITrainService {
     }
 
     override fun getTrainRoutes(train: Train): List<TrainStop> {
-        val response =
-            retrofitApi.getRouters(
-                date = train.dateStart,
-                number = train.trainNumber
-            ).executeAndExceptionChek()
+        val response = retrofitApi.getRouters(
+            date = train.dateStart, number = train.trainNumber
+        ).executeAndExceptionChek()
 
         response?.let {
             if (it.isSuccessful) {

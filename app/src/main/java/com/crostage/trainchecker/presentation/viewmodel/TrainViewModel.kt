@@ -3,14 +3,12 @@ package com.crostage.trainchecker.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.crostage.trainchecker.data.model.stationRequest.Station
-import com.crostage.trainchecker.data.model.trainRequest.Train
-import com.crostage.trainchecker.data.network.ITrainService
+import com.crostage.trainchecker.model.train.Train
+import com.crostage.trainchecker.data.network.services.ITrainService
 import com.crostage.trainchecker.data.repository.TrainRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
-import java.util.*
 
 class TrainViewModel(
     private val repository: TrainRepository,

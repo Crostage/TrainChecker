@@ -1,10 +1,10 @@
 package com.crostage.trainchecker.data.network
 
-import com.crostage.trainchecker.data.model.BaseRoutesRequest
-import com.crostage.trainchecker.data.model.BaseRequest
-import com.crostage.trainchecker.data.model.routRequset.RoutesResult
-import com.crostage.trainchecker.data.model.stationRequest.StationResult
-import com.crostage.trainchecker.data.model.trainRequest.SearchResult
+import com.crostage.trainchecker.model.BaseRoutesRequest
+import com.crostage.trainchecker.model.BaseRequest
+import com.crostage.trainchecker.model.rout.RoutesResult
+import com.crostage.trainchecker.model.station.StationResult
+import com.crostage.trainchecker.model.train.SearchResult
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

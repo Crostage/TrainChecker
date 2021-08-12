@@ -3,8 +3,8 @@ package com.crostage.trainchecker.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.crostage.trainchecker.data.model.stationRequest.Station
-import com.crostage.trainchecker.data.network.ITrainService
+import com.crostage.trainchecker.model.station.Station
+import com.crostage.trainchecker.data.network.services.ITrainService
 import com.crostage.trainchecker.data.repository.TrainRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
@@ -37,27 +37,6 @@ class StationViewModel(
                 _stations::setValue,
                 _error::setValue
             )
-    }
-
-
-    private fun getStationsCode(stationName: String): Int? {
-
-        //получение станций из кэша (бд)
-        var code: Int? = null
-        val stations = repository.getStationList().toMutableList()
-
-        //получение кода станции из бд
-        for (st in stations) {
-            if (st.stationName == stationName) {
-                code = st.stationCode
-                break
-            }
-        }
-
-        //получение кодов станции если их нет в бд
-//        if (code == null)
-//            code = responses.getStationCode(stationName)
-        return code
     }
 
 

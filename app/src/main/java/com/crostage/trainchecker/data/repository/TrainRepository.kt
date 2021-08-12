@@ -1,8 +1,6 @@
 package com.crostage.trainchecker.data.repository
 
-import androidx.lifecycle.LiveData
-import com.crostage.trainchecker.data.model.stationRequest.Station
-import com.crostage.trainchecker.data.model.trainRequest.Train
+import com.crostage.trainchecker.model.station.Station
 
 interface TrainRepository {
 

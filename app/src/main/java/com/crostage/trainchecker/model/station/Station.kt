@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.data.model.stationRequest
+package com.crostage.trainchecker.model.station
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

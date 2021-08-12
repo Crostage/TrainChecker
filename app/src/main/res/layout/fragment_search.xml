@@ -16,7 +16,7 @@
         android:textSize="@dimen/l_text_size" />
 
     <TextView
-        android:id="@+id/etCityFrom"
+        android:id="@+id/cityFrom"
         style="@style/appTextViewStyle"
         android:textAllCaps="true"
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
         android:textSize="@dimen/l_text_size" />
 
     <TextView
-        android:id="@+id/etCityTo"
+        android:id="@+id/cityTo"
         android:textAllCaps="true"
         style="@style/appTextViewStyle"
         android:layout_width="match_parent"

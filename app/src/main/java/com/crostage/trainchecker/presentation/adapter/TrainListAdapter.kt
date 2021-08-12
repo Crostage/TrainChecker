@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
-import com.crostage.trainchecker.data.model.trainRequest.Train
+import com.crostage.trainchecker.model.train.Train
 import com.crostage.trainchecker.utils.Constant
 
 class TrainListAdapter : RecyclerView.Adapter<TrainViewHolder>() {

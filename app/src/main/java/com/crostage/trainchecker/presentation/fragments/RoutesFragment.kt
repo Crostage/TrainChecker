@@ -11,8 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
-import com.crostage.trainchecker.data.model.trainRequest.Train
-import com.crostage.trainchecker.data.network.TrainService
+import com.crostage.trainchecker.model.train.Train
+import com.crostage.trainchecker.data.network.services.TrainService
 import com.crostage.trainchecker.data.repository.TrainDatabase
 import com.crostage.trainchecker.data.repository.TrainRepoImp
 import com.crostage.trainchecker.databinding.FragmentRoutesBinding
@@ -39,7 +39,6 @@ class RoutesFragment : Fragment(R.layout.fragment_routes) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         initRecyclerview()
         createViewModel()

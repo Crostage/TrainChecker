@@ -3,23 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.fragments.FaivoriteFragment">
-
-<!--    <TextView-->
-<!--        android:id="@+id/tvEmptyList"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:text="@string/list_is_empty" />-->
+    tools:context=".presentation.fragments.FavouriteFragment">
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/resultRecyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_train"/>
+
+    <TextView
+        android:id="@+id/listIsEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:textSize="@dimen/m_text_size"
+        android:layout_gravity="center"
+        android:text="@string/nothing_found"/>
 
     <ProgressBar
         android:id="@+id/progress"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>

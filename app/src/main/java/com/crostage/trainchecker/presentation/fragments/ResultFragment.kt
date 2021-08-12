@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
-import com.crostage.trainchecker.data.network.TrainService
+import com.crostage.trainchecker.data.network.services.TrainService
 import com.crostage.trainchecker.data.repository.TrainDatabase
 import com.crostage.trainchecker.data.repository.TrainRepoImp
 import com.crostage.trainchecker.databinding.FragmentResultBinding
@@ -99,6 +99,9 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
         viewModel.trains.observe(viewLifecycleOwner, {
             if (it.isNotEmpty()) {
                 adapter.setData(it)
+                binding.listIsEmpty.isVisible = false
+            } else {
+                binding.listIsEmpty.isVisible = true
             }
         })
 

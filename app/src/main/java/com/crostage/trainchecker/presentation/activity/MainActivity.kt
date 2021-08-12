@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.presentation
+package com.crostage.trainchecker.presentation.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

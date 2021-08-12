@@ -1,105 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:padding="@dimen/parent_padding">
+    android:divider="@drawable/linear_divider"
+    android:dividerPadding="5dp"
+    android:showDividers="middle"
+    android:gravity="center"
+    android:layout_margin="5dp"
+    android:background="@color/white">
 
-    <TextView
-        android:id="@+id/trainType"
+    <LinearLayout
+        android:layout_margin="@dimen/train_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Пассажирский"
-        app:layout_constraintStart_toStartOf="@+id/trainNumber"
-        app:layout_constraintTop_toBottomOf="@+id/trainNumber" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/trainNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity=""
-        android:ems="8"
-        android:text="номер поезда"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/trainType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Пассажирский" />
 
-    <TextView
-        android:id="@+id/dayMode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Ежедневно"
-        app:layout_constraintStart_toStartOf="@+id/trainType"
-        app:layout_constraintTop_toBottomOf="@+id/trainType" />
+        <TextView
+            android:id="@+id/trainNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="8"
+            android:gravity=""
+            android:text="номер поезда" />
+
+        <TextView
+            android:id="@+id/dayMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ежедневно" />
+    </LinearLayout>
 
 
     <LinearLayout
-        android:id="@+id/time"
+        android:layout_margin="@dimen/train_margin"
+
+        android:gravity="end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="отпр" />
 
         <TextView
             android:id="@+id/startTime"
-            android:layout_margin="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="14:20" />
 
         <TextView
+            android:id="@+id/startDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="11.08.2021" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_margin="@dimen/train_margin"
+        android:gravity="end"
+        android:layout_gravity="top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="в пути" />
+
+        <TextView
+            android:id="@+id/inWay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3:23" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_margin="@dimen/train_margin"
+        android:gravity="end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:text="прибыт"/>
+
+        <TextView
             android:id="@+id/endTime"
-            android:layout_margin="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="17:43" />
 
         <TextView
-            android:id="@+id/inWay"
-            android:layout_margin="5dp"
+            android:id="@+id/endDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3:23" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/textTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/time"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="Отправление" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="Прибытие" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="В пути" />
+            android:text="12.08.2021" />
 
     </LinearLayout>
 
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

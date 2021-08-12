@@ -1,6 +1,6 @@
 package com.crostage.trainchecker.data.repository
 
-import com.crostage.trainchecker.data.model.stationRequest.Station
+import com.crostage.trainchecker.model.station.Station
 
 class TrainRepoImp(private val trainDao: TrainDao) : TrainRepository {
 

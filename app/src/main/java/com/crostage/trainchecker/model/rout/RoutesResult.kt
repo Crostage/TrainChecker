@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.data.model.routRequset
+package com.crostage.trainchecker.model.rout
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
