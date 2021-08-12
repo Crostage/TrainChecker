@@ -3,17 +3,15 @@ package com.crostage.trainchecker.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.crostage.trainchecker.data.network.services.IRouteInteractor
 import com.crostage.trainchecker.model.rout.TrainStop
 import com.crostage.trainchecker.model.train.Train
-import com.crostage.trainchecker.data.network.services.ITrainService
-import com.crostage.trainchecker.data.repository.TrainRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class RouteViewModel(
-    private val repository: TrainRepository,
-    private val responses: ITrainService
+    private val interactor: IRouteInteractor
 ) : ViewModel() {
 
     private var _routes = MutableLiveData<List<TrainStop>>()
@@ -28,8 +26,9 @@ class RouteViewModel(
 
 
     fun getRoutes(train: Train) {
+
         Single.fromCallable {
-            responses.getTrainRoutes(train).toMutableList().apply { removeAt(0) }
+            interactor.getRouteList(train).toMutableList().apply { removeAt(0) }
         }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -39,6 +38,5 @@ class RouteViewModel(
                 _routes::setValue,
                 _error::setValue
             )
-//            { e -> throw e }
     }
 }

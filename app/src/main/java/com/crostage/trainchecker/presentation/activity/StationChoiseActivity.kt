@@ -10,23 +10,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.crostage.trainchecker.data.network.services.TrainService
-import com.crostage.trainchecker.data.repository.TrainDatabase
-import com.crostage.trainchecker.data.repository.TrainRepoImp
+import com.crostage.trainchecker.data.network.services.StationService
 import com.crostage.trainchecker.databinding.ActivityStationChoiseBinding
+import com.crostage.trainchecker.domain.interactors.StationInteractor
 import com.crostage.trainchecker.presentation.adapter.StationListAdapter
 import com.crostage.trainchecker.presentation.viewmodel.StationViewModel
-import com.crostage.trainchecker.presentation.viewmodel.ViewModelFactory
+import com.crostage.trainchecker.presentation.viewmodel.factory.StationViewModelFactory
 import java.util.*
 
 
 class StationChoiseActivity : AppCompatActivity() {
 
-
     private lateinit var viewModel: StationViewModel
     private lateinit var adapter: StationListAdapter
     private lateinit var binding: ActivityStationChoiseBinding
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,10 +69,9 @@ class StationChoiseActivity : AppCompatActivity() {
     }
 
     private fun createViewModel() {
-        val dao = TrainDatabase.invoke(this).trainDao()
-        val repository = TrainRepoImp(dao)
-        val responses = TrainService()
-        val factory = ViewModelFactory(repository, responses)
+        val service = StationService()
+        val interactor = StationInteractor(service)
+        val factory = StationViewModelFactory(interactor)
         viewModel = ViewModelProvider(this, factory).get(StationViewModel::class.java)
     }
 

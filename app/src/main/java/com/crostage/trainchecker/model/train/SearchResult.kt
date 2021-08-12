@@ -11,6 +11,7 @@ class SearchResult(
     val list: List<Train>
 )
 
+//todo если успею сделать билеты
 data class Ticket(
     val bFreeInvisible: Boolean,
     val carDataType: Int,

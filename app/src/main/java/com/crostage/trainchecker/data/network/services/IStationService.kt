@@ -4,6 +4,6 @@ import com.crostage.trainchecker.model.station.Station
 
 interface IStationService {
 
-    fun getStationCode(stationName: String): List<Station>?
+    fun getStationList(stationName: String): List<Station>
 
 }

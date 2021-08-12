@@ -3,8 +3,8 @@ package com.crostage.trainchecker.data.network.services
 import com.crostage.trainchecker.model.rout.TrainStop
 import com.crostage.trainchecker.model.train.Train
 
-interface IRouteService {
+interface IRouteInteractor {
 
-    fun getTrainRoutes(train: Train): List<TrainStop>
+    fun getRouteList(train: Train): List<TrainStop>
 
 }

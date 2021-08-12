@@ -1,32 +1,17 @@
 package com.crostage.trainchecker.data.network.services
 
-import android.util.Log
 import com.crostage.trainchecker.data.network.RetrofitBuilder
 import com.crostage.trainchecker.model.BaseRequest
-import com.crostage.trainchecker.model.BaseRoutesRequest
-import com.crostage.trainchecker.model.rout.RoutesResult
-import com.crostage.trainchecker.model.rout.TrainStop
-import com.crostage.trainchecker.model.station.Station
 import com.crostage.trainchecker.model.train.SearchResult
 import com.crostage.trainchecker.model.train.Train
 import com.crostage.trainchecker.utils.Constant
-import com.crostage.trainchecker.utils.Error401
-import com.crostage.trainchecker.utils.Error404
-import com.crostage.trainchecker.utils.ErrorConnections
-import retrofit2.Call
-import retrofit2.Response
-import java.util.*
+import com.crostage.trainchecker.utils.Helper.Companion.executeAndExceptionChek
 
 class TrainService : ITrainService {
 
-    companion object {
-        private const val TAG = "TrainServiceImp"
-    }
-
-    private val retrofitApi = RetrofitBuilder.getApi()
-
     override fun getTrainList(codeFrom: Int, codeTo: Int, date: String): List<Train> {
 
+     val retrofitApi = RetrofitBuilder.getApi
         val response = retrofitApi.getTrains(
             layerId = Constant.TRAIN_LAYER_ID, codeFrom = codeFrom, codeTo = codeTo, date = date
         ).executeAndExceptionChek()
@@ -48,6 +33,7 @@ class TrainService : ITrainService {
     }
 
     private fun getResponseFromId(rid: Long): SearchResult? {
+        val retrofitApi = RetrofitBuilder.getApi
 
         var data: SearchResult? = null
 
@@ -80,87 +66,5 @@ class TrainService : ITrainService {
         return data
     }
 
-    private fun getResponseFromRotesId(rid: Long): RoutesResult? {
 
-        var data: RoutesResult? = null
-
-        val response1 = retrofitApi.getResultFromRoutesRid(
-            layerId = Constant.ROUTES_LAYER_ID, requestId = rid
-        ).executeAndExceptionChek()
-
-
-        response1?.let {
-
-            if (it.isSuccessful) {
-                data = it.body() as RoutesResult
-                Log.d(TAG, "body1= ${response1.body()}")
-
-                Thread.sleep(1000)
-
-                val response2 = retrofitApi.getResultFromRoutesRid(
-                    layerId = Constant.ROUTES_LAYER_ID, requestId = rid
-                ).executeAndExceptionChek()
-
-                response2?.let {
-
-                    if (response2.isSuccessful) {
-                        data = response2.body() as RoutesResult
-                    }
-                }
-            }
-        }
-        return data
-    }
-
-    override fun getStationCode(stationName: String): List<Station>? {
-
-        val name = stationName.uppercase(Locale.getDefault()).trim()
-
-        val response = retrofitApi.getStation(stationName = name).executeAndExceptionChek()
-
-        response?.let {
-
-            if (it.isSuccessful) {
-                val data = it.body()
-                if (data != null) {
-                    return data
-                }
-            }
-        }
-
-        return null
-    }
-
-    override fun getTrainRoutes(train: Train): List<TrainStop> {
-        val response = retrofitApi.getRouters(
-            date = train.dateStart, number = train.trainNumber
-        ).executeAndExceptionChek()
-
-        response?.let {
-            if (it.isSuccessful) {
-                val body = it.body() as BaseRoutesRequest
-                val rid = body.requestId
-                val data = getResponseFromRotesId(rid)
-                val l = data?.response?.routes?.routList
-                l?.let { return l }
-
-            }
-        }
-        return mutableListOf()
-    }
-
-    private fun <T> Call<T>.executeAndExceptionChek(): Response<T>? {
-        try {
-            val response = execute()
-            when (response.code()) {
-                200 -> return response
-                401 -> throw Error401()
-                404 -> throw Error404()
-
-            }
-        } catch (e: Exception) {
-            throw ErrorConnections()
-        }
-        return null
-    }
 }

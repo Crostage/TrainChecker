@@ -11,14 +11,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
+import com.crostage.trainchecker.data.network.services.RouteService
 import com.crostage.trainchecker.model.train.Train
 import com.crostage.trainchecker.data.network.services.TrainService
 import com.crostage.trainchecker.data.repository.TrainDatabase
 import com.crostage.trainchecker.data.repository.TrainRepoImp
 import com.crostage.trainchecker.databinding.FragmentRoutesBinding
+import com.crostage.trainchecker.domain.interactors.RoutesInteractor
 import com.crostage.trainchecker.presentation.adapter.RouteListAdapter
 import com.crostage.trainchecker.presentation.viewmodel.RouteViewModel
-import com.crostage.trainchecker.presentation.viewmodel.ViewModelFactory
+import com.crostage.trainchecker.presentation.viewmodel.factory.RouteViewModelFactory
+import com.crostage.trainchecker.presentation.viewmodel.factory.TrainViewModelFactory
 import com.crostage.trainchecker.utils.Constant
 
 class RoutesFragment : Fragment(R.layout.fragment_routes) {
@@ -66,10 +69,9 @@ class RoutesFragment : Fragment(R.layout.fragment_routes) {
     }
 
     private fun createViewModel() {
-        val dao = TrainDatabase.invoke(requireActivity()).trainDao()
-        val repository = TrainRepoImp(dao)
-        val responses = TrainService()
-        val factory = ViewModelFactory(repository, responses)
+        val service = RouteService()
+        val interactor = RoutesInteractor(service)
+        val factory = RouteViewModelFactory(interactor)
         viewModel = ViewModelProvider(this, factory).get(RouteViewModel::class.java)
     }
 

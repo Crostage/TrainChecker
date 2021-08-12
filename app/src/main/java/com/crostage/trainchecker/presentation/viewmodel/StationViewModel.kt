@@ -3,16 +3,14 @@ package com.crostage.trainchecker.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.crostage.trainchecker.domain.interactors.IStationInteractor
 import com.crostage.trainchecker.model.station.Station
-import com.crostage.trainchecker.data.network.services.ITrainService
-import com.crostage.trainchecker.data.repository.TrainRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class StationViewModel(
-    private val repository: TrainRepository,
-    private val responses: ITrainService
+    private val interactor: IStationInteractor
 ) : ViewModel() {
 
     private val _stations = MutableLiveData<List<Station>>()
@@ -26,8 +24,9 @@ class StationViewModel(
 
 
     fun getStation(stationName: String) {
+
         Single.fromCallable {
-            responses.getStationCode(stationName)
+            interactor.getStationList(stationName)
         }.map { it?.filter { station -> station.stationName.contains(stationName) } }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

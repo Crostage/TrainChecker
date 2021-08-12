@@ -16,9 +16,10 @@ import com.crostage.trainchecker.data.network.services.TrainService
 import com.crostage.trainchecker.data.repository.TrainDatabase
 import com.crostage.trainchecker.data.repository.TrainRepoImp
 import com.crostage.trainchecker.databinding.FragmentResultBinding
+import com.crostage.trainchecker.domain.interactors.TrainInteractor
 import com.crostage.trainchecker.presentation.adapter.TrainListAdapter
 import com.crostage.trainchecker.presentation.viewmodel.TrainViewModel
-import com.crostage.trainchecker.presentation.viewmodel.ViewModelFactory
+import com.crostage.trainchecker.presentation.viewmodel.factory.TrainViewModelFactory
 import com.crostage.trainchecker.utils.Constant
 import java.util.*
 
@@ -84,10 +85,9 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
     }
 
     private fun createViewModel() {
-        val dao = TrainDatabase.invoke(requireActivity()).trainDao()
-        val repository = TrainRepoImp(dao)
-        val responses = TrainService()
-        val factory = ViewModelFactory(repository, responses)
+        val service = TrainService()
+        val interactor = TrainInteractor(service)
+        val factory = TrainViewModelFactory(interactor)
         viewModel = ViewModelProvider(this, factory).get(TrainViewModel::class.java)
     }
 
