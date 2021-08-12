@@ -1,12 +1,12 @@
 package com.crostage.trainchecker.data.network
 
+import android.content.Context
 import com.crostage.trainchecker.utils.Constant.Companion.BASE_URL
-import okhttp3.Cookie
-import okhttp3.CookieJar
-import okhttp3.HttpUrl
-import okhttp3.OkHttpClient
+import okhttp3.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
+import java.lang.ref.WeakReference
 
 
 object RetrofitBuilder {
@@ -14,10 +14,18 @@ object RetrofitBuilder {
     private var retrofit: Retrofit? = null
 
 
-    fun getClient(): Retrofit {
+    fun getClient(context: Context): Retrofit {
+
+        val mContext = WeakReference(context)
 
         if (retrofit == null) {
-            val client = OkHttpClient.Builder().cookieJar(UvCookieJar())
+
+            val cacheSize = 10 * 1024 * 1024 // 10 MiB
+            val cacheDir = File(mContext.get()?.cacheDir, "HttpCache")
+            val cache = Cache(cacheDir, cacheSize.toLong())
+            val client = OkHttpClient.Builder().cache(cache).cookieJar(UvCookieJar())
+
+//            val client = OkHttpClient.Builder().cookieJar(UvCookieJar())
 
             retrofit = Retrofit.Builder().baseUrl(BASE_URL).client(client.build())
                 .addConverterFactory(GsonConverterFactory.create()).build()

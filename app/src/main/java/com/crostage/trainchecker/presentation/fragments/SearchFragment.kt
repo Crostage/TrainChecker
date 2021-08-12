@@ -9,18 +9,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.crostage.trainchecker.R
-import com.crostage.trainchecker.model.station.Station
 import com.crostage.trainchecker.databinding.FragmentSearchBinding
+import com.crostage.trainchecker.model.station.Station
 import com.crostage.trainchecker.presentation.activity.StationChoiseActivity
+import com.crostage.trainchecker.presentation.viewmodel.factory.SearchViewModel
 import com.crostage.trainchecker.utils.Constant
-import com.crostage.trainchecker.utils.Helper
 import java.util.*
 
 
@@ -30,6 +30,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private var codeTo = 0
     private var isFrom = false
     private lateinit var binding: FragmentSearchBinding
+    private lateinit var viewModel: SearchViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -41,14 +42,29 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
+
+        viewModel.getStationFrom()?.let {
+            codeFrom = it.stationCode
+            binding.cityFrom.text = it.stationName
+        }
+
+        viewModel.getStationTo()?.let {
+            codeTo = it.stationCode
+            binding.cityTo.text = it.stationName
+        }
+
+
         binding.tvDate.apply {
             setOnClickListener {
                 dataPick(this)
             }
-            this.text = Helper.getActualDate()
+            this.text = viewModel.getDate()
         }
 
-        view.findViewById<Button>(R.id.btnSearch).setOnClickListener {
+
+        binding.btnSearch.setOnClickListener {
             btnClickListener()
         }
 
@@ -63,6 +79,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     }
 
+
     private var resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -71,9 +88,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 if (isFrom) {
                     binding.cityFrom.text = station.stationName
                     codeFrom = station.stationCode
+                    viewModel.setStationFrom(station)
                 } else {
                     binding.cityTo.text = station.stationName
                     codeTo = station.stationCode
+                    viewModel.setStationTo(station)
                 }
             }
         }
@@ -96,7 +115,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 "0${monthOfYear + 1}"
             } else "${monthOfYear + 1}"
 
-            textView.text = "$dayOfMonth.$month.$year"
+            val pickDate = "$dayOfMonth.$month.$year"
+            textView.text = pickDate
+            viewModel.setDate(pickDate)
 
         }, mYear, mMonth, mDay)
         dpd.datePicker.minDate = c.time.time
@@ -108,8 +129,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private fun btnClickListener() {
 
-        if (binding.cityFrom.text.isEmpty() || binding.cityTo.text.isEmpty() || binding.tvDate
-                .text.isEmpty()) {
+        if (binding.cityFrom.text.isEmpty() || binding.cityTo.text.isEmpty() || binding.tvDate.text.isEmpty()) {
             Toast.makeText(activity, getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show()
             return
         }

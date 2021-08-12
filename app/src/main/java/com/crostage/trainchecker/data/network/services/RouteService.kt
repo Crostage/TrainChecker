@@ -8,7 +8,7 @@ import com.crostage.trainchecker.model.train.Train
 import com.crostage.trainchecker.utils.Constant
 import com.crostage.trainchecker.utils.Helper.Companion.executeAndExceptionChek
 
-class RouteService : IRouteInteractor {
+class RouteService : IRouteService {
     override fun getRouteList(train: Train): List<TrainStop> {
         val retrofitApi = RetrofitBuilder.getApi
         val response = retrofitApi.getRouters(
@@ -16,6 +16,7 @@ class RouteService : IRouteInteractor {
         ).executeAndExceptionChek()
 
         response?.let {
+
             if (it.isSuccessful) {
                 val body = it.body() as BaseRoutesRequest
                 val rid = body.requestId

@@ -11,12 +11,16 @@ class TrainService : ITrainService {
 
     override fun getTrainList(codeFrom: Int, codeTo: Int, date: String): List<Train> {
 
-     val retrofitApi = RetrofitBuilder.getApi
-        val response = retrofitApi.getTrains(
-            layerId = Constant.TRAIN_LAYER_ID, codeFrom = codeFrom, codeTo = codeTo, date = date
+        val retrofitApi = RetrofitBuilder.getApi
+        // запрос для получения requestId
+        val responseRid = retrofitApi.getTrains(
+                layerId = Constant.TRAIN_LAYER_ID,
+                codeFrom = codeFrom,
+                codeTo = codeTo,
+                date = date
         ).executeAndExceptionChek()
 
-        response?.let {
+        responseRid?.let {
 
             if (it.isSuccessful) {
 
@@ -37,11 +41,12 @@ class TrainService : ITrainService {
 
         var data: SearchResult? = null
 
-        val response1 = retrofitApi.getResultFromSearchRid(
-            layerId = Constant.TRAIN_LAYER_ID, requestId = rid
+        //отправка запроса с rid
+        val responseRid = retrofitApi.getResultFromSearchRid(
+                layerId = Constant.TRAIN_LAYER_ID, requestId = rid
         ).executeAndExceptionChek()
 
-        response1?.let {
+        responseRid?.let {
             if (it.isSuccessful) {
                 data = it.body() as SearchResult
                 val responseResult = data?.result
@@ -50,14 +55,15 @@ class TrainService : ITrainService {
                     //сервер сразу не обрабатывает запросы, пришлось воткнуть задержку
                     Thread.sleep(2000)
 
-                    val response2 = retrofitApi.getResultFromSearchRid(
-                        layerId = Constant.TRAIN_LAYER_ID, requestId = rid
+                    //еще одна отправка запроса с rid
+                    val responseTrains = retrofitApi.getResultFromSearchRid(
+                            layerId = Constant.TRAIN_LAYER_ID, requestId = rid
                     ).executeAndExceptionChek()
 
-                    response2?.let {
+                    responseTrains?.let {
 
-                        if (response2.isSuccessful) {
-                            data = response2.body() as SearchResult
+                        if (responseTrains.isSuccessful) {
+                            data = responseTrains.body() as SearchResult
                         }
                     }
                 }

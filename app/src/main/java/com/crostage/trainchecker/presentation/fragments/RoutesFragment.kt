@@ -55,7 +55,7 @@ class RoutesFragment : Fragment(R.layout.fragment_routes) {
 
             setObservers()
 
-            if (savedInstanceState == null)
+            if (viewModel.routes.value==null)
                 viewModel.getRoutes(train)
         }
 

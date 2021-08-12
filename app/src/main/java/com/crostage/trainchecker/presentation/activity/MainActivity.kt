@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        RetrofitBuilder.getClient() //todo убрать в апликаейшн
+        RetrofitBuilder.getClient(this)
         navigationViewSetup()
 
     }

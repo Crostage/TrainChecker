@@ -19,10 +19,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Кукуеов" />
+            android:text="@string/test_station_name" />
 
         <TextView
             android:id="@+id/distance"
+            android:text="@string/test_distance"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,6 +32,7 @@
         <TextView
             android:id="@+id/timeOnStation"
             android:gravity="center"
+            android:text="@string/test_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1" />

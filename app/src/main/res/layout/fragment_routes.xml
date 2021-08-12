@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="42342" />
+            android:text="@string/test_train_num" />
 
 
         <TextView
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="25.05.2021" />
+            android:text="@string/test_date" />
 
     </LinearLayout>
 
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
-        android:text="МОСКВА -> ПИТЕР" />
+        android:text="@string/test_from_to" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -52,21 +52,21 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Станция" />
+            android:text="@string/station" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Расстояние, км" />
+            android:text="@string/distance" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Время" />
+            android:text="@string/Time" />
 
     </LinearLayout>
 

@@ -1,9 +1,9 @@
 package com.crostage.trainchecker.data.network
 
-import com.crostage.trainchecker.model.BaseRoutesRequest
 import com.crostage.trainchecker.model.BaseRequest
+import com.crostage.trainchecker.model.BaseRoutesRequest
 import com.crostage.trainchecker.model.rout.RoutesResult
-import com.crostage.trainchecker.model.station.StationResult
+import com.crostage.trainchecker.model.station.Station
 import com.crostage.trainchecker.model.train.SearchResult
 import retrofit2.Call
 import retrofit2.http.GET
@@ -47,7 +47,7 @@ interface ApiRequests {
     fun getStation(
         @Query("lang") lang: String = "ru",
         @Query("stationNamePart") stationName: String
-    ): Call<StationResult>
+    ): Call<List<Station>>
 
     //http://pass.rzd.ru/timetable/public/ru?layer_id=5804&train_num=072E&date=13.03.2020&json=y&format=array
 

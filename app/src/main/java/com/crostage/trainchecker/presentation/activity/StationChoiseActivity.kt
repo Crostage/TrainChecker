@@ -1,8 +1,6 @@
 package com.crostage.trainchecker.presentation.activity
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -16,7 +14,10 @@ import com.crostage.trainchecker.domain.interactors.StationInteractor
 import com.crostage.trainchecker.presentation.adapter.StationListAdapter
 import com.crostage.trainchecker.presentation.viewmodel.StationViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.StationViewModelFactory
+import com.jakewharton.rxbinding4.widget.textChanges
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 class StationChoiseActivity : AppCompatActivity() {
@@ -34,35 +35,33 @@ class StationChoiseActivity : AppCompatActivity() {
         initRecyclerView()
         createViewModel()
         setObservers()
-
-        binding.stationName.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                val text = s.toString().uppercase(Locale.getDefault()).trim()
-                if (text.length > 2) viewModel.getStation(text)
-            }
-
-        })
+        initStationSearch()
 
     }
 
+    private fun initStationSearch() {
+        binding.stationName.apply {
+            requestFocus()
+            textChanges()
+                    .debounce(1, TimeUnit.SECONDS)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                        val text = it.toString().uppercase(Locale.getDefault()).trim()
+                        if (text.length > 2) viewModel.getStation(text)
+                    }
+        }
+
+    }
 
     private fun initRecyclerView() {
 
         binding.stationRecyclerview.layoutManager =
-            LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+                LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
         binding.stationRecyclerview.addItemDecoration(
-            DividerItemDecoration(
-                binding.stationRecyclerview.context, LinearLayoutManager.VERTICAL
-            )
+                DividerItemDecoration(
+                        binding.stationRecyclerview.context, LinearLayoutManager.VERTICAL
+                )
         )
         adapter = StationListAdapter()
         binding.stationRecyclerview.adapter = adapter

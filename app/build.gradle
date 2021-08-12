@@ -57,6 +57,8 @@ dependencies {
     //RxJava2
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+    //RxBinding
+    implementation 'com.jakewharton.rxbinding4:rxbinding:4.0.0'
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
     //Dagger 2

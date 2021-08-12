@@ -1,18 +1,19 @@
 package com.crostage.trainchecker.model.train
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 
-//@Entity(tableName = "trains")
+@Entity(tableName = "trains")
 data class Train(
-    val subtrainCatName: String, //тип поезда
     val carrier: String, //тип поезда ФПК
     val brand: String, //название поезда
     @SerializedName("cars")
     @Expose
-    val ticketList: List<Ticket>, //массив билетов = null
+    val ticketList: List<Ticket>, //массив билетов
     @SerializedName("code0")
     @Expose
     val codeStationFrom: Int, //код станции отправления
@@ -42,8 +43,8 @@ data class Train(
     val timeEnd: String,  //время прибытия
     val timeInWay: String //время в пути
 ): Serializable
-//{
-//    @PrimaryKey(autoGenerate = true)
-//    var id: Int = 0
-//}
+{
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0
+}
 

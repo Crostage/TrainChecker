@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:textStyle="italic"
         android:text="@string/city_from"
         android:textSize="@dimen/l_text_size" />
 
@@ -27,6 +28,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textStyle="italic"
         android:text="@string/city_to"
         android:textSize="@dimen/l_text_size" />
 
@@ -42,6 +44,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textStyle="italic"
         android:text="@string/start_date"
         android:textSize="@dimen/l_text_size" />
 

@@ -10,7 +10,7 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class StationViewModel(
-    private val interactor: IStationInteractor
+        private val interactor: IStationInteractor
 ) : ViewModel() {
 
     private val _stations = MutableLiveData<List<Station>>()
@@ -28,14 +28,14 @@ class StationViewModel(
         Single.fromCallable {
             interactor.getStationList(stationName)
         }.map { it?.filter { station -> station.stationName.contains(stationName) } }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doFinally { _progress.value = false }
-            .doOnSubscribe { _progress.value = true }
-            .subscribe(
-                _stations::setValue,
-                _error::setValue
-            )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally { _progress.value = false }
+                .doOnSubscribe { _progress.value = true }
+                .subscribe(
+                        _stations::setValue,
+                        _error::setValue
+                )
     }
 
 

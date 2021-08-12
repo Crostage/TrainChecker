@@ -19,7 +19,8 @@
         android:hint="@string/write_station_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:inputType="textAutoComplete" />
+        android:inputType="textAutoComplete"
+        android:importantForAutofill="no" />
 
     </LinearLayout>
 

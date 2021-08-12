@@ -63,7 +63,7 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
             activity?.title =
                 "${cityFrom.uppercase(Locale.getDefault())} -> ${cityTo.uppercase(Locale.getDefault())}  $date"
 
-            if (savedInstanceState == null)
+            if (viewModel.trains.value==null)
                 viewModel.trainsFromSearchRequest(codeFrom, codeTo, date)
         }
 

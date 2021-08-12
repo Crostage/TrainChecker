@@ -9,8 +9,7 @@
     android:dividerPadding="5dp"
     android:showDividers="middle"
     android:gravity="center"
-    android:layout_margin="5dp"
-    android:background="@color/white">
+    android:layout_margin="5dp">
 
     <LinearLayout
         android:layout_margin="@dimen/train_margin"
@@ -22,21 +21,23 @@
             android:id="@+id/trainType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Пассажирский" />
+            android:text="@string/test_type" />
 
         <TextView
             android:id="@+id/trainNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="8"
-            android:gravity=""
-            android:text="номер поезда" />
+            android:text="@string/train_number" />
 
         <TextView
             android:id="@+id/dayMode"
+            android:ems="8"
+            android:lines="1"
+            android:textColor="@color/green"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ежедневно" />
+            android:text="@string/test_mode" />
     </LinearLayout>
 
 
