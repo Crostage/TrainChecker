@@ -2,8 +2,7 @@ package com.crostage.trainchecker.presentation.viewmodel.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.crostage.trainchecker.data.network.services.IStationService
-import com.crostage.trainchecker.domain.interactors.IStationInteractor
+import com.crostage.trainchecker.domain.interactors.interfaces.IStationInteractor
 import com.crostage.trainchecker.presentation.viewmodel.StationViewModel
 import java.lang.IllegalArgumentException
 

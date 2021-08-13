@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
 import com.crostage.trainchecker.data.network.services.TrainService
-import com.crostage.trainchecker.data.repository.TrainDatabase
-import com.crostage.trainchecker.data.repository.TrainRepoImp
 import com.crostage.trainchecker.databinding.FragmentResultBinding
 import com.crostage.trainchecker.domain.interactors.TrainInteractor
 import com.crostage.trainchecker.presentation.adapter.TrainListAdapter

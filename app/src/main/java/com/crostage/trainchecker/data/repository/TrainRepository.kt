@@ -1,15 +1,21 @@
 package com.crostage.trainchecker.data.repository
 
+import com.crostage.trainchecker.domain.repository.ITrainRepository
 import com.crostage.trainchecker.model.station.Station
 
-interface TrainRepository {
+class TrainRepository(private val trainDao: TrainDao) : ITrainRepository {
 
-     fun getStationList(): List<Station>
+    override fun getStationList(): List<Station> {
+        return trainDao.getStationList()
+    }
 
-     fun insertStation(station: Station)
+    override fun insertStation(station: Station) {
+        trainDao.insertStation(station)
+    }
 
-//    suspend fun getTrainList(): LiveData<List<Train>>
+//    override suspend fun getTrainList(): LiveData<List<Train>> {
+//        return trainDao.getTrainList()
+//    }
 
-//    suspend fun getStationCode(stationName: String): Int
 
 }

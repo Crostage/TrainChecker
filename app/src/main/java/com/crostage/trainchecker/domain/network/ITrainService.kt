@@ -1,8 +1,8 @@
-package com.crostage.trainchecker.domain.interactors
+package com.crostage.trainchecker.domain.network
 
 import com.crostage.trainchecker.model.train.Train
 
-interface ITrainInteractor {
+interface ITrainService {
 
     fun getTrainList(codeFrom: Int, codeTo: Int, date: String): List<Train>
 

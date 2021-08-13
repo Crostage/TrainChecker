@@ -1,6 +1,7 @@
 package com.crostage.trainchecker.data.network.services
 
 import com.crostage.trainchecker.data.network.RetrofitBuilder
+import com.crostage.trainchecker.domain.network.IStationService
 import com.crostage.trainchecker.model.station.Station
 import com.crostage.trainchecker.utils.Helper.Companion.executeAndExceptionChek
 import java.util.*

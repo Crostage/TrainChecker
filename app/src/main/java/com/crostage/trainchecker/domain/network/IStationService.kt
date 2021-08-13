@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.data.network.services
+package com.crostage.trainchecker.domain.network
 
 import com.crostage.trainchecker.model.station.Station
 

@@ -13,15 +13,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
 import com.crostage.trainchecker.data.network.services.RouteService
 import com.crostage.trainchecker.model.train.Train
-import com.crostage.trainchecker.data.network.services.TrainService
-import com.crostage.trainchecker.data.repository.TrainDatabase
-import com.crostage.trainchecker.data.repository.TrainRepoImp
 import com.crostage.trainchecker.databinding.FragmentRoutesBinding
 import com.crostage.trainchecker.domain.interactors.RoutesInteractor
 import com.crostage.trainchecker.presentation.adapter.RouteListAdapter
 import com.crostage.trainchecker.presentation.viewmodel.RouteViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.RouteViewModelFactory
-import com.crostage.trainchecker.presentation.viewmodel.factory.TrainViewModelFactory
 import com.crostage.trainchecker.utils.Constant
 
 class RoutesFragment : Fragment(R.layout.fragment_routes) {

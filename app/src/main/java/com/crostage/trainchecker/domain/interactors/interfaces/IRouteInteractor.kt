@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.domain.interactors
+package com.crostage.trainchecker.domain.interactors.interfaces
 
 import com.crostage.trainchecker.model.rout.TrainStop
 import com.crostage.trainchecker.model.train.Train

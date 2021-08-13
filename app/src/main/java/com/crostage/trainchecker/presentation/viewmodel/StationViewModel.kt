@@ -3,10 +3,11 @@ package com.crostage.trainchecker.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.crostage.trainchecker.domain.interactors.IStationInteractor
+import com.crostage.trainchecker.domain.interactors.interfaces.IStationInteractor
 import com.crostage.trainchecker.model.station.Station
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class StationViewModel(
@@ -22,21 +23,27 @@ class StationViewModel(
     private var _progress = MutableLiveData<Boolean>()
     val progress: LiveData<Boolean> = _progress
 
+    private val compositeDisposable = CompositeDisposable()
 
     fun getStation(stationName: String) {
 
-        Single.fromCallable {
-            interactor.getStationList(stationName)
-        }.map { it?.filter { station -> station.stationName.contains(stationName) } }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doFinally { _progress.value = false }
-                .doOnSubscribe { _progress.value = true }
-                .subscribe(
-                        _stations::setValue,
-                        _error::setValue
-                )
+        compositeDisposable.add(
+                Single.fromCallable {
+                    interactor.getStationList(stationName)
+                }.map { it?.filter { station -> station.stationName.contains(stationName) } }
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doFinally { _progress.value = false }
+                        .doOnSubscribe { _progress.value = true }
+                        .subscribe(
+                                _stations::setValue,
+                                _error::setValue
+                        )
+        )
     }
 
-
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.dispose()
+    }
 }
