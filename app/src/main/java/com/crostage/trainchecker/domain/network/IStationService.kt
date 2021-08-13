@@ -1,6 +1,6 @@
 package com.crostage.trainchecker.domain.network
 
-import com.crostage.trainchecker.model.station.Station
+import com.crostage.trainchecker.model.data.station.Station
 
 interface IStationService {
 

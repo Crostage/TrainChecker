@@ -3,7 +3,7 @@ package com.crostage.trainchecker.presentation.adapter
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.databinding.ItemTrainBinding
-import com.crostage.trainchecker.model.train.Train
+import com.crostage.trainchecker.model.data.train.Train
 
 class TrainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

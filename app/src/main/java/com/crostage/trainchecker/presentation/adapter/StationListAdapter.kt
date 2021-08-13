@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
-import com.crostage.trainchecker.model.station.Station
+import com.crostage.trainchecker.model.data.station.Station
 import com.crostage.trainchecker.utils.Constant
 
 class StationListAdapter : RecyclerView.Adapter<StationViewHolder>() {

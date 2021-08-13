@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.data.network.services.StationService
+import com.crostage.trainchecker.data.repository.TrainDatabase
+import com.crostage.trainchecker.data.repository.TrainRepository
 import com.crostage.trainchecker.databinding.ActivityStationChoiseBinding
 import com.crostage.trainchecker.domain.interactors.StationInteractor
 import com.crostage.trainchecker.presentation.adapter.StationListAdapter
@@ -69,7 +71,11 @@ class StationChoiseActivity : AppCompatActivity() {
 
     private fun createViewModel() {
         val service = StationService()
-        val interactor = StationInteractor(service)
+
+        val db = TrainDatabase.invoke(this)
+        val dao = db.trainDao()
+        val repository = TrainRepository(dao)
+        val interactor = StationInteractor(service, repository)
         val factory = StationViewModelFactory(interactor)
         viewModel = ViewModelProvider(this, factory).get(StationViewModel::class.java)
     }

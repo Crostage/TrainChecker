@@ -1,7 +1,7 @@
 package com.crostage.trainchecker.domain.network
 
-import com.crostage.trainchecker.model.rout.TrainStop
-import com.crostage.trainchecker.model.train.Train
+import com.crostage.trainchecker.model.data.rout.TrainStop
+import com.crostage.trainchecker.model.data.train.Train
 
 interface IRouteService {
 

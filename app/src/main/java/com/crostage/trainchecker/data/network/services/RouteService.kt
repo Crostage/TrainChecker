@@ -2,10 +2,10 @@ package com.crostage.trainchecker.data.network.services
 
 import com.crostage.trainchecker.data.network.RetrofitBuilder
 import com.crostage.trainchecker.domain.network.IRouteService
-import com.crostage.trainchecker.model.BaseRoutesRequest
-import com.crostage.trainchecker.model.rout.RoutesResult
-import com.crostage.trainchecker.model.rout.TrainStop
-import com.crostage.trainchecker.model.train.Train
+import com.crostage.trainchecker.model.data.BaseRoutesRequest
+import com.crostage.trainchecker.model.data.rout.RoutesResult
+import com.crostage.trainchecker.model.data.rout.TrainStop
+import com.crostage.trainchecker.model.data.train.Train
 import com.crostage.trainchecker.utils.Constant
 import com.crostage.trainchecker.utils.Helper.Companion.executeAndExceptionChek
 

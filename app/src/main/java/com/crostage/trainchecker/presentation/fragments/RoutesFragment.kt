@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
 import com.crostage.trainchecker.data.network.services.RouteService
-import com.crostage.trainchecker.model.train.Train
+import com.crostage.trainchecker.model.data.train.Train
 import com.crostage.trainchecker.databinding.FragmentRoutesBinding
 import com.crostage.trainchecker.domain.interactors.RoutesInteractor
 import com.crostage.trainchecker.presentation.adapter.RouteListAdapter

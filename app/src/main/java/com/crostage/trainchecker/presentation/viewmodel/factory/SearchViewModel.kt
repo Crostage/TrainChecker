@@ -1,7 +1,7 @@
 package com.crostage.trainchecker.presentation.viewmodel.factory
 
 import androidx.lifecycle.ViewModel
-import com.crostage.trainchecker.model.station.Station
+import com.crostage.trainchecker.model.data.station.Station
 import com.crostage.trainchecker.utils.Helper
 
 class SearchViewModel : ViewModel() {

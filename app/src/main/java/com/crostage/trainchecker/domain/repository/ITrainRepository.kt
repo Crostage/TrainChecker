@@ -1,15 +1,12 @@
 package com.crostage.trainchecker.domain.repository
 
-import com.crostage.trainchecker.model.station.Station
+import com.crostage.trainchecker.model.data.station.Station
+import com.crostage.trainchecker.model.domain.StationSearchResponse
 
 interface ITrainRepository {
 
-    fun getStationList(): List<Station>
+    fun insertStationResponse(response: StationSearchResponse)
 
-    fun insertStation(station: Station)
-
-//    suspend fun getTrainList(): LiveData<List<Train>>
-
-//    suspend fun getStationCode(stationName: String): Int
+    fun getListFromName(name: String): StationSearchResponse?
 
 }
