@@ -12,11 +12,11 @@ class TrainModule
 
 @Module
 interface TrainBindModule {
+
     @Binds
     fun bindTrainInteractorToITrainInteractor(trainInteractor: TrainInteractor): ITrainInteractor
 
     @Binds
     fun bindTrainServiceToITrainService(trainService: TrainService): ITrainService
-
 
 }

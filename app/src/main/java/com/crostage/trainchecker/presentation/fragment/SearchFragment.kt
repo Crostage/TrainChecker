@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.presentation.fragments
+package com.crostage.trainchecker.presentation.fragment
 
 import android.annotation.SuppressLint
 import android.app.Activity

@@ -1,10 +1,13 @@
 package com.crostage.trainchecker.di
 
 import android.content.Context
+import com.crostage.trainchecker.di.component.RouteComponent
+import com.crostage.trainchecker.di.component.StationComponent
+import com.crostage.trainchecker.di.component.TrainComponent
 import com.crostage.trainchecker.di.module.AppModule
 import com.crostage.trainchecker.presentation.activity.StationChoiseActivity
-import com.crostage.trainchecker.presentation.fragments.ResultFragment
-import com.crostage.trainchecker.presentation.fragments.RoutesFragment
+import com.crostage.trainchecker.presentation.fragment.ResultFragment
+import com.crostage.trainchecker.presentation.fragment.RouteFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -13,9 +16,9 @@ import javax.inject.Singleton
 @Singleton
 interface AppComponent {
 
-    fun inject(fragment: ResultFragment)
-    fun inject(fragment: RoutesFragment)
-    fun inject(activity: StationChoiseActivity)
+    fun getTrainComponent(): TrainComponent
+    fun getRouteComponent(): RouteComponent
+    fun getStationComponent(): StationComponent
 
 
     @Component.Builder

@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.presentation.fragments
+package com.crostage.trainchecker.presentation.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -12,10 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
-import com.crostage.trainchecker.data.network.services.RouteService
 import com.crostage.trainchecker.model.data.train.Train
 import com.crostage.trainchecker.databinding.FragmentRoutesBinding
-import com.crostage.trainchecker.domain.interactors.RouteInteractor
 import com.crostage.trainchecker.presentation.adapter.RouteListAdapter
 import com.crostage.trainchecker.presentation.appComponent
 import com.crostage.trainchecker.presentation.viewmodel.RouteViewModel
@@ -23,7 +21,7 @@ import com.crostage.trainchecker.presentation.viewmodel.factory.RouteViewModelFa
 import com.crostage.trainchecker.utils.Constant
 import javax.inject.Inject
 
-class RoutesFragment : Fragment(R.layout.fragment_routes) {
+class RouteFragment : Fragment(R.layout.fragment_routes) {
 
 
     private lateinit var viewModel: RouteViewModel
@@ -32,7 +30,7 @@ class RoutesFragment : Fragment(R.layout.fragment_routes) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        context.appComponent.inject(this)
+        context.appComponent.getRouteComponent().inject(this)
     }
 
 

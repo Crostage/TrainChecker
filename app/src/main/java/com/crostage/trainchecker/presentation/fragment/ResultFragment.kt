@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.presentation.fragments
+package com.crostage.trainchecker.presentation.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -13,9 +13,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
-import com.crostage.trainchecker.data.network.services.TrainService
 import com.crostage.trainchecker.databinding.FragmentResultBinding
-import com.crostage.trainchecker.domain.interactors.TrainInteractor
 import com.crostage.trainchecker.presentation.adapter.TrainListAdapter
 import com.crostage.trainchecker.presentation.appComponent
 import com.crostage.trainchecker.presentation.viewmodel.TrainViewModel
@@ -46,12 +44,11 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        context.appComponent.inject(this)
+        context.appComponent.getTrainComponent().inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         initRecyclerView()
 
@@ -61,15 +58,13 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
         val codeTo = arguments?.getInt(Constant.SEARCH_CODE_TO)
         val date = arguments?.getString(Constant.SEARCH_DATE)
 
-
-
         setObservers()
 
-        if (cityFrom != null && cityTo != null && date != null&&codeFrom!=null&&codeTo!=null) {
+        if (cityFrom != null && cityTo != null && date != null && codeFrom != null && codeTo != null) {
             activity?.title =
                 "${cityFrom.uppercase(Locale.getDefault())} -> ${cityTo.uppercase(Locale.getDefault())}  $date"
 
-            if (viewModel.trains.value==null)
+            if (viewModel.trains.value == null)
                 viewModel.trainsFromSearchRequest(codeFrom, codeTo, date)
         }
 

@@ -31,7 +31,7 @@ class StationChoiseActivity : AppCompatActivity() {
         binding = ActivityStationChoiseBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        appComponent.inject(this)
+        appComponent.getStationComponent().inject(this)
 
         initRecyclerView()
         setObservers()
