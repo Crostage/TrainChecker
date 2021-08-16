@@ -4,9 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
 import com.crostage.trainchecker.presentation.viewmodel.TrainViewModel
+import javax.inject.Inject
 
-class TrainViewModelFactory(
-    private val interactor: ITrainInteractor
+class TrainViewModelFactory @Inject constructor(
+    private val interactor: ITrainInteractor,
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return when {

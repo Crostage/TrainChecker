@@ -1,5 +1,6 @@
 package com.crostage.trainchecker.presentation.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,11 +15,13 @@ import com.crostage.trainchecker.R
 import com.crostage.trainchecker.data.network.services.RouteService
 import com.crostage.trainchecker.model.data.train.Train
 import com.crostage.trainchecker.databinding.FragmentRoutesBinding
-import com.crostage.trainchecker.domain.interactors.RoutesInteractor
+import com.crostage.trainchecker.domain.interactors.RouteInteractor
 import com.crostage.trainchecker.presentation.adapter.RouteListAdapter
+import com.crostage.trainchecker.presentation.appComponent
 import com.crostage.trainchecker.presentation.viewmodel.RouteViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.RouteViewModelFactory
 import com.crostage.trainchecker.utils.Constant
+import javax.inject.Inject
 
 class RoutesFragment : Fragment(R.layout.fragment_routes) {
 
@@ -27,10 +30,16 @@ class RoutesFragment : Fragment(R.layout.fragment_routes) {
     private lateinit var adapter: RouteListAdapter
     private lateinit var binding: FragmentRoutesBinding
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        context.appComponent.inject(this)
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentRoutesBinding.inflate(inflater, container, false)
         return binding.root
@@ -40,7 +49,6 @@ class RoutesFragment : Fragment(R.layout.fragment_routes) {
         super.onViewCreated(view, savedInstanceState)
 
         initRecyclerview()
-        createViewModel()
 
         val train = arguments?.getSerializable(Constant.TRAIN_ROUTS) as Train?
 
@@ -64,10 +72,8 @@ class RoutesFragment : Fragment(R.layout.fragment_routes) {
         binding.routeRecyclerview.adapter = adapter
     }
 
-    private fun createViewModel() {
-        val service = RouteService()
-        val interactor = RoutesInteractor(service)
-        val factory = RouteViewModelFactory(interactor)
+    @Inject
+    fun createViewModel(factory: RouteViewModelFactory) {
         viewModel = ViewModelProvider(this, factory).get(RouteViewModel::class.java)
     }
 

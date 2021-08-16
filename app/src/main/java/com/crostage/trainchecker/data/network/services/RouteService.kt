@@ -1,5 +1,6 @@
 package com.crostage.trainchecker.data.network.services
 
+import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.data.network.RetrofitBuilder
 import com.crostage.trainchecker.domain.network.IRouteService
 import com.crostage.trainchecker.model.data.BaseRoutesRequest
@@ -8,10 +9,11 @@ import com.crostage.trainchecker.model.data.rout.TrainStop
 import com.crostage.trainchecker.model.data.train.Train
 import com.crostage.trainchecker.utils.Constant
 import com.crostage.trainchecker.utils.Helper.Companion.executeAndExceptionChek
+import javax.inject.Inject
 
-class RouteService : IRouteService {
+class RouteService @Inject constructor(private val retrofitApi: ApiRequests) : IRouteService {
     override fun getRouteList(train: Train): List<TrainStop> {
-        val retrofitApi = RetrofitBuilder.getApi
+
         val response = retrofitApi.getRouters(
             date = train.dateStart, number = train.trainNumber
         ).executeAndExceptionChek()
@@ -31,7 +33,6 @@ class RouteService : IRouteService {
     }
 
     private fun getResponseFromRotesId(rid: Long): RoutesResult? {
-        val retrofitApi = RetrofitBuilder.getApi
 
         var data: RoutesResult? = null
 

@@ -4,8 +4,9 @@ import com.crostage.trainchecker.domain.interactors.interfaces.IRouteInteractor
 import com.crostage.trainchecker.domain.network.IRouteService
 import com.crostage.trainchecker.model.data.rout.TrainStop
 import com.crostage.trainchecker.model.data.train.Train
+import javax.inject.Inject
 
-class RoutesInteractor(private val service: IRouteService) : IRouteInteractor {
+class RouteInteractor @Inject constructor(private val service: IRouteService) : IRouteInteractor {
 
     override fun getRouteList(train: Train): List<TrainStop> = service.getRouteList(train)
 

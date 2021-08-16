@@ -5,10 +5,11 @@ import com.crostage.trainchecker.domain.interactors.interfaces.IStationInteracto
 import com.crostage.trainchecker.domain.network.IStationService
 import com.crostage.trainchecker.model.data.station.Station
 import com.crostage.trainchecker.model.domain.StationSearchResponse
+import javax.inject.Inject
 
-class StationInteractor(
+class StationInteractor @Inject constructor(
     private val service: IStationService,
-    private val repository: TrainRepository
+    private val repository: TrainRepository,
 ) :
     IStationInteractor {
 

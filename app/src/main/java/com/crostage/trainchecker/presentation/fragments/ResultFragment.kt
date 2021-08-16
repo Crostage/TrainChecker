@@ -1,5 +1,6 @@
 package com.crostage.trainchecker.presentation.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,10 +17,12 @@ import com.crostage.trainchecker.data.network.services.TrainService
 import com.crostage.trainchecker.databinding.FragmentResultBinding
 import com.crostage.trainchecker.domain.interactors.TrainInteractor
 import com.crostage.trainchecker.presentation.adapter.TrainListAdapter
+import com.crostage.trainchecker.presentation.appComponent
 import com.crostage.trainchecker.presentation.viewmodel.TrainViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.TrainViewModelFactory
 import com.crostage.trainchecker.utils.Constant
 import java.util.*
+import javax.inject.Inject
 
 class ResultFragment : Fragment(R.layout.fragment_result) {
 
@@ -35,10 +38,15 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentResultBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        context.appComponent.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,7 +61,7 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
         val codeTo = arguments?.getInt(Constant.SEARCH_CODE_TO)
         val date = arguments?.getString(Constant.SEARCH_DATE)
 
-        createViewModel()
+
 
         setObservers()
 
@@ -82,10 +90,8 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
         binding.resultRecyclerview.adapter = adapter
     }
 
-    private fun createViewModel() {
-        val service = TrainService()
-        val interactor = TrainInteractor(service)
-        val factory = TrainViewModelFactory(interactor)
+    @Inject
+    fun createViewModel(factory: TrainViewModelFactory) {
         viewModel = ViewModelProvider(this, factory).get(TrainViewModel::class.java)
     }
 

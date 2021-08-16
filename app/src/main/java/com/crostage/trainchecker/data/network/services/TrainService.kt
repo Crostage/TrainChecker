@@ -1,5 +1,6 @@
 package com.crostage.trainchecker.data.network.services
 
+import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.data.network.RetrofitBuilder
 import com.crostage.trainchecker.domain.network.ITrainService
 import com.crostage.trainchecker.model.data.BaseRequest
@@ -7,18 +8,18 @@ import com.crostage.trainchecker.model.data.train.SearchResult
 import com.crostage.trainchecker.model.data.train.Train
 import com.crostage.trainchecker.utils.Constant
 import com.crostage.trainchecker.utils.Helper.Companion.executeAndExceptionChek
+import javax.inject.Inject
 
-class TrainService : ITrainService {
+class TrainService @Inject constructor(private val retrofitApi: ApiRequests) : ITrainService {
 
     override fun getTrainList(codeFrom: Int, codeTo: Int, date: String): List<Train> {
 
-        val retrofitApi = RetrofitBuilder.getApi
         // запрос для получения requestId
         val responseRid = retrofitApi.getTrains(
-                layerId = Constant.TRAIN_LAYER_ID,
-                codeFrom = codeFrom,
-                codeTo = codeTo,
-                date = date
+            layerId = Constant.TRAIN_LAYER_ID,
+            codeFrom = codeFrom,
+            codeTo = codeTo,
+            date = date
         ).executeAndExceptionChek()
 
         responseRid?.let {
@@ -38,8 +39,6 @@ class TrainService : ITrainService {
     }
 
     private fun getResponseFromId(rid: Long): SearchResult? {
-        val retrofitApi = RetrofitBuilder.getApi
-
         var data: SearchResult? = null
 
         //отправка запроса с rid

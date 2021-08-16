@@ -5,16 +5,17 @@ import androidx.lifecycle.ViewModelProvider
 import com.crostage.trainchecker.domain.interactors.interfaces.IStationInteractor
 import com.crostage.trainchecker.presentation.viewmodel.StationViewModel
 import java.lang.IllegalArgumentException
+import javax.inject.Inject
 
-class StationViewModelFactory (
+class StationViewModelFactory @Inject constructor(
     private val interactor: IStationInteractor,
-    ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return when {
-                modelClass.isAssignableFrom(StationViewModel::class.java) -> StationViewModel(
-                    interactor
-                ) as T
-                else -> throw  IllegalArgumentException("Unknown View Model class")
-            }
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return when {
+            modelClass.isAssignableFrom(StationViewModel::class.java) -> StationViewModel(
+                interactor
+            ) as T
+            else -> throw  IllegalArgumentException("Unknown View Model class")
         }
+    }
 }

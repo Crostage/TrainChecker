@@ -25,8 +25,6 @@ object RetrofitBuilder {
             val cache = Cache(cacheDir, cacheSize.toLong())
             val client = OkHttpClient.Builder().cache(cache).cookieJar(UvCookieJar())
 
-//            val client = OkHttpClient.Builder().cookieJar(UvCookieJar())
-
             retrofit = Retrofit.Builder().baseUrl(BASE_URL).client(client.build())
                 .addConverterFactory(GsonConverterFactory.create()).build()
         }
@@ -34,9 +32,8 @@ object RetrofitBuilder {
     }
 
 
-    val getApi: ApiRequests by lazy {
-        retrofit!!.create(ApiRequests::class.java)
-    }
+    val Retrofit.getApi: ApiRequests
+        get() = this.create(ApiRequests::class.java)
 
 
 }
