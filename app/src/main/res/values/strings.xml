@@ -26,4 +26,6 @@
     <string name="train_number">номер поезда</string>
     <string name="test_mode">Ежедневно</string>
     <string name="test_type">Пассажирский</string>
+    <string name="routes">Маршруты</string>
+    <string name="seats">Места</string>
 </resources>

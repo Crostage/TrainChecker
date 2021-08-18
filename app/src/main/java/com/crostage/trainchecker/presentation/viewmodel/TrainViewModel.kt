@@ -26,16 +26,17 @@ class TrainViewModel(private val interactor: ITrainInteractor) : ViewModel() {
     fun trainsFromSearchRequest(codeFrom: Int, codeTo: Int, date: String) {
 
         compositeDisposable.add(
-                Single.fromCallable {
-                    interactor.getTrainList(codeFrom, codeTo, date)
-                }
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doFinally { _progress.value = false }
-                        .doOnSubscribe { _progress.value = true }
-                        .subscribe(
-                                _trains::setValue, _error::setValue
-                        )
+            Single.fromCallable {
+                interactor.getTrainList(codeFrom, codeTo, date)
+            }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally { _progress.value = false }
+                .doOnSubscribe { _progress.value = true }
+                .subscribe(
+                    _trains::setValue,
+                    _error::setValue
+                )
         )
     }
 

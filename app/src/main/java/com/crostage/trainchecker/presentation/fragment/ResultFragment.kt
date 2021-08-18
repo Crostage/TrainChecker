@@ -24,10 +24,6 @@ import javax.inject.Inject
 
 class ResultFragment : Fragment(R.layout.fragment_result) {
 
-    companion object {
-        private const val TAG = "SearchResultFragment"
-    }
-
     private lateinit var viewModel: TrainViewModel
     private lateinit var adapter: TrainListAdapter
 
@@ -60,9 +56,12 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
 
         setObservers()
 
-        if (cityFrom != null && cityTo != null && date != null && codeFrom != null && codeTo != null) {
+        if (cityFrom != null && cityTo != null
+            && date != null && codeFrom != null && codeTo != null
+        ) {
             activity?.title =
-                "${cityFrom.uppercase(Locale.getDefault())} -> ${cityTo.uppercase(Locale.getDefault())}  $date"
+                "${cityFrom.uppercase(Locale.getDefault())} " +
+                        "-> ${cityTo.uppercase(Locale.getDefault())}  $date"
 
             if (viewModel.trains.value == null)
                 viewModel.trainsFromSearchRequest(codeFrom, codeTo, date)

@@ -12,8 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
+import com.crostage.trainchecker.databinding.FragmentRouteBinding
 import com.crostage.trainchecker.model.data.train.Train
-import com.crostage.trainchecker.databinding.FragmentRoutesBinding
 import com.crostage.trainchecker.presentation.adapter.RouteListAdapter
 import com.crostage.trainchecker.presentation.appComponent
 import com.crostage.trainchecker.presentation.viewmodel.RouteViewModel
@@ -21,12 +21,12 @@ import com.crostage.trainchecker.presentation.viewmodel.factory.RouteViewModelFa
 import com.crostage.trainchecker.utils.Constant
 import javax.inject.Inject
 
-class RouteFragment : Fragment(R.layout.fragment_routes) {
 
+class RouteFragment : Fragment(R.layout.fragment_route) {
 
     private lateinit var viewModel: RouteViewModel
     private lateinit var adapter: RouteListAdapter
-    private lateinit var binding: FragmentRoutesBinding
+    private lateinit var binding: FragmentRouteBinding
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -39,7 +39,7 @@ class RouteFragment : Fragment(R.layout.fragment_routes) {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = FragmentRoutesBinding.inflate(inflater, container, false)
+        binding = FragmentRouteBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -48,12 +48,9 @@ class RouteFragment : Fragment(R.layout.fragment_routes) {
 
         initRecyclerview()
 
-        val train = arguments?.getSerializable(Constant.TRAIN_ROUTS) as Train?
+        val train = arguments?.getSerializable(Constant.TRAIN_ARG) as Train?
 
         train?.let {
-            binding.trainNumber.text = train.trainNumber
-            "${train.nameStationFrom} -> ${train.nameStationTo}".also { binding.fromTo.text = it }
-            binding.date.text = train.dateStart
 
             setObservers()
 

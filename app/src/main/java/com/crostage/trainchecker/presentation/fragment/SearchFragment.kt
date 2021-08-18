@@ -55,7 +55,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             binding.cityTo.text = it.stationName
         }
 
-
         binding.tvDate.apply {
             setOnClickListener {
                 dataPick(this)
@@ -63,9 +62,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             this.text = viewModel.getDate()
         }
 
-
         binding.btnSearch.setOnClickListener {
-            btnClickListener()
+            btnSearchClick()
         }
 
         binding.cityFrom.setOnClickListener {
@@ -127,7 +125,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         dpd.show()
     }
 
-    private fun btnClickListener() {
+    private fun btnSearchClick() {
 
         if (binding.cityFrom.text.isEmpty() || binding.cityTo.text.isEmpty() || binding.tvDate.text.isEmpty()) {
             Toast.makeText(activity, getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show()

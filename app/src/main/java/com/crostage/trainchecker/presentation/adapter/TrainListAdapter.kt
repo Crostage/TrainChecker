@@ -26,7 +26,7 @@ class TrainListAdapter : RecyclerView.Adapter<TrainViewHolder>() {
 
             val bundle = Bundle()
 
-            bundle.putSerializable(Constant.TRAIN_ROUTS,dataList[viewHolder.adapterPosition])
+            bundle.putSerializable(Constant.TRAIN_ARG, dataList[viewHolder.adapterPosition])
 
             view.findNavController().navigate(R.id.action_searchResultFragment_to_routesFragment,bundle)
         }

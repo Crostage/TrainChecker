@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/routesFragment"
-        android:name="com.crostage.trainchecker.presentation.fragment.RouteFragment"
+        android:name="com.crostage.trainchecker.presentation.fragment.DetailFragment"
         android:label="fragment_routes"
-        tools:layout="@layout/fragment_routes" />
+        tools:layout="@layout/fragment_detail" />
 </navigation>

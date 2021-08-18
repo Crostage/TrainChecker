@@ -1,5 +1,6 @@
 package com.crostage.trainchecker.model.data.train
 
+import Seat
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
@@ -13,7 +14,7 @@ data class Train(
     val brand: String, //название поезда
     @SerializedName("cars")
     @Expose
-    val ticketList: List<Ticket>, //массив билетов
+    val seatList: List<Seat>, //массив билетов
     @SerializedName("code0")
     @Expose
     val codeStationFrom: Int, //код станции отправления
@@ -41,7 +42,7 @@ data class Train(
     @SerializedName("time1")
     @Expose
     val timeEnd: String,  //время прибытия
-    val timeInWay: String //время в пути
+    val timeInWay: String, //время в пути
 ): Serializable
 {
     @PrimaryKey(autoGenerate = true)

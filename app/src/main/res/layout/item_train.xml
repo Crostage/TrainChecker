@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:divider="@drawable/linear_divider"
@@ -10,6 +8,7 @@
     android:showDividers="middle"
     android:gravity="center"
     android:layout_margin="5dp">
+
 
     <LinearLayout
         android:layout_margin="@dimen/train_margin"
@@ -40,7 +39,6 @@
             android:text="@string/test_mode" />
     </LinearLayout>
 
-
     <LinearLayout
         android:layout_margin="@dimen/train_margin"
 
@@ -69,7 +67,6 @@
 
 
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_margin="@dimen/train_margin"
