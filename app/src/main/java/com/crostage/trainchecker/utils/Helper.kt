@@ -24,6 +24,7 @@ class Helper {
             try {
                 val response = execute()
                 when (response.code()) {
+
                     200 -> return response
                     401 -> throw Error401()
                     404 -> throw Error404()
@@ -34,7 +35,6 @@ class Helper {
             }
             return null
         }
-
 
     }
 }

@@ -13,8 +13,8 @@ class Constant {
         const val TRAIN_ROUTS = "TRAIN_ROUTS"
         const val STATION = "STATION"
         const val TRAIN_LAYER_ID = 5827
-        const val ROUTES_LAYER_ID = 5804
-
+        const val ROUTE_LAYER_ID = 5804
+        const val SEAT_LAYER_ID = 5764
         const val TAB_ITEM_COUNT = 2
     }
 

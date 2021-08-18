@@ -9,7 +9,7 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module(includes = [RouteModule::class, StationModule::class, TrainModule::class])
+@Module(includes = [RouteModule::class, StationModule::class, TrainModule::class, SeatModule::class])
 class AppModule {
 
 

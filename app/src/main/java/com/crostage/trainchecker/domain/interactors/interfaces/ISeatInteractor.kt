@@ -1,9 +1,9 @@
-package com.crostage.trainchecker.domain.network
+package com.crostage.trainchecker.domain.interactors.interfaces
 
 import com.crostage.trainchecker.model.data.seat.Car
 import com.crostage.trainchecker.model.data.train.Train
 
-interface ISeatService {
+interface ISeatInteractor {
 
     fun getSeats(train: Train): List<Car>
 

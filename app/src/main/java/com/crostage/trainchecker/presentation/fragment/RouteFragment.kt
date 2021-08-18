@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
@@ -64,6 +65,12 @@ class RouteFragment : Fragment(R.layout.fragment_route) {
         binding.routeRecyclerview.layoutManager =
             LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
         adapter = RouteListAdapter()
+        binding.routeRecyclerview.addItemDecoration(
+            DividerItemDecoration(
+                binding.routeRecyclerview.context,
+                LinearLayoutManager.VERTICAL
+            )
+        )
         binding.routeRecyclerview.adapter = adapter
     }
 

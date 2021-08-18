@@ -2,10 +2,13 @@ package com.crostage.trainchecker.data.network
 
 import com.crostage.trainchecker.model.data.BaseRequest
 import com.crostage.trainchecker.model.data.BaseRoutesRequest
+import com.crostage.trainchecker.model.data.seat.SeatResult
 import com.crostage.trainchecker.model.data.rout.RoutesResult
 import com.crostage.trainchecker.model.data.station.Station
-import com.crostage.trainchecker.model.data.car.TicketRequestResult
 import com.crostage.trainchecker.model.data.train.SearchResult
+import com.crostage.trainchecker.utils.Constant.Companion.ROUTE_LAYER_ID
+import com.crostage.trainchecker.utils.Constant.Companion.SEAT_LAYER_ID
+import com.crostage.trainchecker.utils.Constant.Companion.TRAIN_LAYER_ID
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -17,7 +20,7 @@ interface ApiRequests {
 
     @GET("timetable/public/ru?")
     fun getTrains(
-        @Query("layer_id") layerId: Int = 5827,
+        @Query("layer_id") layerId: Int = TRAIN_LAYER_ID,
         @Query("dir") dir: Int = 0,
         @Query("tfl") tfl: Int = 1, //только поезда
         @Query("code0") codeFrom: Int,
@@ -30,24 +33,24 @@ interface ApiRequests {
 
     @GET("timetable/public/ru?")
     fun getResultFromSearchRid(
-        @Query("layer_id") layerId: Int,
+        @Query("layer_id") layerId: Int = TRAIN_LAYER_ID,
         @Query("rid") requestId: Long,
         @Query("json") json: String = "y",
     ): Call<SearchResult>
 
     @GET("timetable/public/ru?")
     fun getResultFromRoutesRid(
-        @Query("layer_id") layerId: Int,
+        @Query("layer_id") layerId: Int = ROUTE_LAYER_ID,
         @Query("rid") requestId: Long,
         @Query("json") json: String = "y",
     ): Call<RoutesResult>
 
     @GET("timetable/public/ru?")
-    fun getResultFromTickersRid(
-        @Query("layer_id") layerId: Int,
+    fun getResultFromSeatRid(
+        @Query("layer_id") layerId: Int = SEAT_LAYER_ID,
         @Query("rid") requestId: Long,
         @Query("json") json: String = "y",
-    ): Call<TicketRequestResult>
+    ): Call<SeatResult>
 
     @GET("suggester?")
     fun getStation(
@@ -60,9 +63,9 @@ interface ApiRequests {
 
     @GET("timetable/public/ru?")
     fun getRouters(
-        @Query("layer_id") layerId: Int = 5804,
+        @Query("layer_id") layerId: Int = ROUTE_LAYER_ID,
         @Query("train_num") number: String,
-        @Query("date") date: String = "13.03.2020",
+        @Query("date") date: String,
         @Query("json") json: String = "y",
         @Query("format") format: String = "array",
     ): Call<BaseRoutesRequest>
@@ -73,7 +76,7 @@ interface ApiRequests {
 
     @GET("timetable/public/ru?")
     fun getSeats(
-        @Query("layer_id") layerId: Int = 5764,
+        @Query("layer_id") layerId: Int = SEAT_LAYER_ID,
         @Query("dir") dir: Int = 0,
         @Query("tfl") tfl: Int = 1, //только поезда
         @Query("code0") codeFrom: Int,

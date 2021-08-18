@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.presentation.viewmodel.factory
+package com.crostage.trainchecker.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.crostage.trainchecker.model.data.station.Station

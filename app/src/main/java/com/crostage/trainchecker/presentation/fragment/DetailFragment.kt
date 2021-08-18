@@ -31,7 +31,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //todo Train const
         val train = arguments?.getSerializable(Constant.TRAIN_ARG) as Train?
 
         train?.let {
@@ -39,14 +38,14 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             "${train.nameStationFrom} -> ${train.nameStationTo}".also { binding.fromTo.text = it }
             binding.date.text = train.dateStart
 
+            initViewPager(it)
 
-            for (seat in it.seatList) {
+            for (seat in it.ticketList) {
                 val textView = TextView(context)
                 textView.gravity = Gravity.CENTER
                 textView.text = "${seat.typeLoc} : ${seat.freeSeats} : ${seat.tariff}руб"
                 binding.seatsLayout.addView(textView)
 
-                initViewPager(it)
             }
 
         }

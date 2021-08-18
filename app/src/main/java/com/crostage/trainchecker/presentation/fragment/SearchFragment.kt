@@ -19,7 +19,7 @@ import com.crostage.trainchecker.R
 import com.crostage.trainchecker.databinding.FragmentSearchBinding
 import com.crostage.trainchecker.model.data.station.Station
 import com.crostage.trainchecker.presentation.activity.StationChoiseActivity
-import com.crostage.trainchecker.presentation.viewmodel.factory.SearchViewModel
+import com.crostage.trainchecker.presentation.viewmodel.SearchViewModel
 import com.crostage.trainchecker.utils.Constant
 import java.util.*
 

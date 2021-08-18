@@ -1,6 +1,8 @@
+package com.crostage.trainchecker.model.data.train
+
 import java.io.Serializable
 
-data class Seat(
+data class Ticket(
     val freeSeats: Int, //свободные места
     val tariff: Int, //тариф в рублях
     val type: String, //тип места сокращенный

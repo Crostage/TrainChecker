@@ -1,7 +1,6 @@
 package com.crostage.trainchecker.data.network.services
 
 import com.crostage.trainchecker.data.network.ApiRequests
-import com.crostage.trainchecker.data.network.RetrofitBuilder
 import com.crostage.trainchecker.domain.network.ITrainService
 import com.crostage.trainchecker.model.data.BaseRequest
 import com.crostage.trainchecker.model.data.train.SearchResult
@@ -41,34 +40,18 @@ class TrainService @Inject constructor(private val retrofitApi: ApiRequests) : I
     private fun getResponseFromId(rid: Long): SearchResult? {
         var data: SearchResult? = null
 
-        //отправка запроса с rid
-        val responseRid = retrofitApi.getResultFromSearchRid(
-                layerId = Constant.TRAIN_LAYER_ID, requestId = rid
+        Thread.sleep(1000)
+
+        //еще одна отправка запроса с rid
+        val responseTrains = retrofitApi.getResultFromSearchRid(requestId = rid
         ).executeAndExceptionChek()
 
-        responseRid?.let {
-            if (it.isSuccessful) {
-                data = it.body() as SearchResult
-                val responseResult = data?.result
-
-                if (responseResult == "RID") {
-                    //сервер сразу не обрабатывает запросы, пришлось воткнуть задержку
-                    Thread.sleep(2000)
-
-                    //еще одна отправка запроса с rid
-                    val responseTrains = retrofitApi.getResultFromSearchRid(
-                            layerId = Constant.TRAIN_LAYER_ID, requestId = rid
-                    ).executeAndExceptionChek()
-
-                    responseTrains?.let {
-
-                        if (responseTrains.isSuccessful) {
-                            data = responseTrains.body() as SearchResult
-                        }
-                    }
-                }
+        responseTrains?.let {
+            if (responseTrains.isSuccessful) {
+                data = responseTrains.body() as SearchResult
             }
         }
+
         return data
     }
 
