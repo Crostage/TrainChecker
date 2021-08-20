@@ -15,4 +15,5 @@
 
     <color name="base_text_color">#FF000000</color>
     <color name="green">#34D13B</color>
+    <color name="purple">#C2185B</color>
 </resources>

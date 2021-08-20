@@ -32,6 +32,7 @@ data class Train(
     @SerializedName("date0")
     @Expose
     val dateStart: String, //дата оптравления
+    @PrimaryKey
     @SerializedName("number")
     @Expose
     val trainNumber: String, //номер поезда
@@ -42,9 +43,31 @@ data class Train(
     @Expose
     val timeEnd: String,  //время прибытия
     val timeInWay: String, //время в пути
-): Serializable
-{
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
+) : Serializable {
+
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Train
+
+        if (dateStart != other.dateStart) return false
+        if (trainNumber != other.trainNumber) return false
+        if (timeStart != other.timeStart) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = dateStart.hashCode()
+        result = 31 * result + trainNumber.hashCode()
+        result = 31 * result + timeStart.hashCode()
+        return result
+    }
 }
+//{
+//    @PrimaryKey(autoGenerate = false)
+//    var sid: String = trainNumber+dateStart+timeStart
+//}
 

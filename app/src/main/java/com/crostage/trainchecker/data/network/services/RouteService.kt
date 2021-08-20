@@ -13,7 +13,8 @@ class RouteService @Inject constructor(private val retrofitApi: ApiRequests) : I
     override fun getRouteList(train: Train): List<TrainStop> {
 
         val response = retrofitApi.getRouters(
-            date = train.dateStart, number = train.trainNumber
+            date = train.dateStart,
+            number = train.trainNumber
         ).executeAndExceptionChek()
 
         response?.let {

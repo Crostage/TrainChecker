@@ -12,8 +12,9 @@
 
     <TextView
         android:id="@+id/tariff"
+        android:textColor="@color/purple"
         android:layout_width="wrap_content"
-        android:text="10325 руб"
+        android:text="@string/tariff_test"
         android:layout_height="wrap_content" />
 
     <LinearLayout
@@ -25,7 +26,8 @@
         android:showDividers="middle">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_margin="@dimen/train_margin"
@@ -35,7 +37,7 @@
                 android:id="@+id/carType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Плацкарт" />
+                android:text="@string/car_type_test" />
 
             <TextView
                 android:id="@+id/carNumber"
@@ -50,13 +52,14 @@
                 android:layout_height="wrap_content"
                 android:ems="8"
                 android:lines="1"
-                android:text="3Э"
+                android:text="@string/cls_type_test"
                 android:textColor="@color/green" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ticketList"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/train_margin"
             android:gravity="end"

@@ -1,21 +1,16 @@
 package com.crostage.trainchecker.presentation.viewmodel
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.crostage.trainchecker.domain.interactors.FavouriteInteractor
-import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
 import com.crostage.trainchecker.model.data.train.Train
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import java.text.SimpleDateFormat
-import java.util.*
 
-class TrainViewModel(
-    private val trainInteractor: ITrainInteractor,
+class FavouriteViewModel(
     private val favouriteInteractor: FavouriteInteractor,
 ) : ViewModel() {
 
@@ -30,52 +25,36 @@ class TrainViewModel(
 
     private val compositeDisposable = CompositeDisposable()
 
-    fun trainsFromSearchRequest(codeFrom: Int, codeTo: Int, date: String) {
-
-        compositeDisposable.add(
-            Single.fromCallable {
-
-                trainInteractor.getTrainList(codeFrom, codeTo, date)
-            }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doFinally { _progress.value = false }
-                .doOnSubscribe { _progress.value = true }
-                .subscribe(
-                    _trains::setValue,
-                    _error::setValue
-                )
-        )
+    fun getFavouriteList(): LiveData<List<Train>> {
+//
+//        compositeDisposable.add(
+//            Single.fromCallable {
+        return favouriteInteractor.getTrainList()
+//            }
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .doFinally { _progress.value = false }
+//                .doOnSubscribe { _progress.value = true }
+//                .subscribe({
+//
+//                }        )
     }
 
     fun removeFromFavourite(train: Train) {
         compositeDisposable.add(
             Single.fromCallable {
                 favouriteInteractor.removeTrain(train)
+                _trains.value?.toMutableList()?.remove(train)
             }
                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally { _progress.value = false }
+                .doOnSubscribe { _progress.value = true }
                 .subscribe(
                     { },
                     _error::setValue
                 )
         )
-    }
-
-    fun insertToFavourite(train: Train) {
-        compositeDisposable.add(
-            Single.fromCallable {
-                favouriteInteractor.insertTrain(train)
-            }
-                .subscribeOn(Schedulers.io())
-                .subscribe(
-                    { },
-                    _error::setValue
-                )
-        )
-    }
-
-    fun getFavouriteTrainList(): LiveData<List<Train>> {
-        return favouriteInteractor.getTrainList()
     }
 
     override fun onCleared() {

@@ -1,18 +1,21 @@
 package com.crostage.trainchecker.data.repository
 
+import androidx.lifecycle.LiveData
 import com.crostage.trainchecker.domain.repository.ITrainRepository
-import com.crostage.trainchecker.model.domain.StationSearchResponse
+import com.crostage.trainchecker.model.data.train.Train
 import javax.inject.Inject
 
 class TrainRepository @Inject constructor(private val trainDao: TrainDao) : ITrainRepository {
 
-    override fun insertStationResponse(response: StationSearchResponse) {
-        trainDao.insertStationResponse(response)
+    override fun getTrainList(): LiveData<List<Train>> {
+        return trainDao.getTrainList()
     }
 
-    override fun getListFromName(name: String): StationSearchResponse? {
-        return trainDao.getListFromName(name)
+    override fun insertTrain(train: Train) {
+        trainDao.insertTrain(train)
     }
 
-
+    override fun removeTrain(train: Train) {
+        trainDao.removeTrain(train)
+    }
 }

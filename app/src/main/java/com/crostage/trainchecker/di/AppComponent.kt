@@ -1,10 +1,7 @@
 package com.crostage.trainchecker.di
 
 import android.content.Context
-import com.crostage.trainchecker.di.component.RouteComponent
-import com.crostage.trainchecker.di.component.SeatComponent
-import com.crostage.trainchecker.di.component.StationComponent
-import com.crostage.trainchecker.di.component.TrainComponent
+import com.crostage.trainchecker.di.component.*
 import com.crostage.trainchecker.di.module.AppModule
 import dagger.BindsInstance
 import dagger.Component
@@ -18,6 +15,7 @@ interface AppComponent {
     fun getRouteComponent(): RouteComponent
     fun getStationComponent(): StationComponent
     fun getSeatComponent(): SeatComponent
+    fun getFavouriteComponent(): FavouriteComponent
 
 
     @Component.Builder

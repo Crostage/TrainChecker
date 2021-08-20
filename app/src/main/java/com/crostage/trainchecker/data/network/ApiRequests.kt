@@ -1,6 +1,6 @@
 package com.crostage.trainchecker.data.network
 
-import com.crostage.trainchecker.model.data.BaseRequest
+import com.crostage.trainchecker.model.data.BaseResult
 import com.crostage.trainchecker.model.data.BaseRoutesRequest
 import com.crostage.trainchecker.model.data.seat.SeatResult
 import com.crostage.trainchecker.model.data.rout.RoutesResult
@@ -27,7 +27,7 @@ interface ApiRequests {
         @Query("code1") codeTo: Int,
         @Query("dt0") date: String,
 
-        ): Call<BaseRequest>
+        ): Call<BaseResult>
 
     //https://pass.rzd.ru/timetable/public/ru?layer_id=5804&rid=16637067931&json=y
 
@@ -36,6 +36,7 @@ interface ApiRequests {
         @Query("layer_id") layerId: Int = TRAIN_LAYER_ID,
         @Query("rid") requestId: Long,
         @Query("json") json: String = "y",
+        @Query("format") format: String = "array",
     ): Call<SearchResult>
 
     @GET("timetable/public/ru?")
@@ -43,6 +44,7 @@ interface ApiRequests {
         @Query("layer_id") layerId: Int = ROUTE_LAYER_ID,
         @Query("rid") requestId: Long,
         @Query("json") json: String = "y",
+        @Query("format") format: String = "array",
     ): Call<RoutesResult>
 
     @GET("timetable/public/ru?")
@@ -50,6 +52,7 @@ interface ApiRequests {
         @Query("layer_id") layerId: Int = SEAT_LAYER_ID,
         @Query("rid") requestId: Long,
         @Query("json") json: String = "y",
+        @Query("format") format: String = "array",
     ): Call<SeatResult>
 
     @GET("suggester?")
@@ -85,6 +88,6 @@ interface ApiRequests {
         @Query("time0") time: String,
         @Query("tnum0") number: String,
 
-        ): Call<BaseRequest>
+        ): Call<BaseResult>
 
 }

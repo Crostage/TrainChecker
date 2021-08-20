@@ -1,7 +1,10 @@
 package com.crostage.trainchecker.utils
 
+import android.annotation.SuppressLint
+import com.crostage.trainchecker.model.data.train.Train
 import retrofit2.Call
 import retrofit2.Response
+import java.text.SimpleDateFormat
 import java.util.*
 
 class Helper {
@@ -34,6 +37,20 @@ class Helper {
                 throw ErrorConnections()
             }
             return null
+        }
+
+
+        @SuppressLint("SimpleDateFormat")
+        fun checkFavouriteOnActualDate(list: List<Train>): List<Train> {
+
+            val sdf = SimpleDateFormat("dd.MM.yyyy hh:mm")
+            val currentDate = Date().time
+
+            return list.filter {
+                val stringTrainTime = it.dateStart + " " + it.timeStart
+                val longTrainTime = sdf.parse(stringTrainTime)?.time
+                currentDate < longTrainTime!!
+            }
         }
 
     }

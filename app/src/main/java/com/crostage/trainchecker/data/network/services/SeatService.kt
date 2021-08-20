@@ -2,7 +2,7 @@ package com.crostage.trainchecker.data.network.services
 
 import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.domain.network.ISeatService
-import com.crostage.trainchecker.model.data.BaseRequest
+import com.crostage.trainchecker.model.data.BaseResult
 import com.crostage.trainchecker.model.data.seat.Car
 import com.crostage.trainchecker.model.data.seat.SeatResult
 import com.crostage.trainchecker.model.data.train.Train
@@ -25,7 +25,7 @@ class SeatService @Inject constructor(private val retrofitApi: ApiRequests) : IS
 
             if (it.isSuccessful) {
 
-                val body = it.body() as BaseRequest
+                val body = it.body() as BaseResult
                 val rid = body.requestId
                 val data = getResponseFromSeatId(rid)
 

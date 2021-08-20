@@ -13,10 +13,10 @@ class RouteModule
 @Module
 interface RouteBindModule {
     @Binds
-    fun bindRouteInteractorToIRoutenteractor(routeInteractor: RouteInteractor): IRouteInteractor
+    fun bindRouteInteractorToIRouteInteractor(routeInteractor: RouteInteractor): IRouteInteractor
 
     @Binds
-    fun bindRouteerviceToIRouteervice(routeService: RouteService): IRouteService
+    fun bindRouteServiceToIRouteService(routeService: RouteService): IRouteService
 
 
 }

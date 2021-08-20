@@ -9,9 +9,9 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module(includes = [RouteModule::class, StationModule::class, TrainModule::class, SeatModule::class])
+@Module(includes = [RouteModule::class, StationModule::class,
+    TrainModule::class, SeatModule::class, FavouriteModule::class])
 class AppModule {
-
 
     @Provides
     @Singleton
@@ -20,7 +20,6 @@ class AppModule {
     @Provides
     @Singleton
     fun provideRetrofit(context: Context): ApiRequests = RetrofitBuilder.getClient(context).getApi
-
 
 }
 

@@ -14,15 +14,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
 import com.crostage.trainchecker.databinding.FragmentResultBinding
+import com.crostage.trainchecker.model.data.train.Train
 import com.crostage.trainchecker.presentation.adapter.TrainListAdapter
 import com.crostage.trainchecker.presentation.appComponent
 import com.crostage.trainchecker.presentation.viewmodel.TrainViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.TrainViewModelFactory
 import com.crostage.trainchecker.utils.Constant
+import com.crostage.trainchecker.utils.Helper
 import java.util.*
 import javax.inject.Inject
 
-class ResultFragment : Fragment(R.layout.fragment_result) {
+class ResultFragment : Fragment(R.layout.fragment_result), FavouriteClickListener {
 
     private lateinit var viewModel: TrainViewModel
     private lateinit var adapter: TrainListAdapter
@@ -63,8 +65,9 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
                 "${cityFrom.uppercase(Locale.getDefault())} " +
                         "-> ${cityTo.uppercase(Locale.getDefault())}  $date"
 
-            if (viewModel.trains.value == null)
+            if (viewModel.trains.value == null) {
                 viewModel.trainsFromSearchRequest(codeFrom, codeTo, date)
+            }
         }
 
     }
@@ -80,7 +83,7 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
                 LinearLayoutManager.VERTICAL
             )
         )
-        adapter = TrainListAdapter()
+        adapter = TrainListAdapter(this)
         binding.resultRecyclerview.adapter = adapter
     }
 
@@ -106,6 +109,38 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
         viewModel.progress.observe(viewLifecycleOwner) { showProgress ->
             binding.progress.isVisible = showProgress
         }
+
+        viewModel.getFavouriteTrainList().observe(viewLifecycleOwner) {
+            if (it != null) {
+
+                val actualList = Helper.checkFavouriteOnActualDate(it)
+                val removeList = it.toMutableList()
+                removeList.removeAll(actualList)
+                removeList.forEach { train -> removeTrainToFavourite(train) }
+
+                adapter.setFavouriteData(actualList)
+            }
+        }
     }
 
+    override fun addTrainToFavourite(train: Train) {
+        viewModel.insertToFavourite(train)
+        Toast.makeText(context,
+            "Поезд ${train.trainNumber} добавлен в отслеживаемые",
+            Toast.LENGTH_SHORT).show()
+    }
+
+    override fun removeTrainToFavourite(train: Train) {
+        viewModel.removeFromFavourite(train)
+        Toast.makeText(context,
+            "Поезд ${train.trainNumber} удален из отслеживаемых",
+            Toast.LENGTH_SHORT).show()
+    }
+
+}
+
+interface FavouriteClickListener {
+    fun addTrainToFavourite(train: Train)
+
+    fun removeTrainToFavourite(train: Train)
 }

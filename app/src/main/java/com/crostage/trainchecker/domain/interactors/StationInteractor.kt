@@ -1,6 +1,6 @@
 package com.crostage.trainchecker.domain.interactors
 
-import com.crostage.trainchecker.data.repository.TrainRepository
+import com.crostage.trainchecker.data.repository.StationRepository
 import com.crostage.trainchecker.domain.interactors.interfaces.IStationInteractor
 import com.crostage.trainchecker.domain.network.IStationService
 import com.crostage.trainchecker.model.data.station.Station
@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class StationInteractor @Inject constructor(
     private val service: IStationService,
-    private val repository: TrainRepository,
+    private val repository: StationRepository,
 ) :
     IStationInteractor {
 

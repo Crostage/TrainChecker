@@ -6,8 +6,9 @@
         android:menuCategory = "secondary"
         android:title="@string/menu_search"/>
 
-    <item android:id="@+id/listFragment"
+    <item
+        android:id="@+id/favouriteFragment"
         android:icon="@drawable/ic_favorite"
-        android:menuCategory = "secondary"
-        android:title="@string/menu_observ"/>
+        android:menuCategory="secondary"
+        android:title="@string/menu_observ" />
 </menu>
