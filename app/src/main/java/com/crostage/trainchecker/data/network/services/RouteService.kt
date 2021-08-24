@@ -1,15 +1,24 @@
 package com.crostage.trainchecker.data.network.services
 
+import com.crostage.trainchecker.data.model.BaseRoutesRequest
+import com.crostage.trainchecker.data.model.rout.RoutesResult
+import com.crostage.trainchecker.data.model.rout.TrainStop
+import com.crostage.trainchecker.data.model.train.Train
 import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.domain.network.IRouteService
-import com.crostage.trainchecker.model.data.BaseRoutesRequest
-import com.crostage.trainchecker.model.data.rout.RoutesResult
-import com.crostage.trainchecker.model.data.rout.TrainStop
-import com.crostage.trainchecker.model.data.train.Train
 import com.crostage.trainchecker.utils.Helper.Companion.executeAndExceptionChek
+import com.crostage.trainchecker.utils.NetworkUtil
 import javax.inject.Inject
 
+/**
+ *
+ * Реализация [IRouteService]
+ *
+ * @property retrofitApi класс для работы с сетью
+ */
+
 class RouteService @Inject constructor(private val retrofitApi: ApiRequests) : IRouteService {
+
     override fun getRouteList(train: Train): List<TrainStop> {
 
         val response = retrofitApi.getRouters(
@@ -22,7 +31,7 @@ class RouteService @Inject constructor(private val retrofitApi: ApiRequests) : I
             if (it.isSuccessful) {
                 val body = it.body() as BaseRoutesRequest
                 val rid = body.requestId
-                val data = getResponseFromRotesId(rid)
+                val data = NetworkUtil.getResponseFromId(rid, retrofitApi, RoutesResult::class.java)
                 val l = data?.response?.routes?.routList
                 l?.let { return l }
 
@@ -31,22 +40,4 @@ class RouteService @Inject constructor(private val retrofitApi: ApiRequests) : I
         return mutableListOf()
     }
 
-    private fun getResponseFromRotesId(rid: Long): RoutesResult? {
-
-        var data: RoutesResult? = null
-
-        Thread.sleep(1000)
-
-        val responseRoute = retrofitApi.getResultFromRoutesRid(requestId = rid
-        ).executeAndExceptionChek()
-
-        responseRoute?.let {
-
-            if (responseRoute.isSuccessful) {
-                data = responseRoute.body() as RoutesResult
-            }
-
-        }
-        return data
-    }
 }

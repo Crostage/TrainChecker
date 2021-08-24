@@ -1,9 +1,20 @@
 package com.crostage.trainchecker.domain.network
 
-import com.crostage.trainchecker.model.data.station.Station
+import com.crostage.trainchecker.data.model.station.Station
+
+/**
+ * Сервис для получения списка станций по поисковом запросу из сети
+ *
+ */
 
 interface IStationService {
 
+    /**
+     * Получение списка станций
+     *
+     * @param stationName поисковый запрос
+     * @return список станцй [Station]
+     */
     fun getStationList(stationName: String): List<Station>
 
 }

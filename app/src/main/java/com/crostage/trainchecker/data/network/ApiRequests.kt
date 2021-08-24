@@ -1,11 +1,11 @@
 package com.crostage.trainchecker.data.network
 
-import com.crostage.trainchecker.model.data.BaseResult
-import com.crostage.trainchecker.model.data.BaseRoutesRequest
-import com.crostage.trainchecker.model.data.seat.SeatResult
-import com.crostage.trainchecker.model.data.rout.RoutesResult
-import com.crostage.trainchecker.model.data.station.Station
-import com.crostage.trainchecker.model.data.train.SearchResult
+import com.crostage.trainchecker.data.model.BaseResult
+import com.crostage.trainchecker.data.model.BaseRoutesRequest
+import com.crostage.trainchecker.data.model.rout.RoutesResult
+import com.crostage.trainchecker.data.model.seat.SeatResult
+import com.crostage.trainchecker.data.model.station.Station
+import com.crostage.trainchecker.data.model.train.SearchResult
 import com.crostage.trainchecker.utils.Constant.Companion.ROUTE_LAYER_ID
 import com.crostage.trainchecker.utils.Constant.Companion.SEAT_LAYER_ID
 import com.crostage.trainchecker.utils.Constant.Companion.TRAIN_LAYER_ID
@@ -13,57 +13,39 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+/**
+ * Отвечает за получение данных онлайн из API РЖД
+ *
+ */
+
+
 interface ApiRequests {
 
-    //https://pass.rzd.ru/timetable/public/ru?layer_id=5827&dir=0&tfl=3&code0=2000002&code1=2001320
-    // &dt0=27.07.2021
 
-    @GET("timetable/public/ru?")
-    fun getTrains(
-        @Query("layer_id") layerId: Int = TRAIN_LAYER_ID,
-        @Query("dir") dir: Int = 0,
-        @Query("tfl") tfl: Int = 1, //только поезда
-        @Query("code0") codeFrom: Int,
-        @Query("code1") codeTo: Int,
-        @Query("dt0") date: String,
-
-        ): Call<BaseResult>
-
-    //https://pass.rzd.ru/timetable/public/ru?layer_id=5804&rid=16637067931&json=y
-
-    @GET("timetable/public/ru?")
-    fun getResultFromSearchRid(
-        @Query("layer_id") layerId: Int = TRAIN_LAYER_ID,
-        @Query("rid") requestId: Long,
-        @Query("json") json: String = "y",
-        @Query("format") format: String = "array",
-    ): Call<SearchResult>
-
-    @GET("timetable/public/ru?")
-    fun getResultFromRoutesRid(
-        @Query("layer_id") layerId: Int = ROUTE_LAYER_ID,
-        @Query("rid") requestId: Long,
-        @Query("json") json: String = "y",
-        @Query("format") format: String = "array",
-    ): Call<RoutesResult>
-
-    @GET("timetable/public/ru?")
-    fun getResultFromSeatRid(
-        @Query("layer_id") layerId: Int = SEAT_LAYER_ID,
-        @Query("rid") requestId: Long,
-        @Query("json") json: String = "y",
-        @Query("format") format: String = "array",
-    ): Call<SeatResult>
-
+    /**
+     * Запрос на получение списка станций с кодами по запросу
+     *
+     * @param lang язык ввода\вывода
+     * @param stationName часть имени станции
+     * @return список станций [Station]
+     */
     @GET("suggester?")
     fun getStation(
         @Query("lang") lang: String = "ru",
         @Query("stationNamePart") stationName: String,
     ): Call<List<Station>>
 
-    //http://pass.rzd.ru/timetable/public/ru?layer_id=5804&train_num=072E&date=13.03.2020
-    // &json=y&format=array
 
+    /**
+     * Запрос на получение маршрута конкретного поезда
+     *
+     * @param layerId тип запроса
+     * @param number номер поезда
+     * @param date дата отправления
+     * @param json вид данных вывода
+     * @param format формат вывода
+     * @return возварщает requestID [BaseRoutesRequest]
+     */
     @GET("timetable/public/ru?")
     fun getRouters(
         @Query("layer_id") layerId: Int = ROUTE_LAYER_ID,
@@ -74,9 +56,19 @@ interface ApiRequests {
     ): Call<BaseRoutesRequest>
 
 
-    //https://pass.rzd.ru/timetable/public/ru?layer_id=5764&dir=0&tfl=1&code0=2000000
-    // &code1=2064130&dt0=17.08.2021&time0=10:46&tnum0=479%D0%90
-
+    /**
+     * Запрос на получения вагонов поезда с информацией о местах
+     *
+     * @param layerId тип запроса
+     * @param dir с пересадками или без
+     * @param tfl тип транспорта: электрички, поезда, и оба типа
+     * @param codeFrom код города отправления
+     * @param codeTo код города прибытия
+     * @param date дата отправления
+     * @param time время отправления поезда
+     * @param number номер поезда
+     * @return возварщает requestID [BaseResult]
+     */
     @GET("timetable/public/ru?")
     fun getSeats(
         @Query("layer_id") layerId: Int = SEAT_LAYER_ID,
@@ -87,7 +79,79 @@ interface ApiRequests {
         @Query("dt0") date: String,
         @Query("time0") time: String,
         @Query("tnum0") number: String,
+    ): Call<BaseResult>
 
-        ): Call<BaseResult>
+    /**
+     * Запрос на получения списка поездов по поисковому запросу, в ответе от сервера будет RID
+     *
+     * @param layerId тип запроса
+     * @param dir с пересадками или без
+     * @param tfl тип транспорта: электрички, поезда, и оба типа
+     * @param codeFrom код города отправления
+     * @param codeTo код города прибытия
+     * @param date дата отправления
+     * @return возварщает requestID [BaseResult]
+     */
+    @GET("timetable/public/ru?")
+    fun getTrains(
+        @Query("layer_id") layerId: Int = TRAIN_LAYER_ID,
+        @Query("dir") dir: Int = 0,
+        @Query("tfl") tfl: Int = 1, //только поезда
+        @Query("code0") codeFrom: Int,
+        @Query("code1") codeTo: Int,
+        @Query("dt0") date: String,
+    ): Call<BaseResult>
+
+    /**
+     * Повторный запрос с rid для получения списка поездов
+     *
+     * @param layerId тип запроса
+     * @param requestId id запроса
+     * @param json вид данных вывода
+     * @param format формат вывода
+     * @return модель содержащая список поездов [RoutesResult]
+     */
+    @GET("timetable/public/ru?")
+    fun getResultFromSearchRid(
+        @Query("layer_id") layerId: Int = TRAIN_LAYER_ID,
+        @Query("rid") requestId: Long,
+        @Query("json") json: String = "y",
+        @Query("format") format: String = "array",
+    ): Call<SearchResult>
+
+    /**
+     * Повторный запрос с rid для получения маршрутов
+     *
+     * @param layerId тип запроса
+     * @param requestId id запроса
+     * @param json вид данных вывода
+     * @param format формат вывода
+     * @return модель содержащая маршурты [RoutesResult]
+     */
+    @GET("timetable/public/ru?")
+    fun getResultFromRoutesRid(
+        @Query("layer_id") layerId: Int = ROUTE_LAYER_ID,
+        @Query("rid") requestId: Long,
+        @Query("json") json: String = "y",
+        @Query("format") format: String = "array",
+    ): Call<RoutesResult>
+
+    /**
+     * Повторный запрос с rid для получения вагонов
+     *
+     * @param layerId тип запроса
+     * @param requestId id запроса
+     * @param json вид данных вывода
+     * @param format формат вывода
+     * @return модель содержащая список вагонов с местами [SeatResult]
+     */
+    @GET("timetable/public/ru?")
+    fun getResultFromSeatRid(
+        @Query("layer_id") layerId: Int = SEAT_LAYER_ID,
+        @Query("rid") requestId: Long,
+        @Query("json") json: String = "y",
+        @Query("format") format: String = "array",
+    ): Call<SeatResult>
+
 
 }

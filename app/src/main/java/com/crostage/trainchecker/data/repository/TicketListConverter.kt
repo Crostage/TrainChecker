@@ -1,12 +1,14 @@
 package com.crostage.trainchecker.data.repository
 
 import androidx.room.TypeConverter
-import com.crostage.trainchecker.model.data.station.Station
-import com.crostage.trainchecker.model.data.train.Ticket
+import com.crostage.trainchecker.data.model.train.Ticket
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import java.lang.reflect.Type
 import java.util.*
+
+/**
+ * Конвертер списка поездов для сохранения в БД, Room
+ *
+ */
 
 
 class TicketListConverter {

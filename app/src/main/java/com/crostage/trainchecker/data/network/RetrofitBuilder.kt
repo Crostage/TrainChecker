@@ -8,17 +8,29 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.lang.ref.WeakReference
 
+/**
+ * Класс для работы с сетью
+ */
+
 
 object RetrofitBuilder {
 
     private var retrofit: Retrofit? = null
 
+    /**
+     * Получения клиента для работы с сетью
+     *
+     * @param context
+     * @return [Retrofit]
+     */
 
     fun getClient(context: Context): Retrofit {
 
         val mContext = WeakReference(context)
 
         if (retrofit == null) {
+
+            //todo запросы кэшируются, но все равно обращаются в сеть
 
             val cacheSize = 10 * 1024 * 1024 // 10 MiB
             val cacheDir = File(mContext.get()?.cacheDir, "HttpCache")
@@ -48,8 +60,8 @@ private class UvCookieJar : CookieJar {
 
     private val cookies = mutableListOf<Cookie>()
 
-    override fun saveFromResponse(url: HttpUrl, cookieList: List<Cookie>) {
-        if (cookies.isEmpty()) cookies.addAll(cookieList)
+    override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
+        if (this.cookies.isEmpty()) this.cookies.addAll(cookies)
     }
 
     override fun loadForRequest(url: HttpUrl): List<Cookie> = cookies

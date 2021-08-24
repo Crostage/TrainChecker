@@ -5,7 +5,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
 import com.crostage.trainchecker.databinding.ItemTrainBinding
-import com.crostage.trainchecker.model.data.train.Train
+import com.crostage.trainchecker.data.model.train.Train
 
 class TrainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

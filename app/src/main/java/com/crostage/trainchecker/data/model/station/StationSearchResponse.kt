@@ -1,8 +1,7 @@
-package com.crostage.trainchecker.model.domain
+package com.crostage.trainchecker.data.model.station
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.crostage.trainchecker.model.data.station.Station
 
 
 @Entity(tableName = "station_search")

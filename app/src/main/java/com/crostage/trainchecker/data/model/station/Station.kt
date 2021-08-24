@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.model.data.station
+package com.crostage.trainchecker.data.model.station
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

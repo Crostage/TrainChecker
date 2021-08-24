@@ -5,8 +5,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.crostage.trainchecker.model.data.train.Train
-import com.crostage.trainchecker.model.domain.StationSearchResponse
+import com.crostage.trainchecker.data.model.train.Train
+import com.crostage.trainchecker.data.model.station.StationSearchResponse
 
 
 @Database(

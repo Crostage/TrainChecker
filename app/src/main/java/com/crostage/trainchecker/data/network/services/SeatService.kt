@@ -2,12 +2,20 @@ package com.crostage.trainchecker.data.network.services
 
 import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.domain.network.ISeatService
-import com.crostage.trainchecker.model.data.BaseResult
-import com.crostage.trainchecker.model.data.seat.Car
-import com.crostage.trainchecker.model.data.seat.SeatResult
-import com.crostage.trainchecker.model.data.train.Train
+import com.crostage.trainchecker.data.model.BaseResult
+import com.crostage.trainchecker.data.model.rout.RoutesResult
+import com.crostage.trainchecker.data.model.seat.Car
+import com.crostage.trainchecker.data.model.seat.SeatResult
+import com.crostage.trainchecker.data.model.train.Train
 import com.crostage.trainchecker.utils.Helper.Companion.executeAndExceptionChek
+import com.crostage.trainchecker.utils.NetworkUtil
 import javax.inject.Inject
+
+/**
+ * Реализация [ISeatService]
+ *
+ * @property retrofitApi класс для работы с сетью
+ */
 
 class SeatService @Inject constructor(private val retrofitApi: ApiRequests) : ISeatService {
 
@@ -27,7 +35,8 @@ class SeatService @Inject constructor(private val retrofitApi: ApiRequests) : IS
 
                 val body = it.body() as BaseResult
                 val rid = body.requestId
-                val data = getResponseFromSeatId(rid)
+                val data = NetworkUtil.getResponseFromId(rid, retrofitApi, SeatResult::class.java)
+
 
                 val l = data?.lst?.get(0)?.cars
                 l?.let { return l }
@@ -35,24 +44,6 @@ class SeatService @Inject constructor(private val retrofitApi: ApiRequests) : IS
             }
         }
         return mutableListOf()
-    }
-
-    private fun getResponseFromSeatId(rid: Long): SeatResult? {
-
-        var data: SeatResult? = null
-
-        Thread.sleep(1000)
-
-        val responseSeat = retrofitApi.getResultFromSeatRid(requestId = rid
-        ).executeAndExceptionChek()
-
-        responseSeat?.let {
-
-            if (responseSeat.isSuccessful) {
-                data = responseSeat.body() as SeatResult
-            }
-        }
-        return data
     }
 
 }

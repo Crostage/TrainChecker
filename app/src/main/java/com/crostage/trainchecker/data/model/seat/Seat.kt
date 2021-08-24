@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.model.data.seat
+package com.crostage.trainchecker.data.model.seat
 
 data class Seat(
     val free: Int, //свободные места

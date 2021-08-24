@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.crostage.trainchecker.R
 import com.crostage.trainchecker.databinding.FragmentSearchBinding
-import com.crostage.trainchecker.model.data.station.Station
+import com.crostage.trainchecker.data.model.station.Station
 import com.crostage.trainchecker.presentation.activity.StationChoiseActivity
 import com.crostage.trainchecker.presentation.viewmodel.SearchViewModel
 import com.crostage.trainchecker.utils.Constant

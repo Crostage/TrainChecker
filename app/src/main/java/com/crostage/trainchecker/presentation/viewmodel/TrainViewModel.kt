@@ -1,18 +1,15 @@
 package com.crostage.trainchecker.presentation.viewmodel
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.crostage.trainchecker.domain.interactors.FavouriteInteractor
 import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
-import com.crostage.trainchecker.model.data.train.Train
+import com.crostage.trainchecker.data.model.train.Train
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import java.text.SimpleDateFormat
-import java.util.*
 
 class TrainViewModel(
     private val trainInteractor: ITrainInteractor,

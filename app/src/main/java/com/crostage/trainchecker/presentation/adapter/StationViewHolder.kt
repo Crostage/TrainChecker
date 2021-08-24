@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
-import com.crostage.trainchecker.model.data.station.Station
+import com.crostage.trainchecker.data.model.station.Station
 
 
 class StationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
