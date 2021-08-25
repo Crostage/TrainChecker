@@ -9,6 +9,7 @@ import com.crostage.trainchecker.data.model.train.SearchResult
 import com.crostage.trainchecker.utils.Constant.Companion.ROUTE_LAYER_ID
 import com.crostage.trainchecker.utils.Constant.Companion.SEAT_LAYER_ID
 import com.crostage.trainchecker.utils.Constant.Companion.TRAIN_LAYER_ID
+import com.google.gson.JsonElement
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -134,7 +135,7 @@ interface ApiRequests {
         @Query("rid") requestId: Long,
         @Query("json") json: String = "y",
         @Query("format") format: String = "array",
-    ): Call<RoutesResult>
+    ): Call<JsonElement>
 
     /**
      * Повторный запрос с rid для получения вагонов

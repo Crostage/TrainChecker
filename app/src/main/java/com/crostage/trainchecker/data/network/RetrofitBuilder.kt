@@ -8,6 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.lang.ref.WeakReference
 
+
 /**
  * Класс для работы с сетью
  */
@@ -35,10 +36,17 @@ object RetrofitBuilder {
             val cacheSize = 10 * 1024 * 1024 // 10 MiB
             val cacheDir = File(mContext.get()?.cacheDir, "HttpCache")
             val cache = Cache(cacheDir, cacheSize.toLong())
-            val client = OkHttpClient.Builder().cache(cache).cookieJar(UvCookieJar())
+            val client = OkHttpClient.Builder()
+                .cache(cache)
+                .addInterceptor(onlineInterceptor)
+                .addNetworkInterceptor(offlineInterceptor)
+                .cookieJar(UvCookieJar())
 
-            retrofit = Retrofit.Builder().baseUrl(BASE_URL).client(client.build())
-                .addConverterFactory(GsonConverterFactory.create()).build()
+            retrofit = Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(client.build())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
         }
         return retrofit!!
     }
@@ -66,4 +74,30 @@ private class UvCookieJar : CookieJar {
 
     override fun loadForRequest(url: HttpUrl): List<Cookie> = cookies
 
+}
+
+/**
+ * Класс перехватчик для работы кэша
+ *
+ */
+
+var onlineInterceptor: Interceptor = Interceptor { chain ->
+    val response = chain.proceed(chain.request())
+    val maxAge = 60 * 5 // read from cache for 60 seconds even if there is internet connection
+    response.newBuilder()
+        .header("Cache-Control", "public, max-age=$maxAge")
+        .removeHeader("Pragma")
+        .build()
+}
+
+
+var offlineInterceptor = Interceptor { chain ->
+    var request = chain.request()
+    val maxStale = 60 * 60 * 2
+    request = request.newBuilder()
+        .header("Cache-Control", "public, only-if-cached, max-stale=$maxStale")
+        .removeHeader("Pragma")
+        .build()
+
+    chain.proceed(request)
 }
