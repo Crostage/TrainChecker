@@ -66,7 +66,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         val fragmentList = listOf(routeFragment, seatFragment)
 
         val pageAdapter =
-            PagerAdapter(fragmentList, requireActivity().supportFragmentManager, lifecycle)
+            PagerAdapter(fragmentList, childFragmentManager, lifecycle)
         binding.fragmentPager.adapter = pageAdapter
 
         TabLayoutMediator(binding.detailTab, binding.fragmentPager) { tab, pos ->

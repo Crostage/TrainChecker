@@ -1,14 +1,20 @@
 package com.crostage.trainchecker.data.model.rout.error
 
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+
 data class RouteRequestError(
-    val GtExpress_Response: GtExpressResponse,
+    @SerializedName("GtExpress_Response")
+    @Expose
+    val response: ErrorResponse?,
 )
 
-data class GtExpressResponse(
-    val Error: Error,
+data class ErrorResponse(
+    @SerializedName("Error")
+    @Expose
+    val error: Error,
 )
 
 data class Error(
-    val Code: Int,
     val content: String,
 )

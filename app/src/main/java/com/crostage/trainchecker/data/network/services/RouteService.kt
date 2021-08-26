@@ -2,7 +2,7 @@ package com.crostage.trainchecker.data.network.services
 
 import android.util.Log
 import com.crostage.trainchecker.data.model.BaseRoutesRequest
-import com.crostage.trainchecker.data.model.rout.RouteResultVol2.RouteResultVol2
+import com.crostage.trainchecker.data.model.rout.RouteResultVol2
 import com.crostage.trainchecker.data.model.rout.RoutesResult
 import com.crostage.trainchecker.data.model.rout.TrainStop
 import com.crostage.trainchecker.data.model.rout.error.RouteRequestError
@@ -11,8 +11,6 @@ import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.domain.network.IRouteService
 import com.crostage.trainchecker.utils.Helper.Companion.executeAndExceptionChek
 import com.google.gson.Gson
-import java.lang.IllegalStateException
-import java.lang.RuntimeException
 import javax.inject.Inject
 
 
@@ -48,19 +46,18 @@ class RouteService @Inject constructor(private val retrofitApi: ApiRequests) : I
 
                 Thread.sleep(1000)
 
-                //todo поправить код ниже
 
                 val response1 =
                     retrofitApi.getResultFromRoutesRid(requestId = rid).executeAndExceptionChek()
 
-                val data = response1?.body()
 
+                //todo поправить код ниже, ужасная портянка вышла
+                val data = response1?.body()
                 val gson = Gson()
 
                 var routesResult: RoutesResult? = null
                 var routeResultVol2: RouteResultVol2? = null
                 val errorResult: RouteRequestError?
-
 
                 //проверка на первый ответ
                 try {
@@ -68,29 +65,27 @@ class RouteService @Inject constructor(private val retrofitApi: ApiRequests) : I
                 } catch (e: RuntimeException) {
                 }
 
-                if (routesResult == null) {
+                if (routesResult?.response?.routes?.routList == null) {
                     try {
                         //проверка на второй ответ
                         routeResultVol2 = gson.fromJson(data, RouteResultVol2::class.java)
-                        return routeResultVol2.GtExpress_Response.Routes[0].Stop
+                        routeResultVol2.response
+                            ?.routes?.get(0)?.routList?.let { list -> return list }
                     } catch (e: RuntimeException) {
                     }
 
-                    if (routeResultVol2 == null) {
+                    if (routeResultVol2?.response?.routes?.get(0)?.routList == null) {
                         try {
                             //проверка на третий ответ
                             errorResult = gson.fromJson(data, RouteRequestError::class.java)
-                            throw Exception(errorResult.GtExpress_Response.Error.content)
+                            throw Exception(errorResult.response?.error?.content.toString())
                         } catch (e: RuntimeException) {
-
                         }
-
                     }
 
                 } else {
-                    return routesResult.response.routes.routList
+                    routesResult.response?.routes?.routList?.let { list -> return list }
                 }
-
 
             }
         }

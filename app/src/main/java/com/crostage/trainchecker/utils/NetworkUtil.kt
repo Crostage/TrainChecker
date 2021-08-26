@@ -13,25 +13,29 @@ class NetworkUtil {
 
             var data: T? = null
 
-            Thread.sleep(2000) // сервер сразу не успевает обработать второй запрос
+            // сервер сразу не успевает обработать второй запрос
 
             val response = when {
 
-                clazz.isAssignableFrom(SearchResult::class.java) ->
+                clazz.isAssignableFrom(SearchResult::class.java) -> {
+                    Thread.sleep(2000)
                     retrofitApi.getResultFromSearchRid(
                         requestId = rid
                     ).executeAndExceptionChek()
+                }
 
-                clazz.isAssignableFrom(RoutesResult::class.java) ->
+                clazz.isAssignableFrom(RoutesResult::class.java) -> {
+                    Thread.sleep(1000)
                     retrofitApi.getResultFromRoutesRid(
                         requestId = rid
                     ).executeAndExceptionChek()
-
-                clazz.isAssignableFrom(SeatResult::class.java) ->
+                }
+                clazz.isAssignableFrom(SeatResult::class.java) -> {
+                    Thread.sleep(1000)
                     retrofitApi.getResultFromSeatRid(
                         requestId = rid
                     ).executeAndExceptionChek()
-
+                }
                 else -> throw  IllegalArgumentException("Unknown Rid class")
 
             }

@@ -1,19 +1,18 @@
 package com.crostage.trainchecker.data.model.rout
 
-import androidx.annotation.Nullable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class RoutesResult(
     @SerializedName("GtExpress_Response")
     @Expose
-    val response: Response,
+    val response: Response?,
 )
 
 data class Routes(
     @SerializedName("Stop")
     @Expose
-    val routList: List<TrainStop>,
+    val routList: List<TrainStop>?,
     @SerializedName("Title")
     @Expose
     val title: String,
@@ -22,7 +21,7 @@ data class Routes(
 data class Response(
     @SerializedName("Routes")
     @Expose
-    val routes: Routes
+    val routes: Routes?,
 )
 
 data class TrainStop(
@@ -38,7 +37,4 @@ data class TrainStop(
     @SerializedName("Station")
     @Expose
     val stationName: String,
-    @SerializedName("WaitingTime")
-    @Expose
-    val waitingTime: String,
 )
