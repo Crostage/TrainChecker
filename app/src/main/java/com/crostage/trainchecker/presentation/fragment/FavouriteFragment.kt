@@ -46,11 +46,8 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite), FavouriteClickL
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initRecyclerView()
-
         setObservers()
-
     }
 
 
@@ -67,9 +64,7 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite), FavouriteClickL
         adapter = TrainListAdapter(this)
         binding.resultRecyclerview.adapter = adapter
 
-
     }
-
 
     @Inject
     fun initViewModel(factory: TrainViewModelFactory) {
