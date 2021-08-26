@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.data.repository
+package com.crostage.trainchecker.data.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.data.repository
+package com.crostage.trainchecker.data.db
 
 import androidx.room.TypeConverter
 import com.crostage.trainchecker.data.model.train.Ticket

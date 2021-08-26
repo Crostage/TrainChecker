@@ -1,5 +1,6 @@
 package com.crostage.trainchecker.data.network.services
 
+import android.util.Log
 import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.domain.network.ISeatService
 import com.crostage.trainchecker.data.model.BaseResult
@@ -18,6 +19,9 @@ import javax.inject.Inject
  */
 
 class SeatService @Inject constructor(private val retrofitApi: ApiRequests) : ISeatService {
+    companion object {
+        private const val TAG = "SeatService"
+    }
 
     override fun getSeats(train: Train): List<Car> {
         val responseRid = retrofitApi.getSeats(
@@ -31,6 +35,10 @@ class SeatService @Inject constructor(private val retrofitApi: ApiRequests) : IS
 
         responseRid?.let {
 
+            Log.d(TAG, "SEAT")
+            Log.d(TAG, "${responseRid.raw()}")
+            Log.d(TAG, "${responseRid.body()}")
+            Log.d(TAG, responseRid.message())
             if (it.isSuccessful) {
 
                 val body = it.body() as BaseResult

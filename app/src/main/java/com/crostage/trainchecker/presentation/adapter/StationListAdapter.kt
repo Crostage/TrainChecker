@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
 import com.crostage.trainchecker.data.model.station.Station
+import com.crostage.trainchecker.presentation.activity.OnStationClick
 import com.crostage.trainchecker.utils.Constant
 
-class StationListAdapter : RecyclerView.Adapter<StationViewHolder>() {
+class StationListAdapter(private val onStationClick: OnStationClick) :
+    RecyclerView.Adapter<StationViewHolder>() {
 
 
     private var dataList = mutableListOf<Station>()
@@ -23,13 +25,10 @@ class StationListAdapter : RecyclerView.Adapter<StationViewHolder>() {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_station, parent, false)
         val viewHolder = StationViewHolder(view)
-        viewHolder.itemView.setOnClickListener {
-            val intent = Intent()
-            intent.putExtra(Constant.STATION, dataList[viewHolder.adapterPosition])
-            (parent.context as Activity).setResult(Activity.RESULT_OK,intent)
-            (parent.context as Activity).finish()
-        }
 
+        viewHolder.itemView.setOnClickListener {
+            onStationClick.onStationClick(dataList[viewHolder.adapterPosition])
+        }
 
         return viewHolder
     }

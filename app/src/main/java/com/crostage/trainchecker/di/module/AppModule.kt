@@ -4,7 +4,7 @@ import android.content.Context
 import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.data.network.RetrofitBuilder
 import com.crostage.trainchecker.data.network.RetrofitBuilder.getApi
-import com.crostage.trainchecker.data.repository.TrainDatabase
+import com.crostage.trainchecker.data.db.TrainDatabase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

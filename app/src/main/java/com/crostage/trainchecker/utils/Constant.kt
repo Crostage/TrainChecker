@@ -16,6 +16,10 @@ class Constant {
         const val ROUTE_LAYER_ID = 5804
         const val SEAT_LAYER_ID = 5764
         const val TAB_ITEM_COUNT = 2
+        const val HEADER_PRAGMA = "Pragma"
+        const val HEADER_CACHE_CONTROL = "Cache-Control"
+        const val CACHE_SIZE = 5 * 1024 * 1024
+        const val CACHE_CHILD = "HttpCache"
     }
 
 }

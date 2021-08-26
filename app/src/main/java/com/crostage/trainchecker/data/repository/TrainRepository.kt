@@ -1,6 +1,7 @@
 package com.crostage.trainchecker.data.repository
 
 import androidx.lifecycle.LiveData
+import com.crostage.trainchecker.data.db.TrainDao
 import com.crostage.trainchecker.domain.repository.ITrainRepository
 import com.crostage.trainchecker.data.model.train.Train
 import javax.inject.Inject

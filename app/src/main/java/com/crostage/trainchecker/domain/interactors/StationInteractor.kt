@@ -1,12 +1,10 @@
 package com.crostage.trainchecker.domain.interactors
 
-import com.crostage.trainchecker.data.repository.StationRepository
 import com.crostage.trainchecker.domain.interactors.interfaces.IStationInteractor
 import com.crostage.trainchecker.domain.network.IStationService
 import com.crostage.trainchecker.data.model.station.Station
 import com.crostage.trainchecker.data.model.station.StationSearchResponse
-import com.crostage.trainchecker.data.model.train.Train
-import com.crostage.trainchecker.domain.interactors.interfaces.IFavouriteInteractor
+import com.crostage.trainchecker.domain.repository.IStationRepository
 import javax.inject.Inject
 
 
@@ -18,7 +16,7 @@ import javax.inject.Inject
  */
 class StationInteractor @Inject constructor(
     private val service: IStationService,
-    private val repository: StationRepository,
+    private val repository: IStationRepository,
 ) :
     IStationInteractor {
 
@@ -33,6 +31,14 @@ class StationInteractor @Inject constructor(
             list = searchResponse.stationList
         }
         return list
+    }
+
+    override fun insertStation(station: Station) {
+        repository.insertStation(station)
+    }
+
+    override fun getLastStationsPick(): List<Station> {
+        return repository.getLastStationsPick()
     }
 
 

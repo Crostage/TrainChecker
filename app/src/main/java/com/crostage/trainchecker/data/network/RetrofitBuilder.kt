@@ -1,12 +1,20 @@
 package com.crostage.trainchecker.data.network
 
 import android.content.Context
+import android.util.Log
+import com.crostage.trainchecker.presentation.MainApp
 import com.crostage.trainchecker.utils.Constant.Companion.BASE_URL
+import com.crostage.trainchecker.utils.Constant.Companion.CACHE_CHILD
+import com.crostage.trainchecker.utils.Constant.Companion.CACHE_SIZE
+import com.crostage.trainchecker.utils.Constant.Companion.HEADER_CACHE_CONTROL
+import com.crostage.trainchecker.utils.Constant.Companion.HEADER_PRAGMA
 import okhttp3.*
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.lang.ref.WeakReference
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -16,6 +24,7 @@ import java.lang.ref.WeakReference
 
 object RetrofitBuilder {
 
+    private const val TAG = "RetrofitBuilder"
     private var retrofit: Retrofit? = null
 
     /**
@@ -31,15 +40,14 @@ object RetrofitBuilder {
 
         if (retrofit == null) {
 
-            //todo запросы кэшируются, но все равно обращаются в сеть
-
-            val cacheSize = 10 * 1024 * 1024 // 10 MiB
-            val cacheDir = File(mContext.get()?.cacheDir, "HttpCache")
+            val cacheSize = CACHE_SIZE
+            val cacheDir = File(mContext.get()?.cacheDir, CACHE_CHILD)
             val cache = Cache(cacheDir, cacheSize.toLong())
             val client = OkHttpClient.Builder()
                 .cache(cache)
-                .addInterceptor(onlineInterceptor)
-                .addNetworkInterceptor(offlineInterceptor)
+                .addInterceptor(httpLoggingInterceptor)
+                .addNetworkInterceptor(onlineInterceptor)
+                .addInterceptor(offlineInterceptor)
                 .cookieJar(UvCookieJar())
 
             retrofit = Retrofit.Builder()
@@ -54,6 +62,47 @@ object RetrofitBuilder {
 
     val Retrofit.getApi: ApiRequests
         get() = this.create(ApiRequests::class.java)
+
+
+    private var onlineInterceptor: Interceptor = Interceptor { chain ->
+        Log.d(TAG, "ONlineInterceptor called")
+        val response = chain.proceed(chain.request())
+
+        val cacheControl = CacheControl.Builder()
+            .maxStale(5, TimeUnit.MINUTES)
+            .build()
+
+        response.newBuilder()
+            .removeHeader(HEADER_PRAGMA)
+            .removeHeader(HEADER_CACHE_CONTROL)
+            .header(HEADER_CACHE_CONTROL, cacheControl.toString())
+            .build()
+    }
+
+
+    private var offlineInterceptor = Interceptor { chain ->
+        Log.d(TAG, "OFFlineInterceptor called")
+        var response = chain.request()
+
+        if (!MainApp.hasNetwork()!!) {
+
+            val cacheControl = CacheControl.Builder()
+                .maxStale(2, TimeUnit.HOURS)
+                .build()
+
+            response = response.newBuilder()
+                .removeHeader(HEADER_PRAGMA)
+                .removeHeader(HEADER_CACHE_CONTROL)
+                .header(HEADER_CACHE_CONTROL, cacheControl.toString())
+//                .cacheControl(cacheControl)
+                .build()
+        }
+        chain.proceed(response)
+
+    }
+
+    private var httpLoggingInterceptor = HttpLoggingInterceptor { Log.d(TAG, "http:log $it") }
+        .setLevel(HttpLoggingInterceptor.Level.BODY)
 
 
 }
@@ -81,23 +130,3 @@ private class UvCookieJar : CookieJar {
  *
  */
 
-var onlineInterceptor: Interceptor = Interceptor { chain ->
-    val response = chain.proceed(chain.request())
-    val maxAge = 60 * 5 // read from cache for 60 seconds even if there is internet connection
-    response.newBuilder()
-        .header("Cache-Control", "public, max-age=$maxAge")
-        .removeHeader("Pragma")
-        .build()
-}
-
-
-var offlineInterceptor = Interceptor { chain ->
-    var request = chain.request()
-    val maxStale = 60 * 60 * 2
-    request = request.newBuilder()
-        .header("Cache-Control", "public, only-if-cached, max-stale=$maxStale")
-        .removeHeader("Pragma")
-        .build()
-
-    chain.proceed(request)
-}

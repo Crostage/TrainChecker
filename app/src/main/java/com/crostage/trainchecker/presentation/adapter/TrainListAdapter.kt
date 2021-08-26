@@ -41,6 +41,7 @@ class TrainListAdapter(private val callback: FavouriteClickListener) :
                 .navigate(R.id.detailFragment, bundle)
         }
 
+            //todo корректно реализовать без колбэка
         viewHolder.favourite.setOnClickListener {
             if (!viewHolder.isFavourite) {
                 viewHolder.isFavourite = true

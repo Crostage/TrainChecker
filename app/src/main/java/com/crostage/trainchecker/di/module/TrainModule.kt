@@ -1,8 +1,8 @@
 package com.crostage.trainchecker.di.module
 
 import com.crostage.trainchecker.data.network.services.TrainService
-import com.crostage.trainchecker.data.repository.TrainDao
-import com.crostage.trainchecker.data.repository.TrainDatabase
+import com.crostage.trainchecker.data.db.TrainDao
+import com.crostage.trainchecker.data.db.TrainDatabase
 import com.crostage.trainchecker.domain.interactors.TrainInteractor
 import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
 import com.crostage.trainchecker.domain.network.ITrainService

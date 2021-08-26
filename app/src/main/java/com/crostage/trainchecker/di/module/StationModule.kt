@@ -1,11 +1,14 @@
 package com.crostage.trainchecker.di.module
 
+import com.crostage.trainchecker.data.db.StationDao
+import com.crostage.trainchecker.data.db.StationResponseDao
+import com.crostage.trainchecker.data.db.TrainDatabase
 import com.crostage.trainchecker.data.network.services.StationService
-import com.crostage.trainchecker.data.repository.StationDao
-import com.crostage.trainchecker.data.repository.TrainDatabase
+import com.crostage.trainchecker.data.repository.StationRepository
 import com.crostage.trainchecker.domain.interactors.StationInteractor
 import com.crostage.trainchecker.domain.interactors.interfaces.IStationInteractor
 import com.crostage.trainchecker.domain.network.IStationService
+import com.crostage.trainchecker.domain.repository.IStationRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -14,10 +17,14 @@ import dagger.Provides
 class StationModule {
 
     @Provides
-    fun provideStationDao(database: TrainDatabase): StationDao {
-        return database.stationDao()
+    fun provideStationResponseDao(database: TrainDatabase): StationResponseDao {
+        return database.stationResponseDao()
     }
 
+    @Provides
+    fun provideStationDao(database: TrainDatabase): StationDao {
+        return database.lastStationsDao()
+    }
 }
 
 
@@ -28,6 +35,9 @@ interface StationBindModule {
 
     @Binds
     fun bindStationServiceToIStationService(stationService: StationService): IStationService
+
+    @Binds
+    fun bindStationRepositoryToIStationRepository(stationRepo: StationRepository): IStationRepository
 
 
 }

@@ -13,7 +13,7 @@ class NetworkUtil {
 
             var data: T? = null
 
-            Thread.sleep(1000)
+            Thread.sleep(2000) // сервер сразу не успевает обработать второй запрос
 
             val response = when {
 

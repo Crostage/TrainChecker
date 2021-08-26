@@ -37,7 +37,7 @@ class RouteService @Inject constructor(private val retrofitApi: ApiRequests) : I
         ).executeAndExceptionChek()
 
         response?.let {
-
+            Log.d(TAG, "ROUTE")
             Log.d(TAG, "${response.raw()}")
             Log.d(TAG, "${response.body()}")
             Log.d(TAG, response.message())
@@ -47,6 +47,8 @@ class RouteService @Inject constructor(private val retrofitApi: ApiRequests) : I
                 val rid = body.requestId
 
                 Thread.sleep(1000)
+
+                //todo поправить код ниже
 
                 val response1 =
                     retrofitApi.getResultFromRoutesRid(requestId = rid).executeAndExceptionChek()
@@ -59,6 +61,8 @@ class RouteService @Inject constructor(private val retrofitApi: ApiRequests) : I
                 var routeResultVol2: RouteResultVol2? = null
                 val errorResult: RouteRequestError?
 
+
+                //проверка на первый ответ
                 try {
                     routesResult = gson.fromJson(data, RoutesResult::class.java)
                 } catch (e: RuntimeException) {
@@ -66,6 +70,7 @@ class RouteService @Inject constructor(private val retrofitApi: ApiRequests) : I
 
                 if (routesResult == null) {
                     try {
+                        //проверка на второй ответ
                         routeResultVol2 = gson.fromJson(data, RouteResultVol2::class.java)
                         return routeResultVol2.GtExpress_Response.Routes[0].Stop
                     } catch (e: RuntimeException) {
@@ -73,6 +78,7 @@ class RouteService @Inject constructor(private val retrofitApi: ApiRequests) : I
 
                     if (routeResultVol2 == null) {
                         try {
+                            //проверка на третий ответ
                             errorResult = gson.fromJson(data, RouteRequestError::class.java)
                             throw Exception(errorResult.GtExpress_Response.Error.content)
                         } catch (e: RuntimeException) {

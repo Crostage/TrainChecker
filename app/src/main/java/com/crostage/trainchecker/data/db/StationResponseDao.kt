@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.data.repository
+package com.crostage.trainchecker.data.db
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -11,10 +11,10 @@ import com.crostage.trainchecker.data.model.station.StationSearchResponse
  *
  */
 @Dao
-interface StationDao {
+interface StationResponseDao {
 
     /**
-     * Запись станций в БД
+     * Запись запроса станций в БД
      *
      * @param response
      */
@@ -22,7 +22,7 @@ interface StationDao {
     fun insertStationResponse(response: StationSearchResponse)
 
     /**
-     * Получение станций из БД
+     * Получение станций по запросу из БД
      *
      * @param name имя станции
      * @return сохраненный ответ от сервера [StationSearchResponse]

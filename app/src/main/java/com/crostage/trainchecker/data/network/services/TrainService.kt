@@ -1,7 +1,7 @@
 package com.crostage.trainchecker.data.network.services
 
+import android.util.Log
 import com.crostage.trainchecker.data.model.BaseResult
-import com.crostage.trainchecker.data.model.seat.SeatResult
 import com.crostage.trainchecker.data.model.train.SearchResult
 import com.crostage.trainchecker.data.model.train.Train
 import com.crostage.trainchecker.data.network.ApiRequests
@@ -20,6 +20,10 @@ import javax.inject.Inject
 
 class TrainService @Inject constructor(private val retrofitApi: ApiRequests) : ITrainService {
 
+    companion object {
+        private const val TAG = "TrainService"
+    }
+
     override fun getTrainList(codeFrom: Int, codeTo: Int, date: String): List<Train> {
 
         // запрос для получения requestId
@@ -31,6 +35,10 @@ class TrainService @Inject constructor(private val retrofitApi: ApiRequests) : I
         ).executeAndExceptionChek()
 
         responseRid?.let {
+            Log.d(TAG, "TRAIN")
+            Log.d(TAG, "${responseRid.raw()}")
+            Log.d(TAG, "${responseRid.body()}")
+            Log.d(TAG, responseRid.message())
 
             if (it.isSuccessful) {
 
