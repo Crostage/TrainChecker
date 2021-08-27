@@ -8,6 +8,7 @@ import androidx.room.TypeConverters
 import com.crostage.trainchecker.data.model.station.Station
 import com.crostage.trainchecker.data.model.train.Train
 import com.crostage.trainchecker.data.model.station.StationSearchResponse
+import com.crostage.trainchecker.utils.Constant.Companion.DB_NAME
 
 
 @Database(
@@ -23,13 +24,13 @@ abstract class TrainDatabase : RoomDatabase() {
 
     companion object {
         private var instance: TrainDatabase? = null
-        private const val DB_NAME = "stations_trains.db"
         private val LOCK = Any()
 
         fun invoke(context: Context): TrainDatabase {
             synchronized(LOCK) {
                 instance?.let { return it }  // db!=null
                 return Room.databaseBuilder(context, TrainDatabase::class.java, DB_NAME)
+                    .fallbackToDestructiveMigration()
                     .build() // db == null
             }
         }

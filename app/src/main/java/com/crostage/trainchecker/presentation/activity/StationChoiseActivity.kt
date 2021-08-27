@@ -95,13 +95,14 @@ class StationChoiseActivity : AppCompatActivity(), OnStationClick {
         viewModel.getLastPickStations()
     }
 
-    override fun onStationClick(station: Station) {
-        viewModel.insertStation(station)
-        val intent = Intent()
-        intent.putExtra(Constant.STATION, station)
-        this.setResult(Activity.RESULT_OK, intent)
-        this.finish()
-    }
+//todo
+override fun onStationClick(station: Station) {
+    viewModel.insertStation(station)
+    val intent = Intent()
+    intent.putExtra(Constant.STATION, station)
+    this.setResult(Activity.RESULT_OK, intent)
+    this.finish()
+}
 }
 
 interface OnStationClick {

@@ -1,13 +1,13 @@
 package com.crostage.trainchecker.data.model.train
 
 import androidx.room.Entity
-import androidx.room.PrimaryKey
+import com.crostage.trainchecker.utils.Constant.Companion.TABLE_NAME_TRAINS
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 
-@Entity(tableName = "trains")
+@Entity(tableName = TABLE_NAME_TRAINS, primaryKeys = ["trainNumber", "dateStart", "timeStart"])
 data class Train(
     val carrier: String, //тип поезда ФПК
     val brand: String, //название поезда
@@ -32,7 +32,6 @@ data class Train(
     @SerializedName("date0")
     @Expose
     val dateStart: String, //дата оптравления
-    @PrimaryKey
     @SerializedName("number")
     @Expose
     val trainNumber: String, //номер поезда
