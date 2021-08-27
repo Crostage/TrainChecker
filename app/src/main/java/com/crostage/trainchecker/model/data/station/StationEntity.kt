@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.data.model.station
+package com.crostage.trainchecker.model.data.station
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 @Entity(tableName = TABLE_NAME_LAST_PICK)
-data class Station(
+data class StationEntity(
     @PrimaryKey
     @SerializedName("c")
     @Expose
@@ -16,4 +16,4 @@ data class Station(
     @SerializedName("n")
     @Expose
     val stationName: String, //название стацнии
-):Serializable
+)

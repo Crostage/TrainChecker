@@ -2,7 +2,7 @@ package com.crostage.trainchecker.data.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.crostage.trainchecker.data.model.train.Train
+import com.crostage.trainchecker.model.data.train.TrainEntity
 
 /**
  * Работа с данными поездов, Room
@@ -15,11 +15,11 @@ interface TrainDao {
     /**
      * Получение списка поездов
      *
-     * @return список поездова [Train]
+     * @return список поездова [TrainEntity]
      */
 
     @Query("SELECT*FROM trains ORDER BY dateStart DESC ")
-    fun getTrainList(): LiveData<List<Train>>
+    fun getTrainList(): LiveData<List<TrainEntity>>
 
     /**
      * Запись элемента в БД
@@ -28,8 +28,7 @@ interface TrainDao {
      */
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTrain(train: Train)
-
+    fun insertTrain(train: TrainEntity)
 
     /**
      * Удаление элемента из БД
@@ -38,5 +37,5 @@ interface TrainDao {
      */
 
     @Delete
-    fun removeTrain(train: Train)
+    fun removeTrain(train: TrainEntity)
 }

@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.data.model.train
+package com.crostage.trainchecker.model.data.train
 
 import androidx.room.Entity
 import com.crostage.trainchecker.utils.Constant.Companion.TABLE_NAME_TRAINS
@@ -8,12 +8,12 @@ import java.io.Serializable
 
 
 @Entity(tableName = TABLE_NAME_TRAINS, primaryKeys = ["trainNumber", "dateStart", "timeStart"])
-data class Train(
+data class TrainEntity(
     val carrier: String, //тип поезда ФПК
     val brand: String, //название поезда
     @SerializedName("cars")
     @Expose
-    val ticketList: List<Ticket>, //массив билетов
+    val ticketList: List<TicketDto>, //массив билетов
     @SerializedName("code0")
     @Expose
     val codeStationFrom: Int, //код станции отправления
@@ -42,31 +42,5 @@ data class Train(
     @Expose
     val timeEnd: String,  //время прибытия
     val timeInWay: String, //время в пути
-) : Serializable {
-
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as Train
-
-        if (dateStart != other.dateStart) return false
-        if (trainNumber != other.trainNumber) return false
-        if (timeStart != other.timeStart) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = dateStart.hashCode()
-        result = 31 * result + trainNumber.hashCode()
-        result = 31 * result + timeStart.hashCode()
-        return result
-    }
-}
-//{
-//    @PrimaryKey(autoGenerate = false)
-//    var sid: String = trainNumber+dateStart+timeStart
-//}
+) 
 

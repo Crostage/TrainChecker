@@ -1,10 +1,11 @@
 package com.crostage.trainchecker.domain.interactors
 
+import com.crostage.trainchecker.data.converter.IConverter
 import com.crostage.trainchecker.domain.interactors.interfaces.IRouteInteractor
 import com.crostage.trainchecker.domain.network.IRouteService
-import com.crostage.trainchecker.data.model.rout.TrainStop
-import com.crostage.trainchecker.data.model.train.Train
-import com.crostage.trainchecker.domain.interactors.interfaces.IFavouriteInteractor
+import com.crostage.trainchecker.model.data.rout.TrainStop
+import com.crostage.trainchecker.model.data.train.TrainEntity
+import com.crostage.trainchecker.model.domain.Train
 import javax.inject.Inject
 
 /**
@@ -12,8 +13,12 @@ import javax.inject.Inject
  *
  * @property IRouteService сервис для получения маршрутов [TrainStop] из сети
  */
-class RouteInteractor @Inject constructor(private val service: IRouteService) : IRouteInteractor {
+class RouteInteractor @Inject constructor(
+    private val service: IRouteService,
+    private val converter: IConverter<TrainEntity, Train>,
+) : IRouteInteractor {
 
-    override fun getRouteList(train: Train): List<TrainStop> = service.getRouteList(train)
+    override fun getRouteList(train: Train): List<TrainStop> =
+        service.getRouteList(converter.revers(train))
 
 }

@@ -1,10 +1,12 @@
 package com.crostage.trainchecker.domain.interactors
 
+import com.crostage.trainchecker.data.converter.IConverter
 import com.crostage.trainchecker.domain.interactors.interfaces.IStationInteractor
 import com.crostage.trainchecker.domain.network.IStationService
-import com.crostage.trainchecker.data.model.station.Station
-import com.crostage.trainchecker.data.model.station.StationSearchResponse
 import com.crostage.trainchecker.domain.repository.IStationRepository
+import com.crostage.trainchecker.model.data.station.StationEntity
+import com.crostage.trainchecker.model.data.station.StationSearchResponse
+import com.crostage.trainchecker.model.domain.Station
 import javax.inject.Inject
 
 
@@ -17,6 +19,7 @@ import javax.inject.Inject
 class StationInteractor @Inject constructor(
     private val service: IStationService,
     private val repository: IStationRepository,
+    private val converter: IConverter<StationEntity, Station>,
 ) :
     IStationInteractor {
 
@@ -30,19 +33,19 @@ class StationInteractor @Inject constructor(
             repository.insertStationResponse(searchResponse)
             list = searchResponse.stationList
         }
-        return list
+        return list.map { converter.convert(it) }
     }
 
     override fun insertStation(station: Station) {
-        repository.insertStation(station)
+        repository.insertStation(converter.revers(station))
     }
 
     override fun getLastStationsPick(): List<Station> {
-        return repository.getLastStationsPick()
+
+        return repository.getLastStationsPick().map { converter.convert(it) }
     }
 
 
-    private fun getStationsFromNetwork(name: String): List<Station> =
+    private fun getStationsFromNetwork(name: String): List<StationEntity> =
         service.getStationList(name)
-
 }

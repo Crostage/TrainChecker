@@ -1,7 +1,7 @@
 package com.crostage.trainchecker.data.db
 
 import androidx.room.TypeConverter
-import com.crostage.trainchecker.data.model.train.Ticket
+import com.crostage.trainchecker.model.data.train.TicketDto
 import com.google.gson.Gson
 import java.util.*
 
@@ -14,8 +14,8 @@ import java.util.*
 class TicketListConverter {
 
     @TypeConverter
-    fun listToJson(value: List<Ticket>?) = Gson().toJson(value)
+    fun listToJson(value: List<TicketDto>?) = Gson().toJson(value)
 
     @TypeConverter
-    fun jsonToList(value: String) = Gson().fromJson(value, Array<Ticket>::class.java).toList()
+    fun jsonToList(value: String) = Gson().fromJson(value, Array<TicketDto>::class.java).toList()
 }

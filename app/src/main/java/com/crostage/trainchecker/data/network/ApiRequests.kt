@@ -1,11 +1,11 @@
 package com.crostage.trainchecker.data.network
 
-import com.crostage.trainchecker.data.model.BaseResult
-import com.crostage.trainchecker.data.model.BaseRoutesRequest
-import com.crostage.trainchecker.data.model.rout.RoutesResult
-import com.crostage.trainchecker.data.model.seat.SeatResult
-import com.crostage.trainchecker.data.model.station.Station
-import com.crostage.trainchecker.data.model.train.SearchResult
+import com.crostage.trainchecker.model.data.BaseResult
+import com.crostage.trainchecker.model.data.BaseRoutesRequest
+import com.crostage.trainchecker.model.data.rout.RoutesResult
+import com.crostage.trainchecker.model.data.seat.SeatResult
+import com.crostage.trainchecker.model.data.station.StationEntity
+import com.crostage.trainchecker.model.data.train.SearchResult
 import com.crostage.trainchecker.utils.Constant.Companion.ROUTE_LAYER_ID
 import com.crostage.trainchecker.utils.Constant.Companion.SEAT_LAYER_ID
 import com.crostage.trainchecker.utils.Constant.Companion.TRAIN_LAYER_ID
@@ -28,13 +28,13 @@ interface ApiRequests {
      *
      * @param lang язык ввода\вывода
      * @param stationName часть имени станции
-     * @return список станций [Station]
+     * @return список станций [StationEntity]
      */
     @GET("suggester?")
     fun getStation(
         @Query("lang") lang: String = "ru",
         @Query("stationNamePart") stationName: String,
-    ): Call<List<Station>>
+    ): Call<List<StationEntity>>
 
 
     /**

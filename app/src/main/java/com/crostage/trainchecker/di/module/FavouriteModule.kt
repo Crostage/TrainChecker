@@ -13,11 +13,11 @@ class FavouriteModule
 
 @Module
 interface FavouriteBindModule {
+
     @Binds
     fun bindRouteFavouriteToIFavouriteInteractor(favouriteInteractor: FavouriteInteractor): IFavouriteInteractor
 
     @Binds
     fun bindFavouriteServiceToIFavouriteService(trainRepository: TrainRepository): ITrainRepository
-
 
 }

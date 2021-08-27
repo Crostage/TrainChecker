@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
-import com.crostage.trainchecker.data.model.rout.TrainStop
+import com.crostage.trainchecker.model.data.rout.TrainStop
 
 class RouteListAdapter: RecyclerView.Adapter<RouteViewHolder>() {
 

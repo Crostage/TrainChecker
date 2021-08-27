@@ -1,12 +1,12 @@
 package com.crostage.trainchecker.data.network.services
 
 import android.util.Log
-import com.crostage.trainchecker.data.model.BaseRoutesRequest
-import com.crostage.trainchecker.data.model.rout.RouteResultVol2
-import com.crostage.trainchecker.data.model.rout.RoutesResult
-import com.crostage.trainchecker.data.model.rout.TrainStop
-import com.crostage.trainchecker.data.model.rout.error.RouteRequestError
-import com.crostage.trainchecker.data.model.train.Train
+import com.crostage.trainchecker.model.data.BaseRoutesRequest
+import com.crostage.trainchecker.model.data.rout.RouteResultVol2
+import com.crostage.trainchecker.model.data.rout.RoutesResult
+import com.crostage.trainchecker.model.data.rout.TrainStop
+import com.crostage.trainchecker.model.data.rout.error.RouteRequestError
+import com.crostage.trainchecker.model.data.train.TrainEntity
 import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.domain.network.IRouteService
 import com.crostage.trainchecker.utils.Helper.Companion.executeAndExceptionChek
@@ -27,7 +27,7 @@ class RouteService @Inject constructor(private val retrofitApi: ApiRequests) : I
         private const val TAG = "RouteService"
     }
 
-    override fun getRouteList(train: Train): List<TrainStop> {
+    override fun getRouteList(train: TrainEntity): List<TrainStop> {
 
         val response = retrofitApi.getRouters(
             date = train.dateStart,

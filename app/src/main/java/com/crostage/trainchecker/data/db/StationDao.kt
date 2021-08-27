@@ -4,8 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.crostage.trainchecker.data.model.station.Station
-import com.crostage.trainchecker.data.model.station.StationSearchResponse
+import com.crostage.trainchecker.model.data.station.StationEntity
 
 
 /**
@@ -21,15 +20,15 @@ interface StationDao {
      * @param station
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertStation(station: Station)
+    fun insertStation(station: StationEntity)
 
     /**
      * Получение станций из БД
      *
-     * @return список последних выбранных станций [Station]
+     * @return список последних выбранных станций [StationEntity]
      */
     @Query("SELECT * FROM last_pick_stations")
-    fun getLastStationPicks(): List<Station>
+    fun getLastStationPicks(): List<StationEntity>
 
 
 }

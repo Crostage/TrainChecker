@@ -1,7 +1,8 @@
 package com.crostage.trainchecker.utils
 
 import android.annotation.SuppressLint
-import com.crostage.trainchecker.data.model.train.Train
+import com.crostage.trainchecker.model.data.train.TrainEntity
+import com.crostage.trainchecker.model.domain.Train
 import retrofit2.Call
 import retrofit2.Response
 import java.text.SimpleDateFormat

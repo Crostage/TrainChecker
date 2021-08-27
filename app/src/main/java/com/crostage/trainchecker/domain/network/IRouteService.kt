@@ -1,7 +1,7 @@
 package com.crostage.trainchecker.domain.network
 
-import com.crostage.trainchecker.data.model.rout.TrainStop
-import com.crostage.trainchecker.data.model.train.Train
+import com.crostage.trainchecker.model.data.rout.TrainStop
+import com.crostage.trainchecker.model.data.train.TrainEntity
 
 /**
  * Сервис для получения данных о маршрутах из сети
@@ -17,6 +17,6 @@ interface IRouteService {
      * @return список остановок [TrainStop]
      */
 
-    fun getRouteList(train: Train): List<TrainStop>
+    fun getRouteList(train: TrainEntity): List<TrainStop>
 
 }

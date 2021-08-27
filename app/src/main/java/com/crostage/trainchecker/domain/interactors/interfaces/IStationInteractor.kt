@@ -1,6 +1,6 @@
 package com.crostage.trainchecker.domain.interactors.interfaces
 
-import com.crostage.trainchecker.data.model.station.Station
+import com.crostage.trainchecker.model.domain.Station
 
 interface IStationInteractor {
 

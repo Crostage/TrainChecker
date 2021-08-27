@@ -2,8 +2,8 @@ package com.crostage.trainchecker.data.converter
 
 interface IConverter<T, R> {
 
-    fun convert(t: T): R
+    fun convert(input: T): R
 
-    fun revers(r: R): T
+    fun revers(input: R): T
 
 }

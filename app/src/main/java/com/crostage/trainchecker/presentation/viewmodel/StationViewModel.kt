@@ -3,8 +3,8 @@ package com.crostage.trainchecker.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.crostage.trainchecker.data.model.station.Station
 import com.crostage.trainchecker.domain.interactors.interfaces.IStationInteractor
+import com.crostage.trainchecker.model.domain.Station
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable

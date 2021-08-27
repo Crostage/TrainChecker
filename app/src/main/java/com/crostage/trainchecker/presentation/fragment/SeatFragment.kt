@@ -14,7 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
 import com.crostage.trainchecker.databinding.FragmentSeatBinding
-import com.crostage.trainchecker.data.model.train.Train
+import com.crostage.trainchecker.model.data.train.TrainEntity
+import com.crostage.trainchecker.model.domain.Train
 import com.crostage.trainchecker.presentation.adapter.SeatListAdapter
 import com.crostage.trainchecker.presentation.appComponent
 import com.crostage.trainchecker.presentation.viewmodel.SeatViewModel

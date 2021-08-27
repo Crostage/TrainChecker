@@ -10,8 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.crostage.trainchecker.data.model.station.Station
+import com.crostage.trainchecker.model.data.station.StationEntity
 import com.crostage.trainchecker.databinding.ActivityStationChoiseBinding
+import com.crostage.trainchecker.model.domain.Station
 import com.crostage.trainchecker.presentation.adapter.StationListAdapter
 import com.crostage.trainchecker.presentation.appComponent
 import com.crostage.trainchecker.presentation.viewmodel.StationViewModel

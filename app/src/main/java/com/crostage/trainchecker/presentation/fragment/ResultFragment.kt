@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
 import com.crostage.trainchecker.databinding.FragmentResultBinding
-import com.crostage.trainchecker.data.model.train.Train
+import com.crostage.trainchecker.model.domain.Train
 import com.crostage.trainchecker.presentation.adapter.TrainListAdapter
 import com.crostage.trainchecker.presentation.appComponent
 import com.crostage.trainchecker.presentation.viewmodel.TrainViewModel
@@ -119,6 +119,7 @@ class ResultFragment : Fragment(R.layout.fragment_result), FavouriteClickListene
                 removeList.forEach { train -> removeTrainToFavourite(train) }
 
                 adapter.setFavouriteData(actualList)
+
             }
         }
     }

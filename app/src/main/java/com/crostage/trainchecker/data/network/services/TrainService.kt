@@ -1,9 +1,9 @@
 package com.crostage.trainchecker.data.network.services
 
 import android.util.Log
-import com.crostage.trainchecker.data.model.BaseResult
-import com.crostage.trainchecker.data.model.train.SearchResult
-import com.crostage.trainchecker.data.model.train.Train
+import com.crostage.trainchecker.model.data.BaseResult
+import com.crostage.trainchecker.model.data.train.SearchResult
+import com.crostage.trainchecker.model.data.train.TrainEntity
 import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.domain.network.ITrainService
 import com.crostage.trainchecker.utils.Constant
@@ -24,7 +24,7 @@ class TrainService @Inject constructor(private val retrofitApi: ApiRequests) : I
         private const val TAG = "TrainService"
     }
 
-    override fun getTrainList(codeFrom: Int, codeTo: Int, date: String): List<Train> {
+    override fun getTrainList(codeFrom: Int, codeTo: Int, date: String): List<TrainEntity> {
 
         // запрос для получения requestId
         val responseRid = retrofitApi.getTrains(

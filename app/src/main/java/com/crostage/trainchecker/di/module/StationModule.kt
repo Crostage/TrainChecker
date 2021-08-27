@@ -1,5 +1,7 @@
 package com.crostage.trainchecker.di.module
 
+import com.crostage.trainchecker.data.converter.IConverter
+import com.crostage.trainchecker.data.converter.StationConverter
 import com.crostage.trainchecker.data.db.StationDao
 import com.crostage.trainchecker.data.db.StationResponseDao
 import com.crostage.trainchecker.data.db.TrainDatabase
@@ -9,6 +11,8 @@ import com.crostage.trainchecker.domain.interactors.StationInteractor
 import com.crostage.trainchecker.domain.interactors.interfaces.IStationInteractor
 import com.crostage.trainchecker.domain.network.IStationService
 import com.crostage.trainchecker.domain.repository.IStationRepository
+import com.crostage.trainchecker.model.data.station.StationEntity
+import com.crostage.trainchecker.model.domain.Station
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -38,6 +42,9 @@ interface StationBindModule {
 
     @Binds
     fun bindStationRepositoryToIStationRepository(stationRepo: StationRepository): IStationRepository
+
+    @Binds
+    fun bindStationConverterToIConverter(stationConverter: StationConverter): IConverter<StationEntity, Station>
 
 
 }

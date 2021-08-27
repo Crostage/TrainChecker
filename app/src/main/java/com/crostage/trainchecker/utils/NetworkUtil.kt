@@ -1,8 +1,8 @@
 package com.crostage.trainchecker.utils
 
-import com.crostage.trainchecker.data.model.rout.RoutesResult
-import com.crostage.trainchecker.data.model.seat.SeatResult
-import com.crostage.trainchecker.data.model.train.SearchResult
+import com.crostage.trainchecker.model.data.rout.RoutesResult
+import com.crostage.trainchecker.model.data.seat.SeatResult
+import com.crostage.trainchecker.model.data.train.SearchResult
 import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.utils.Helper.Companion.executeAndExceptionChek
 

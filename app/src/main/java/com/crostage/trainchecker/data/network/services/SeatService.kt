@@ -3,11 +3,10 @@ package com.crostage.trainchecker.data.network.services
 import android.util.Log
 import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.domain.network.ISeatService
-import com.crostage.trainchecker.data.model.BaseResult
-import com.crostage.trainchecker.data.model.rout.RoutesResult
-import com.crostage.trainchecker.data.model.seat.Car
-import com.crostage.trainchecker.data.model.seat.SeatResult
-import com.crostage.trainchecker.data.model.train.Train
+import com.crostage.trainchecker.model.data.BaseResult
+import com.crostage.trainchecker.model.data.seat.Car
+import com.crostage.trainchecker.model.data.seat.SeatResult
+import com.crostage.trainchecker.model.data.train.TrainEntity
 import com.crostage.trainchecker.utils.Helper.Companion.executeAndExceptionChek
 import com.crostage.trainchecker.utils.NetworkUtil
 import javax.inject.Inject
@@ -23,7 +22,7 @@ class SeatService @Inject constructor(private val retrofitApi: ApiRequests) : IS
         private const val TAG = "SeatService"
     }
 
-    override fun getSeats(train: Train): List<Car> {
+    override fun getSeats(train: TrainEntity): List<Car> {
         val responseRid = retrofitApi.getSeats(
             codeFrom = train.codeStationFrom,
             codeTo = train.codeStationTo,

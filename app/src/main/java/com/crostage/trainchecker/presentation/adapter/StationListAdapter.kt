@@ -1,14 +1,11 @@
 package com.crostage.trainchecker.presentation.adapter
 
-import android.app.Activity
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
-import com.crostage.trainchecker.data.model.station.Station
+import com.crostage.trainchecker.model.domain.Station
 import com.crostage.trainchecker.presentation.activity.OnStationClick
-import com.crostage.trainchecker.utils.Constant
 
 class StationListAdapter(private val onStationClick: OnStationClick) :
     RecyclerView.Adapter<StationViewHolder>() {

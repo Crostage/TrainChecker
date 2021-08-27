@@ -1,7 +1,8 @@
 package com.crostage.trainchecker.domain.interactors.interfaces
 
-import com.crostage.trainchecker.data.model.rout.TrainStop
-import com.crostage.trainchecker.data.model.train.Train
+import com.crostage.trainchecker.model.data.rout.TrainStop
+import com.crostage.trainchecker.model.data.train.TrainEntity
+import com.crostage.trainchecker.model.domain.Train
 
 interface IRouteInteractor {
 

@@ -2,8 +2,8 @@ package com.crostage.trainchecker.data.repository
 
 import com.crostage.trainchecker.data.db.StationDao
 import com.crostage.trainchecker.data.db.StationResponseDao
-import com.crostage.trainchecker.data.model.station.Station
-import com.crostage.trainchecker.data.model.station.StationSearchResponse
+import com.crostage.trainchecker.model.data.station.StationEntity
+import com.crostage.trainchecker.model.data.station.StationSearchResponse
 import com.crostage.trainchecker.domain.repository.IStationRepository
 import javax.inject.Inject
 
@@ -21,11 +21,11 @@ class StationRepository @Inject constructor(
         return stationResponseDao.getListFromName(name)
     }
 
-    override fun insertStation(station: Station) {
+    override fun insertStation(station: StationEntity) {
         stationDao.insertStation(station)
     }
 
-    override fun getLastStationsPick(): List<Station> {
+    override fun getLastStationsPick(): List<StationEntity> {
         return stationDao.getLastStationPicks()
     }
 
