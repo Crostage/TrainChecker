@@ -16,14 +16,7 @@ interface IFavouriteInteractor {
      *
      * @return наблюдаемый список [Train]
      */
-    fun getTrainList(): LiveData<List<Train>>
-
-    /**
-     * Сохарнение поезда в избранное
-     *
-     * @param train
-     */
-    fun insertTrain(train: Train)
+    fun getFavouriteTrainList(): LiveData<List<Train>>
 
 
     /**

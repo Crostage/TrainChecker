@@ -3,9 +3,7 @@ package com.crostage.trainchecker.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.crostage.trainchecker.domain.interactors.FavouriteInteractor
 import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
-import com.crostage.trainchecker.model.data.train.TrainEntity
 import com.crostage.trainchecker.model.domain.Train
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
@@ -14,7 +12,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 class TrainViewModel(
     private val trainInteractor: ITrainInteractor,
-    private val favouriteInteractor: FavouriteInteractor,
 ) : ViewModel() {
 
     private var _trains = MutableLiveData<List<Train>>()
@@ -49,7 +46,7 @@ class TrainViewModel(
     fun removeFromFavourite(train: Train) {
         compositeDisposable.add(
             Single.fromCallable {
-                favouriteInteractor.removeTrain(train)
+                trainInteractor.removeTrain(train)
             }
                 .subscribeOn(Schedulers.io())
                 .subscribe(
@@ -59,10 +56,17 @@ class TrainViewModel(
         )
     }
 
+
+    fun checkFavouritesContainsTrains(favourites: List<Train>) {
+        val list =
+            _trains.value?.let { trainInteractor.checkFavouritesContainsTrains(it, favourites) }
+        list?.let(_trains::setValue)
+    }
+
     fun insertToFavourite(train: Train) {
         compositeDisposable.add(
             Single.fromCallable {
-                favouriteInteractor.insertTrain(train)
+                trainInteractor.insertTrain(train)
             }
                 .subscribeOn(Schedulers.io())
                 .subscribe(
@@ -73,8 +77,9 @@ class TrainViewModel(
     }
 
     fun getFavouriteTrainList(): LiveData<List<Train>> {
-        return favouriteInteractor.getTrainList()
+        return trainInteractor.getFavouriteLiveData()
     }
+
 
     override fun onCleared() {
         super.onCleared()

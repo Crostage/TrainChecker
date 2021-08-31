@@ -6,8 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.crostage.trainchecker.model.data.station.StationEntity
-import com.crostage.trainchecker.model.data.train.TrainEntity
 import com.crostage.trainchecker.model.data.station.StationSearchResponse
+import com.crostage.trainchecker.model.data.train.TrainEntity
 import com.crostage.trainchecker.utils.Constant.Companion.DB_NAME
 
 
@@ -24,18 +24,11 @@ abstract class TrainDatabase : RoomDatabase() {
     abstract fun lastStationsDao(): StationDao
 
     companion object {
-        private var instance: TrainDatabase? = null
-        private val LOCK = Any()
-
         fun invoke(context: Context): TrainDatabase {
-            synchronized(LOCK) {
-                instance?.let { return it }  // db!=null
-                return Room.databaseBuilder(context, TrainDatabase::class.java, DB_NAME)
-                    .fallbackToDestructiveMigration()
-                    .build() // db == null
-            }
+            return Room.databaseBuilder(context, TrainDatabase::class.java, DB_NAME)
+                .fallbackToDestructiveMigration()
+                .build()
         }
     }
-
-
 }
+

@@ -1,24 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".presentation.fragment.SeatFragment">
+    android:padding="@dimen/layout_padding"
+    tools:context=".presentation.activity.StationChoiceActivity">
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/stationName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/write_station_name"
+            android:importantForAutofill="no"
+            android:inputType="textAutoComplete" />
+
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/seatRecyclerview"
+            android:id="@+id/stationRecyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/item_seat" />
-
+            tools:listitem="@layout/item_station" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/progress"
@@ -31,4 +46,5 @@
             app:lottie_rawRes="@raw/custom_progress" />
 
     </FrameLayout>
+
 </LinearLayout>

@@ -10,8 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.crostage.trainchecker.model.data.station.StationEntity
-import com.crostage.trainchecker.databinding.ActivityStationChoiseBinding
+import com.crostage.trainchecker.databinding.ActivityStationChoiceBinding
 import com.crostage.trainchecker.model.domain.Station
 import com.crostage.trainchecker.presentation.adapter.StationListAdapter
 import com.crostage.trainchecker.presentation.appComponent
@@ -25,15 +24,15 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
-class StationChoiseActivity : AppCompatActivity(), OnStationClick {
+class StationChoiceActivity : AppCompatActivity(), OnStationClick {
 
     private lateinit var viewModel: StationViewModel
     private lateinit var adapter: StationListAdapter
-    private lateinit var binding: ActivityStationChoiseBinding
+    private lateinit var binding: ActivityStationChoiceBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityStationChoiseBinding.inflate(layoutInflater)
+        binding = ActivityStationChoiceBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
         appComponent.getStationComponent().inject(this)

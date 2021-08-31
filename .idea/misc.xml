@@ -3,9 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/background_text_view.xml" value="0.2" />
+        <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.2786458333333333" />
+        <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/ic_favorite.xml" value="0.2786458333333333" />
+        <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/ic_favorite_true.xml" value="0.1" />
+        <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/ic_favourite_false.xml" value="0.2786458333333333" />
+        <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/ic_home.xml" value="0.2786458333333333" />
+        <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/activity_station_choise.xml" value="0.1276595744680851" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/fragment_detail.xml" value="0.1276595744680851" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/fragment_favourite.xml" value="0.1" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/fragment_result.xml" value="0.13768115942028986" />
+        <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/fragment_search.xml" value="0.2" />
+        <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/fragment_seat.xml" value="0.1276595744680851" />
+        <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/item_route.xml" value="0.1276595744680851" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/item_seat.xml" value="0.264" />
       </map>
     </option>

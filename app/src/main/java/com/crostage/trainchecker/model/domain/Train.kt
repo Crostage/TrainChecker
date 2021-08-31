@@ -17,6 +17,7 @@ data class Train(
     val timeStart: String,  //время отправления
     val timeEnd: String,  //время прибытия
     val timeInWay: String, //время в пути
+    var isFavourite: Boolean,
 ) : Serializable {
 
 

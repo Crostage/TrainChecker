@@ -6,15 +6,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
 import com.crostage.trainchecker.databinding.ItemTrainBinding
 import com.crostage.trainchecker.model.domain.Train
+import com.crostage.trainchecker.presentation.fragment.FavouriteClickListener
 
 class TrainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    var isFavourite = false
-
     private val binding = ItemTrainBinding.bind(itemView)
-    val favourite = binding.favourite
 
-    fun bind(train: Train, list: List<Train>) {
+    fun bind(train: Train, callback: FavouriteClickListener) {
 
         binding.dayMode.text = train.brand
         binding.trainNumber.text = train.trainNumber
@@ -25,22 +23,37 @@ class TrainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         binding.startDate.text = train.dateStart
         binding.endDate.text = train.dateEnd
 
+        changeFavourite(train.isFavourite)
 
-        isFavourite = if (list.contains(train)) {
+        binding.favourite.setOnClickListener {
+            if (!train.isFavourite) {
+                callback.addTrainToFavourite(train)
+                changeFavourite(true)
+                train.isFavourite = true
+            } else {
+                callback.removeTrainToFavourite(train)
+                changeFavourite(false)
+                train.isFavourite = false
+            }
+        }
+
+    }
+
+    //todo пропадает при вращении
+
+    private fun changeFavourite(isFavourite: Boolean) {
+        if (isFavourite) {
             binding.favourite.setImageDrawable(ContextCompat.getDrawable(
                 itemView.context,
                 R.drawable.ic_favorite_true
             ))
-            true
         } else {
             binding.favourite.setImageDrawable(ContextCompat.getDrawable(
                 itemView.context,
                 R.drawable.ic_favorite
             ))
-            false
         }
-//
     }
 
-
 }
+

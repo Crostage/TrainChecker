@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.fragment.FavouriteFragment">
 
 
@@ -19,13 +20,17 @@
         android:visibility="gone"
         android:textSize="@dimen/m_text_size"
         android:layout_gravity="center"
-        android:text="@string/nothing_found"/>
+        android:text="@string/nothing_found" />
 
-    <ProgressBar
+
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/progress"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:visibility="visible"
+        app:lottie_rawRes="@raw/train_anim"
+        android:layout_width="@dimen/progress_size"
+        android:layout_height="@dimen/progress_size"
+        android:layout_gravity="center"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true" />
 
 </FrameLayout>

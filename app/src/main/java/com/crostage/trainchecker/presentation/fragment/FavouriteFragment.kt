@@ -14,9 +14,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
-import com.crostage.trainchecker.data.converter.TrainConverter
 import com.crostage.trainchecker.databinding.FragmentFavouriteBinding
-import com.crostage.trainchecker.model.data.train.TrainEntity
 import com.crostage.trainchecker.model.domain.Train
 import com.crostage.trainchecker.presentation.adapter.TrainListAdapter
 import com.crostage.trainchecker.presentation.appComponent
@@ -83,12 +81,15 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite), FavouriteClickL
 
             if (it != null) {
 
-                val actualList = Helper.checkFavouriteOnActualDate(it)
+                val actualList =
+                    Helper.checkFavouriteOnActualDate(it).map { t ->
+                        t.isFavourite = true
+                        t
+                    }
                 val removeList = it.toMutableList()
                 removeList.removeAll(actualList)
                 removeList.forEach { train -> removeTrainToFavourite(train) }
 
-                adapter.setFavouriteData(actualList)
                 adapter.setData(actualList)
 
                 binding.listIsEmpty.isVisible = actualList.isEmpty()

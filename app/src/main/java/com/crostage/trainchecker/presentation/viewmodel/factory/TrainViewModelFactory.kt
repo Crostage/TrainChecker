@@ -9,13 +9,11 @@ import javax.inject.Inject
 
 class TrainViewModelFactory @Inject constructor(
     private val trainInteractor: ITrainInteractor,
-    private val favouriteInteractor: FavouriteInteractor,
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(TrainViewModel::class.java) -> TrainViewModel(
                 trainInteractor,
-                favouriteInteractor
             ) as T
             else -> throw  IllegalArgumentException("Unknown View Model class")
         }

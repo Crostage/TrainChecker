@@ -20,7 +20,6 @@ import com.crostage.trainchecker.presentation.appComponent
 import com.crostage.trainchecker.presentation.viewmodel.TrainViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.TrainViewModelFactory
 import com.crostage.trainchecker.utils.Constant
-import com.crostage.trainchecker.utils.Helper
 import java.util.*
 import javax.inject.Inject
 
@@ -28,7 +27,6 @@ class ResultFragment : Fragment(R.layout.fragment_result), FavouriteClickListene
 
     private lateinit var viewModel: TrainViewModel
     private lateinit var adapter: TrainListAdapter
-
     private lateinit var binding: FragmentResultBinding
 
     override fun onCreateView(
@@ -72,6 +70,27 @@ class ResultFragment : Fragment(R.layout.fragment_result), FavouriteClickListene
 
     }
 
+
+    @Inject
+    fun createViewModel(factory: TrainViewModelFactory) {
+        viewModel = ViewModelProvider(this, factory).get(TrainViewModel::class.java)
+    }
+
+
+    override fun addTrainToFavourite(train: Train) {
+        viewModel.insertToFavourite(train)
+        Toast.makeText(context,
+            "Поезд ${train.trainNumber} добавлен в отслеживаемые",
+            Toast.LENGTH_SHORT).show()
+    }
+
+    override fun removeTrainToFavourite(train: Train) {
+        viewModel.removeFromFavourite(train)
+        Toast.makeText(context,
+            "Поезд ${train.trainNumber} удален из отслеживаемых",
+            Toast.LENGTH_SHORT).show()
+    }
+
     private fun initRecyclerView() {
 
         binding.resultRecyclerview.layoutManager =
@@ -85,11 +104,6 @@ class ResultFragment : Fragment(R.layout.fragment_result), FavouriteClickListene
         )
         adapter = TrainListAdapter(this)
         binding.resultRecyclerview.adapter = adapter
-    }
-
-    @Inject
-    fun createViewModel(factory: TrainViewModelFactory) {
-        viewModel = ViewModelProvider(this, factory).get(TrainViewModel::class.java)
     }
 
     private fun setObservers() {
@@ -110,32 +124,10 @@ class ResultFragment : Fragment(R.layout.fragment_result), FavouriteClickListene
             binding.progress.isVisible = showProgress
         }
 
-        viewModel.getFavouriteTrainList().observe(viewLifecycleOwner) {
-            if (it != null) {
+        viewModel.getFavouriteTrainList().observe(viewLifecycleOwner, {
+            viewModel.checkFavouritesContainsTrains(it)
+        })
 
-                val actualList = Helper.checkFavouriteOnActualDate(it)
-                val removeList = it.toMutableList()
-                removeList.removeAll(actualList)
-                removeList.forEach { train -> removeTrainToFavourite(train) }
-
-                adapter.setFavouriteData(actualList)
-
-            }
-        }
-    }
-
-    override fun addTrainToFavourite(train: Train) {
-        viewModel.insertToFavourite(train)
-        Toast.makeText(context,
-            "Поезд ${train.trainNumber} добавлен в отслеживаемые",
-            Toast.LENGTH_SHORT).show()
-    }
-
-    override fun removeTrainToFavourite(train: Train) {
-        viewModel.removeFromFavourite(train)
-        Toast.makeText(context,
-            "Поезд ${train.trainNumber} удален из отслеживаемых",
-            Toast.LENGTH_SHORT).show()
     }
 
 }

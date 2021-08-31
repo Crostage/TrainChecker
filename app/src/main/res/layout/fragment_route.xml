@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".presentation.fragment.RouteFragment">
 
     <LinearLayout
@@ -46,12 +47,16 @@
             android:layout_height="match_parent"
             tools:listitem="@layout/item_route" />
 
-        <ProgressBar
+        <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/progress_size"
+            android:layout_height="@dimen/progress_size"
             android:layout_gravity="center"
-            android:visibility="visible" />
+            android:visibility="visible"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/custom_progress" />
+
 
     </FrameLayout>
 </LinearLayout>

@@ -18,7 +18,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module(includes = [RouteModule::class, StationModule::class,
-    TrainModule::class, SeatModule::class, FavouriteModule::class, AppBindModule::class])
+    TrainModule::class, SeatModule::class, FavouriteModule::class])
 class AppModule {
 
     @Provides
@@ -31,14 +31,14 @@ class AppModule {
 
 
 }
-
-@Module
-interface AppBindModule {
-    @Binds
-    fun bindTrainConverterToIConverter(trainConverter: TrainConverter): IConverter<TrainEntity, Train>
-
-    @Binds
-    fun bindTicketConverterToIConverter(ticketConverter: TicketConverter): IConverter<List<TicketDto>, List<Ticket>>
-
-}
+//todo разобраться
+//@Module
+//interface AppBindModule {
+//    @Binds
+//    fun bindTrainConverterToIConverter(trainConverter: TrainConverter): IConverter<TrainEntity, Train>
+//
+//    @Binds
+//    fun bindTicketConverterToIConverter(ticketConverter: TicketConverter): IConverter<List<TicketDto>, List<Ticket>>
+//
+//}
 

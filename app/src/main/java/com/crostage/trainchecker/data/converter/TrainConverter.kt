@@ -20,7 +20,8 @@ class TrainConverter @Inject constructor() : IConverter<TrainEntity, Train> {
             input.trainNumber,
             input.timeStart,
             input.timeEnd,
-            input.timeInWay
+            input.timeInWay,
+            false
         )
     }
 

@@ -1,11 +1,13 @@
 package com.crostage.trainchecker.data.network.services
 
 import android.util.Log
+import com.crostage.trainchecker.data.network.ApiRequests
+import com.crostage.trainchecker.data.converter.IConverter
+import com.crostage.trainchecker.domain.network.ITrainService
 import com.crostage.trainchecker.model.data.BaseResult
 import com.crostage.trainchecker.model.data.train.SearchResult
 import com.crostage.trainchecker.model.data.train.TrainEntity
-import com.crostage.trainchecker.data.network.ApiRequests
-import com.crostage.trainchecker.domain.network.ITrainService
+import com.crostage.trainchecker.model.domain.Train
 import com.crostage.trainchecker.utils.Constant
 import com.crostage.trainchecker.utils.Helper.Companion.executeAndExceptionChek
 import com.crostage.trainchecker.utils.NetworkUtil.Companion.getResponseFromId
@@ -18,13 +20,16 @@ import javax.inject.Inject
  * @property retrofitApi класс для работы с сетью
  */
 
-class TrainService @Inject constructor(private val retrofitApi: ApiRequests) : ITrainService {
+class TrainService @Inject constructor(
+    private val retrofitApi: ApiRequests,
+    private val converter: IConverter<TrainEntity, Train>,
+) : ITrainService {
 
     companion object {
         private const val TAG = "TrainService"
     }
 
-    override fun getTrainList(codeFrom: Int, codeTo: Int, date: String): List<TrainEntity> {
+    override fun getTrainList(codeFrom: Int, codeTo: Int, date: String): List<Train> {
 
         // запрос для получения requestId
         val responseRid = retrofitApi.getTrains(
@@ -47,7 +52,7 @@ class TrainService @Inject constructor(private val retrofitApi: ApiRequests) : I
                 val data = getResponseFromId(rid, retrofitApi, SearchResult::class.java)
 
                 val l = data?.tp?.get(0)?.list
-                l?.let { return l }
+                l?.let { return l.map { entity -> converter.convert(entity) } }
 
             }
         }

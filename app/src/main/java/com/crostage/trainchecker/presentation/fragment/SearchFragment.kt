@@ -17,9 +17,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.crostage.trainchecker.R
 import com.crostage.trainchecker.databinding.FragmentSearchBinding
-import com.crostage.trainchecker.model.data.station.StationEntity
 import com.crostage.trainchecker.model.domain.Station
-import com.crostage.trainchecker.presentation.activity.StationChoiseActivity
+import com.crostage.trainchecker.presentation.activity.StationChoiceActivity
 import com.crostage.trainchecker.presentation.viewmodel.SearchViewModel
 import com.crostage.trainchecker.utils.Constant
 import java.util.*
@@ -146,7 +145,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     companion object {
         fun newIntent(context: Context): Intent {
-            return Intent(context, StationChoiseActivity::class.java)
+            return Intent(context, StationChoiceActivity::class.java)
         }
     }
 

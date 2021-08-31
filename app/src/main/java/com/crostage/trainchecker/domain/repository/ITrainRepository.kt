@@ -2,6 +2,7 @@ package com.crostage.trainchecker.domain.repository
 
 import androidx.lifecycle.LiveData
 import com.crostage.trainchecker.model.data.train.TrainEntity
+import com.crostage.trainchecker.model.domain.Train
 
 
 /**
@@ -16,19 +17,22 @@ interface ITrainRepository {
      *
      * @return список [TrainEntity]
      */
-    fun getTrainList(): LiveData<List<TrainEntity>>
+    fun getFavouriteLiveData(): LiveData<List<Train>>
+
+
+    fun getFavouriteList(): List<Train>
 
     /**
      * Сохранение поезда
      *
      * @param train
      */
-    fun insertTrain(train: TrainEntity)
+    fun insertTrain(train: Train)
 
     /**
      * Удаление поезда
      *
      * @param train
      */
-    fun removeTrain(train: TrainEntity)
+    fun removeTrain(train: Train)
 }
