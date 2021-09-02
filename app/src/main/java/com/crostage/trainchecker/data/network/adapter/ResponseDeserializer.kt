@@ -33,7 +33,7 @@ class ResponseDeserializer : JsonDeserializer<Response> {
 
                 val route: Array<Routes>? =
                     context?.deserialize(
-                        routesElement.asJsonObject,
+                        routesElement.asJsonArray,
                         Array<Routes>::class.java
                     )
 
