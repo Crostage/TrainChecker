@@ -34,6 +34,8 @@ class Helper {
                     404 -> throw Error404()
 
                 }
+            } catch (e: ServerSendError) {
+                throw e
             } catch (e: Exception) {
                 throw ErrorConnections()
             }

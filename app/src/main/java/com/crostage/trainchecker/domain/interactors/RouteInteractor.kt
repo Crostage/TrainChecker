@@ -18,7 +18,12 @@ class RouteInteractor @Inject constructor(
     private val converter: IConverter<TrainEntity, Train>,
 ) : IRouteInteractor {
 
-    override fun getRouteList(train: Train): List<TrainStop> =
-        service.getRouteList(converter.revers(train))
+    override fun getRouteListRid(train: Train): Long? {
+        return service.getRouteListRequestId(converter.revers(train))
+    }
+
+    override fun getRoutesList(rid: Long): List<TrainStop> {
+        return service.getResultFormRoutesId(rid)
+    }
 
 }

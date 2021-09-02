@@ -5,6 +5,8 @@ import com.crostage.trainchecker.model.domain.Train
 
 interface ISeatInteractor {
 
-    fun getSeats(train: Train): List<Car>
+    fun getSeatsRid(train: Train): Long?
+
+    fun getSeats(rid: Long): List<Car>
 
 }

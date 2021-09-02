@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel
 import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
 import com.crostage.trainchecker.model.domain.Train
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 class TrainViewModel(
     private val trainInteractor: ITrainInteractor,
@@ -28,27 +30,52 @@ class TrainViewModel(
     fun trainsFromSearchRequest(codeFrom: Int, codeTo: Int, date: String) {
 
         compositeDisposable.add(
-            Single.fromCallable {
 
-                trainInteractor.getTrainList(codeFrom, codeTo, date)
-            }
+            Single
+                .fromCallable {
+                    trainInteractor.getTrainListRid(codeFrom, codeTo, date)
+                }
+                .delay(3, TimeUnit.SECONDS)
+                .flatMap { rid ->
+                    Single.fromCallable {
+                        rid?.let { trainInteractor.getTrainList(it) }
+                    }
+                }
+
+                //todo костыль опять
+                .flatMap { list ->
+                    Single.fromCallable {
+                        val m = trainInteractor.getFavouriteList()
+                        list.map {
+                            it.isFavourite = m.contains(it)
+                            it
+                        }
+                    }
+
+                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doFinally { _progress.value = false }
+                .doFinally {
+                    _progress.value = false
+                }
                 .doOnSubscribe { _progress.value = true }
                 .subscribe(
                     _trains::setValue,
                     _error::setValue
                 )
+
         )
+
+
     }
 
     fun removeFromFavourite(train: Train) {
         compositeDisposable.add(
-            Single.fromCallable {
+            Completable.fromCallable {
                 trainInteractor.removeTrain(train)
             }
                 .subscribeOn(Schedulers.io())
+                .onErrorReturn { }
                 .subscribe(
                     { },
                     _error::setValue
@@ -65,7 +92,7 @@ class TrainViewModel(
 
     fun insertToFavourite(train: Train) {
         compositeDisposable.add(
-            Single.fromCallable {
+            Completable.fromCallable {
                 trainInteractor.insertTrain(train)
             }
                 .subscribeOn(Schedulers.io())
@@ -76,9 +103,8 @@ class TrainViewModel(
         )
     }
 
-    fun getFavouriteTrainList(): LiveData<List<Train>> {
-        return trainInteractor.getFavouriteLiveData()
-    }
+    fun getFavouriteTrainList() =
+        trainInteractor.getFavouriteLiveData()
 
 
     override fun onCleared() {

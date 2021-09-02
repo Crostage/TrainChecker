@@ -31,7 +31,7 @@ class AppModule {
 
 
 }
-//todo разобраться
+//todo разобраться куда лучше вставить
 //@Module
 //interface AppBindModule {
 //    @Binds

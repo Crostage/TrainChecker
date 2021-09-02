@@ -1,8 +1,9 @@
 package com.crostage.trainchecker.data.network.services
 
 import android.util.Log
-import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.data.converter.IConverter
+import com.crostage.trainchecker.data.network.ApiRequests
+import com.crostage.trainchecker.data.network.NetworkUtil.Companion.getResponseFromId
 import com.crostage.trainchecker.domain.network.ITrainService
 import com.crostage.trainchecker.model.data.BaseResult
 import com.crostage.trainchecker.model.data.train.SearchResult
@@ -10,7 +11,6 @@ import com.crostage.trainchecker.model.data.train.TrainEntity
 import com.crostage.trainchecker.model.domain.Train
 import com.crostage.trainchecker.utils.Constant
 import com.crostage.trainchecker.utils.Helper.Companion.executeAndExceptionChek
-import com.crostage.trainchecker.utils.NetworkUtil.Companion.getResponseFromId
 import javax.inject.Inject
 
 /**
@@ -29,8 +29,9 @@ class TrainService @Inject constructor(
         private const val TAG = "TrainService"
     }
 
-    override fun getTrainList(codeFrom: Int, codeTo: Int, date: String): List<Train> {
+    override fun getTrainListRid(codeFrom: Int, codeTo: Int, date: String): Long? {
 
+        var rid: Long? = null
         // запрос для получения requestId
         val responseRid = retrofitApi.getTrains(
             layerId = Constant.TRAIN_LAYER_ID,
@@ -48,15 +49,21 @@ class TrainService @Inject constructor(
             if (it.isSuccessful) {
 
                 val body = it.body() as BaseResult
-                val rid = body.requestId
-                val data = getResponseFromId(rid, retrofitApi, SearchResult::class.java)
+                rid = body.requestId
 
-                val l = data?.tp?.get(0)?.list
-                l?.let { return l.map { entity -> converter.convert(entity) } }
 
             }
         }
-        return mutableListOf()
+        return rid
+    }
+
+    override fun getTrainList(rid: Long): List<Train> {
+        var trainList: List<Train> = mutableListOf()
+        val data = getResponseFromId(rid, retrofitApi, SearchResult::class.java)
+
+        val l = data?.tp?.get(0)?.list
+        l?.let { trainList = l.map { entity -> converter.convert(entity) } }
+        return trainList
     }
 
 

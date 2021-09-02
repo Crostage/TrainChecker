@@ -15,11 +15,15 @@ import javax.inject.Inject
  */
 class SeatInteractor @Inject constructor(
     private val service: ISeatService,
-    private val converter: IConverter<TrainEntity, Train>,
 ) : ISeatInteractor {
 
-    override fun getSeats(train: Train): List<Car> {
-        return service.getSeats(converter.revers(train))
+
+    override fun getSeatsRid(train: Train): Long? {
+        return service.getSeatsRid(train)
+    }
+
+    override fun getSeats(rid: Long): List<Car> {
+        return service.getSeatsList(rid)
     }
 
 }

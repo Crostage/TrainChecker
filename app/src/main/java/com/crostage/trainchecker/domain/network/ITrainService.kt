@@ -18,6 +18,8 @@ interface ITrainService {
      * @return список поездов [Train]
      */
 
-    fun getTrainList(codeFrom: Int, codeTo: Int, date: String): List<Train>
+    fun getTrainListRid(codeFrom: Int, codeTo: Int, date: String): Long?
+
+    fun getTrainList(rid: Long): List<Train>
 
 }

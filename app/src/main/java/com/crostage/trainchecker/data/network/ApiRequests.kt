@@ -136,7 +136,7 @@ interface ApiRequests {
         @Query("rid") requestId: Long,
         @Query("json") json: String = "y",
         @Query("format") format: String = "array",
-    ): Call<JsonElement>
+    ): Call<RoutesResult>
 
     /**
      * Повторный запрос с rid для получения вагонов

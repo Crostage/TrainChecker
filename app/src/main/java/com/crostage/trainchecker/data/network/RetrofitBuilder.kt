@@ -2,12 +2,16 @@ package com.crostage.trainchecker.data.network
 
 import android.content.Context
 import android.util.Log
+import com.crostage.trainchecker.data.network.adapter.ResponseDeserializer
+import com.crostage.trainchecker.model.data.rout.Response
 import com.crostage.trainchecker.presentation.MainApp
 import com.crostage.trainchecker.utils.Constant.Companion.BASE_URL
 import com.crostage.trainchecker.utils.Constant.Companion.CACHE_CHILD
 import com.crostage.trainchecker.utils.Constant.Companion.CACHE_SIZE
 import com.crostage.trainchecker.utils.Constant.Companion.HEADER_CACHE_CONTROL
 import com.crostage.trainchecker.utils.Constant.Companion.HEADER_PRAGMA
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -53,11 +57,16 @@ object RetrofitBuilder {
             retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(client.build())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory
+                    .create(createResponseTypeAdapter()))
                 .build()
         }
         return retrofit!!
     }
+
+    fun createResponseTypeAdapter(): Gson =
+        GsonBuilder().registerTypeAdapter(Response::class.java, ResponseDeserializer())
+            .create()
 
 
     val Retrofit.getApi: ApiRequests

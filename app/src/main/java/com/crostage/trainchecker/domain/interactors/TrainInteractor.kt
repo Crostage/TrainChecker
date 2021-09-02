@@ -17,9 +17,6 @@ class TrainInteractor @Inject constructor(
     private val trainRepository: ITrainRepository,
 ) : ITrainInteractor {
 
-    override fun getTrainList(codeFrom: Int, codeTo: Int, date: String): List<Train> {
-        return service.getTrainList(codeFrom, codeTo, date)
-    }
 
     override fun checkFavouritesContainsTrains(
         trains: List<Train>,
@@ -29,6 +26,14 @@ class TrainInteractor @Inject constructor(
             it.isFavourite = favourite.contains(it)
             it
         }
+    }
+
+    override fun getTrainListRid(codeFrom: Int, codeTo: Int, date: String): Long? {
+        return service.getTrainListRid(codeFrom, codeTo, date)
+    }
+
+    override fun getTrainList(rid: Long): List<Train> {
+        return service.getTrainList(rid)
     }
 
     override fun getFavouriteLiveData(): LiveData<List<Train>> {

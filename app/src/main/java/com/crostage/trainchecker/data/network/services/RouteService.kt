@@ -1,16 +1,15 @@
 package com.crostage.trainchecker.data.network.services
 
 import android.util.Log
+import com.crostage.trainchecker.data.network.ApiRequests
+import com.crostage.trainchecker.data.network.NetworkUtil
+import com.crostage.trainchecker.domain.network.IRouteService
 import com.crostage.trainchecker.model.data.BaseRoutesRequest
-import com.crostage.trainchecker.model.data.rout.RouteResultVol2
 import com.crostage.trainchecker.model.data.rout.RoutesResult
 import com.crostage.trainchecker.model.data.rout.TrainStop
-import com.crostage.trainchecker.model.data.rout.error.RouteRequestError
+import com.crostage.trainchecker.model.data.seat.SeatResult
 import com.crostage.trainchecker.model.data.train.TrainEntity
-import com.crostage.trainchecker.data.network.ApiRequests
-import com.crostage.trainchecker.domain.network.IRouteService
 import com.crostage.trainchecker.utils.Helper.Companion.executeAndExceptionChek
-import com.google.gson.Gson
 import javax.inject.Inject
 
 
@@ -27,8 +26,9 @@ class RouteService @Inject constructor(private val retrofitApi: ApiRequests) : I
         private const val TAG = "RouteService"
     }
 
-    override fun getRouteList(train: TrainEntity): List<TrainStop> {
+    override fun getRouteListRequestId(train: TrainEntity): Long? {
 
+        var rid: Long? = null
         val response = retrofitApi.getRouters(
             date = train.dateStart,
             number = train.trainNumber
@@ -42,55 +42,24 @@ class RouteService @Inject constructor(private val retrofitApi: ApiRequests) : I
 
             if (it.isSuccessful) {
                 val body = it.body() as BaseRoutesRequest
-                val rid = body.requestId
-
-                Thread.sleep(1000)
-
-
-                val response1 =
-                    retrofitApi.getResultFromRoutesRid(requestId = rid).executeAndExceptionChek()
-
-
-                //todo поправить код ниже, ужасная портянка вышла
-                val data = response1?.body()
-                val gson = Gson()
-
-                var routesResult: RoutesResult? = null
-                var routeResultVol2: RouteResultVol2? = null
-                val errorResult: RouteRequestError?
-
-                //проверка на первый ответ
-                try {
-                    routesResult = gson.fromJson(data, RoutesResult::class.java)
-                } catch (e: RuntimeException) {
-                }
-
-                if (routesResult?.response?.routes?.routList == null) {
-                    try {
-                        //проверка на второй ответ
-                        routeResultVol2 = gson.fromJson(data, RouteResultVol2::class.java)
-                        routeResultVol2.response
-                            ?.routes?.get(0)?.routList?.let { list -> return list }
-                    } catch (e: RuntimeException) {
-                    }
-
-                    if (routeResultVol2?.response?.routes?.get(0)?.routList == null) {
-                        try {
-                            //проверка на третий ответ
-                            errorResult = gson.fromJson(data, RouteRequestError::class.java)
-                            throw Exception(errorResult.response?.error?.content.toString())
-                        } catch (e: RuntimeException) {
-                        }
-                    }
-
-                } else {
-                    routesResult.response?.routes?.routList?.let { list -> return list }
-                }
-
+                rid = body.requestId
             }
-        }
 
-        return mutableListOf()
+        }
+        return rid
     }
+
+    override fun getResultFormRoutesId(rid: Long): List<TrainStop> {
+        var stopsList: List<TrainStop> = mutableListOf()
+        val data = NetworkUtil.getResponseFromId(rid, retrofitApi, RoutesResult::class.java)
+
+        val l = data?.response?.routes
+
+
+
+        l?.let { stopsList = l }
+        return stopsList
+    }
+
 
 }

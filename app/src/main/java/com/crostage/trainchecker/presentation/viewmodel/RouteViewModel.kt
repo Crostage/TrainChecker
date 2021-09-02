@@ -5,15 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.crostage.trainchecker.domain.interactors.interfaces.IRouteInteractor
 import com.crostage.trainchecker.model.data.rout.TrainStop
-import com.crostage.trainchecker.model.data.train.TrainEntity
 import com.crostage.trainchecker.model.domain.Train
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 class RouteViewModel(
-    private val interactor: IRouteInteractor
+    private val interactor: IRouteInteractor,
 ) : ViewModel() {
 
     private var _routes = MutableLiveData<List<TrainStop>>()
@@ -31,17 +31,25 @@ class RouteViewModel(
     fun getRoutes(train: Train) {
 
         compositeDisposable.add(
-                Single.fromCallable {
-                    interactor.getRouteList(train).toMutableList().apply { removeAt(0) }
+            Single.fromCallable {
+                interactor.getRouteListRid(train)
+            }
+                .delay(1, TimeUnit.SECONDS) //сервер сразу не отвечает на rid запрос
+                .flatMap {
+                    Single.fromCallable {
+                        it?.let { it1 ->
+                            interactor.getRoutesList(it1)
+                        }
+                    }
                 }
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doFinally { _progress.value = false }
-                        .doOnSubscribe { _progress.value = true }
-                        .subscribe(
-                                _routes::setValue,
-                                _error::setValue
-                        )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally { _progress.value = false }
+                .doOnSubscribe { _progress.value = true }
+                .subscribe(
+                    _routes::setValue,
+                    _error::setValue
+                )
         )
     }
 

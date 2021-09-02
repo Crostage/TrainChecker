@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.data.db
+package com.crostage.trainchecker.data.db.converter
 
 import androidx.room.TypeConverter
 import com.crostage.trainchecker.model.data.station.StationEntity

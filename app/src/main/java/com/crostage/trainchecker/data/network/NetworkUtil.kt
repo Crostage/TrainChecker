@@ -1,9 +1,8 @@
-package com.crostage.trainchecker.utils
+package com.crostage.trainchecker.data.network
 
 import com.crostage.trainchecker.model.data.rout.RoutesResult
 import com.crostage.trainchecker.model.data.seat.SeatResult
 import com.crostage.trainchecker.model.data.train.SearchResult
-import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.utils.Helper.Companion.executeAndExceptionChek
 
 class NetworkUtil {
@@ -18,20 +17,17 @@ class NetworkUtil {
             val response = when {
 
                 clazz.isAssignableFrom(SearchResult::class.java) -> {
-                    Thread.sleep(2000)
                     retrofitApi.getResultFromSearchRid(
                         requestId = rid
                     ).executeAndExceptionChek()
                 }
 
                 clazz.isAssignableFrom(RoutesResult::class.java) -> {
-                    Thread.sleep(1000)
                     retrofitApi.getResultFromRoutesRid(
                         requestId = rid
                     ).executeAndExceptionChek()
                 }
                 clazz.isAssignableFrom(SeatResult::class.java) -> {
-                    Thread.sleep(1000)
                     retrofitApi.getResultFromSeatRid(
                         requestId = rid
                     ).executeAndExceptionChek()

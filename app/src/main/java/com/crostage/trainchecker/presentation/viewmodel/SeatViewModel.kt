@@ -10,6 +10,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 class SeatViewModel(
     private val interactor: ISeatInteractor,
@@ -30,8 +31,14 @@ class SeatViewModel(
 
         compositeDisposable.add(
             Single.fromCallable {
-                interactor.getSeats(train)
+                interactor.getSeatsRid(train)
             }
+                .delay(1, TimeUnit.SECONDS)
+                .flatMap { rid ->
+                    Single.fromCallable {
+                        rid?.let { interactor.getSeats(it) }
+                    }
+                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally { _progress.value = false }
