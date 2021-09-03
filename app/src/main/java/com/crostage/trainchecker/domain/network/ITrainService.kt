@@ -1,6 +1,6 @@
 package com.crostage.trainchecker.domain.network
 
-import com.crostage.trainchecker.model.domain.Train
+import com.crostage.trainchecker.domain.model.Train
 
 /**
  * Сервис для получения поездов по поисковому запросу

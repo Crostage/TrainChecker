@@ -1,11 +1,9 @@
 package com.crostage.trainchecker.domain.interactors
 
-import com.crostage.trainchecker.data.converter.IConverter
 import com.crostage.trainchecker.domain.interactors.interfaces.ISeatInteractor
 import com.crostage.trainchecker.domain.network.ISeatService
-import com.crostage.trainchecker.model.data.seat.Car
-import com.crostage.trainchecker.model.data.train.TrainEntity
-import com.crostage.trainchecker.model.domain.Train
+import com.crostage.trainchecker.domain.model.Car
+import com.crostage.trainchecker.domain.model.Train
 import javax.inject.Inject
 
 /**

@@ -4,17 +4,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
-import com.crostage.trainchecker.model.domain.Station
+import com.crostage.trainchecker.domain.model.Station
 import com.crostage.trainchecker.presentation.activity.OnStationClick
 
 class StationListAdapter(private val onStationClick: OnStationClick) :
     RecyclerView.Adapter<StationViewHolder>() {
 
 
-    private var dataList = mutableListOf<Station>()
+    private var dataList = listOf<Station>()
 
     fun setData(list: List<Station>) {
-        dataList = list as MutableList<Station>
+        dataList = list
         notifyDataSetChanged()
     }
 

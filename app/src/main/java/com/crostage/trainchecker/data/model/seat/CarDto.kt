@@ -1,9 +1,10 @@
-package com.crostage.trainchecker.model.data.seat
+package com.crostage.trainchecker.data.model.seat
 
+import com.crostage.trainchecker.domain.model.Seat
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class Car(
+data class CarDto(
     @SerializedName("cnumber")
     @Expose
     val carNumber: String, //номер вагона

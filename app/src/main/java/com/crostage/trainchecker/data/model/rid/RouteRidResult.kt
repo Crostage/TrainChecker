@@ -1,11 +1,11 @@
-package com.crostage.trainchecker.model.data
+package com.crostage.trainchecker.data.model.rid
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class BaseRoutesRequest(
+data class RouteRidResult(
     val type: String,
     @SerializedName("rid")
     @Expose
-    val requestId: Long
+    val requestId: Long,
 )

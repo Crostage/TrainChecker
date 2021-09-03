@@ -4,13 +4,13 @@ import android.util.Log
 import com.crostage.trainchecker.data.converter.IConverter
 import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.data.network.NetworkUtil
+import com.crostage.trainchecker.data.network.NetworkUtil.Companion.executeAndExceptionChek
 import com.crostage.trainchecker.domain.network.ISeatService
-import com.crostage.trainchecker.model.data.BaseResult
-import com.crostage.trainchecker.model.data.seat.Car
-import com.crostage.trainchecker.model.data.seat.SeatResult
-import com.crostage.trainchecker.model.data.train.TrainEntity
-import com.crostage.trainchecker.model.domain.Train
-import com.crostage.trainchecker.utils.Helper.Companion.executeAndExceptionChek
+import com.crostage.trainchecker.data.model.rid.BaseRidResult
+import com.crostage.trainchecker.data.model.seat.CarDto
+import com.crostage.trainchecker.data.model.seat.SeatResult
+import com.crostage.trainchecker.domain.model.Car
+import com.crostage.trainchecker.domain.model.Train
 import javax.inject.Inject
 
 /**
@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 class SeatService @Inject constructor(
     private val retrofitApi: ApiRequests,
-    private val converter: IConverter<TrainEntity, Train>,
+    private val converter: IConverter<List<CarDto>, List<Car>>,
 ) : ISeatService {
     companion object {
         private const val TAG = "SeatService"
@@ -46,7 +46,7 @@ class SeatService @Inject constructor(
             Log.d(TAG, responseRid.message())
 
             if (it.isSuccessful) {
-                val body = it.body() as BaseResult
+                val body = it.body() as BaseRidResult
                 rid = body.requestId
             }
         }
@@ -55,11 +55,12 @@ class SeatService @Inject constructor(
 
 
     override fun getSeatsList(rid: Long): List<Car> {
-        var carList: List<Car> = mutableListOf()
+        var carList: List<Car> = listOf()
         val data = NetworkUtil.getResponseFromId(rid, retrofitApi, SeatResult::class.java)
 
-        val l = data?.lst?.get(0)?.cars
-        l?.let { carList = l }
+        val carDtoList = data?.response?.get(0)?.cars
+        carDtoList?.let { carList = converter.convert(carDtoList) }
+
         return carList
     }
 

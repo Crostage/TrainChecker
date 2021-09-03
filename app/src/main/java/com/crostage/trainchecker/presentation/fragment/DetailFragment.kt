@@ -9,8 +9,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.crostage.trainchecker.R
 import com.crostage.trainchecker.databinding.FragmentDetailBinding
-import com.crostage.trainchecker.model.data.train.TrainEntity
-import com.crostage.trainchecker.model.domain.Train
+import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.presentation.adapter.PagerAdapter
 import com.crostage.trainchecker.utils.Constant
 import com.google.android.material.tabs.TabLayoutMediator

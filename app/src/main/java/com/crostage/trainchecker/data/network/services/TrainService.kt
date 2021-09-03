@@ -3,14 +3,14 @@ package com.crostage.trainchecker.data.network.services
 import android.util.Log
 import com.crostage.trainchecker.data.converter.IConverter
 import com.crostage.trainchecker.data.network.ApiRequests
+import com.crostage.trainchecker.data.network.NetworkUtil.Companion.executeAndExceptionChek
 import com.crostage.trainchecker.data.network.NetworkUtil.Companion.getResponseFromId
 import com.crostage.trainchecker.domain.network.ITrainService
-import com.crostage.trainchecker.model.data.BaseResult
-import com.crostage.trainchecker.model.data.train.SearchResult
-import com.crostage.trainchecker.model.data.train.TrainEntity
-import com.crostage.trainchecker.model.domain.Train
+import com.crostage.trainchecker.data.model.rid.BaseRidResult
+import com.crostage.trainchecker.data.model.train.SearchResult
+import com.crostage.trainchecker.data.model.train.TrainEntity
+import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.utils.Constant
-import com.crostage.trainchecker.utils.Helper.Companion.executeAndExceptionChek
 import javax.inject.Inject
 
 /**
@@ -32,7 +32,7 @@ class TrainService @Inject constructor(
     override fun getTrainListRid(codeFrom: Int, codeTo: Int, date: String): Long? {
 
         var rid: Long? = null
-        // запрос для получения requestId
+
         val responseRid = retrofitApi.getTrains(
             layerId = Constant.TRAIN_LAYER_ID,
             codeFrom = codeFrom,
@@ -47,11 +47,8 @@ class TrainService @Inject constructor(
             Log.d(TAG, responseRid.message())
 
             if (it.isSuccessful) {
-
-                val body = it.body() as BaseResult
+                val body = it.body() as BaseRidResult
                 rid = body.requestId
-
-
             }
         }
         return rid
@@ -61,7 +58,7 @@ class TrainService @Inject constructor(
         var trainList: List<Train> = mutableListOf()
         val data = getResponseFromId(rid, retrofitApi, SearchResult::class.java)
 
-        val l = data?.tp?.get(0)?.list
+        val l = data?.result?.get(0)?.list
         l?.let { trainList = l.map { entity -> converter.convert(entity) } }
         return trainList
     }

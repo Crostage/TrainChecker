@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.model.domain
+package com.crostage.trainchecker.domain.model
 
 import java.io.Serializable
 

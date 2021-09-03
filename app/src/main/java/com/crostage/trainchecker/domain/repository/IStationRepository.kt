@@ -1,7 +1,6 @@
 package com.crostage.trainchecker.domain.repository
 
-import com.crostage.trainchecker.model.data.station.StationEntity
-import com.crostage.trainchecker.model.data.station.StationSearchResponse
+import com.crostage.trainchecker.domain.model.Station
 
 /**
  * Репозиторий станций
@@ -16,7 +15,7 @@ interface IStationRepository {
      *
      * @param response ответ от сервера
      */
-    fun insertStationResponse(response: StationSearchResponse)
+    fun insertStationResponse(name: String, stationList: List<Station>)
 
 
     /**
@@ -24,7 +23,7 @@ interface IStationRepository {
      *
      * @param name поисковый запрос, имя станции
      */
-    fun getListFromName(name: String): StationSearchResponse?
+    fun getListFromName(name: String): List<Station>?
 
     /**
      * Сохранить станции
@@ -32,13 +31,13 @@ interface IStationRepository {
      * @param station
      */
 
-    fun insertStation(station: StationEntity)
+    fun insertStation(station: Station)
 
     /**
      * Получить список последних выбраных станций
      *
      * @return
      */
-    fun getLastStationsPick(): List<StationEntity>
+    fun getLastStationsPick(): List<Station>
 
 }

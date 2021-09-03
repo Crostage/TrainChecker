@@ -5,8 +5,8 @@ import androidx.lifecycle.Transformations
 import com.crostage.trainchecker.data.db.TrainDao
 import com.crostage.trainchecker.data.converter.IConverter
 import com.crostage.trainchecker.domain.repository.ITrainRepository
-import com.crostage.trainchecker.model.data.train.TrainEntity
-import com.crostage.trainchecker.model.domain.Train
+import com.crostage.trainchecker.data.model.train.TrainEntity
+import com.crostage.trainchecker.domain.model.Train
 import javax.inject.Inject
 
 class TrainRepository @Inject constructor(

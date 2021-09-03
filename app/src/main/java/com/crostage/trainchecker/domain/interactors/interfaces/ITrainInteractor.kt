@@ -1,7 +1,7 @@
 package com.crostage.trainchecker.domain.interactors.interfaces
 
 import androidx.lifecycle.LiveData
-import com.crostage.trainchecker.model.domain.Train
+import com.crostage.trainchecker.domain.model.Train
 
 interface ITrainInteractor {
 

@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.crostage.trainchecker.domain.interactors.interfaces.IRouteInteractor
-import com.crostage.trainchecker.model.data.rout.TrainStop
-import com.crostage.trainchecker.model.domain.Train
+import com.crostage.trainchecker.domain.model.Train
+import com.crostage.trainchecker.domain.model.TrainStop
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -37,8 +37,8 @@ class RouteViewModel(
                 .delay(1, TimeUnit.SECONDS) //сервер сразу не отвечает на rid запрос
                 .flatMap {
                     Single.fromCallable {
-                        it?.let { it1 ->
-                            interactor.getRoutesList(it1)
+                        it?.let { rid ->
+                            interactor.getRoutesList(rid)
                         }
                     }
                 }

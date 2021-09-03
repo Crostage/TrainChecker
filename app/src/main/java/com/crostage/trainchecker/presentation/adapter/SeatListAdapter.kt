@@ -4,14 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
-import com.crostage.trainchecker.model.data.seat.Car
+import com.crostage.trainchecker.domain.model.Car
 
 class SeatListAdapter : RecyclerView.Adapter<SeatViewHolder>() {
 
-    private var dataList = mutableListOf<Car>()
+    private var dataList = listOf<Car>()
 
     fun setData(list: List<Car>) {
-        dataList = list as MutableList<Car>
+        dataList = list
         notifyDataSetChanged()
     }
 

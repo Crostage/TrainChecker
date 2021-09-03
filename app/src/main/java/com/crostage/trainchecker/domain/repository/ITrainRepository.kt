@@ -1,8 +1,8 @@
 package com.crostage.trainchecker.domain.repository
 
 import androidx.lifecycle.LiveData
-import com.crostage.trainchecker.model.data.train.TrainEntity
-import com.crostage.trainchecker.model.domain.Train
+import com.crostage.trainchecker.data.model.train.TrainEntity
+import com.crostage.trainchecker.domain.model.Train
 
 
 /**

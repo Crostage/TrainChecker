@@ -7,9 +7,9 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.crostage.trainchecker.data.db.converter.StationListConverter
 import com.crostage.trainchecker.data.db.converter.TicketListConverter
-import com.crostage.trainchecker.model.data.station.StationEntity
-import com.crostage.trainchecker.model.data.station.StationSearchResponse
-import com.crostage.trainchecker.model.data.train.TrainEntity
+import com.crostage.trainchecker.data.model.station.StationEntity
+import com.crostage.trainchecker.data.model.station.StationSearchResponse
+import com.crostage.trainchecker.data.model.train.TrainEntity
 import com.crostage.trainchecker.utils.Constant.Companion.DB_NAME
 
 

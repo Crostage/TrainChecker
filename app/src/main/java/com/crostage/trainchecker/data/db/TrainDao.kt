@@ -2,7 +2,7 @@ package com.crostage.trainchecker.data.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.crostage.trainchecker.model.data.train.TrainEntity
+import com.crostage.trainchecker.data.model.train.TrainEntity
 
 /**
  * Работа с данными поездов, Room

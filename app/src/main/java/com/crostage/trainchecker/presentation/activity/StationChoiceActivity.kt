@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.databinding.ActivityStationChoiceBinding
-import com.crostage.trainchecker.model.domain.Station
+import com.crostage.trainchecker.domain.model.Station
 import com.crostage.trainchecker.presentation.adapter.StationListAdapter
 import com.crostage.trainchecker.presentation.appComponent
 import com.crostage.trainchecker.presentation.viewmodel.StationViewModel
@@ -83,9 +83,8 @@ class StationChoiceActivity : AppCompatActivity(), OnStationClick {
         })
 
         viewModel.stations.observe(this, {
-            if (it.isNotEmpty()) {
-                adapter.setData(it)
-            }
+            binding.nothingFound.isVisible = it.isEmpty()
+            adapter.setData(it)
         })
 
         viewModel.progress.observe(this) { showProgress ->
@@ -95,14 +94,14 @@ class StationChoiceActivity : AppCompatActivity(), OnStationClick {
         viewModel.getLastPickStations()
     }
 
-//todo
-override fun onStationClick(station: Station) {
-    viewModel.insertStation(station)
-    val intent = Intent()
-    intent.putExtra(Constant.STATION, station)
-    this.setResult(Activity.RESULT_OK, intent)
-    this.finish()
-}
+    //todo
+    override fun onStationClick(station: Station) {
+        viewModel.insertStation(station)
+        val intent = Intent()
+        intent.putExtra(Constant.STATION, station)
+        this.setResult(Activity.RESULT_OK, intent)
+        this.finish()
+    }
 }
 
 interface OnStationClick {

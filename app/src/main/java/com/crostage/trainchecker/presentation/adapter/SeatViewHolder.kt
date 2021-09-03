@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.databinding.ItemSeatBinding
-import com.crostage.trainchecker.model.data.seat.Car
+import com.crostage.trainchecker.domain.model.Car
 
 class SeatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

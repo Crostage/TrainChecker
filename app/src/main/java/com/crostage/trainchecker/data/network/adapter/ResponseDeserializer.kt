@@ -1,9 +1,8 @@
 package com.crostage.trainchecker.data.network.adapter
 
-import com.crostage.trainchecker.model.data.rout.RoutesError
-import com.crostage.trainchecker.model.data.rout.Response
-import com.crostage.trainchecker.model.data.rout.Routes
-import com.crostage.trainchecker.utils.ErrorConnections
+import com.crostage.trainchecker.data.model.rout.Response
+import com.crostage.trainchecker.data.model.rout.Routes
+import com.crostage.trainchecker.data.model.rout.RoutesError
 import com.crostage.trainchecker.utils.ServerSendError
 import com.google.gson.*
 import java.lang.reflect.Type

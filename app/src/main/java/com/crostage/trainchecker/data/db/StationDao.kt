@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.crostage.trainchecker.model.data.station.StationEntity
+import com.crostage.trainchecker.data.model.station.StationEntity
 
 
 /**

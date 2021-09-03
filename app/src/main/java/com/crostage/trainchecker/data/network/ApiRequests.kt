@@ -1,15 +1,14 @@
 package com.crostage.trainchecker.data.network
 
-import com.crostage.trainchecker.model.data.BaseResult
-import com.crostage.trainchecker.model.data.BaseRoutesRequest
-import com.crostage.trainchecker.model.data.rout.RoutesResult
-import com.crostage.trainchecker.model.data.seat.SeatResult
-import com.crostage.trainchecker.model.data.station.StationEntity
-import com.crostage.trainchecker.model.data.train.SearchResult
+import com.crostage.trainchecker.data.model.rid.BaseRidResult
+import com.crostage.trainchecker.data.model.rid.RouteRidResult
+import com.crostage.trainchecker.data.model.rout.RoutesResult
+import com.crostage.trainchecker.data.model.seat.SeatResult
+import com.crostage.trainchecker.data.model.station.StationEntity
+import com.crostage.trainchecker.data.model.train.SearchResult
 import com.crostage.trainchecker.utils.Constant.Companion.ROUTE_LAYER_ID
 import com.crostage.trainchecker.utils.Constant.Companion.SEAT_LAYER_ID
 import com.crostage.trainchecker.utils.Constant.Companion.TRAIN_LAYER_ID
-import com.google.gson.JsonElement
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -45,7 +44,7 @@ interface ApiRequests {
      * @param date дата отправления
      * @param json вид данных вывода
      * @param format формат вывода
-     * @return возварщает requestID [BaseRoutesRequest]
+     * @return возварщает requestID [RouteRidResult]
      */
 
     @GET("timetable/public/ru?")
@@ -55,7 +54,7 @@ interface ApiRequests {
         @Query("date") date: String,
         @Query("json") json: String = "y",
         @Query("format") format: String = "array",
-    ): Call<BaseRoutesRequest>
+    ): Call<RouteRidResult>
 
 
     /**
@@ -69,7 +68,7 @@ interface ApiRequests {
      * @param date дата отправления
      * @param time время отправления поезда
      * @param number номер поезда
-     * @return возварщает requestID [BaseResult]
+     * @return возварщает requestID [BaseRidResult]
      */
     @GET("timetable/public/ru?")
     fun getSeats(
@@ -81,7 +80,7 @@ interface ApiRequests {
         @Query("dt0") date: String,
         @Query("time0") time: String,
         @Query("tnum0") number: String,
-    ): Call<BaseResult>
+    ): Call<BaseRidResult>
 
     /**
      * Запрос на получения списка поездов по поисковому запросу, в ответе от сервера будет RID
@@ -92,7 +91,7 @@ interface ApiRequests {
      * @param codeFrom код города отправления
      * @param codeTo код города прибытия
      * @param date дата отправления
-     * @return возварщает requestID [BaseResult]
+     * @return возварщает requestID [BaseRidResult]
      */
     @GET("timetable/public/ru?")
     fun getTrains(
@@ -102,7 +101,7 @@ interface ApiRequests {
         @Query("code0") codeFrom: Int,
         @Query("code1") codeTo: Int,
         @Query("dt0") date: String,
-    ): Call<BaseResult>
+    ): Call<BaseRidResult>
 
     /**
      * Повторный запрос с rid для получения списка поездов

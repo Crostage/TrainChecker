@@ -14,8 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
 import com.crostage.trainchecker.databinding.FragmentRouteBinding
-import com.crostage.trainchecker.model.data.train.TrainEntity
-import com.crostage.trainchecker.model.domain.Train
+import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.presentation.adapter.RouteListAdapter
 import com.crostage.trainchecker.presentation.appComponent
 import com.crostage.trainchecker.presentation.viewmodel.RouteViewModel
@@ -56,7 +55,7 @@ class RouteFragment : Fragment(R.layout.fragment_route) {
 
             setObservers()
 
-            if (viewModel.routes.value==null)
+            if (viewModel.routes.value == null)
                 viewModel.getRoutes(train)
         }
 

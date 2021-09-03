@@ -1,15 +1,16 @@
 package com.crostage.trainchecker.data.network.services
 
 import android.util.Log
+import com.crostage.trainchecker.data.converter.IConverter
 import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.data.network.NetworkUtil
+import com.crostage.trainchecker.data.network.NetworkUtil.Companion.executeAndExceptionChek
 import com.crostage.trainchecker.domain.network.IRouteService
-import com.crostage.trainchecker.model.data.BaseRoutesRequest
-import com.crostage.trainchecker.model.data.rout.RoutesResult
-import com.crostage.trainchecker.model.data.rout.TrainStop
-import com.crostage.trainchecker.model.data.seat.SeatResult
-import com.crostage.trainchecker.model.data.train.TrainEntity
-import com.crostage.trainchecker.utils.Helper.Companion.executeAndExceptionChek
+import com.crostage.trainchecker.data.model.rid.RouteRidResult
+import com.crostage.trainchecker.data.model.rout.RoutesResult
+import com.crostage.trainchecker.data.model.rout.TrainStopDto
+import com.crostage.trainchecker.domain.model.Train
+import com.crostage.trainchecker.domain.model.TrainStop
 import javax.inject.Inject
 
 
@@ -20,13 +21,16 @@ import javax.inject.Inject
  * @property retrofitApi класс для работы с сетью
  */
 
-class RouteService @Inject constructor(private val retrofitApi: ApiRequests) : IRouteService {
+class RouteService @Inject constructor(
+    private val retrofitApi: ApiRequests,
+    private val converter: IConverter<List<TrainStopDto>, List<TrainStop>>,
+) : IRouteService {
 
     companion object {
         private const val TAG = "RouteService"
     }
 
-    override fun getRouteListRequestId(train: TrainEntity): Long? {
+    override fun getRouteListRequestId(train: Train): Long? {
 
         var rid: Long? = null
         val response = retrofitApi.getRouters(
@@ -41,7 +45,7 @@ class RouteService @Inject constructor(private val retrofitApi: ApiRequests) : I
             Log.d(TAG, response.message())
 
             if (it.isSuccessful) {
-                val body = it.body() as BaseRoutesRequest
+                val body = it.body() as RouteRidResult
                 rid = body.requestId
             }
 
@@ -53,11 +57,10 @@ class RouteService @Inject constructor(private val retrofitApi: ApiRequests) : I
         var stopsList: List<TrainStop> = mutableListOf()
         val data = NetworkUtil.getResponseFromId(rid, retrofitApi, RoutesResult::class.java)
 
-        val l = data?.response?.routes
+        val stopDtoList = data?.response?.routes
 
 
-
-        l?.let { stopsList = l }
+        stopDtoList?.let { stopsList = converter.convert(stopDtoList) }
         return stopsList
     }
 

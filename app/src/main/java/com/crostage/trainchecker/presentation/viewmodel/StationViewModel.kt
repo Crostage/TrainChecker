@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.crostage.trainchecker.domain.interactors.interfaces.IStationInteractor
-import com.crostage.trainchecker.model.domain.Station
+import com.crostage.trainchecker.domain.model.Station
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -27,10 +27,25 @@ class StationViewModel(
 
     fun getStationResponse(stationName: String) {
 
+
+        /// TODO: 03.09.2021  
         compositeDisposable.add(
             Single.fromCallable {
-                interactor.getStationList(stationName)
-            }.map { it?.filter { station -> station.stationName.contains(stationName) } }
+                interactor.getStationListFromRepo(stationName)
+            }.flatMap {
+                Single.fromCallable {
+                    if (it.isEmpty()) {
+                        interactor.getStationListFromService(stationName)
+                    } else listOf()
+                }
+            }.map {
+                if (it.isNotEmpty())
+                    it.filter { station ->
+                        station.stationName.contains(stationName)
+                    }
+                else listOf()
+
+            }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally { _progress.value = false }

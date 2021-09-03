@@ -1,9 +1,13 @@
 package com.crostage.trainchecker.di.module
 
+import com.crostage.trainchecker.data.converter.CarListConverter
+import com.crostage.trainchecker.data.converter.IConverter
 import com.crostage.trainchecker.data.network.services.SeatService
 import com.crostage.trainchecker.domain.interactors.SeatInteractor
 import com.crostage.trainchecker.domain.interactors.interfaces.ISeatInteractor
 import com.crostage.trainchecker.domain.network.ISeatService
+import com.crostage.trainchecker.data.model.seat.CarDto
+import com.crostage.trainchecker.domain.model.Car
 import dagger.Binds
 import dagger.Module
 
@@ -15,10 +19,12 @@ class SeatModule
 @Module
 interface SeatBindModule {
     @Binds
-    fun bindSeatInteractorToISeatenteractor(seatInteractor: SeatInteractor): ISeatInteractor
+    fun bindSeatInteractorToISeatInteractor(seatInteractor: SeatInteractor): ISeatInteractor
 
     @Binds
-    fun bindSeateerviceToISeateervice(seatService: SeatService): ISeatService
+    fun bindSeatServiceToISeatService(seatService: SeatService): ISeatService
 
-
+    @Binds
+    fun bindCarListConverterToIConverter(carListConverter: CarListConverter)
+            : IConverter<List<CarDto>, List<Car>>
 }

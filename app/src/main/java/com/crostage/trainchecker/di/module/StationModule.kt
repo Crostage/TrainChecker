@@ -11,8 +11,8 @@ import com.crostage.trainchecker.domain.interactors.StationInteractor
 import com.crostage.trainchecker.domain.interactors.interfaces.IStationInteractor
 import com.crostage.trainchecker.domain.network.IStationService
 import com.crostage.trainchecker.domain.repository.IStationRepository
-import com.crostage.trainchecker.model.data.station.StationEntity
-import com.crostage.trainchecker.model.domain.Station
+import com.crostage.trainchecker.data.model.station.StationEntity
+import com.crostage.trainchecker.domain.model.Station
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -31,20 +31,22 @@ class StationModule {
     }
 }
 
-
 @Module
 interface StationBindModule {
     @Binds
-    fun bindStationInteractorToIStationInteractor(stationInteractor: StationInteractor): IStationInteractor
+    fun bindStationInteractorToIStationInteractor(stationInteractor: StationInteractor)
+            : IStationInteractor
 
     @Binds
     fun bindStationServiceToIStationService(stationService: StationService): IStationService
 
     @Binds
-    fun bindStationRepositoryToIStationRepository(stationRepo: StationRepository): IStationRepository
+    fun bindStationRepositoryToIStationRepository(stationRepo: StationRepository)
+            : IStationRepository
 
     @Binds
-    fun bindStationConverterToIConverter(stationConverter: StationConverter): IConverter<StationEntity, Station>
+    fun bindStationConverterToIConverter(stationConverter: StationConverter)
+            : IConverter<StationEntity, Station>
 
 
 }

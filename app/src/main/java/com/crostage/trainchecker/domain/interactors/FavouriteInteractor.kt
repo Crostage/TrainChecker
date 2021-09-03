@@ -1,10 +1,10 @@
 package com.crostage.trainchecker.domain.interactors
 
 import androidx.lifecycle.LiveData
-import com.crostage.trainchecker.data.repository.TrainRepository
 import com.crostage.trainchecker.domain.interactors.interfaces.IFavouriteInteractor
-import com.crostage.trainchecker.model.data.train.TrainEntity
-import com.crostage.trainchecker.model.domain.Train
+import com.crostage.trainchecker.domain.repository.ITrainRepository
+import com.crostage.trainchecker.data.model.train.TrainEntity
+import com.crostage.trainchecker.domain.model.Train
 import javax.inject.Inject
 
 
@@ -15,7 +15,7 @@ import javax.inject.Inject
  */
 
 class FavouriteInteractor @Inject constructor(
-    private val trainRepository: TrainRepository,
+    private val trainRepository: ITrainRepository,
 ) : IFavouriteInteractor {
 
     override fun getFavouriteTrainList(): LiveData<List<Train>> {

@@ -1,18 +1,10 @@
 package com.crostage.trainchecker.di.module
 
 import android.content.Context
-import com.crostage.trainchecker.data.converter.IConverter
-import com.crostage.trainchecker.data.converter.TicketConverter
-import com.crostage.trainchecker.data.converter.TrainConverter
 import com.crostage.trainchecker.data.db.TrainDatabase
 import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.data.network.RetrofitBuilder
 import com.crostage.trainchecker.data.network.RetrofitBuilder.getApi
-import com.crostage.trainchecker.model.data.train.TicketDto
-import com.crostage.trainchecker.model.data.train.TrainEntity
-import com.crostage.trainchecker.model.domain.Ticket
-import com.crostage.trainchecker.model.domain.Train
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

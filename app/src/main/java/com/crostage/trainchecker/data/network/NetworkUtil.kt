@@ -1,9 +1,14 @@
 package com.crostage.trainchecker.data.network
 
-import com.crostage.trainchecker.model.data.rout.RoutesResult
-import com.crostage.trainchecker.model.data.seat.SeatResult
-import com.crostage.trainchecker.model.data.train.SearchResult
-import com.crostage.trainchecker.utils.Helper.Companion.executeAndExceptionChek
+import com.crostage.trainchecker.data.model.rout.RoutesResult
+import com.crostage.trainchecker.data.model.seat.SeatResult
+import com.crostage.trainchecker.data.model.train.SearchResult
+import com.crostage.trainchecker.utils.Error401
+import com.crostage.trainchecker.utils.Error404
+import com.crostage.trainchecker.utils.ErrorConnections
+import com.crostage.trainchecker.utils.ServerSendError
+import retrofit2.Call
+import retrofit2.Response
 
 class NetworkUtil {
     companion object {
@@ -11,8 +16,6 @@ class NetworkUtil {
         fun <T> getResponseFromId(rid: Long, retrofitApi: ApiRequests, clazz: Class<T>): T? {
 
             var data: T? = null
-
-            // сервер сразу не успевает обработать второй запрос
 
             val response = when {
 
@@ -43,6 +46,24 @@ class NetworkUtil {
             }
 
             return data
+        }
+
+        fun <T> Call<T>.executeAndExceptionChek(): Response<T>? {
+            try {
+                val response = execute()
+                when (response.code()) {
+
+                    200 -> return response
+                    401 -> throw Error401()
+                    404 -> throw Error404()
+
+                }
+            } catch (e: ServerSendError) {
+                throw e
+            } catch (e: Exception) {
+                throw ErrorConnections()
+            }
+            return null
         }
     }
 }

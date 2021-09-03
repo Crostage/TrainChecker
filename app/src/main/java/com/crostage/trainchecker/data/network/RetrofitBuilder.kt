@@ -3,7 +3,7 @@ package com.crostage.trainchecker.data.network
 import android.content.Context
 import android.util.Log
 import com.crostage.trainchecker.data.network.adapter.ResponseDeserializer
-import com.crostage.trainchecker.model.data.rout.Response
+import com.crostage.trainchecker.data.model.rout.Response
 import com.crostage.trainchecker.presentation.MainApp
 import com.crostage.trainchecker.utils.Constant.Companion.BASE_URL
 import com.crostage.trainchecker.utils.Constant.Companion.CACHE_CHILD

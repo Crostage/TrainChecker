@@ -1,10 +1,7 @@
 package com.crostage.trainchecker.utils
 
 import android.annotation.SuppressLint
-import com.crostage.trainchecker.model.data.train.TrainEntity
-import com.crostage.trainchecker.model.domain.Train
-import retrofit2.Call
-import retrofit2.Response
+import com.crostage.trainchecker.domain.model.Train
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -21,25 +18,6 @@ class Helper {
             } else "${mMonth + 1}"
 
             return "$mDay.$month.$mYear"
-        }
-
-
-        fun <T> Call<T>.executeAndExceptionChek(): Response<T>? {
-            try {
-                val response = execute()
-                when (response.code()) {
-
-                    200 -> return response
-                    401 -> throw Error401()
-                    404 -> throw Error404()
-
-                }
-            } catch (e: ServerSendError) {
-                throw e
-            } catch (e: Exception) {
-                throw ErrorConnections()
-            }
-            return null
         }
 
 

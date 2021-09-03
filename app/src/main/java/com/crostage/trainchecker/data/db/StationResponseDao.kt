@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.crostage.trainchecker.model.data.station.StationSearchResponse
+import com.crostage.trainchecker.data.model.station.StationSearchResponse
 
 /**
  * Кэширование поиска по станциям, Room
@@ -29,7 +29,7 @@ interface StationResponseDao {
      */
 
     @Query("SELECT * FROM station_search WHERE name=:name")
-    fun getListFromName(name: String): StationSearchResponse
+    fun getListFromName(name: String): StationSearchResponse?
 
 
 }

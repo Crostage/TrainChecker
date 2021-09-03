@@ -1,7 +1,7 @@
 package com.crostage.trainchecker.data.converter
 
-import com.crostage.trainchecker.model.data.train.TrainEntity
-import com.crostage.trainchecker.model.domain.Train
+import com.crostage.trainchecker.data.model.train.TrainEntity
+import com.crostage.trainchecker.domain.model.Train
 import javax.inject.Inject
 
 class TrainConverter @Inject constructor() : IConverter<TrainEntity, Train> {
@@ -10,7 +10,7 @@ class TrainConverter @Inject constructor() : IConverter<TrainEntity, Train> {
         return Train(
             input.carrier,
             input.brand,
-            TicketConverter().convert(input.ticketList),
+            input.ticketList,
             input.codeStationFrom,
             input.codeStationTo,
             input.nameStationFrom,
@@ -30,7 +30,7 @@ class TrainConverter @Inject constructor() : IConverter<TrainEntity, Train> {
         return TrainEntity(
             input.carrier,
             input.brand,
-            TicketConverter().revers(input.ticketList),
+            input.ticketList,
             input.codeStationFrom,
             input.codeStationTo,
             input.nameStationFrom,
