@@ -83,7 +83,7 @@ class StationChoiceActivity : AppCompatActivity(), OnStationClick {
         })
 
         viewModel.stations.observe(this, {
-            binding.nothingFound.isVisible = it.isEmpty()
+            binding.listIsEmpty.isVisible = it.isEmpty()
             adapter.setData(it)
         })
 

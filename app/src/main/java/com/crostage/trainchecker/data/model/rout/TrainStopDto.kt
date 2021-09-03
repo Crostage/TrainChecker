@@ -9,7 +9,7 @@ data class TrainStopDto(
     val code: Int,
     @SerializedName("DepTime")
     @Expose
-    val arriveTime: String,
+    val arriveTime: String?,
     @SerializedName("Distance")
     @Expose
     val distance: Int,

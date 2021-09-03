@@ -11,7 +11,7 @@ class TrainStopListConverter @Inject constructor() :
         return input.map {
             TrainStop(
                 it.code,
-                it.arriveTime,
+                it.arriveTime ?: "",
                 it.distance,
                 it.stationName
             )

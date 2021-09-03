@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -20,6 +19,7 @@ import com.crostage.trainchecker.presentation.appComponent
 import com.crostage.trainchecker.presentation.viewmodel.TrainViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.TrainViewModelFactory
 import com.crostage.trainchecker.utils.Constant
+import com.crostage.trainchecker.utils.Helper
 import java.util.*
 import javax.inject.Inject
 
@@ -47,26 +47,8 @@ class ResultFragment : Fragment(R.layout.fragment_result), FavouriteClickListene
         super.onViewCreated(view, savedInstanceState)
 
         initRecyclerView()
-
-        val cityFrom = arguments?.getString(Constant.SEARCH_CITY_FROM)
-        val codeFrom = arguments?.getInt(Constant.SEARCH_CODE_FROM)
-        val cityTo = arguments?.getString(Constant.SEARCH_CITY_TO)
-        val codeTo = arguments?.getInt(Constant.SEARCH_CODE_TO)
-        val date = arguments?.getString(Constant.SEARCH_DATE)
-
         setObservers()
-
-        if (cityFrom != null && cityTo != null
-            && date != null && codeFrom != null && codeTo != null
-        ) {
-            activity?.title =
-                "${cityFrom.uppercase(Locale.getDefault())} " +
-                        "-> ${cityTo.uppercase(Locale.getDefault())}  $date"
-
-            if (viewModel.trains.value == null) {
-                viewModel.trainsFromSearchRequest(codeFrom, codeTo, date)
-            }
-        }
+        setFromArguments(arguments)
 
     }
 
@@ -79,16 +61,42 @@ class ResultFragment : Fragment(R.layout.fragment_result), FavouriteClickListene
 
     override fun addTrainToFavourite(train: Train) {
         viewModel.insertToFavourite(train)
-        Toast.makeText(context,
-            "Поезд ${train.trainNumber} добавлен в отслеживаемые",
-            Toast.LENGTH_SHORT).show()
+        Helper.showNewSnack(requireView(), "Поезд ${train.trainNumber}  добавлен в отслеживаемые")
+
     }
 
     override fun removeTrainToFavourite(train: Train) {
         viewModel.removeFromFavourite(train)
-        Toast.makeText(context,
-            "Поезд ${train.trainNumber} удален из отслеживаемых",
-            Toast.LENGTH_SHORT).show()
+        Helper.showNewSnack(requireView(), "Поезд ${train.trainNumber} удален из отслеживаемых")
+    }
+
+    private fun setFromArguments(arguments: Bundle?) {
+        val cityFrom = arguments?.getString(Constant.SEARCH_CITY_FROM)
+        val codeFrom = arguments?.getInt(Constant.SEARCH_CODE_FROM)
+        val cityTo = arguments?.getString(Constant.SEARCH_CITY_TO)
+        val codeTo = arguments?.getInt(Constant.SEARCH_CODE_TO)
+        val date = arguments?.getString(Constant.SEARCH_DATE)
+
+        if (cityFrom != null && cityTo != null
+            && date != null && codeFrom != null && codeTo != null
+        ) {
+
+            binding.toolbarResult.apply {
+                title =
+                    "${cityFrom.uppercase(Locale.getDefault())} " +
+                            "-> ${cityTo.uppercase(Locale.getDefault())}  $date"
+                setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
+                setNavigationOnClickListener {
+                    activity?.onBackPressed()
+                }
+            }
+
+
+            if (viewModel.trains.value == null) {
+                viewModel.trainsFromSearchRequest(codeFrom, codeTo, date)
+            }
+        }
+
     }
 
     private fun initRecyclerView() {
@@ -108,16 +116,12 @@ class ResultFragment : Fragment(R.layout.fragment_result), FavouriteClickListene
 
     private fun setObservers() {
         viewModel.error.observe(viewLifecycleOwner, {
-            Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+            it.message?.let { it1 -> Helper.showNewSnack(requireView(), it1) }
         })
 
         viewModel.trains.observe(viewLifecycleOwner, {
-            if (it.isNotEmpty()) {
-                adapter.setData(it)
-                binding.listIsEmpty.isVisible = false
-            } else {
-                binding.listIsEmpty.isVisible = true
-            }
+            adapter.setData(it)
+            binding.listIsEmpty.isVisible = it.isEmpty()
         })
 
         viewModel.progress.observe(viewLifecycleOwner) { showProgress ->

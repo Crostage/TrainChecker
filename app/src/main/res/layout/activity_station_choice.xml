@@ -46,13 +46,12 @@
             app:lottie_rawRes="@raw/custom_progress" />
 
         <TextView
-            android:id="@+id/nothingFound"
-            android:layout_gravity="center"
-            android:textSize="@dimen/l_text_size"
-            android:visibility="gone"
-            android:textColor="@color/base_text_color"
+            android:id="@+id/listIsEmpty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:textSize="@dimen/m_text_size"
+            android:layout_gravity="center"
             android:text="@string/nothing_found" />
 
     </FrameLayout>

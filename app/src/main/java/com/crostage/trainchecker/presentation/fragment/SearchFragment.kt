@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -21,6 +20,7 @@ import com.crostage.trainchecker.domain.model.Station
 import com.crostage.trainchecker.presentation.activity.StationChoiceActivity
 import com.crostage.trainchecker.presentation.viewmodel.SearchViewModel
 import com.crostage.trainchecker.utils.Constant
+import com.crostage.trainchecker.utils.Helper
 import java.util.*
 
 
@@ -33,7 +33,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private lateinit var viewModel: SearchViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
@@ -128,7 +128,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun btnSearchClick() {
 
         if (binding.cityFrom.text.isEmpty() || binding.cityTo.text.isEmpty() || binding.tvDate.text.isEmpty()) {
-            Toast.makeText(activity, getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show()
+            Helper.showNewSnack(requireView(), getString(R.string.fill_all_fields))
             return
         }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,58 +9,50 @@
     tools:context=".presentation.fragment.SearchFragment">
 
     <TextView
+        android:layout_gravity="center"
+        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_top_search_fragment"
-        android:textStyle="italic"
-        android:text="@string/city_from"
-        android:textSize="@dimen/l_text_size" />
+        android:textStyle="bold"
+        app:drawableStartCompat="@drawable/ic_launcher_foreground"
+        android:text="@string/app_name" />
 
     <TextView
         android:id="@+id/cityFrom"
+        android:drawablePadding="@dimen/text_drawable_padding"
         style="@style/appTextViewStyle"
-        android:textAllCaps="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/city_from_hint" />
-
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="italic"
-        android:text="@string/city_to"
-        android:textSize="@dimen/l_text_size" />
+        android:hint="@string/city_from_hint"
+        android:textAllCaps="true"
+        app:drawableStartCompat="@drawable/ic_train_for_text" />
 
     <TextView
         android:id="@+id/cityTo"
-        android:textAllCaps="true"
         style="@style/appTextViewStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/city_from_hint" />
-
-    <TextView
+        android:drawablePadding="@dimen/text_drawable_padding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="italic"
-        android:text="@string/start_date"
-        android:textSize="@dimen/l_text_size" />
+        android:hint="@string/city_to_hint"
+        android:textAllCaps="true"
+        app:drawableStartCompat="@drawable/ic_train_for_text" />
 
     <TextView
         android:id="@+id/tvDate"
         style="@style/appTextViewStyle"
+        android:drawablePadding="@dimen/text_drawable_padding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:ems="8"
         android:textSize="@dimen/date_text_size"
-        android:ems="8"/>
+        app:drawableStartCompat="@drawable/ic_calendar" />
 
     <Button
         android:id="@+id/btnSearch"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/btn_search"
-        android:textAllCaps="false"
         android:textSize="@dimen/m_text_size" />
 
 </LinearLayout>

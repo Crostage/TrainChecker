@@ -1,11 +1,9 @@
 package com.crostage.trainchecker.presentation.fragment
 
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.crostage.trainchecker.R
 import com.crostage.trainchecker.databinding.FragmentDetailBinding
@@ -31,7 +29,21 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setFromArguments(arguments)
+
+
+    }
+
+    private fun setFromArguments(arguments: Bundle?) {
+
         val train = arguments?.getSerializable(Constant.TRAIN_ARG) as Train?
+
+        binding.toolbarDetail.apply {
+            setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
+            setNavigationOnClickListener {
+                activity?.onBackPressed()
+            }
+        }
 
         train?.let {
             binding.trainNumber.text = train.trainNumber
@@ -39,14 +51,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             binding.date.text = train.dateStart
 
             initViewPager(it)
-
-            for (seat in it.ticketList) {
-                val textView = TextView(context)
-                textView.gravity = Gravity.CENTER
-                textView.text = "${seat.typeLoc} : ${seat.freeSeats} : ${seat.tariff}руб"
-                binding.seatsLayout.addView(textView)
-
-            }
 
         }
 

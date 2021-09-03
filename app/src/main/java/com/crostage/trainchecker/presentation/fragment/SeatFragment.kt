@@ -20,6 +20,7 @@ import com.crostage.trainchecker.presentation.appComponent
 import com.crostage.trainchecker.presentation.viewmodel.SeatViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.SeatViewModelFactory
 import com.crostage.trainchecker.utils.Constant
+import com.crostage.trainchecker.utils.Helper
 import javax.inject.Inject
 
 
@@ -80,11 +81,12 @@ class SeatFragment : Fragment(R.layout.fragment_seat) {
     private fun setObservers() {
         viewModel.cars.observe(viewLifecycleOwner, {
             adapter.setData(it)
+            binding.listIsEmpty.isVisible = it.isEmpty()
         })
 
         viewModel.error.observe(viewLifecycleOwner, {
-            Toast.makeText(activity, it.message, Toast.LENGTH_SHORT)
-                .show()
+
+            it.message?.let { msg -> Helper.showNewSnack(requireView(), msg) }
         })
         viewModel.progress.observe(viewLifecycleOwner) { showProgress ->
             binding.progress.isVisible = showProgress

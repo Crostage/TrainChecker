@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -74,7 +73,7 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite), FavouriteClickL
     @SuppressLint("SimpleDateFormat")
     private fun setObservers() {
         viewModel.error.observe(viewLifecycleOwner, {
-            Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+            it.message?.let { msg -> Helper.showNewSnack(requireView(), msg) }
         })
 
         viewModel.getFavouriteTrainList().observe(viewLifecycleOwner, {
@@ -103,8 +102,8 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite), FavouriteClickL
 
     override fun removeTrainToFavourite(train: Train) {
         viewModel.removeFromFavourite(train)
-        Toast.makeText(context,
-            "Поезд ${train.trainNumber} удален из отслеживаемых",
-            Toast.LENGTH_SHORT).show()
+
+        Helper.showNewSnack(requireView(), "Поезд ${train.trainNumber} удален из отслеживаемых")
+
     }
 }

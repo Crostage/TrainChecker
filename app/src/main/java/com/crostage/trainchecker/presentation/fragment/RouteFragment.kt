@@ -20,6 +20,7 @@ import com.crostage.trainchecker.presentation.appComponent
 import com.crostage.trainchecker.presentation.viewmodel.RouteViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.RouteViewModelFactory
 import com.crostage.trainchecker.utils.Constant
+import com.crostage.trainchecker.utils.Helper
 import javax.inject.Inject
 
 
@@ -82,11 +83,12 @@ class RouteFragment : Fragment(R.layout.fragment_route) {
     private fun setObservers() {
         viewModel.routes.observe(viewLifecycleOwner, {
             adapter.setData(it)
+            binding.listIsEmpty.isVisible = it.isEmpty()
         })
 
         viewModel.error.observe(viewLifecycleOwner, {
-            Toast.makeText(activity, it.message, Toast.LENGTH_SHORT)
-                .show()
+            it.message?.let { msg -> Helper.showNewSnack(requireView(), msg) }
+
         })
         viewModel.progress.observe(viewLifecycleOwner) { showProgress ->
             binding.progress.isVisible = showProgress

@@ -1,36 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".presentation.fragment.FavouriteFragment">
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/resultRecyclerview"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbarResult"
+        android:background="@color/primary_variant"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/item_train" />
+        android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/listIsEmpty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:textSize="@dimen/m_text_size"
-        android:layout_gravity="center"
-        android:text="@string/nothing_found" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/progress"
-        android:visibility="visible"
-        app:lottie_rawRes="@raw/train_anim"
-        android:layout_width="@dimen/progress_size"
-        android:layout_height="@dimen/progress_size"
-        android:layout_gravity="center"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/resultRecyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_train" />
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/listIsEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/nothing_found"
+            android:textSize="@dimen/m_text_size"
+            android:visibility="gone" />
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/progress"
+            android:layout_width="@dimen/progress_size"
+            android:layout_height="@dimen/progress_size"
+            android:layout_gravity="center"
+            android:visibility="visible"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/train_anim" />
+    </FrameLayout>
+
+</LinearLayout>

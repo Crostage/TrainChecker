@@ -2,10 +2,10 @@
     <string name="app_name">TrainChecker</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="city_from">Город отправления</string>
-    <string name="city_from_hint">Выберите город</string>
+    <string name="city_from_hint">Город отправления</string>
     <string name="city_to">Город назначения</string>
     <string name="start_date">Дата отправления</string>
-    <string name="btn_search">Поиск</string>
+    <string name="btn_search">Поиск поездов</string>
     <string name="menu_search">Поиск</string>
     <string name="menu_observ">Отслеживаемые</string>
     <string name="list_is_empty">Список пуст</string>
@@ -26,10 +26,12 @@
     <string name="train_number">номер поезда</string>
     <string name="test_mode">Ежедневно</string>
     <string name="test_type">Пассажирский</string>
-    <string name="routes">Маршруты</string>
+    <string name="routes">Маршрут</string>
     <string name="seats">Места</string>
     <string name="tariff_test">10325 руб</string>
     <string name="cls_type_test">3Э</string>
     <string name="car_type_test">Плацкарт</string>
     <string name="date_formate_pattern">dd.MM.yyyy hh:mm</string>
+    <string name="about_app">О приложении</string>
+    <string name="city_to_hint">Город назначения</string>
 </resources>

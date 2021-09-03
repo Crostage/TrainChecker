@@ -3,58 +3,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:divider="@drawable/linear_divider_horizontal"
     android:dividerPadding="5dp"
     android:orientation="vertical"
     android:showDividers="middle"
     tools:context=".presentation.fragment.DetailFragment">
 
-    <LinearLayout
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbarDetail"
+        android:background="@color/primary_variant"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/trainNumber"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/test_train_num" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/trainNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="@dimen/text_drawable_padding"
+                android:gravity="center|start"
+                app:drawableStartCompat="@drawable/ic_train_for_text"
+                android:text="@string/test_train_num" />
 
 
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/test_date" />
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/test_date" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/fromTo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="@string/test_from_to" />
 
-    <LinearLayout
-        android:id="@+id/seatsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:divider="@drawable/linear_divider_horizontal"
-        android:dividerPadding="5dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:showDividers="middle">
+        </LinearLayout>
+    </com.google.android.material.appbar.MaterialToolbar>
 
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/fromTo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="@string/test_from_to" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/detailTab"

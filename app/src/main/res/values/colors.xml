@@ -21,9 +21,9 @@
     <color name="text_secondary">#717070</color>
 
 
-    <color name="primary">#1976D2</color>
-    <color name="on_primary">#FCFFFC</color>
-    <color name="primary_variant">#90CAF9</color>
+    <color name="primary">#bcaaa4</color>
+    <color name="on_primary">#efdcd5</color>
+    <color name="primary_variant">#8c7b75</color>
     <color name="secondary">#2196F3</color>
     <color name="on_secondary">#6A6A64</color>
     <color name="background">#F4F5F7</color>
