@@ -1,6 +1,5 @@
 package com.crostage.trainchecker.presentation.fragment
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
@@ -100,7 +99,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         resultLauncher.launch(intent)
     }
 
-    @SuppressLint("SetTextI18n")
     private fun dataPick(textView: TextView) {
         val c = Calendar.getInstance()
         val mYear = c.get(Calendar.YEAR)
@@ -113,7 +111,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 "0${monthOfYear + 1}"
             } else "${monthOfYear + 1}"
 
-            val pickDate = "$dayOfMonth.$month.$year"
+
+            val day = if (dayOfMonth.toString().length == 1) {
+                "0$dayOfMonth"
+            } else "$dayOfMonth"
+
+            val pickDate = "$day.$month.$year"
             textView.text = pickDate
             viewModel.setDate(pickDate)
 

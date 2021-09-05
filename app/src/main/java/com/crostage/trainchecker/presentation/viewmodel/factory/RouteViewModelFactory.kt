@@ -10,6 +10,7 @@ import javax.inject.Inject
 class RouteViewModelFactory @Inject constructor(
     private val interactor: IRouteInteractor,
 ) : ViewModelProvider.Factory {
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(RouteViewModel::class.java) -> RouteViewModel(

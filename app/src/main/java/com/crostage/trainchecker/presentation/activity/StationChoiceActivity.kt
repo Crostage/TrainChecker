@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
-class StationChoiceActivity : AppCompatActivity(), OnStationClick {
+class StationChoiceActivity : AppCompatActivity() {
 
     private lateinit var viewModel: StationViewModel
     private lateinit var adapter: StationListAdapter
@@ -67,7 +67,13 @@ class StationChoiceActivity : AppCompatActivity(), OnStationClick {
                 binding.stationRecyclerview.context, LinearLayoutManager.VERTICAL
             )
         )
-        adapter = StationListAdapter(this)
+
+        adapter = StationListAdapter(object : OnStationClick {
+            override fun onStationClick(station: Station) {
+                viewModel.setResultStation(station)
+            }
+        })
+
         binding.stationRecyclerview.adapter = adapter
     }
 
@@ -91,17 +97,16 @@ class StationChoiceActivity : AppCompatActivity(), OnStationClick {
             binding.progress.isVisible = showProgress
         }
 
+        viewModel.resultStation.observe(this) {
+            val intent = Intent()
+            intent.putExtra(Constant.STATION, it.getContent())
+            this.setResult(Activity.RESULT_OK, intent)
+            this.finish()
+        }
+
         viewModel.getLastPickStations()
     }
 
-    //todo
-    override fun onStationClick(station: Station) {
-        viewModel.insertStation(station)
-        val intent = Intent()
-        intent.putExtra(Constant.STATION, station)
-        this.setResult(Activity.RESULT_OK, intent)
-        this.finish()
-    }
 }
 
 interface OnStationClick {

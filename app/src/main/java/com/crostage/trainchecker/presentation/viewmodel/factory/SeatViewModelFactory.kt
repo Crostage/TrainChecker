@@ -9,6 +9,7 @@ import javax.inject.Inject
 class SeatViewModelFactory @Inject constructor(
     private val interactor: ISeatInteractor,
 ) : ViewModelProvider.Factory {
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(SeatViewModel::class.java) -> SeatViewModel(

@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_margin="5dp"
-    android:gravity="center"
-    android:divider="@drawable/linear_divider_horizontal"
-    android:dividerPadding="5dp"
-    android:showDividers="middle">
-
-    <TextView
-        android:id="@+id/tariff"
-        android:textColor="@color/purple"
-        android:layout_width="wrap_content"
-        android:text="@string/tariff_test"
-        android:layout_height="wrap_content" />
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="5dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tariff"
+            android:textColor="@color/purple"
+            android:layout_width="wrap_content"
+            android:text="@string/tariff_test"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:divider="@drawable/linear_divider"
@@ -66,7 +67,8 @@
             android:orientation="vertical">
 
         </LinearLayout>
+        </LinearLayout>
+
+
     </LinearLayout>
-
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>

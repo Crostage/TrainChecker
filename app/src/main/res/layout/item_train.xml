@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:divider="@drawable/linear_divider"
-    android:dividerPadding="5dp"
-    android:showDividers="middle"
-    android:gravity="center"
-    android:layout_margin="5dp">
-
+    android:layout_height="wrap_content">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/linear_divider"
+        android:dividerPadding="5dp"
+        android:showDividers="middle"
+        android:gravity="center"
+        android:layout_margin="5dp">
+
+
+        <LinearLayout
         android:layout_margin="@dimen/train_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -118,12 +122,14 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/favourite"
-        android:layout_marginStart="5dp"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_favourite_false" />
+        <ImageView
+            android:id="@+id/favourite"
+            android:layout_marginStart="5dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_favourite_false" />
 
-</LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

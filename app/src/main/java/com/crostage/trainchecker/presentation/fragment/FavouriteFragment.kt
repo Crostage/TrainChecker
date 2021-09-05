@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,10 +20,11 @@ import com.crostage.trainchecker.presentation.adapter.TrainListAdapter
 import com.crostage.trainchecker.presentation.appComponent
 import com.crostage.trainchecker.presentation.viewmodel.TrainViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.TrainViewModelFactory
+import com.crostage.trainchecker.utils.Constant
 import com.crostage.trainchecker.utils.Helper
 import javax.inject.Inject
 
-class FavouriteFragment : Fragment(R.layout.fragment_favourite), FavouriteClickListener {
+class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
 
     private lateinit var viewModel: TrainViewModel
     private lateinit var adapter: TrainListAdapter
@@ -50,6 +52,7 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite), FavouriteClickL
     }
 
 
+
     private fun initRecyclerView() {
         binding.resultRecyclerview.layoutManager =
             LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
@@ -60,17 +63,42 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite), FavouriteClickL
                 LinearLayoutManager.VERTICAL
             )
         )
-        adapter = TrainListAdapter(this)
+        adapter = initAdapter()
         binding.resultRecyclerview.adapter = adapter
 
     }
+
+    //todo убрать одинаковый код
+    private fun initAdapter() =
+        TrainListAdapter(object : FavouriteClickListener {
+            override fun addTrainToFavourite(train: Train) {
+                viewModel.insertToFavourite(train)
+                Helper.showNewSnack(
+                    requireView(),
+                    "Поезд ${train.trainNumber}  добавлен в отслеживаемые"
+                )
+            }
+
+            override fun removeTrainToFavourite(train: Train) {
+                viewModel.removeFromFavourite(train)
+                Helper.showNewSnack(
+                    requireView(),
+                    "Поезд ${train.trainNumber} удален из отслеживаемых"
+                )
+            }
+
+        },
+            object : TrainItemClickListener {
+                override fun trainClicked(train: Train) {
+                    viewModel.trainClicked(train)
+                }
+            })
 
     @Inject
     fun initViewModel(factory: TrainViewModelFactory) {
         viewModel = ViewModelProvider(this, factory).get(TrainViewModel::class.java)
     }
 
-    @SuppressLint("SimpleDateFormat")
     private fun setObservers() {
         viewModel.error.observe(viewLifecycleOwner, {
             it.message?.let { msg -> Helper.showNewSnack(requireView(), msg) }
@@ -87,7 +115,8 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite), FavouriteClickL
                     }
                 val removeList = it.toMutableList()
                 removeList.removeAll(actualList)
-                removeList.forEach { train -> removeTrainToFavourite(train) }
+                //todo добавить в трайнФрегмент
+                removeList.forEach { train -> viewModel.removeFromFavourite(train) }
 
                 adapter.setData(actualList)
 
@@ -95,15 +124,13 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite), FavouriteClickL
             }
         })
 
-    }
-
-    override fun addTrainToFavourite(train: Train) {
-    }
-
-    override fun removeTrainToFavourite(train: Train) {
-        viewModel.removeFromFavourite(train)
-
-        Helper.showNewSnack(requireView(), "Поезд ${train.trainNumber} удален из отслеживаемых")
+        viewModel.openDetail.observe(viewLifecycleOwner, {
+            val bundle = Bundle()
+            bundle.putSerializable(Constant.TRAIN_ARG, it.getContent())
+            NavHostFragment.findNavController(this)
+                .navigate(R.id.detailFragment, bundle)
+        })
 
     }
+
 }

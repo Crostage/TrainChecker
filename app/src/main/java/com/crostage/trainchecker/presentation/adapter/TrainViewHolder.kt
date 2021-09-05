@@ -7,12 +7,22 @@ import com.crostage.trainchecker.R
 import com.crostage.trainchecker.databinding.ItemTrainBinding
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.presentation.fragment.FavouriteClickListener
+import com.crostage.trainchecker.presentation.fragment.TrainItemClickListener
 
 class TrainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private val binding = ItemTrainBinding.bind(itemView)
 
-    fun bind(train: Train, callback: FavouriteClickListener) {
+    fun bind(
+        train: Train,
+        favouriteClickListener: FavouriteClickListener,
+        trainItemClickListener: TrainItemClickListener,
+    ) {
+
+
+        itemView.setOnClickListener {
+            trainItemClickListener.trainClicked(train)
+        }
 
         binding.dayMode.text = train.brand
         binding.trainNumber.text = train.trainNumber
@@ -27,19 +37,17 @@ class TrainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         binding.favourite.setOnClickListener {
             if (!train.isFavourite) {
-                callback.addTrainToFavourite(train)
+                favouriteClickListener.addTrainToFavourite(train)
                 changeFavourite(true)
                 train.isFavourite = true
             } else {
-                callback.removeTrainToFavourite(train)
+                favouriteClickListener.removeTrainToFavourite(train)
                 changeFavourite(false)
                 train.isFavourite = false
             }
         }
 
     }
-
-    //todo пропадает при вращении
 
     private fun changeFavourite(isFavourite: Boolean) {
         if (isFavourite) {

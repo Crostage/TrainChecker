@@ -12,7 +12,7 @@ import retrofit2.Response
 
 class NetworkUtil {
     companion object {
-
+        @Suppress("UNCHECKED_CAST")
         fun <T> getResponseFromId(rid: Long, retrofitApi: ApiRequests, clazz: Class<T>): T? {
 
             var data: T? = null

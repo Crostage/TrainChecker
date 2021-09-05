@@ -7,13 +7,15 @@
     android:orientation="vertical"
     tools:context=".presentation.fragment.FavouriteFragment">
 
-    <com.google.android.material.appbar.MaterialToolbar
+
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarResult"
         android:background="@color/primary_variant"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <FrameLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -44,5 +46,6 @@
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/train_anim" />
     </FrameLayout>
+
 
 </LinearLayout>

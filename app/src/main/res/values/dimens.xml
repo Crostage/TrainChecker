@@ -11,4 +11,5 @@
     <dimen name="margin_top_search_fragment">50dp</dimen>
     <dimen name="progress_size">100dp</dimen>
     <dimen name="text_drawable_padding">5dp</dimen>
+    <dimen name="tv_station_padding">5dp</dimen>
 </resources>

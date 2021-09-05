@@ -23,10 +23,12 @@ class StationViewModel(
     private var _progress = MutableLiveData<Boolean>()
     val progress: LiveData<Boolean> = _progress
 
+    private var _resultStation = MutableLiveData<Event<Station>>()
+    var resultStation: LiveData<Event<Station>> = _resultStation
+
     private val compositeDisposable = CompositeDisposable()
 
     fun getStationResponse(stationName: String) {
-
 
         /// TODO: 03.09.2021  
         compositeDisposable.add(
@@ -83,6 +85,10 @@ class StationViewModel(
         )
     }
 
+    fun setResultStation(station: Station) {
+        insertStation(station)
+        _resultStation.postValue(Event(station))
+    }
 
     override fun onCleared() {
         super.onCleared()

@@ -16,6 +16,10 @@ class TrainViewModel(
     private val trainInteractor: ITrainInteractor,
 ) : ViewModel() {
 
+
+    private var _openDetail = MutableLiveData<Event<Train>>()
+    val openDetail: LiveData<Event<Train>> = _openDetail
+
     private var _trains = MutableLiveData<List<Train>>()
     val trains: LiveData<List<Train>> = _trains
 
@@ -103,7 +107,12 @@ class TrainViewModel(
         )
     }
 
-    fun getFavouriteTrainList() =
+    fun trainClicked(train: Train) {
+        _openDetail.postValue(Event(train))
+    }
+
+
+    fun getFavouriteTrainList() = //todo надо ли запускать в отдельном потоке?
         trainInteractor.getFavouriteLiveData()
 
 

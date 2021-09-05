@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +24,7 @@ import com.crostage.trainchecker.utils.Helper
 import java.util.*
 import javax.inject.Inject
 
-class ResultFragment : Fragment(R.layout.fragment_result), FavouriteClickListener {
+class ResultFragment : Fragment(R.layout.fragment_result) {
 
     private lateinit var viewModel: TrainViewModel
     private lateinit var adapter: TrainListAdapter
@@ -59,17 +60,6 @@ class ResultFragment : Fragment(R.layout.fragment_result), FavouriteClickListene
     }
 
 
-    override fun addTrainToFavourite(train: Train) {
-        viewModel.insertToFavourite(train)
-        Helper.showNewSnack(requireView(), "Поезд ${train.trainNumber}  добавлен в отслеживаемые")
-
-    }
-
-    override fun removeTrainToFavourite(train: Train) {
-        viewModel.removeFromFavourite(train)
-        Helper.showNewSnack(requireView(), "Поезд ${train.trainNumber} удален из отслеживаемых")
-    }
-
     private fun setFromArguments(arguments: Bundle?) {
         val cityFrom = arguments?.getString(Constant.SEARCH_CITY_FROM)
         val codeFrom = arguments?.getInt(Constant.SEARCH_CODE_FROM)
@@ -85,6 +75,7 @@ class ResultFragment : Fragment(R.layout.fragment_result), FavouriteClickListene
                 title =
                     "${cityFrom.uppercase(Locale.getDefault())} " +
                             "-> ${cityTo.uppercase(Locale.getDefault())}  $date"
+
                 setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
                 setNavigationOnClickListener {
                     activity?.onBackPressed()
@@ -110,9 +101,38 @@ class ResultFragment : Fragment(R.layout.fragment_result), FavouriteClickListene
                 LinearLayoutManager.VERTICAL
             )
         )
-        adapter = TrainListAdapter(this)
+
+        adapter = initAdapter()
+
         binding.resultRecyclerview.adapter = adapter
     }
+
+
+    private fun initAdapter() =
+        TrainListAdapter(object : FavouriteClickListener {
+            override fun addTrainToFavourite(train: Train) {
+                viewModel.insertToFavourite(train)
+                Helper.showNewSnack(
+                    requireView(),
+                    "Поезд ${train.trainNumber}  добавлен в отслеживаемые"
+                )
+            }
+
+            override fun removeTrainToFavourite(train: Train) {
+                viewModel.removeFromFavourite(train)
+                Helper.showNewSnack(
+                    requireView(),
+                    "Поезд ${train.trainNumber} удален из отслеживаемых"
+                )
+            }
+
+        },
+            object : TrainItemClickListener {
+                override fun trainClicked(train: Train) {
+                    viewModel.trainClicked(train)
+                }
+            })
+
 
     private fun setObservers() {
         viewModel.error.observe(viewLifecycleOwner, {
@@ -132,6 +152,13 @@ class ResultFragment : Fragment(R.layout.fragment_result), FavouriteClickListene
             viewModel.checkFavouritesContainsTrains(it)
         })
 
+        viewModel.openDetail.observe(viewLifecycleOwner, {
+            val bundle = Bundle()
+            bundle.putSerializable(Constant.TRAIN_ARG, it.getContent())
+            findNavController(this)
+                .navigate(R.id.detailFragment, bundle)
+        })
+
     }
 
 }
@@ -140,4 +167,8 @@ interface FavouriteClickListener {
     fun addTrainToFavourite(train: Train)
 
     fun removeTrainToFavourite(train: Train)
+}
+
+interface TrainItemClickListener {
+    fun trainClicked(train: Train)
 }
