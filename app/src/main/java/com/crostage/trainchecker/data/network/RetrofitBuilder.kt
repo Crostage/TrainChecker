@@ -1,12 +1,13 @@
 package com.crostage.trainchecker.data.network
 
 import android.content.Context
+import android.net.ConnectivityManager
 import android.util.Log
-import com.crostage.trainchecker.data.network.adapter.ResponseDeserializer
+import androidx.core.content.ContextCompat.getSystemService
 import com.crostage.trainchecker.data.model.rout.Response
+import com.crostage.trainchecker.data.network.adapter.ResponseDeserializer
 import com.crostage.trainchecker.presentation.MainApp
 import com.crostage.trainchecker.utils.Constant.Companion.BASE_URL
-import com.crostage.trainchecker.utils.Constant.Companion.CACHE_CHILD
 import com.crostage.trainchecker.utils.Constant.Companion.CACHE_SIZE
 import com.crostage.trainchecker.utils.Constant.Companion.HEADER_CACHE_CONTROL
 import com.crostage.trainchecker.utils.Constant.Companion.HEADER_PRAGMA
@@ -17,7 +18,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
-import java.lang.ref.WeakReference
+import java.net.CookieManager
+import java.net.CookiePolicy
 import java.util.concurrent.TimeUnit
 
 
@@ -29,59 +31,53 @@ import java.util.concurrent.TimeUnit
 object RetrofitBuilder {
 
     private const val TAG = "RetrofitBuilder"
-    private var retrofit: Retrofit? = null
 
     /**
-     * Получения клиента для работы с сетью
+     * Получаем объект для отрпавления сетевых запросов
      *
-     * @param context
-     * @return [Retrofit]
+     * @param dir место хранения кэша
+     * @return [ApiRequests] для отправки запросов
      */
 
-    fun getClient(context: Context): Retrofit {
+    fun getApi(dir: File): ApiRequests =
+        getRetrofit(dir).create(ApiRequests::class.java)
 
-        val mContext = WeakReference(context)
+    private fun getRetrofit(dir: File): Retrofit {
+        val cookieManager = CookieManager()
+        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL)
 
-        if (retrofit == null) {
+        val cacheSize = CACHE_SIZE
+        val cache = Cache(dir, cacheSize.toLong())
+        val client = OkHttpClient.Builder()
+            .cache(cache)
+            .addInterceptor(httpLoggingInterceptor)
+            .addNetworkInterceptor(onlineInterceptor)
+            .addInterceptor(offlineInterceptor)
+            .cookieJar(JavaNetCookieJar(cookieManager))
 
-            val cacheSize = CACHE_SIZE
-            val cacheDir = File(mContext.get()?.cacheDir, CACHE_CHILD)
-            val cache = Cache(cacheDir, cacheSize.toLong())
-            val client = OkHttpClient.Builder()
-                .cache(cache)
-                .addInterceptor(httpLoggingInterceptor)
-                .addNetworkInterceptor(onlineInterceptor)
-                .addInterceptor(offlineInterceptor)
-                .cookieJar(UvCookieJar())
-
-            retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(client.build())
-                .addConverterFactory(GsonConverterFactory
-                    .create(createResponseTypeAdapter()))
-                .build()
-        }
-        return retrofit!!
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client.build())
+            .addConverterFactory(GsonConverterFactory
+                .create(createResponseTypeAdapter()))
+            .build()
     }
 
-    fun createResponseTypeAdapter(): Gson =
+
+    private fun createResponseTypeAdapter(): Gson =
         GsonBuilder().registerTypeAdapter(Response::class.java, ResponseDeserializer())
             .create()
 
 
-    val Retrofit.getApi: ApiRequests
-        get() = this.create(ApiRequests::class.java)
-
-
     private var onlineInterceptor: Interceptor = Interceptor { chain ->
         Log.d(TAG, "ONlineInterceptor called")
-        val request = chain.proceed(chain.request())
+        val response = chain.proceed(chain.request())
 
         val cacheControl = CacheControl.Builder()
             .maxStale(5, TimeUnit.MINUTES)
             .build()
 
-        request.newBuilder()
+        response.newBuilder()
             .removeHeader(HEADER_PRAGMA)
             .removeHeader(HEADER_CACHE_CONTROL)
             .header(HEADER_CACHE_CONTROL, cacheControl.toString())
@@ -93,6 +89,7 @@ object RetrofitBuilder {
         Log.d(TAG, "OFFlineInterceptor called")
         var request = chain.request()
 
+        //todo убрать апп слой отсюда
         if (!MainApp.hasNetwork()!!) {
 
             val cacheControl = CacheControl.Builder()
@@ -112,29 +109,4 @@ object RetrofitBuilder {
     private var httpLoggingInterceptor = HttpLoggingInterceptor { Log.d(TAG, "http:log $it") }
         .setLevel(HttpLoggingInterceptor.Level.BODY)
 
-
-}
-
-
-/**
- * Класс для сохранения и отправки куки
- *
- */
-
-private class UvCookieJar : CookieJar {
-
-    private val cookies = mutableListOf<Cookie>()
-
-    override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
-        if (this.cookies.isEmpty()) this.cookies.addAll(cookies)
     }
-
-    override fun loadForRequest(url: HttpUrl): List<Cookie> = cookies
-
-}
-
-/**
- * Класс перехватчик для работы кэша
- *
- */
-

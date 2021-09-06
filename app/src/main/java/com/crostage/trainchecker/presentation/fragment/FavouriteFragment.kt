@@ -1,6 +1,5 @@
 package com.crostage.trainchecker.presentation.fragment
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -50,7 +49,6 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
         initRecyclerView()
         setObservers()
     }
-
 
 
     private fun initRecyclerView() {
@@ -125,10 +123,13 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
         })
 
         viewModel.openDetail.observe(viewLifecycleOwner, {
-            val bundle = Bundle()
-            bundle.putSerializable(Constant.TRAIN_ARG, it.getContent())
-            NavHostFragment.findNavController(this)
-                .navigate(R.id.detailFragment, bundle)
+            it.getContentIfNotHandled()?.let { train ->
+                val bundle = Bundle()
+                bundle.putSerializable(Constant.TRAIN_ARG, train)
+                NavHostFragment.findNavController(this)
+                    .navigate(R.id.action_favouriteFragment_to_detailFragment, bundle)
+            }
+
         })
 
     }

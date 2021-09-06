@@ -34,12 +34,12 @@ class Helper {
             //todo сделать покрасивее
             val snackBar = Snackbar.make(view, text,
                 Snackbar.LENGTH_SHORT).setAction("Action", null)
-            snackBar.setActionTextColor(Color.BLUE)
+//            snackBar.setActionTextColor(Color.BLUE)
             val snackBarView = snackBar.view
 //            snackBarView.setBackgroundColor(Color.LTGRAY)
             val textView =
                 snackBarView.findViewById<TextView>(R.id.snackbar_text)
-            textView.setTextColor(Color.BLUE)
+            textView.setTextColor(Color.WHITE)
             textView.gravity = View.TEXT_ALIGNMENT_CENTER
 //            textView.textSize = 28f
             snackBar.show()

@@ -18,11 +18,19 @@ class FavouriteInteractor @Inject constructor(
     private val trainRepository: ITrainRepository,
 ) : IFavouriteInteractor {
 
-    override fun getFavouriteTrainList(): LiveData<List<Train>> {
+    override fun getFavouriteLiveData(): LiveData<List<Train>> {
         return trainRepository.getFavouriteLiveData()
+    }
+
+    override fun getFavouriteList(): List<Train> {
+        return trainRepository.getFavouriteList()
     }
 
     override fun removeTrain(train: Train) {
         trainRepository.removeTrain(train)
+    }
+
+    override fun insertTrain(train: Train) {
+        trainRepository.insertTrain(train)
     }
 }

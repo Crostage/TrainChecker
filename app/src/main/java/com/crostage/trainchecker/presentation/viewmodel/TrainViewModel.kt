@@ -3,6 +3,7 @@ package com.crostage.trainchecker.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.crostage.trainchecker.domain.interactors.interfaces.IFavouriteInteractor
 import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
 import com.crostage.trainchecker.domain.model.Train
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -14,8 +15,8 @@ import java.util.concurrent.TimeUnit
 
 class TrainViewModel(
     private val trainInteractor: ITrainInteractor,
+    private val favouriteInteractor: IFavouriteInteractor,
 ) : ViewModel() {
-
 
     private var _openDetail = MutableLiveData<Event<Train>>()
     val openDetail: LiveData<Event<Train>> = _openDetail
@@ -47,21 +48,16 @@ class TrainViewModel(
                 }
 
                 //todo костыль опять
-                .flatMap { list ->
-                    Single.fromCallable {
-                        val m = trainInteractor.getFavouriteList()
-                        list.map {
-                            it.isFavourite = m.contains(it)
-                            it
-                        }
+                .map { list ->
+                    val m = favouriteInteractor.getFavouriteList()
+                    list.map { train ->
+                        train.isFavourite = m.contains(train)
+                        train
                     }
-
                 }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doFinally {
-                    _progress.value = false
-                }
+                .doFinally { _progress.value = false }
                 .doOnSubscribe { _progress.value = true }
                 .subscribe(
                     _trains::setValue,
@@ -76,7 +72,7 @@ class TrainViewModel(
     fun removeFromFavourite(train: Train) {
         compositeDisposable.add(
             Completable.fromCallable {
-                trainInteractor.removeTrain(train)
+                favouriteInteractor.removeTrain(train)
             }
                 .subscribeOn(Schedulers.io())
                 .onErrorReturn { }
@@ -97,7 +93,7 @@ class TrainViewModel(
     fun insertToFavourite(train: Train) {
         compositeDisposable.add(
             Completable.fromCallable {
-                trainInteractor.insertTrain(train)
+                favouriteInteractor.insertTrain(train)
             }
                 .subscribeOn(Schedulers.io())
                 .subscribe(
@@ -108,12 +104,11 @@ class TrainViewModel(
     }
 
     fun trainClicked(train: Train) {
-        _openDetail.postValue(Event(train))
+        _openDetail.value = Event(train)
     }
 
-
-    fun getFavouriteTrainList() = //todo надо ли запускать в отдельном потоке?
-        trainInteractor.getFavouriteLiveData()
+    fun getFavouriteTrainList() =
+        favouriteInteractor.getFavouriteLiveData()
 
 
     override fun onCleared() {

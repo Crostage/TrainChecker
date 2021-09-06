@@ -24,33 +24,9 @@ interface ITrainInteractor {
 
     fun getTrainList(rid: Long): List<Train>
 
-    /**
-     * Получение списка избранных поездов
-     *
-     * @return наблюдаемый список [Train]
-     */
-    fun getFavouriteLiveData(): LiveData<List<Train>>
-
 
     fun checkFavouritesContainsTrains(trains: List<Train>, favourite: List<Train>): List<Train>
 
-    fun getFavouriteList(): List<Train>
 
-    /**
-     * Сохарнение поезда в избранное
-     *
-     * @param train
-     */
-
-
-    fun insertTrain(train: Train)
-
-
-    /**
-     * Удаление поезда из избранного
-     *
-     * @param train
-     */
-    fun removeTrain(train: Train)
 
 }

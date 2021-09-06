@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -90,6 +90,7 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
 
     }
 
+
     private fun initRecyclerView() {
 
         binding.resultRecyclerview.layoutManager =
@@ -153,12 +154,13 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
         })
 
         viewModel.openDetail.observe(viewLifecycleOwner, {
-            val bundle = Bundle()
-            bundle.putSerializable(Constant.TRAIN_ARG, it.getContent())
-            findNavController(this)
-                .navigate(R.id.detailFragment, bundle)
+            it.getContentIfNotHandled()?.let { train ->
+                val bundle = Bundle()
+                bundle.putSerializable(Constant.TRAIN_ARG, train)
+                NavHostFragment.findNavController(this)
+                    .navigate(R.id.action_searchResultFragment_to_detailFragment, bundle)
+            }
         })
-
     }
 
 }

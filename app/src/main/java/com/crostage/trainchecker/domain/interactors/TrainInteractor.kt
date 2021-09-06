@@ -14,7 +14,6 @@ import javax.inject.Inject
  */
 class TrainInteractor @Inject constructor(
     private val service: ITrainService,
-    private val trainRepository: ITrainRepository,
 ) : ITrainInteractor {
 
 
@@ -36,21 +35,6 @@ class TrainInteractor @Inject constructor(
         return service.getTrainList(rid)
     }
 
-    override fun getFavouriteLiveData(): LiveData<List<Train>> {
-        return trainRepository.getFavouriteLiveData()
-    }
-
-    override fun getFavouriteList(): List<Train> {
-        return trainRepository.getFavouriteList()
-    }
-
-    override fun insertTrain(train: Train) {
-        trainRepository.insertTrain(train)
-    }
-
-    override fun removeTrain(train: Train) {
-        trainRepository.removeTrain(train)
-    }
 
 
 }

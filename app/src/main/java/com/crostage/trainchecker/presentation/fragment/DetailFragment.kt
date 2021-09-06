@@ -28,10 +28,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setFromArguments(arguments)
-
-
     }
 
     private fun setFromArguments(arguments: Bundle?) {
@@ -41,7 +38,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         binding.toolbarDetail.apply {
             setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
             setNavigationOnClickListener {
-                activity?.onBackPressed()
+               activity?.onBackPressed()
             }
         }
 

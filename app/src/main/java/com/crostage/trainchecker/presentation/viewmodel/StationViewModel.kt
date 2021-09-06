@@ -30,7 +30,7 @@ class StationViewModel(
 
     fun getStationResponse(stationName: String) {
 
-        /// TODO: 03.09.2021  
+        /// TODO: больно сложно
         compositeDisposable.add(
             Single.fromCallable {
                 interactor.getStationListFromRepo(stationName)
@@ -59,7 +59,7 @@ class StationViewModel(
         )
     }
 
-    fun insertStation(station: Station) {
+    private fun insertStation(station: Station) {
         compositeDisposable.add(
             Single.fromCallable {
                 interactor.insertStation(station)
@@ -74,6 +74,7 @@ class StationViewModel(
             Single.fromCallable {
                 interactor.getLastStationsPick()
             }
+//                .map { it.reversed() }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally { _progress.value = false }
