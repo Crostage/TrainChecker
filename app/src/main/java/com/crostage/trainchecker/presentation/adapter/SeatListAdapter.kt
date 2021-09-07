@@ -15,6 +15,7 @@ class SeatListAdapter : RecyclerView.Adapter<SeatViewHolder>() {
 
     private var dataList = listOf<Car>()
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(list: List<Car>) {
         dataList = list
         notifyDataSetChanged()

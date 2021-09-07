@@ -26,9 +26,10 @@ import javax.inject.Inject
 
 class StationChoiceActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: StationViewModel
     private lateinit var adapter: StationListAdapter
     private lateinit var binding: ActivityStationChoiceBinding
+
+    private lateinit var viewModel: StationViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,12 +41,11 @@ class StationChoiceActivity : AppCompatActivity() {
         initRecyclerView()
         setObservers()
         initStationSearch()
-
     }
 
     private fun initStationSearch() {
+        //todo как-то убрать в вм
         binding.stationName.apply {
-            requestFocus()
             textChanges()
                 .debounce(1, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -56,6 +56,12 @@ class StationChoiceActivity : AppCompatActivity() {
         }
 
     }
+
+    @Inject
+    fun createViewModel(factory: StationViewModelFactory) {
+        viewModel = ViewModelProvider(this, factory).get(StationViewModel::class.java)
+    }
+
 
     private fun initRecyclerView() {
 
@@ -77,11 +83,6 @@ class StationChoiceActivity : AppCompatActivity() {
         binding.stationRecyclerview.adapter = adapter
     }
 
-    @Inject
-    fun createViewModel(factory: StationViewModelFactory) {
-        viewModel = ViewModelProvider(this, factory).get(StationViewModel::class.java)
-
-    }
 
     private fun setObservers() {
         viewModel.error.observe(this, {
@@ -97,14 +98,15 @@ class StationChoiceActivity : AppCompatActivity() {
             binding.progress.isVisible = showProgress
         }
 
-        viewModel.resultStation.observe(this) {
-            val intent = Intent()
-            intent.putExtra(Constant.STATION, it.getContent())
-            this.setResult(Activity.RESULT_OK, intent)
-            this.finish()
+        viewModel.resultStation.observe(this) { event ->
+            event.getContentIfNotHandled()?.let {
+                val intent = Intent()
+                intent.putExtra(Constant.STATION, it)
+                this.setResult(Activity.RESULT_OK, intent)
+                this.finish()
+            }
         }
 
-        viewModel.getLastPickStations()
     }
 
 }

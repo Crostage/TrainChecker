@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.crostage.trainchecker.domain.interactors.interfaces.IFavouriteInteractor
 import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
 import com.crostage.trainchecker.domain.model.Train
+import com.crostage.trainchecker.utils.Helper
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
@@ -97,7 +98,7 @@ class TrainViewModel(
             }
                 .subscribeOn(Schedulers.io())
                 .subscribe(
-                    { },
+                    {},
                     _error::setValue
                 )
         )
@@ -109,6 +110,19 @@ class TrainViewModel(
 
     fun getFavouriteTrainList() =
         favouriteInteractor.getFavouriteLiveData()
+
+
+    fun chekFavouritesOnActualDate(favourites: List<Train>): List<Train> {
+        return favourites.also {
+            val actualList =
+                Helper.checkFavouritesOnActualDate(it).map { t ->
+                    t.isFavourite = true
+                    t
+                }
+            it.toMutableList().removeAll(actualList)
+            it.forEach { train -> removeFromFavourite(train) }
+        }
+    }
 
 
     override fun onCleared() {

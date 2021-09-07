@@ -1,5 +1,7 @@
 package com.crostage.trainchecker.di.module
 
+import android.app.Activity
+import androidx.savedstate.SavedStateRegistryOwner
 import com.crostage.trainchecker.data.converter.IConverter
 import com.crostage.trainchecker.data.converter.StationConverter
 import com.crostage.trainchecker.data.db.StationDao

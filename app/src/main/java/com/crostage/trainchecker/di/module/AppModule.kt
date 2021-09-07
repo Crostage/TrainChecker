@@ -1,6 +1,7 @@
 package com.crostage.trainchecker.di.module
 
 import android.content.Context
+import androidx.savedstate.SavedStateRegistryOwner
 import com.crostage.trainchecker.data.db.TrainDatabase
 import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.data.network.RetrofitBuilder
@@ -25,16 +26,22 @@ class AppModule {
     @Provides
     fun provideCacheDir(context: Context) = File(context.cacheDir, Constant.CACHE_CHILD)
 
-
 }
+
 //todo разобраться куда лучше вставить
 //@Module
 //interface AppBindModule {
+//
+//
+//    @Binds
+//    fun bindsContextToSavedStateRegistryOwner(context: Context): SavedStateRegistryOwner
+
 //    @Binds
 //    fun bindTrainConverterToIConverter(trainConverter: TrainConverter): IConverter<TrainEntity, Train>
 //
 //    @Binds
 //    fun bindTicketConverterToIConverter(ticketConverter: TicketConverter): IConverter<List<TicketDto>, List<Ticket>>
-//
+
+
 //}
 

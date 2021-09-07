@@ -18,8 +18,8 @@ class Helper {
             return sdf.format(date)
         }
 
-        fun checkFavouriteOnActualDate(list: List<Train>): List<Train> {
-            val sdf = SimpleDateFormat("dd.MM.yyyy hh:mm", Locale.ENGLISH)
+        fun checkFavouritesOnActualDate(list: List<Train>): List<Train> {
+            val sdf = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH)
             val currentDate = Date().time
 
             return list.filter {

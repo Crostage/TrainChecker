@@ -1,12 +1,20 @@
 package com.crostage.trainchecker.presentation.viewmodel
 
+/**
+ * Класс событие - обертка над объектом, без повторного использования
+ *
+ * @param T
+ * @property content тип рассматриваемого объекта
+ */
 open class Event<out T>(private val content: T) {
 
     var hasBeenHandled = false
-        private set // Allow external read but not write
+        private set //только чтение
 
     /**
-     * Returns the content and prevents its use again.
+     * Возвращает содержимое и предотвращает его повторное использование.
+     *
+     * @return входной объект
      */
     fun getContentIfNotHandled(): T? {
         return if (hasBeenHandled) {
@@ -17,8 +25,4 @@ open class Event<out T>(private val content: T) {
         }
     }
 
-    /**
-     * Returns the content, even if it's already been handled.
-     */
-    fun getContent(): T = content
 }

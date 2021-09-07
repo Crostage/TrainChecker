@@ -26,10 +26,12 @@ class TrainModule {
         return database.trainDao()
     }
 
+
 }
 
 @Module
 interface TrainBindModule {
+
     @Binds
     fun bindRouteFavouriteToIFavouriteInteractor(favouriteInteractor: FavouriteInteractor): IFavouriteInteractor
 

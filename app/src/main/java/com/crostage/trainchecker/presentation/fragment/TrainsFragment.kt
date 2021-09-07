@@ -156,7 +156,7 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
         viewModel.openDetail.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let { train ->
                 val bundle = Bundle()
-                bundle.putSerializable(Constant.TRAIN_ARG, train)
+                bundle.putParcelable(Constant.TRAIN_ARG, train)
                 NavHostFragment.findNavController(this)
                     .navigate(R.id.action_searchResultFragment_to_detailFragment, bundle)
             }

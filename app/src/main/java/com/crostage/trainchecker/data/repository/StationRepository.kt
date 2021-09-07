@@ -30,7 +30,7 @@ class StationRepository @Inject constructor(
     }
 
     override fun getLastStationsPick(): List<Station> {
-        return stationDao.getLastStationPicks().map { converter.convert(it) }
+        return stationDao.getLastStationPicks().map { converter.convert(it) }.reversed()
     }
 
 }

@@ -1,8 +1,10 @@
 package com.crostage.trainchecker.domain.model
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Station(
     val stationCode: Int,    //код станции
     val stationName: String, //название стацнии
-):Serializable
+) : Parcelable

@@ -33,7 +33,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private fun setFromArguments(arguments: Bundle?) {
 
-        val train = arguments?.getSerializable(Constant.TRAIN_ARG) as Train?
+        val train = arguments?.getParcelable<Train>(Constant.TRAIN_ARG)
 
         binding.toolbarDetail.apply {
             setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
@@ -56,7 +56,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private fun initViewPager(train: Train) {
 
         val bundle = Bundle()
-        bundle.putSerializable(Constant.TRAIN_ARG, train)
+        bundle.putParcelable(Constant.TRAIN_ARG, train)
 
         val routeFragment = RouteFragment()
         routeFragment.arguments = bundle

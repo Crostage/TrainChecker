@@ -105,27 +105,17 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
         viewModel.getFavouriteTrainList().observe(viewLifecycleOwner, {
 
             if (it != null) {
-
-                val actualList =
-                    Helper.checkFavouriteOnActualDate(it).map { t ->
-                        t.isFavourite = true
-                        t
-                    }
-                val removeList = it.toMutableList()
-                removeList.removeAll(actualList)
-                //todo добавить в трайнФрегмент
-                removeList.forEach { train -> viewModel.removeFromFavourite(train) }
-
+                val actualList = viewModel.chekFavouritesOnActualDate(it)
                 adapter.setData(actualList)
-
                 binding.listIsEmpty.isVisible = actualList.isEmpty()
+
             }
         })
 
         viewModel.openDetail.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let { train ->
                 val bundle = Bundle()
-                bundle.putSerializable(Constant.TRAIN_ARG, train)
+                bundle.putParcelable(Constant.TRAIN_ARG, train)
                 NavHostFragment.findNavController(this)
                     .navigate(R.id.action_favouriteFragment_to_detailFragment, bundle)
             }

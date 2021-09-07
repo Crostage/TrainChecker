@@ -2,9 +2,11 @@ package com.crostage.trainchecker.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
 import com.crostage.trainchecker.domain.model.Train
+import com.crostage.trainchecker.presentation.adapter.diffutil.TrainDiffUtil
 import com.crostage.trainchecker.presentation.fragment.FavouriteClickListener
 import com.crostage.trainchecker.presentation.fragment.TrainItemClickListener
 
@@ -17,8 +19,10 @@ class TrainListAdapter(
     private var dataList = listOf<Train>()
 
     fun setData(list: List<Train>) {
+        val diffCallback = TrainDiffUtil(dataList, list)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
         dataList = list
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
 

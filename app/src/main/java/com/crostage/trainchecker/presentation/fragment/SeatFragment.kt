@@ -47,7 +47,8 @@ class SeatFragment : Fragment(R.layout.fragment_seat) {
 
         initRecyclerview()
 
-        val train = arguments?.getSerializable(Constant.TRAIN_ARG) as Train?
+        //todo
+        val train = arguments?.getParcelable<Train>(Constant.TRAIN_ARG)
 
         train?.let {
 

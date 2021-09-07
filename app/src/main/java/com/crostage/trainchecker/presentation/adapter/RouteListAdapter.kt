@@ -1,5 +1,6 @@
 package com.crostage.trainchecker.presentation.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ class RouteListAdapter: RecyclerView.Adapter<RouteViewHolder>() {
 
     private var dataList = listOf<TrainStop>()
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(list: List<TrainStop>) {
         dataList = list
         notifyDataSetChanged()

@@ -28,9 +28,15 @@ class StationViewModel(
 
     private val compositeDisposable = CompositeDisposable()
 
+    init {
+        getLastPickStations()
+
+    }
+
+
     fun getStationResponse(stationName: String) {
 
-        /// TODO: больно сложно
+        /// TODO: больно сложно или норм?
         compositeDisposable.add(
             Single.fromCallable {
                 interactor.getStationListFromRepo(stationName)
@@ -38,7 +44,7 @@ class StationViewModel(
                 Single.fromCallable {
                     if (it.isEmpty()) {
                         interactor.getStationListFromService(stationName)
-                    } else listOf()
+                    } else it
                 }
             }.map {
                 if (it.isNotEmpty())
@@ -69,12 +75,11 @@ class StationViewModel(
         )
     }
 
-    fun getLastPickStations() {
+    private fun getLastPickStations() {
         compositeDisposable.add(
             Single.fromCallable {
                 interactor.getLastStationsPick()
             }
-//                .map { it.reversed() }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally { _progress.value = false }
@@ -84,7 +89,9 @@ class StationViewModel(
                     _error::setValue
                 )
         )
+
     }
+
 
     fun setResultStation(station: Station) {
         insertStation(station)

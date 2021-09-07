@@ -4,14 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.crostage.trainchecker.domain.interactors.interfaces.IStationInteractor
 import com.crostage.trainchecker.presentation.viewmodel.StationViewModel
-import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
 class StationViewModelFactory @Inject constructor(
     private val interactor: IStationInteractor,
 ) : ViewModelProvider.Factory {
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+
+    override fun <T : ViewModel?> create(
+        modelClass: Class<T>,
+    ): T {
         return when {
             modelClass.isAssignableFrom(StationViewModel::class.java) -> StationViewModel(
                 interactor
@@ -19,4 +20,5 @@ class StationViewModelFactory @Inject constructor(
             else -> throw  IllegalArgumentException("Unknown View Model class")
         }
     }
+
 }

@@ -50,7 +50,7 @@ class RouteFragment : Fragment(R.layout.fragment_route) {
 
         initRecyclerview()
 
-        val train = arguments?.getSerializable(Constant.TRAIN_ARG) as Train?
+        val train = arguments?.getParcelable<Train>(Constant.TRAIN_ARG)
 
         train?.let {
 

@@ -1,14 +1,26 @@
 package com.crostage.trainchecker.presentation.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.crostage.trainchecker.domain.model.Station
 import com.crostage.trainchecker.utils.Helper
 
 class SearchViewModel : ViewModel() {
 
-    private  var stationTo: Station? = null
-    private  var stationFrom: Station? = null
-    private var date = Helper.getActualDate()
+    private var stationTo: Station? = null
+    private var stationFrom: Station? = null
+
+    private val _newDate = MutableLiveData<String>()
+    val newDate: LiveData<String> = _newDate
+
+    init {
+        _newDate.value = Helper.getActualDate()
+    }
+
+    fun setDate(date: String) {
+        _newDate.value = date
+    }
 
     fun setStationTo(station: Station) {
         stationTo = station
@@ -18,10 +30,6 @@ class SearchViewModel : ViewModel() {
         stationFrom = station
     }
 
-    fun setDate(newDate: String) {
-        date = newDate
-    }
-
     fun getStationTo(): Station? {
         return stationTo
     }
@@ -29,10 +37,5 @@ class SearchViewModel : ViewModel() {
     fun getStationFrom(): Station? {
         return stationFrom
     }
-
-    fun getDate(): String {
-        return date
-    }
-
 
 }

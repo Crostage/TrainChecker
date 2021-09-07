@@ -1,8 +1,9 @@
 package com.crostage.trainchecker.domain.model
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
-
+@Parcelize
 data class Train(
     val carrier: String, //тип поезда ФПК
     val brand: String, //название поезда
@@ -18,8 +19,10 @@ data class Train(
     val timeEnd: String,  //время прибытия
     val timeInWay: String, //время в пути
     var isFavourite: Boolean,
-) : Serializable {
+) : Parcelable {
 
+    //пришлось переопределять ручками, тк при получении списка поездов из сети некоторые поля
+    // динамичны. Например меняется массив билетов.
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

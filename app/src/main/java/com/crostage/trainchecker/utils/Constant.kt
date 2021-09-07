@@ -24,6 +24,7 @@ class Constant {
         const val TABLE_NAME_TRAINS = "trains"
         const val TABLE_NAME_STATION_SEARCH = "station_search"
         const val TABLE_NAME_LAST_PICK = "last_pick_stations"
+        const val STATION_SAVE_STATE_KEY = "STATION_SAVE_STATE_KEY"
 
     }
 

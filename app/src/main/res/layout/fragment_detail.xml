@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="5dp"
     android:orientation="vertical"
     tools:context=".presentation.fragment.DetailFragment">
 
@@ -71,10 +72,10 @@
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
 
-    <androidx.viewpager2.widget.ViewPager2
+        <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/fragmentPager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
 
 
     </androidx.core.widget.NestedScrollView>

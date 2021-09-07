@@ -1,5 +1,6 @@
 package com.crostage.trainchecker.presentation.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ class StationListAdapter(private val onStationClick: OnStationClick) :
 
     private var dataList = listOf<Station>()
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(list: List<Station>) {
         dataList = list
         notifyDataSetChanged()

@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -41,24 +40,18 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initViewModel()
 
-        viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
+        initObserver()
 
-        viewModel.getStationFrom()?.let {
-            codeFrom = it.stationCode
-            binding.cityFrom.text = it.stationName
-        }
+        initClickListeners()
 
-        viewModel.getStationTo()?.let {
-            codeTo = it.stationCode
-            binding.cityTo.text = it.stationName
-        }
+    }
 
-        binding.tvDate.apply {
-            setOnClickListener {
-                dataPick(this)
-            }
-            this.text = viewModel.getDate()
+
+    private fun initClickListeners() {
+        binding.tvDate.setOnClickListener {
+            datePick()
         }
 
         binding.btnSearch.setOnClickListener {
@@ -73,7 +66,20 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             isFrom = false
             pickStation()
         }
+    }
 
+    private fun initViewModel() {
+        viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
+
+        viewModel.getStationFrom()?.let {
+            codeFrom = it.stationCode
+            binding.cityFrom.text = it.stationName
+        }
+
+        viewModel.getStationTo()?.let {
+            codeTo = it.stationCode
+            binding.cityTo.text = it.stationName
+        }
     }
 
 
@@ -81,7 +87,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val data: Intent? = result.data
-                val station = data?.getSerializableExtra(Constant.STATION) as Station
+                val station = data?.getParcelableExtra<Station>(Constant.STATION)
+                    ?: return@registerForActivityResult
                 if (isFrom) {
                     binding.cityFrom.text = station.stationName
                     codeFrom = station.stationCode
@@ -99,7 +106,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         resultLauncher.launch(intent)
     }
 
-    private fun dataPick(textView: TextView) {
+
+    //todo куда вынести?
+    private fun datePick() {
         val c = Calendar.getInstance()
         val mYear = c.get(Calendar.YEAR)
         val mMonth = c.get(Calendar.MONTH)
@@ -117,15 +126,20 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             } else "$dayOfMonth"
 
             val pickDate = "$day.$month.$year"
-            textView.text = pickDate
             viewModel.setDate(pickDate)
 
         }, mYear, mMonth, mDay)
+
         dpd.datePicker.minDate = c.time.time
         c.add(Calendar.MONTH, 3)
         dpd.datePicker.maxDate = c.time.time
-
         dpd.show()
+    }
+
+    private fun initObserver() {
+        viewModel.newDate.observe(viewLifecycleOwner, {
+            binding.tvDate.text = it
+        })
     }
 
     private fun btnSearchClick() {
