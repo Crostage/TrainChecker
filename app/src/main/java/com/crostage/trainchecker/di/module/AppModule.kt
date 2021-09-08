@@ -12,7 +12,7 @@ import java.io.File
 import javax.inject.Singleton
 
 @Module(includes = [RouteModule::class, StationModule::class,
-    TrainModule::class, SeatModule::class])
+    TrainModule::class, SeatModule::class, FavouriteModule::class])
 class AppModule {
 
     @Provides
@@ -27,21 +27,4 @@ class AppModule {
     fun provideCacheDir(context: Context) = File(context.cacheDir, Constant.CACHE_CHILD)
 
 }
-
-//todo разобраться куда лучше вставить
-//@Module
-//interface AppBindModule {
-//
-//
-//    @Binds
-//    fun bindsContextToSavedStateRegistryOwner(context: Context): SavedStateRegistryOwner
-
-//    @Binds
-//    fun bindTrainConverterToIConverter(trainConverter: TrainConverter): IConverter<TrainEntity, Train>
-//
-//    @Binds
-//    fun bindTicketConverterToIConverter(ticketConverter: TicketConverter): IConverter<List<TicketDto>, List<Ticket>>
-
-
-//}
 

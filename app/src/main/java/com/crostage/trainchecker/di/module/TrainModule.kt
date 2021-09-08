@@ -11,7 +11,7 @@ import com.crostage.trainchecker.domain.network.ITrainService
 import dagger.Binds
 import dagger.Module
 
-@Module(includes = [TrainBindModule::class, FavouriteModule::class])
+@Module(includes = [TrainBindModule::class])
 class TrainModule
 
 @Module
