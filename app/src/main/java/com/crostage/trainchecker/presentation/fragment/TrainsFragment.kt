@@ -112,7 +112,7 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
 
 
     private fun initAdapter() =
-        TrainListAdapter(object : FavouriteClickListener {
+        TrainListAdapter(object : FavouriteInsertListener {
             override fun addTrainToFavourite(train: Train) {
                 viewModel.insertToFavourite(train)
                 Helper.showNewSnack(
@@ -121,6 +121,7 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
                 )
             }
 
+        }, object : FavouriteRemoveListener {
             override fun removeTrainToFavourite(train: Train) {
                 viewModel.removeFromFavourite(train)
                 Helper.showNewSnack(
@@ -128,7 +129,6 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
                     "Поезд ${train.trainNumber} удален из отслеживаемых"
                 )
             }
-
         },
             object : TrainItemClickListener {
                 override fun trainClicked(train: Train) {
@@ -168,9 +168,13 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
 
 }
 
-interface FavouriteClickListener {
-    fun addTrainToFavourite(train: Train)
+//todo убрать интерфейсы отседова
 
+interface FavouriteInsertListener {
+    fun addTrainToFavourite(train: Train)
+}
+
+interface FavouriteRemoveListener {
     fun removeTrainToFavourite(train: Train)
 }
 

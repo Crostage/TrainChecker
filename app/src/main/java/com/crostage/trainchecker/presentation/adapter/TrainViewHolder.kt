@@ -6,16 +6,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
 import com.crostage.trainchecker.databinding.ItemTrainBinding
 import com.crostage.trainchecker.domain.model.Train
-import com.crostage.trainchecker.presentation.fragment.FavouriteClickListener
+import com.crostage.trainchecker.presentation.fragment.FavouriteInsertListener
+import com.crostage.trainchecker.presentation.fragment.FavouriteRemoveListener
 import com.crostage.trainchecker.presentation.fragment.TrainItemClickListener
 
 class TrainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private val binding = ItemTrainBinding.bind(itemView)
 
+    private var favouriteInsertListener: FavouriteInsertListener? = null
+
+
+    fun setInsertListener(insertListener: FavouriteInsertListener) {
+        favouriteInsertListener = insertListener
+    }
+
     fun bind(
         train: Train,
-        favouriteClickListener: FavouriteClickListener,
+        favouriteRemoveListener: FavouriteRemoveListener,
         trainItemClickListener: TrainItemClickListener,
     ) {
 
@@ -37,11 +45,11 @@ class TrainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         binding.favourite.setOnClickListener {
             if (!train.isFavourite) {
-                favouriteClickListener.addTrainToFavourite(train)
+                favouriteInsertListener?.addTrainToFavourite(train)
                 changeFavourite(true)
                 train.isFavourite = true
             } else {
-                favouriteClickListener.removeTrainToFavourite(train)
+                favouriteRemoveListener.removeTrainToFavourite(train)
                 changeFavourite(false)
                 train.isFavourite = false
             }
@@ -49,8 +57,8 @@ class TrainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     }
 
-    private fun changeFavourite(isFavourite: Boolean) {
-        if (isFavourite) {
+    private fun changeFavourite(favouriteRemoveListener: Boolean) {
+        if (favouriteRemoveListener) {
             binding.favourite.setImageDrawable(ContextCompat.getDrawable(
                 itemView.context,
                 R.drawable.ic_favorite_true

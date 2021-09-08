@@ -15,18 +15,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
 import com.crostage.trainchecker.databinding.FragmentFavouriteBinding
 import com.crostage.trainchecker.domain.model.Train
+import com.crostage.trainchecker.presentation.adapter.FavouriteAdapter
 import com.crostage.trainchecker.presentation.adapter.TrainListAdapter
 import com.crostage.trainchecker.presentation.appComponent
-import com.crostage.trainchecker.presentation.viewmodel.TrainViewModel
-import com.crostage.trainchecker.presentation.viewmodel.factory.TrainViewModelFactory
 import com.crostage.trainchecker.utils.Constant
 import com.crostage.trainchecker.presentation.util.Helper
+import com.crostage.trainchecker.presentation.viewmodel.FavouriteViewModel
+import com.crostage.trainchecker.presentation.viewmodel.factory.FavouriteViewModelFactory
 import javax.inject.Inject
 
 class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
 
-    private lateinit var viewModel: TrainViewModel
-    private lateinit var adapter: TrainListAdapter
+    private lateinit var viewModel: FavouriteViewModel
+    private lateinit var adapter: FavouriteAdapter
 
     private lateinit var binding: FragmentFavouriteBinding
 
@@ -68,14 +69,7 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
 
     //todo убрать одинаковый код
     private fun initAdapter() =
-        TrainListAdapter(object : FavouriteClickListener {
-            override fun addTrainToFavourite(train: Train) {
-                viewModel.insertToFavourite(train)
-                Helper.showNewSnack(
-                    requireView(),
-                    "Поезд ${train.trainNumber}  добавлен в отслеживаемые"
-                )
-            }
+        FavouriteAdapter(object : FavouriteRemoveListener {
 
             override fun removeTrainToFavourite(train: Train) {
                 viewModel.removeFromFavourite(train)
@@ -93,8 +87,8 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
             })
 
     @Inject
-    fun initViewModel(factory: TrainViewModelFactory) {
-        viewModel = ViewModelProvider(this, factory).get(TrainViewModel::class.java)
+    fun initViewModel(factory: FavouriteViewModelFactory) {
+        viewModel = ViewModelProvider(this, factory).get(FavouriteViewModel::class.java)
     }
 
     private fun setObservers() {

@@ -9,7 +9,7 @@ import javax.inject.Inject
 class StationViewModelFactory @Inject constructor(
     private val interactor: IStationInteractor,
 ) : ViewModelProvider.Factory {
-
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(
         modelClass: Class<T>,
     ): T {
