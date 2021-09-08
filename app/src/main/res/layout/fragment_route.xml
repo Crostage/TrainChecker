@@ -66,6 +66,15 @@
             android:layout_gravity="center"
             android:text="@string/nothing_found" />
 
+        <Button
+            android:id="@+id/tryAgain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:textSize="@dimen/m_text_size"
+            android:layout_gravity="center"
+            android:text="@string/try_again" />
+
 
     </FrameLayout>
 </LinearLayout>

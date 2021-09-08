@@ -1,8 +1,9 @@
-package com.crostage.trainchecker.data.network
+package com.crostage.trainchecker.data.network.util
 
 import com.crostage.trainchecker.data.model.rout.RoutesResult
 import com.crostage.trainchecker.data.model.seat.SeatResult
 import com.crostage.trainchecker.data.model.train.SearchResult
+import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.utils.Error401
 import com.crostage.trainchecker.utils.Error404
 import com.crostage.trainchecker.utils.ErrorConnections

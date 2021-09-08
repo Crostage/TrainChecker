@@ -16,10 +16,10 @@ import com.crostage.trainchecker.databinding.FragmentSeatBinding
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.presentation.adapter.SeatListAdapter
 import com.crostage.trainchecker.presentation.appComponent
+import com.crostage.trainchecker.presentation.util.Helper
 import com.crostage.trainchecker.presentation.viewmodel.SeatViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.SeatViewModelFactory
 import com.crostage.trainchecker.utils.Constant
-import com.crostage.trainchecker.presentation.util.Helper
 import javax.inject.Inject
 
 
@@ -46,18 +46,25 @@ class SeatFragment : Fragment(R.layout.fragment_seat) {
         super.onViewCreated(view, savedInstanceState)
 
         initRecyclerview()
+        setFromArguments(arguments)
 
-        //todo
+    }
+
+    private fun setFromArguments(arguments: Bundle?) {
         val train = arguments?.getParcelable<Train>(Constant.TRAIN_ARG)
 
         train?.let {
 
             setObservers()
 
+            binding.tryAgain.setOnClickListener {
+                viewModel.getCarList(train)
+                binding.tryAgain.isVisible = false
+            }
+
             if (viewModel.cars.value == null)
                 viewModel.getCarList(train)
         }
-
     }
 
     private fun initRecyclerview() {
@@ -85,8 +92,8 @@ class SeatFragment : Fragment(R.layout.fragment_seat) {
         })
 
         viewModel.error.observe(viewLifecycleOwner, {
-
             it.message?.let { msg -> Helper.showNewSnack(requireView(), msg) }
+            binding.tryAgain.isVisible = true
         })
         viewModel.progress.observe(viewLifecycleOwner) { showProgress ->
             binding.progress.isVisible = showProgress

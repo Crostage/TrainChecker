@@ -10,31 +10,20 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarResult"
-        android:background="@color/primary_variant"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@color/primary_variant" />
 
     <FrameLayout
 
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/resultRecyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/item_train" />
-
-        <TextView
-            android:id="@+id/listIsEmpty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/nothing_found"
-            android:textSize="@dimen/m_text_size"
-            android:visibility="gone" />
-
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/progress"
@@ -45,6 +34,25 @@
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/train_anim" />
+
+        <TextView
+            android:id="@+id/listIsEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/nothing_found"
+            android:textSize="@dimen/m_text_size"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/tryAgain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/try_again"
+            android:textSize="@dimen/m_text_size"
+            android:visibility="gone" />
+
     </FrameLayout>
 
 

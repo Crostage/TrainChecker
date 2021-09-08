@@ -18,10 +18,10 @@ interface TrainDao {
      * @return список поездова [TrainEntity]
      */
 
-    @Query("SELECT*FROM trains ORDER BY dateStart DESC ")
+    @Query("SELECT*FROM trains ORDER BY dateStart,timeStart ")
     fun getFavouriteLiveData(): LiveData<List<TrainEntity>>
 
-    @Query("SELECT*FROM trains ORDER BY dateStart DESC ")
+    @Query("SELECT*FROM trains ORDER BY dateStart ")
     fun getFavouriteList(): List<TrainEntity>
 
     /**

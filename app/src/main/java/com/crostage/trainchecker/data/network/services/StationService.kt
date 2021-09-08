@@ -2,7 +2,7 @@ package com.crostage.trainchecker.data.network.services
 
 import com.crostage.trainchecker.data.converter.IConverter
 import com.crostage.trainchecker.data.network.ApiRequests
-import com.crostage.trainchecker.data.network.NetworkUtil.Companion.executeAndExceptionChek
+import com.crostage.trainchecker.data.network.util.NetworkUtil.Companion.executeAndExceptionChek
 import com.crostage.trainchecker.domain.network.IStationService
 import com.crostage.trainchecker.data.model.station.StationEntity
 import com.crostage.trainchecker.domain.model.Station

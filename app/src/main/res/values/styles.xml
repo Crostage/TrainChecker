@@ -14,7 +14,7 @@
 
 
     <style name="MySnackbar" parent="Widget.Design.Snackbar">
-        <item name="android:layout_marginBottom">60dp</item>
+<!--        <item name="android:layout_marginBottom">60dp</item>-->
         <item name="android:layout_marginStart">5dp</item>
         <item name="android:layout_marginEnd">5dp</item>
     </style>

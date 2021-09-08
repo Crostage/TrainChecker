@@ -3,8 +3,8 @@ package com.crostage.trainchecker.data.network.services
 import android.util.Log
 import com.crostage.trainchecker.data.converter.IConverter
 import com.crostage.trainchecker.data.network.ApiRequests
-import com.crostage.trainchecker.data.network.NetworkUtil.Companion.executeAndExceptionChek
-import com.crostage.trainchecker.data.network.NetworkUtil.Companion.getResponseFromId
+import com.crostage.trainchecker.data.network.util.NetworkUtil.Companion.executeAndExceptionChek
+import com.crostage.trainchecker.data.network.util.NetworkUtil.Companion.getResponseFromId
 import com.crostage.trainchecker.domain.network.ITrainService
 import com.crostage.trainchecker.data.model.rid.BaseRidResult
 import com.crostage.trainchecker.data.model.train.SearchResult

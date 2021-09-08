@@ -16,10 +16,10 @@ import com.crostage.trainchecker.databinding.FragmentRouteBinding
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.presentation.adapter.RouteListAdapter
 import com.crostage.trainchecker.presentation.appComponent
+import com.crostage.trainchecker.presentation.util.Helper
 import com.crostage.trainchecker.presentation.viewmodel.RouteViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.RouteViewModelFactory
 import com.crostage.trainchecker.utils.Constant
-import com.crostage.trainchecker.presentation.util.Helper
 import javax.inject.Inject
 
 
@@ -48,17 +48,26 @@ class RouteFragment : Fragment(R.layout.fragment_route) {
         super.onViewCreated(view, savedInstanceState)
 
         initRecyclerview()
+        setFromArguments(arguments)
 
+    }
+
+
+    private fun setFromArguments(arguments: Bundle?) {
         val train = arguments?.getParcelable<Train>(Constant.TRAIN_ARG)
 
         train?.let {
 
             setObservers()
 
+            binding.tryAgain.setOnClickListener {
+                viewModel.getRoutes(train)
+                binding.tryAgain.isVisible = false
+            }
+
             if (viewModel.routes.value == null)
                 viewModel.getRoutes(train)
         }
-
     }
 
     private fun initRecyclerview() {
@@ -87,7 +96,7 @@ class RouteFragment : Fragment(R.layout.fragment_route) {
 
         viewModel.error.observe(viewLifecycleOwner, {
             it.message?.let { msg -> Helper.showNewSnack(requireView(), msg) }
-
+            binding.tryAgain.isVisible = true
         })
         viewModel.progress.observe(viewLifecycleOwner) { showProgress ->
             binding.progress.isVisible = showProgress

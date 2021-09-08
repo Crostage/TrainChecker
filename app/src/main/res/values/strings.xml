@@ -34,4 +34,5 @@
     <string name="date_formate_pattern">dd.MM.yyyy hh:mm</string>
     <string name="about_app">О приложении</string>
     <string name="city_to_hint">Город назначения</string>
+    <string name="try_again">Попробовать снова</string>
 </resources>

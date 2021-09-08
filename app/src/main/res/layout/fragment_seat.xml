@@ -35,4 +35,13 @@
         android:textSize="@dimen/m_text_size"
         android:visibility="gone" />
 
+    <Button
+        android:id="@+id/tryAgain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/try_again"
+        android:textSize="@dimen/m_text_size"
+        android:visibility="gone" />
+
 </FrameLayout>

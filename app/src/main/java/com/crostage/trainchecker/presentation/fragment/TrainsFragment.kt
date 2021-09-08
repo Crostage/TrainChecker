@@ -17,10 +17,10 @@ import com.crostage.trainchecker.databinding.FragmentResultBinding
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.presentation.adapter.TrainListAdapter
 import com.crostage.trainchecker.presentation.appComponent
+import com.crostage.trainchecker.presentation.util.Helper
 import com.crostage.trainchecker.presentation.viewmodel.TrainViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.TrainViewModelFactory
 import com.crostage.trainchecker.utils.Constant
-import com.crostage.trainchecker.presentation.util.Helper
 import java.util.*
 import javax.inject.Inject
 
@@ -46,19 +46,16 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initRecyclerView()
         setObservers()
         setFromArguments(arguments)
 
     }
 
-
     @Inject
     fun createViewModel(factory: TrainViewModelFactory) {
         viewModel = ViewModelProvider(this, factory).get(TrainViewModel::class.java)
     }
-
 
     private fun setFromArguments(arguments: Bundle?) {
         val cityFrom = arguments?.getString(Constant.SEARCH_CITY_FROM)
@@ -82,6 +79,11 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
                 }
             }
 
+
+            binding.tryAgain.setOnClickListener {
+                viewModel.trainsFromSearchRequest(codeFrom, codeTo, date)
+                binding.tryAgain.isVisible = false
+            }
 
             if (viewModel.trains.value == null) {
                 viewModel.trainsFromSearchRequest(codeFrom, codeTo, date)
@@ -137,7 +139,8 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
 
     private fun setObservers() {
         viewModel.error.observe(viewLifecycleOwner, {
-            it.message?.let { it1 -> Helper.showNewSnack(requireView(), it1) }
+            it.message?.let { msg -> Helper.showNewSnack(requireView(), msg) }
+            binding.tryAgain.isVisible = true
         })
 
         viewModel.trains.observe(viewLifecycleOwner, {

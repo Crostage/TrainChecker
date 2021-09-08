@@ -8,7 +8,7 @@ import com.crostage.trainchecker.data.model.station.StationEntity
 
 
 /**
- * Кэширование последних выбраных станций, Room
+ * Кэширование в БД последних выбраных станций, Room
  *
  */
 @Dao
