@@ -16,7 +16,6 @@ class TrainInteractor @Inject constructor(
     private val service: ITrainService,
 ) : ITrainInteractor {
 
-
     override fun checkFavouritesContainsTrains(
         trains: List<Train>,
         favourite: List<Train>,

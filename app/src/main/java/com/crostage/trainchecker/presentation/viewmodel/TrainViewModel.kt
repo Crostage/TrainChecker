@@ -6,13 +6,21 @@ import androidx.lifecycle.ViewModel
 import com.crostage.trainchecker.domain.interactors.interfaces.IFavouriteInteractor
 import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
 import com.crostage.trainchecker.domain.model.Train
-import com.crostage.trainchecker.utils.Helper
+import com.crostage.trainchecker.presentation.util.Helper
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
+
+/**
+ * ViewModel для работы со списками поездов
+ *
+ * @property trainInteractor бизнес логика получения списка поездов по запросу
+ * @property favouriteInteractor бизнес логика получения списка избранного
+ */
+
 
 class TrainViewModel(
     private val trainInteractor: ITrainInteractor,
@@ -33,6 +41,14 @@ class TrainViewModel(
 
     private val compositeDisposable = CompositeDisposable()
 
+    /**
+     * Получение списка поездов по поисковому запросу
+     *
+     * @param codeFrom станция отправления
+     * @param codeTo станция прибытия
+     * @param date дата отправления
+     */
+
     fun trainsFromSearchRequest(codeFrom: Int, codeTo: Int, date: String) {
 
         compositeDisposable.add(
@@ -48,7 +64,7 @@ class TrainViewModel(
                     }
                 }
 
-                //todo костыль опять
+                //todo:проверка, содержится ли поезд в избранном
                 .map { list ->
                     val m = favouriteInteractor.getFavouriteList()
                     list.map { train ->
@@ -70,6 +86,29 @@ class TrainViewModel(
 
     }
 
+    /**
+     * Добавление поезда в избранное
+     *
+     * @param train поезд для добавления
+     */
+    fun insertToFavourite(train: Train) {
+        compositeDisposable.add(
+            Completable.fromCallable {
+                favouriteInteractor.insertTrain(train)
+            }
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                    {},
+                    _error::setValue
+                )
+        )
+    }
+
+    /**
+     * Удаление поезда из избранного
+     *
+     * @param train поезд для удаления
+     */
     fun removeFromFavourite(train: Train) {
         compositeDisposable.add(
             Completable.fromCallable {
@@ -84,43 +123,55 @@ class TrainViewModel(
         )
     }
 
-
+    /**
+     * Проверка списка поездов на наличие отслеживаемых
+     *
+     * @param favourites список отслеживаемых
+     */
     fun checkFavouritesContainsTrains(favourites: List<Train>) {
         val list =
             _trains.value?.let { trainInteractor.checkFavouritesContainsTrains(it, favourites) }
         list?.let(_trains::setValue)
     }
 
-    fun insertToFavourite(train: Train) {
-        compositeDisposable.add(
-            Completable.fromCallable {
-                favouriteInteractor.insertTrain(train)
-            }
-                .subscribeOn(Schedulers.io())
-                .subscribe(
-                    {},
-                    _error::setValue
-                )
-        )
-    }
 
+    /**
+     * Обработка клика по поезду
+     *
+     * @param train
+     */
     fun trainClicked(train: Train) {
         _openDetail.value = Event(train)
     }
 
-    fun getFavouriteTrainList() =
+
+    /**
+     * Получение списка отслеживаемых
+     *
+     */
+    fun getFavouriteLiveData() =
         favouriteInteractor.getFavouriteLiveData()
 
 
+    /**
+     * Проверка списка отслеживаемых на актуальность даты и времени отправления
+     *
+     * @param favourites список отслеживаемых поездов
+     * @return актуальный список [Train]
+     */
     fun chekFavouritesOnActualDate(favourites: List<Train>): List<Train> {
-        return favourites.also {
+        return favourites.let {
             val actualList =
                 Helper.checkFavouritesOnActualDate(it).map { t ->
                     t.isFavourite = true
                     t
                 }
-            it.toMutableList().removeAll(actualList)
-            it.forEach { train -> removeFromFavourite(train) }
+            val favouriteList = it.toMutableList()
+            favouriteList.removeAll(actualList)
+            favouriteList.forEach { train ->
+                removeFromFavourite(train)
+            }
+            actualList
         }
     }
 

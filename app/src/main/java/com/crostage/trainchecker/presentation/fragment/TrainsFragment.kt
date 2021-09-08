@@ -20,7 +20,7 @@ import com.crostage.trainchecker.presentation.appComponent
 import com.crostage.trainchecker.presentation.viewmodel.TrainViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.TrainViewModelFactory
 import com.crostage.trainchecker.utils.Constant
-import com.crostage.trainchecker.utils.Helper
+import com.crostage.trainchecker.presentation.util.Helper
 import java.util.*
 import javax.inject.Inject
 
@@ -149,7 +149,7 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
             binding.progress.isVisible = showProgress
         }
 
-        viewModel.getFavouriteTrainList().observe(viewLifecycleOwner, {
+        viewModel.getFavouriteLiveData().observe(viewLifecycleOwner, {
             viewModel.checkFavouritesContainsTrains(it)
         })
 

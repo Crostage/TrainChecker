@@ -18,7 +18,7 @@ import com.crostage.trainchecker.domain.model.Station
 import com.crostage.trainchecker.presentation.activity.StationChoiceActivity
 import com.crostage.trainchecker.presentation.viewmodel.SearchViewModel
 import com.crostage.trainchecker.utils.Constant
-import com.crostage.trainchecker.utils.Helper
+import com.crostage.trainchecker.presentation.util.Helper
 import java.util.*
 
 

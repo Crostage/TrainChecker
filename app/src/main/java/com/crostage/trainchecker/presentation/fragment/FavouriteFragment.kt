@@ -20,7 +20,7 @@ import com.crostage.trainchecker.presentation.appComponent
 import com.crostage.trainchecker.presentation.viewmodel.TrainViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.TrainViewModelFactory
 import com.crostage.trainchecker.utils.Constant
-import com.crostage.trainchecker.utils.Helper
+import com.crostage.trainchecker.presentation.util.Helper
 import javax.inject.Inject
 
 class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
@@ -102,7 +102,7 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
             it.message?.let { msg -> Helper.showNewSnack(requireView(), msg) }
         })
 
-        viewModel.getFavouriteTrainList().observe(viewLifecycleOwner, {
+        viewModel.getFavouriteLiveData().observe(viewLifecycleOwner, {
 
             if (it != null) {
                 val actualList = viewModel.chekFavouritesOnActualDate(it)

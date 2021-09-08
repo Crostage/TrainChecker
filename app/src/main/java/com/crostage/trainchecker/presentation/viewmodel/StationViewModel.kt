@@ -10,11 +10,21 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
+/**
+ * ViewModel для работы со станциями отправления
+ *
+ * @property interactor бизнес логика получения станций из сети и БД
+ */
+
 class StationViewModel(
     private val interactor: IStationInteractor,
 ) : ViewModel() {
 
     private val _stations = MutableLiveData<List<Station>>()
+
+    /**
+     *  LiveData списка станций, меняется при изменении поискового запроса
+     */
     val stations: LiveData<List<Station>> = _stations
 
     private var _error = MutableLiveData<Throwable>()
@@ -24,6 +34,10 @@ class StationViewModel(
     val progress: LiveData<Boolean> = _progress
 
     private var _resultStation = MutableLiveData<Event<Station>>()
+
+    /**
+     *  LiveData события выбора станции
+     */
     var resultStation: LiveData<Event<Station>> = _resultStation
 
     private val compositeDisposable = CompositeDisposable()
@@ -33,10 +47,14 @@ class StationViewModel(
 
     }
 
-
+    /**
+     * Получения списка станций по поисковому запросу (часть названия стацнии)
+     *
+     * @param stationName название станции
+     */
     fun getStationResponse(stationName: String) {
 
-        /// TODO: больно сложно или норм?
+        // TODO: оставить логику тут? стоит ли разделить?
         compositeDisposable.add(
             Single.fromCallable {
                 interactor.getStationListFromRepo(stationName)
@@ -65,6 +83,12 @@ class StationViewModel(
         )
     }
 
+
+    /**
+     * Добавления выбранной станции в БД для отображения последних выбранных станций
+     *
+     * @param station выбранная станция
+     */
     private fun insertStation(station: Station) {
         compositeDisposable.add(
             Single.fromCallable {
@@ -74,6 +98,7 @@ class StationViewModel(
                 .subscribe()
         )
     }
+
 
     private fun getLastPickStations() {
         compositeDisposable.add(
@@ -93,6 +118,11 @@ class StationViewModel(
     }
 
 
+    /**
+     * Обработка выбранной станции
+     *
+     * @param station выбранная станция
+     */
     fun setResultStation(station: Station) {
         insertStation(station)
         _resultStation.postValue(Event(station))

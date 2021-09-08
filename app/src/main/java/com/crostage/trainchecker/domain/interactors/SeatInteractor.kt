@@ -15,7 +15,6 @@ class SeatInteractor @Inject constructor(
     private val service: ISeatService,
 ) : ISeatInteractor {
 
-
     override fun getSeatsRid(train: Train): Long? {
         return service.getSeatsRid(train)
     }

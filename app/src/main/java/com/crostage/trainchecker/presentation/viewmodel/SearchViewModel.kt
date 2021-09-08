@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.crostage.trainchecker.domain.model.Station
-import com.crostage.trainchecker.utils.Helper
+import com.crostage.trainchecker.presentation.util.Helper
 
 class SearchViewModel : ViewModel() {
 

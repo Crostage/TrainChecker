@@ -19,7 +19,7 @@ import com.crostage.trainchecker.presentation.appComponent
 import com.crostage.trainchecker.presentation.viewmodel.SeatViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.SeatViewModelFactory
 import com.crostage.trainchecker.utils.Constant
-import com.crostage.trainchecker.utils.Helper
+import com.crostage.trainchecker.presentation.util.Helper
 import javax.inject.Inject
 
 
