@@ -38,7 +38,7 @@ open class TrainViewModel(
                 .fromCallable {
                     trainInteractor.getTrainListRid(codeFrom, codeTo, date)
                 }
-                .delay(3, TimeUnit.SECONDS)
+                .delay(1, TimeUnit.SECONDS)
                 .flatMap { rid ->
                     Single.fromCallable {
                         rid?.let { trainInteractor.getTrainList(it) }

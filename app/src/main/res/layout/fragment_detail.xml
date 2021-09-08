@@ -17,6 +17,7 @@
             android:id="@+id/toolbarDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
             android:background="@color/primary_variant"
             android:gravity="center"
             app:layout_scrollFlags="scroll|enterAlways">
@@ -30,28 +31,37 @@
                     android:id="@+id/trainNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:textColor="@android:color/white"
                     android:drawablePadding="@dimen/text_drawable_padding"
-                    android:gravity="center|start"
+                    android:gravity="center"
                     android:text="@string/test_train_num"
-                    app:drawableStartCompat="@drawable/ic_train_for_text" />
+                    app:drawableTopCompat="@drawable/ic_train_for_item" />
 
-
-                <TextView
-                    android:id="@+id/date"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/test_date" />
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/fromTo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/test_from_to" />
+
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:gravity="center"
+                        android:text="@string/test_date" />
+
+                    <TextView
+                        android:id="@+id/fromTo"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:gravity="center"
+                        android:text="@string/test_from_to" />
+                </LinearLayout>
 
             </LinearLayout>
 

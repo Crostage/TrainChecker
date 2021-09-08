@@ -35,12 +35,10 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
         val train = arguments?.getParcelable<Train>(Constant.TRAIN_ARG)
 
-        binding.toolbarDetail.apply {
-            setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
-            setNavigationOnClickListener {
-               activity?.onBackPressed()
-            }
+        binding.toolbarDetail.setNavigationOnClickListener {
+            activity?.onBackPressed()
         }
+
 
         train?.let {
             binding.trainNumber.text = train.trainNumber

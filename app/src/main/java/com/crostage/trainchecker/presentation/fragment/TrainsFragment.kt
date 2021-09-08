@@ -73,7 +73,6 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
                     "${cityFrom.uppercase(Locale.getDefault())} " +
                             "-> ${cityTo.uppercase(Locale.getDefault())}  $date"
 
-                setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
                 setNavigationOnClickListener {
                     activity?.onBackPressed()
                 }

@@ -74,12 +74,12 @@ object RetrofitBuilder {
         val response = chain.proceed(chain.request())
 
         val cacheControl = CacheControl.Builder()
-            .maxStale(5, TimeUnit.MINUTES)
+            .maxStale(2, TimeUnit.MINUTES)
             .build()
 
         response.newBuilder()
             .removeHeader(HEADER_PRAGMA)
-            .removeHeader(HEADER_CACHE_CONTROL)
+//            .removeHeader(HEADER_CACHE_CONTROL)
             .header(HEADER_CACHE_CONTROL, cacheControl.toString())
             .build()
     }

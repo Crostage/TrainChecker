@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/background_text_view.xml" value="0.2" />
+        <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.2786458333333333" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.2786458333333333" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/ic_calendar.xml" value="0.42864583333333334" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/ic_favorite.xml" value="0.2786458333333333" />
@@ -17,7 +18,7 @@
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/activity_station_choice.xml" value="0.24365942028985507" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/activity_station_choise.xml" value="0.1276595744680851" />
-        <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/fragment_detail.xml" value="0.2" />
+        <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/fragment_detail.xml" value="0.4" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/fragment_favourite.xml" value="0.1" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/fragment_result.xml" value="0.13768115942028986" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/fragment_route.xml" value="0.2006079027355623" />
