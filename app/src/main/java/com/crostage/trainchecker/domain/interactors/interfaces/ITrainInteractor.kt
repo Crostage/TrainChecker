@@ -3,7 +3,7 @@ package com.crostage.trainchecker.domain.interactors.interfaces
 import androidx.lifecycle.LiveData
 import com.crostage.trainchecker.domain.model.Train
 
-interface ITrainInteractor {
+interface ITrainInteractor : IFavouriteInteractor {
 
     /**
      * Получение request id поискового запроса

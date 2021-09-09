@@ -76,10 +76,7 @@ open class FavouriteViewModel(
     fun chekFavouritesOnActualDate(favourites: List<Train>): List<Train> {
         return favourites.let {
             val actualList =
-                Helper.checkFavouritesOnActualDate(it).map { t ->
-                    t.isFavourite = true
-                    t
-                }
+                Helper.checkFavouritesOnActualDate(it)
             val favouriteList = it.toMutableList()
             favouriteList.removeAll(actualList)
             favouriteList.forEach { train ->

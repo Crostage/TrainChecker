@@ -41,7 +41,7 @@ class FavouriteConverter @Inject constructor() : IConverter<FavouriteEntity, Tra
             input.timeStart,
             input.timeEnd,
             input.timeInWay,
-            input.isFavourite
+            true
         )
     }
 }

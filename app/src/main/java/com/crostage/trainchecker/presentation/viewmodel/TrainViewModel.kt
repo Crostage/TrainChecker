@@ -19,8 +19,7 @@ import java.util.concurrent.TimeUnit
 
 open class TrainViewModel(
     private val trainInteractor: ITrainInteractor,
-    private val favouriteInteractor: IFavouriteInteractor,
-) : FavouriteViewModel(favouriteInteractor) {
+) : FavouriteViewModel(trainInteractor) {
 
     /**
      * Получение списка поездов по поисковому запросу
@@ -33,24 +32,14 @@ open class TrainViewModel(
     fun trainsFromSearchRequest(codeFrom: Int, codeTo: Int, date: String) {
 
         compositeDisposable.add(
-
             Single
                 .fromCallable {
                     trainInteractor.getTrainListRid(codeFrom, codeTo, date)
                 }
-                .delay(1, TimeUnit.SECONDS)
+                .delay(2, TimeUnit.SECONDS)
                 .flatMap { rid ->
                     Single.fromCallable {
                         rid?.let { trainInteractor.getTrainList(it) }
-                    }
-                }
-
-                //todo:проверка, содержится ли поезд в избранном
-                .map { list ->
-                    val m = favouriteInteractor.getFavouriteList()
-                    list.map { train ->
-                        train.isFavourite = m.contains(train)
-                        train
                     }
                 }
                 .subscribeOn(Schedulers.io())
@@ -75,7 +64,7 @@ open class TrainViewModel(
     fun insertToFavourite(train: Train) {
         compositeDisposable.add(
             Completable.fromCallable {
-                favouriteInteractor.insertTrain(train)
+                trainInteractor.insertTrain(train)
             }
                 .subscribeOn(Schedulers.io())
                 .subscribe(

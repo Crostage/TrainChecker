@@ -3,6 +3,7 @@ package com.crostage.trainchecker.domain.interactors
 import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.domain.network.ITrainService
+import com.crostage.trainchecker.domain.repository.ITrainRepository
 import javax.inject.Inject
 
 /**
@@ -12,7 +13,8 @@ import javax.inject.Inject
  */
 class TrainInteractor @Inject constructor(
     private val service: ITrainService,
-) : ITrainInteractor {
+    private val repository: ITrainRepository,
+) : FavouriteInteractor(repository), ITrainInteractor {
 
     override fun checkFavouritesContainsTrains(
         trains: List<Train>,
@@ -29,7 +31,11 @@ class TrainInteractor @Inject constructor(
     }
 
     override fun getTrainList(rid: Long): List<Train> {
-        return service.getTrainList(rid)
+        val favourite = repository.getFavouriteList()
+        return service.getTrainList(rid).map {
+            it.isFavourite = favourite.contains(it)
+            it
+        }
     }
 
 

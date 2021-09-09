@@ -17,9 +17,6 @@ interface IFavouriteInteractor {
      */
     fun getFavouriteLiveData(): LiveData<List<Train>>
 
-
-    fun getFavouriteList(): List<Train>
-
     /**
      * Удаление поезда из избранного
      *

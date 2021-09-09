@@ -13,17 +13,12 @@ import javax.inject.Inject
  * @property trainRepository репо для получения [Train] данных
  */
 
-class FavouriteInteractor @Inject constructor(
+open class FavouriteInteractor @Inject constructor(
     private val trainRepository: ITrainRepository,
 ) : IFavouriteInteractor {
 
     override fun getFavouriteLiveData(): LiveData<List<Train>> {
-
         return trainRepository.getFavouriteLiveData()
-    }
-
-    override fun getFavouriteList(): List<Train> {
-        return trainRepository.getFavouriteList()
     }
 
     override fun removeTrain(train: Train) {
