@@ -55,8 +55,10 @@ class TrainService @Inject constructor(
         return rid
     }
 
-    override fun getTrainList(rid: Long): List<Train> {
+    override fun getTrainList(rid: Long?): List<Train> {
         var trainList: List<Train> = mutableListOf()
+        if (rid == null) return trainList
+
         val data = getResponseFromId(rid, retrofitApi, SearchResult::class.java)
 
         val l = data?.listResponse?.get(0)?.list

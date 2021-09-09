@@ -4,6 +4,8 @@ import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.domain.network.ITrainService
 import com.crostage.trainchecker.domain.repository.ITrainRepository
+import io.reactivex.rxjava3.core.Single
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 /**
@@ -26,18 +28,26 @@ class TrainInteractor @Inject constructor(
         }
     }
 
-    override fun getTrainListRid(codeFrom: Int, codeTo: Int, date: String): Long? {
-        return service.getTrainListRid(codeFrom, codeTo, date)
-    }
-
-    override fun getTrainList(rid: Long): List<Train> {
-        val favourite = repository.getFavouriteList()
-        return service.getTrainList(rid).map {
-            it.isFavourite = favourite.contains(it)
-            it
+    override fun getTrainList(codeFrom: Int, codeTo: Int, date: String): Single<List<Train>> {
+        return Single.fromCallable {
+            service.getTrainListRid(codeFrom, codeTo, date)
         }
+            .delay(4, TimeUnit.SECONDS) //сервер не успевает обработать запрос
+            .flatMap { rid ->
+                Single.fromCallable { service.getTrainList(rid) }
+                    .flatMap { list ->
+                        Single.fromCallable {
+                            val favourite = repository.getFavouriteList()
+                            list.map {
+                                it.isFavourite = favourite.contains(it)
+                                it
+                            }
+                        }
+                    }
+
+            }
+
+
     }
-
-
 
 }

@@ -1,7 +1,7 @@
 package com.crostage.trainchecker.domain.interactors.interfaces
 
-import androidx.lifecycle.LiveData
 import com.crostage.trainchecker.domain.model.Train
+import io.reactivex.rxjava3.core.Single
 
 interface ITrainInteractor : IFavouriteInteractor {
 
@@ -11,18 +11,10 @@ interface ITrainInteractor : IFavouriteInteractor {
      * @param codeFrom код станции отправления
      * @param codeTo код станции прибытия
      * @param date дата отправления
-     * @return request id
-     */
-
-    fun getTrainListRid(codeFrom: Int, codeTo: Int, date: String): Long?
-
-    /**
-     * Получение по [rid] списка поездов соответствующих поисковому запросу
-     *
      * @return наблюдаемый список [Train]
      */
 
-    fun getTrainList(rid: Long): List<Train>
+    fun getTrainList(codeFrom: Int, codeTo: Int, date: String): Single<List<Train>>
 
 
     fun checkFavouritesContainsTrains(trains: List<Train>, favourite: List<Train>): List<Train>

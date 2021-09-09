@@ -20,6 +20,6 @@ interface ITrainService {
 
     fun getTrainListRid(codeFrom: Int, codeTo: Int, date: String): Long?
 
-    fun getTrainList(rid: Long): List<Train>
+    fun getTrainList(rid: Long?): List<Train>
 
 }

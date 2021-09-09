@@ -1,13 +1,10 @@
 package com.crostage.trainchecker.presentation.viewmodel
 
-import com.crostage.trainchecker.domain.interactors.interfaces.IFavouriteInteractor
 import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
 import com.crostage.trainchecker.domain.model.Train
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
 
 /**
  * ViewModel для работы со списками поездов
@@ -32,16 +29,7 @@ open class TrainViewModel(
     fun trainsFromSearchRequest(codeFrom: Int, codeTo: Int, date: String) {
 
         compositeDisposable.add(
-            Single
-                .fromCallable {
-                    trainInteractor.getTrainListRid(codeFrom, codeTo, date)
-                }
-                .delay(4, TimeUnit.SECONDS) //сервер не успевает обработать запрос
-                .flatMap { rid ->
-                    Single.fromCallable {
-                        rid?.let { trainInteractor.getTrainList(it) }
-                    }
-                }
+            trainInteractor.getTrainList(codeFrom, codeTo, date)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally { _progress.value = false }
@@ -50,9 +38,7 @@ open class TrainViewModel(
                     _trains::setValue,
                     _error::setValue
                 )
-
         )
-
 
     }
 
