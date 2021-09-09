@@ -72,7 +72,7 @@ class StationViewModel(
                 else listOf()
 
             }
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally { _progress.value = false }
                 .doOnSubscribe { _progress.value = true }
@@ -94,7 +94,7 @@ class StationViewModel(
             Single.fromCallable {
                 interactor.insertStation(station)
             }
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.computation())
                 .subscribe()
         )
     }
@@ -105,7 +105,7 @@ class StationViewModel(
             Single.fromCallable {
                 interactor.getLastStationsPick()
             }
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally { _progress.value = false }
                 .doOnSubscribe { _progress.value = true }

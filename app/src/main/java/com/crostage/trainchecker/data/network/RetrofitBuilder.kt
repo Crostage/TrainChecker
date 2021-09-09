@@ -1,11 +1,8 @@
 package com.crostage.trainchecker.data.network
 
-import android.content.Context
-import android.net.ConnectivityManager
 import android.util.Log
-import androidx.core.content.ContextCompat.getSystemService
 import com.crostage.trainchecker.data.model.rout.Response
-import com.crostage.trainchecker.data.network.adapter.ResponseDeserializer
+import com.crostage.trainchecker.data.network.adapter.RouteResponseDeserializer
 import com.crostage.trainchecker.presentation.MainApp
 import com.crostage.trainchecker.utils.Constant.Companion.BASE_URL
 import com.crostage.trainchecker.utils.Constant.Companion.CACHE_SIZE
@@ -65,7 +62,7 @@ object RetrofitBuilder {
 
 
     private fun createResponseTypeAdapter(): Gson =
-        GsonBuilder().registerTypeAdapter(Response::class.java, ResponseDeserializer())
+        GsonBuilder().registerTypeAdapter(Response::class.java, RouteResponseDeserializer())
             .create()
 
 
@@ -109,4 +106,4 @@ object RetrofitBuilder {
     private var httpLoggingInterceptor = HttpLoggingInterceptor { Log.d(TAG, "http:log $it") }
         .setLevel(HttpLoggingInterceptor.Level.BODY)
 
-    }
+}

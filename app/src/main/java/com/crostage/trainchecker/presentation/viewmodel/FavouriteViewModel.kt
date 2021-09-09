@@ -39,7 +39,7 @@ open class FavouriteViewModel(
             Completable.fromCallable {
                 favouriteInteractor.removeTrain(train)
             }
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.computation())
                 .onErrorReturn { }
                 .subscribe(
                     { },

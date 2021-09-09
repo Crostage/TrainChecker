@@ -42,7 +42,7 @@ open class TrainViewModel(
                         rid?.let { trainInteractor.getTrainList(it) }
                     }
                 }
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally { _progress.value = false }
                 .doOnSubscribe { _progress.value = true }
@@ -66,7 +66,7 @@ open class TrainViewModel(
             Completable.fromCallable {
                 trainInteractor.insertTrain(train)
             }
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.computation())
                 .subscribe(
                     {},
                     _error::setValue

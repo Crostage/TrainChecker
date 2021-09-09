@@ -39,7 +39,7 @@ class SeatViewModel(
                         rid?.let { interactor.getSeats(it) }
                     }
                 }
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally { _progress.value = false }
                 .doOnSubscribe { _progress.value = true }
