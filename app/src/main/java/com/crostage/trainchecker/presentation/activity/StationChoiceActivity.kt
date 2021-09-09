@@ -15,6 +15,7 @@ import com.crostage.trainchecker.domain.model.Station
 import com.crostage.trainchecker.presentation.adapter.StationListAdapter
 import com.crostage.trainchecker.presentation.appComponent
 import com.crostage.trainchecker.presentation.util.Helper
+import com.crostage.trainchecker.presentation.util.Helper.Companion.showSnackBar
 import com.crostage.trainchecker.presentation.viewmodel.StationViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.StationViewModelFactory
 import com.crostage.trainchecker.utils.Constant
@@ -87,7 +88,7 @@ class StationChoiceActivity : AppCompatActivity() {
 
     private fun setObservers() {
         viewModel.error.observe(this, {
-            it.message?.let { msg -> Helper.showNewSnack(binding.stationRecyclerview, msg) }
+            it.message?.let { msg -> binding.stationRecyclerview.showSnackBar(msg) }
         })
 
         viewModel.stations.observe(this, {

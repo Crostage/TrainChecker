@@ -17,6 +17,7 @@ import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.presentation.adapter.RouteListAdapter
 import com.crostage.trainchecker.presentation.appComponent
 import com.crostage.trainchecker.presentation.util.Helper
+import com.crostage.trainchecker.presentation.util.Helper.Companion.showSnackBar
 import com.crostage.trainchecker.presentation.viewmodel.RouteViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.RouteViewModelFactory
 import com.crostage.trainchecker.utils.Constant
@@ -95,7 +96,7 @@ class RouteFragment : Fragment(R.layout.fragment_route) {
         })
 
         viewModel.error.observe(viewLifecycleOwner, {
-            it.message?.let { msg -> Helper.showNewSnack(requireView(), msg) }
+            it.message?.let { msg -> requireView().showSnackBar(msg) }
             binding.tryAgain.isVisible = true
         })
         viewModel.progress.observe(viewLifecycleOwner) { showProgress ->

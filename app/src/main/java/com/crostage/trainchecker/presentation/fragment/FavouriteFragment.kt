@@ -16,12 +16,13 @@ import com.crostage.trainchecker.R
 import com.crostage.trainchecker.databinding.FragmentFavouriteBinding
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.presentation.adapter.FavouriteAdapter
-import com.crostage.trainchecker.presentation.adapter.TrainListAdapter
 import com.crostage.trainchecker.presentation.appComponent
-import com.crostage.trainchecker.utils.Constant
-import com.crostage.trainchecker.presentation.util.Helper
+import com.crostage.trainchecker.presentation.interfaces.FavouriteRemoveListener
+import com.crostage.trainchecker.presentation.interfaces.TrainItemClickListener
+import com.crostage.trainchecker.presentation.util.Helper.Companion.showSnackBar
 import com.crostage.trainchecker.presentation.viewmodel.FavouriteViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.FavouriteViewModelFactory
+import com.crostage.trainchecker.utils.Constant
 import javax.inject.Inject
 
 class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
@@ -73,10 +74,9 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
 
             override fun removeTrainToFavourite(train: Train) {
                 viewModel.removeFromFavourite(train)
-                Helper.showNewSnack(
-                    requireView(),
-                    "Поезд ${train.trainNumber} удален из отслеживаемых"
-                )
+                requireView()
+                    .showSnackBar("Поезд ${train.trainNumber} удален из отслеживаемых")
+
             }
 
         },
@@ -93,7 +93,7 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
 
     private fun setObservers() {
         viewModel.error.observe(viewLifecycleOwner, {
-            it.message?.let { msg -> Helper.showNewSnack(requireView(), msg) }
+            it.message?.let { msg -> requireView().showSnackBar(msg) }
         })
 
         viewModel.getFavouriteLiveData().observe(viewLifecycleOwner, {

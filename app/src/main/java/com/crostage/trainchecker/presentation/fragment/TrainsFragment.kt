@@ -17,7 +17,10 @@ import com.crostage.trainchecker.databinding.FragmentResultBinding
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.presentation.adapter.TrainListAdapter
 import com.crostage.trainchecker.presentation.appComponent
-import com.crostage.trainchecker.presentation.util.Helper
+import com.crostage.trainchecker.presentation.interfaces.FavouriteInsertListener
+import com.crostage.trainchecker.presentation.interfaces.FavouriteRemoveListener
+import com.crostage.trainchecker.presentation.interfaces.TrainItemClickListener
+import com.crostage.trainchecker.presentation.util.Helper.Companion.showSnackBar
 import com.crostage.trainchecker.presentation.viewmodel.TrainViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.TrainViewModelFactory
 import com.crostage.trainchecker.utils.Constant
@@ -114,19 +117,15 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
         TrainListAdapter(object : FavouriteInsertListener {
             override fun addTrainToFavourite(train: Train) {
                 viewModel.insertToFavourite(train)
-                Helper.showNewSnack(
-                    requireView(),
-                    "Поезд ${train.trainNumber}  добавлен в отслеживаемые"
-                )
+                requireView()
+                    .showSnackBar("Поезд ${train.trainNumber}  добавлен в отслеживаемые")
             }
 
         }, object : FavouriteRemoveListener {
             override fun removeTrainToFavourite(train: Train) {
                 viewModel.removeFromFavourite(train)
-                Helper.showNewSnack(
-                    requireView(),
-                    "Поезд ${train.trainNumber} удален из отслеживаемых"
-                )
+                requireView()
+                    .showSnackBar("Поезд ${train.trainNumber} удален из отслеживаемых")
             }
         },
             object : TrainItemClickListener {
@@ -138,7 +137,7 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
 
     private fun setObservers() {
         viewModel.error.observe(viewLifecycleOwner, {
-            it.message?.let { msg -> Helper.showNewSnack(requireView(), msg) }
+            it.message?.let { msg -> requireView().showSnackBar(msg) }
             binding.tryAgain.isVisible = true
         })
 
@@ -167,16 +166,4 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
 
 }
 
-//todo убрать интерфейсы отседова
 
-interface FavouriteInsertListener {
-    fun addTrainToFavourite(train: Train)
-}
-
-interface FavouriteRemoveListener {
-    fun removeTrainToFavourite(train: Train)
-}
-
-interface TrainItemClickListener {
-    fun trainClicked(train: Train)
-}

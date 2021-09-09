@@ -46,23 +46,18 @@ class Helper {
         }
 
 
-        //todo
         /**
          * Демонстрация snack bar
          *
-         * @param view объект для привязки
          * @param text техт сообщения
          */
 
-        fun showNewSnack(view: View, text: String) {
-//            val weakView = WeakReference(view)
-//            weakView.get()?.let {
-            Snackbar.make(view, text,
+        fun View.showSnackBar(text: String) {
+            Snackbar.make(this, text,
                 Snackbar.LENGTH_SHORT)
                 .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                 .setAction("Action", null)
                 .show()
-//            }
         }
 
     }

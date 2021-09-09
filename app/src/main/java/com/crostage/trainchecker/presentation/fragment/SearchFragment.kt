@@ -16,9 +16,9 @@ import com.crostage.trainchecker.R
 import com.crostage.trainchecker.databinding.FragmentSearchBinding
 import com.crostage.trainchecker.domain.model.Station
 import com.crostage.trainchecker.presentation.activity.StationChoiceActivity
+import com.crostage.trainchecker.presentation.util.Helper.Companion.showSnackBar
 import com.crostage.trainchecker.presentation.viewmodel.SearchViewModel
 import com.crostage.trainchecker.utils.Constant
-import com.crostage.trainchecker.presentation.util.Helper
 import java.util.*
 
 
@@ -145,7 +145,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun btnSearchClick() {
 
         if (binding.cityFrom.text.isEmpty() || binding.cityTo.text.isEmpty() || binding.tvDate.text.isEmpty()) {
-            Helper.showNewSnack(requireView(), getString(R.string.fill_all_fields))
+
+            requireView()
+                .showSnackBar(getString(R.string.fill_all_fields))
             return
         }
 
