@@ -1,8 +1,9 @@
 package com.crostage.trainchecker.presentation.adapter
 
-import com.crostage.trainchecker.presentation.fragment.FavouriteInsertListener
-import com.crostage.trainchecker.presentation.fragment.FavouriteRemoveListener
-import com.crostage.trainchecker.presentation.fragment.TrainItemClickListener
+import com.crostage.trainchecker.presentation.interfaces.FavouriteInsertListener
+import com.crostage.trainchecker.presentation.interfaces.FavouriteRemoveListener
+import com.crostage.trainchecker.presentation.interfaces.TrainItemClickListener
+
 
 class TrainListAdapter(
     private val favouriteInsertListener: FavouriteInsertListener,

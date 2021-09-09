@@ -1,8 +1,8 @@
 package com.crostage.trainchecker.data.repository
 
 import com.crostage.trainchecker.data.converter.IConverter
-import com.crostage.trainchecker.data.db.StationDao
-import com.crostage.trainchecker.data.db.StationResponseDao
+import com.crostage.trainchecker.data.db.dao.StationDao
+import com.crostage.trainchecker.data.db.dao.StationResponseDao
 import com.crostage.trainchecker.domain.repository.IStationRepository
 import com.crostage.trainchecker.data.model.station.StationEntity
 import com.crostage.trainchecker.data.model.station.StationSearchResponse

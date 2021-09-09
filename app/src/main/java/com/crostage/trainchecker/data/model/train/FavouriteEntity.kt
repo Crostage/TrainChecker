@@ -1,12 +1,13 @@
-package com.crostage.trainchecker.domain.model
+package com.crostage.trainchecker.data.model.train
 
-import android.os.Parcelable
 import androidx.room.Entity
+import com.crostage.trainchecker.domain.model.Ticket
 import com.crostage.trainchecker.utils.Constant
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
-data class Train(
+
+@Entity(tableName = Constant.TABLE_NAME_FAVOURITES,
+    primaryKeys = ["trainNumber", "dateStart", "timeStart"])
+data class FavouriteEntity(
     val carrier: String, //тип поезда ФПК
     val brand: String, //название поезда
     val ticketList: List<Ticket>, //массив билетов
@@ -21,7 +22,7 @@ data class Train(
     val timeEnd: String,  //время прибытия
     val timeInWay: String, //время в пути
     var isFavourite: Boolean,
-) : Parcelable {
+) {
 
     //пришлось переопределять ручками, тк при получении списка поездов из сети некоторые поля
     //динамичны. Например меняется массив билетов.
@@ -30,7 +31,7 @@ data class Train(
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as Train
+        other as FavouriteEntity
 
         if (dateStart != other.dateStart) return false
         if (trainNumber != other.trainNumber) return false
@@ -46,4 +47,3 @@ data class Train(
         return result
     }
 }
-

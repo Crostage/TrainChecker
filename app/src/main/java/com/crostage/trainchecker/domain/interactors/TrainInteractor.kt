@@ -1,10 +1,8 @@
 package com.crostage.trainchecker.domain.interactors
 
-import androidx.lifecycle.LiveData
 import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
-import com.crostage.trainchecker.domain.network.ITrainService
-import com.crostage.trainchecker.domain.repository.ITrainRepository
 import com.crostage.trainchecker.domain.model.Train
+import com.crostage.trainchecker.domain.network.ITrainService
 import javax.inject.Inject
 
 /**

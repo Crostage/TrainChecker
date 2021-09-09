@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.presentation.adapter.diffutil.TrainDiffUtil
-import com.crostage.trainchecker.presentation.fragment.FavouriteRemoveListener
-import com.crostage.trainchecker.presentation.fragment.TrainItemClickListener
+import com.crostage.trainchecker.presentation.interfaces.FavouriteRemoveListener
+import com.crostage.trainchecker.presentation.interfaces.TrainItemClickListener
 
 open class FavouriteAdapter(
     private val favouriteRemoveListener: FavouriteRemoveListener,

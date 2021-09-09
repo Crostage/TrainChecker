@@ -7,14 +7,23 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.crostage.trainchecker.data.db.converter.StationListConverter
 import com.crostage.trainchecker.data.db.converter.TicketListConverter
+import com.crostage.trainchecker.data.db.dao.StationDao
+import com.crostage.trainchecker.data.db.dao.StationResponseDao
+import com.crostage.trainchecker.data.db.dao.TrainDao
 import com.crostage.trainchecker.data.model.station.StationEntity
 import com.crostage.trainchecker.data.model.station.StationSearchResponse
+import com.crostage.trainchecker.data.model.train.FavouriteEntity
 import com.crostage.trainchecker.data.model.train.TrainEntity
 import com.crostage.trainchecker.utils.Constant.Companion.DB_NAME
 
 
 @Database(
-    entities = [StationSearchResponse::class, TrainEntity::class, StationEntity::class],
+    entities = [
+        StationSearchResponse::class,
+        TrainEntity::class,
+        StationEntity::class,
+        FavouriteEntity::class
+    ],
     version = 1,
     exportSchema = false
 )

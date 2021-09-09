@@ -1,10 +1,11 @@
-package com.crostage.trainchecker.data.db
+package com.crostage.trainchecker.data.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.crostage.trainchecker.data.model.station.StationEntity
+import com.crostage.trainchecker.utils.Constant.Companion.TABLE_NAME_LAST_PICK
 
 
 /**
@@ -27,7 +28,7 @@ interface StationDao {
      *
      * @return список последних выбранных станций [StationEntity]
      */
-    @Query("SELECT * FROM last_pick_stations")
+    @Query("SELECT * FROM $TABLE_NAME_LAST_PICK")
     fun getLastStationPicks(): List<StationEntity>
 
 

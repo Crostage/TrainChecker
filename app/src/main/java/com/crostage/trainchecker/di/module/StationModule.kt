@@ -1,11 +1,9 @@
 package com.crostage.trainchecker.di.module
 
-import android.app.Activity
-import androidx.savedstate.SavedStateRegistryOwner
 import com.crostage.trainchecker.data.converter.IConverter
 import com.crostage.trainchecker.data.converter.StationConverter
-import com.crostage.trainchecker.data.db.StationDao
-import com.crostage.trainchecker.data.db.StationResponseDao
+import com.crostage.trainchecker.data.db.dao.StationDao
+import com.crostage.trainchecker.data.db.dao.StationResponseDao
 import com.crostage.trainchecker.data.db.TrainDatabase
 import com.crostage.trainchecker.data.network.services.StationService
 import com.crostage.trainchecker.data.repository.StationRepository

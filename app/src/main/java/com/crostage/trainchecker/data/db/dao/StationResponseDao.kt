@@ -1,10 +1,11 @@
-package com.crostage.trainchecker.data.db
+package com.crostage.trainchecker.data.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.crostage.trainchecker.data.model.station.StationSearchResponse
+import com.crostage.trainchecker.utils.Constant.Companion.TABLE_NAME_STATION_SEARCH
 
 /**
  * Кэширование поиска по станциям, Room
@@ -28,7 +29,7 @@ interface StationResponseDao {
      * @return сохраненный ответ от сервера [StationSearchResponse]
      */
 
-    @Query("SELECT * FROM station_search WHERE name=:name")
+    @Query("SELECT * FROM $TABLE_NAME_STATION_SEARCH WHERE name=:name")
     fun getListFromName(name: String): StationSearchResponse?
 
 
