@@ -44,6 +44,7 @@ class TrainService @Inject constructor(
 
             if (it.isSuccessful) {
                 val body = it.body() as SearchResult
+
                 val message = body.listResponse?.get(0)?.msgList?.get(0)?.message
                 if (message != null) throw ServerSendError(message)
 
@@ -56,17 +57,10 @@ class TrainService @Inject constructor(
 
     override fun getTrainList(rid: Long): List<Train> {
         var trainList: List<Train> = mutableListOf()
-        var data = getResponseFromId(rid, retrofitApi, SearchResult::class.java)
+        val data = getResponseFromId(rid, retrofitApi, SearchResult::class.java)
 
-        //Бывает, что сервер не успевает обработать запрос и повторно прислывает rid
-        if (data?.result == "RID") {
-            Log.d("testSecondRid", "Сервер не обработал rid запрос")
-            Thread.sleep(2000)
-            data = getResponseFromId(rid, retrofitApi, SearchResult::class.java)
-        }
         val l = data?.listResponse?.get(0)?.list
         l?.let { trainList = l.map { entity -> converter.convert(entity) } }
-
 
         return trainList
     }
