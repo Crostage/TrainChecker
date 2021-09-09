@@ -11,6 +11,7 @@ import com.crostage.trainchecker.data.model.rout.RoutesResult
 import com.crostage.trainchecker.data.model.rout.TrainStopDto
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.domain.model.TrainStop
+import com.crostage.trainchecker.utils.ServerSendError
 import javax.inject.Inject
 
 
@@ -57,6 +58,10 @@ class RouteService @Inject constructor(
         var stopsList: List<TrainStop> = mutableListOf()
         val data = NetworkUtil.getResponseFromId(rid, retrofitApi, RoutesResult::class.java)
 
+
+        data?.response?.error?.let {
+            throw ServerSendError(it.content)
+        }
         val stopDtoList = data?.response?.routes
 
 

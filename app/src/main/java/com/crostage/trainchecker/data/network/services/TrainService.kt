@@ -2,7 +2,6 @@ package com.crostage.trainchecker.data.network.services
 
 import android.util.Log
 import com.crostage.trainchecker.data.converter.IConverter
-import com.crostage.trainchecker.data.model.rid.BaseRidResult
 import com.crostage.trainchecker.data.model.train.SearchResult
 import com.crostage.trainchecker.data.model.train.TrainEntity
 import com.crostage.trainchecker.data.network.ApiRequests
@@ -11,9 +10,8 @@ import com.crostage.trainchecker.data.network.util.NetworkUtil.Companion.getResp
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.domain.network.ITrainService
 import com.crostage.trainchecker.utils.Constant
-import io.reactivex.rxjava3.core.Single
+import com.crostage.trainchecker.utils.ServerSendError
 import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  *
@@ -43,13 +41,13 @@ class TrainService @Inject constructor(
         ).executeAndExceptionChek()
 
         responseRid?.let {
-            Log.d(TAG, "TRAIN")
-            Log.d(TAG, "${responseRid.raw()}")
-            Log.d(TAG, "${responseRid.body()}")
-            Log.d(TAG, responseRid.message())
 
             if (it.isSuccessful) {
-                val body = it.body() as BaseRidResult
+                val body = it.body() as SearchResult
+                val message = body.listResponse?.get(0)?.msgList?.get(0)?.message
+                if (message != null) throw ServerSendError(message)
+
+
                 rid = body.requestId
             }
         }

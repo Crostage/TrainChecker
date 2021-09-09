@@ -22,7 +22,7 @@ class RouteResponseDeserializer : JsonDeserializer<Response> {
                 errorElement.asJsonObject,
                 RoutesError::class.java
             )
-            throw ServerSendError(error?.content)
+            return Response(mutableListOf(), error)
 
         }
 
@@ -36,7 +36,7 @@ class RouteResponseDeserializer : JsonDeserializer<Response> {
                         Array<Routes>::class.java
                     )
 
-                return route?.get(0)?.routList?.let { Response(it) }
+                return route?.get(0)?.routList?.let { Response(it, null) }
 
             } else if (routesElement.isJsonObject) {
 
@@ -44,11 +44,11 @@ class RouteResponseDeserializer : JsonDeserializer<Response> {
                     routesElement.asJsonObject, Routes::class.java
                 )
 
-                return routes?.routList?.let { Response(it) }
+                return routes?.routList?.let { Response(it, null) }
             }
         }
 
-        return Response(mutableListOf())
+        return Response(mutableListOf(), null)
     }
 
 

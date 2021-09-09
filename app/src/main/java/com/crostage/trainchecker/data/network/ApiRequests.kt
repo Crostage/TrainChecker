@@ -91,7 +91,7 @@ interface ApiRequests {
      * @param codeFrom код города отправления
      * @param codeTo код города прибытия
      * @param date дата отправления
-     * @return возварщает requestID [BaseRidResult]
+     * @return возварщает requestID [SearchResult]
      */
     @GET("timetable/public/ru?")
     fun getTrains(
@@ -101,7 +101,7 @@ interface ApiRequests {
         @Query("code0") codeFrom: Int,
         @Query("code1") codeTo: Int,
         @Query("dt0") date: String,
-    ): Call<BaseRidResult>
+    ): Call<SearchResult>
 
     /**
      * Повторный запрос с rid для получения списка поездов
