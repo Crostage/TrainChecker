@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_searchFragment_to_resultFragment"
             app:destination="@id/resultFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_stationFragment"
+            app:destination="@id/stationFragment" />
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
@@ -39,5 +42,17 @@
         <action
             android:id="@+id/action_detailFragment_to_resultFragment"
             app:destination="@id/resultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/stationFragment"
+        android:name="com.crostage.trainchecker.presentation.fragment.StationFragment"
+        android:label="fragment_station"
+        tools:layout="@layout/fragment_station">
+        <action
+            android:id="@+id/action_stationFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <argument
+            android:name="requestKey"
+            app:argType="string" />
     </fragment>
 </navigation>

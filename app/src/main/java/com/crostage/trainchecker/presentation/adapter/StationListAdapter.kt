@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
 import com.crostage.trainchecker.domain.model.Station
-import com.crostage.trainchecker.presentation.activity.OnStationClick
+import com.crostage.trainchecker.presentation.fragment.OnStationClick
 
 class StationListAdapter(private val onStationClick: OnStationClick) :
     RecyclerView.Adapter<StationViewHolder>() {

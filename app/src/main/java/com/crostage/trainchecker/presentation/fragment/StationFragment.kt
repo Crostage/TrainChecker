@@ -1,44 +1,58 @@
-package com.crostage.trainchecker.presentation.activity
+package com.crostage.trainchecker.presentation.fragment
 
-import android.app.Activity
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.crostage.trainchecker.databinding.ActivityStationChoiceBinding
+import com.crostage.trainchecker.R
+import com.crostage.trainchecker.databinding.FragmentStationBinding
 import com.crostage.trainchecker.domain.model.Station
 import com.crostage.trainchecker.presentation.adapter.StationListAdapter
 import com.crostage.trainchecker.presentation.appComponent
-import com.crostage.trainchecker.presentation.util.Helper
 import com.crostage.trainchecker.presentation.util.Helper.Companion.showSnackBar
 import com.crostage.trainchecker.presentation.viewmodel.StationViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.StationViewModelFactory
-import com.crostage.trainchecker.utils.Constant
+import com.crostage.trainchecker.utils.Constant.Companion.STATION_RESULT
 import com.jakewharton.rxbinding4.widget.textChanges
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-
-class StationChoiceActivity : AppCompatActivity() {
-
+class StationFragment : Fragment(R.layout.fragment_station) {
     private lateinit var adapter: StationListAdapter
-    private lateinit var binding: ActivityStationChoiceBinding
-
+    private lateinit var binding: FragmentStationBinding
     private lateinit var viewModel: StationViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityStationChoiceBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
-        appComponent.getStationComponent().inject(this)
+    private val args: StationFragmentArgs by navArgs()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        context.appComponent.getStationComponent().inject(this)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
+        binding = FragmentStationBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         initRecyclerView()
         setObservers()
@@ -46,7 +60,6 @@ class StationChoiceActivity : AppCompatActivity() {
     }
 
     private fun initStationSearch() {
-        //todo как-то убрать в вм
         binding.stationName.apply {
             textChanges()
                 .debounce(1, TimeUnit.SECONDS)
@@ -68,7 +81,7 @@ class StationChoiceActivity : AppCompatActivity() {
     private fun initRecyclerView() {
 
         binding.stationRecyclerview.layoutManager =
-            LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+            LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
         binding.stationRecyclerview.addItemDecoration(
             DividerItemDecoration(
@@ -87,25 +100,23 @@ class StationChoiceActivity : AppCompatActivity() {
 
 
     private fun setObservers() {
-        viewModel.error.observe(this, {
+        viewModel.error.observe(viewLifecycleOwner, {
             it.message?.let { msg -> binding.stationRecyclerview.showSnackBar(msg) }
         })
 
-        viewModel.stations.observe(this, {
+        viewModel.stations.observe(viewLifecycleOwner, {
             binding.listIsEmpty.isVisible = it.isEmpty()
             adapter.setData(it)
         })
 
-        viewModel.progress.observe(this) { showProgress ->
+        viewModel.progress.observe(viewLifecycleOwner) { showProgress ->
             binding.progress.isVisible = showProgress
         }
 
-        viewModel.resultStation.observe(this) { event ->
+        viewModel.resultStation.observe(viewLifecycleOwner) { event ->
             event.getContentIfNotHandled()?.let {
-                val intent = Intent()
-                intent.putExtra(Constant.STATION, it)
-                this.setResult(Activity.RESULT_OK, intent)
-                this.finish()
+                setFragmentResult(args.requestKey, bundleOf(STATION_RESULT to it))
+                findNavController().popBackStack()
             }
         }
 

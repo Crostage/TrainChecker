@@ -13,8 +13,7 @@
         android:supportsRtl="true"
         android:name=".presentation.MainApp"
         android:theme="@style/Theme.TrainChecker">
-        <activity android:name=".presentation.activity.StationChoiceActivity"></activity>
-        <activity android:name=".presentation.activity.MainActivity">
+        <activity android:name=".presentation.root.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

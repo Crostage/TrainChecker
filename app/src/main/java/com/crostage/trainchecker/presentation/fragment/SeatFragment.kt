@@ -16,7 +16,6 @@ import com.crostage.trainchecker.databinding.FragmentSeatBinding
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.presentation.adapter.SeatListAdapter
 import com.crostage.trainchecker.presentation.appComponent
-import com.crostage.trainchecker.presentation.util.Helper
 import com.crostage.trainchecker.presentation.util.Helper.Companion.showSnackBar
 import com.crostage.trainchecker.presentation.viewmodel.SeatViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.SeatViewModelFactory

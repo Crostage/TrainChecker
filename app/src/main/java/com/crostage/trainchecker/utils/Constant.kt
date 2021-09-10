@@ -11,7 +11,9 @@ class Constant {
         const val SEARCH_DATE = "SEARCH_DATE"
         const val TRAIN_ARG = "TRAIN_ARG"
         const val TRAIN_ROUTS = "TRAIN_ROUTS"
-        const val STATION = "STATION"
+        const val STATION_RESULT = "STATION"
+        const val STATION_FROM_REQUEST_KEY = "STATION_FROM_REQUEST_KEY"
+        const val STATION_TO_REQUEST_KEY = "STATION_TO_REQUEST_KEY"
         const val TRAIN_LAYER_ID = 5827
         const val ROUTE_LAYER_ID = 5804
         const val SEAT_LAYER_ID = 5764

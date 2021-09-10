@@ -1,25 +1,23 @@
 package com.crostage.trainchecker.presentation.fragment
 
-import android.app.Activity
 import android.app.DatePickerDialog
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.crostage.trainchecker.R
 import com.crostage.trainchecker.databinding.FragmentSearchBinding
 import com.crostage.trainchecker.domain.model.Station
-import com.crostage.trainchecker.presentation.activity.StationChoiceActivity
 import com.crostage.trainchecker.presentation.model.Search
 import com.crostage.trainchecker.presentation.util.Helper.Companion.showSnackBar
 import com.crostage.trainchecker.presentation.viewmodel.SearchViewModel
 import com.crostage.trainchecker.utils.Constant
+import com.crostage.trainchecker.utils.Constant.Companion.STATION_FROM_REQUEST_KEY
+import com.crostage.trainchecker.utils.Constant.Companion.STATION_TO_REQUEST_KEY
 import java.util.*
 
 
@@ -27,7 +25,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private var codeFrom = 0
     private var codeTo = 0
-    private var isFrom = false
     private lateinit var binding: FragmentSearchBinding
     private lateinit var viewModel: SearchViewModel
 
@@ -60,13 +57,30 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
 
         binding.cityFrom.setOnClickListener {
-            isFrom = true
-            pickStation()
+            pickStation(STATION_FROM_REQUEST_KEY)
         }
         binding.cityTo.setOnClickListener {
-            isFrom = false
-            pickStation()
+            pickStation(STATION_TO_REQUEST_KEY)
         }
+
+        setFragmentResultListener(STATION_FROM_REQUEST_KEY) { _, bundle ->
+            val station = bundle.getParcelable<Station>(Constant.STATION_RESULT)
+            if (station != null) {
+                binding.cityFrom.text = station.stationName
+                codeFrom = station.stationCode
+                viewModel.setStationFrom(station)
+            }
+        }
+
+        setFragmentResultListener(STATION_TO_REQUEST_KEY) { _, bundle ->
+            val station = bundle.getParcelable<Station>(Constant.STATION_RESULT)
+            if (station != null) {
+                binding.cityTo.text = station.stationName
+                codeTo = station.stationCode
+                viewModel.setStationTo(station)
+            }
+        }
+
     }
 
     private fun initViewModel() {
@@ -83,32 +97,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
     }
 
-
-    private var resultLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val data: Intent? = result.data
-                val station = data?.getParcelableExtra<Station>(Constant.STATION)
-                    ?: return@registerForActivityResult
-                if (isFrom) {
-                    binding.cityFrom.text = station.stationName
-                    codeFrom = station.stationCode
-                    viewModel.setStationFrom(station)
-                } else {
-                    binding.cityTo.text = station.stationName
-                    codeTo = station.stationCode
-                    viewModel.setStationTo(station)
-                }
-            }
-        }
-
-    private fun pickStation() {
-        val intent = activity?.let { newIntent(it) }
-        resultLauncher.launch(intent)
+    private fun pickStation(requestKey: String) {
+        val direction = SearchFragmentDirections.actionSearchFragmentToStationFragment(requestKey)
+        findNavController().navigate(direction)
     }
 
-
-    //todo куда вынести?
     private fun datePick() {
         val c = Calendar.getInstance()
         val mYear = c.get(Calendar.YEAR)
@@ -162,12 +155,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         val direction = SearchFragmentDirections.actionSearchFragmentToResultFragment(search)
         findNavController().navigate(direction)
-    }
-
-    companion object {
-        fun newIntent(context: Context): Intent {
-            return Intent(context, StationChoiceActivity::class.java)
-        }
     }
 
 

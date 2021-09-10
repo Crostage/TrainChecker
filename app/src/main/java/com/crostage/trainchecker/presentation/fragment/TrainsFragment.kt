@@ -80,7 +80,6 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
             }
         }
 
-
         binding.tryAgain.setOnClickListener {
             viewModel.trainsFromSearchRequest(codeFrom, codeTo, date)
             binding.tryAgain.isVisible = false

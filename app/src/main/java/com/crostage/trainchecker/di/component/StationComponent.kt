@@ -1,10 +1,7 @@
 package com.crostage.trainchecker.di.component
 
-import android.app.Activity
-import com.crostage.trainchecker.di.AppComponent
 import com.crostage.trainchecker.di.module.StationModule
-import com.crostage.trainchecker.presentation.activity.StationChoiceActivity
-import dagger.BindsInstance
+import com.crostage.trainchecker.presentation.fragment.StationFragment
 import dagger.Subcomponent
 import javax.inject.Scope
 
@@ -12,7 +9,7 @@ import javax.inject.Scope
 @Subcomponent(modules = [StationModule::class])
 interface StationComponent {
 
-    fun inject(activity: StationChoiceActivity)
+    fun inject(fragment: StationFragment)
 }
 
 @Scope
