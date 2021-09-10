@@ -71,26 +71,26 @@ object RetrofitBuilder {
         val response = chain.proceed(chain.request())
 
         val cacheControl = CacheControl.Builder()
-            .maxStale(2, TimeUnit.MINUTES)
+            .maxAge(2, TimeUnit.MINUTES)
             .build()
 
         response.newBuilder()
             .removeHeader(HEADER_PRAGMA)
-//            .removeHeader(HEADER_CACHE_CONTROL)
+            .removeHeader(HEADER_CACHE_CONTROL)
             .header(HEADER_CACHE_CONTROL, cacheControl.toString())
             .build()
     }
 
 
     private var offlineInterceptor = Interceptor { chain ->
-        Log.d(TAG, "OFFlineInterceptor called")
-        var request = chain.request()
 
+        var request = chain.request()
         //todo убрать апп слой отсюда
         if (!MainApp.hasNetwork()!!) {
+            Log.d(TAG, "OFFlineInterceptor called")
 
             val cacheControl = CacheControl.Builder()
-                .maxStale(2, TimeUnit.HOURS)
+                .maxStale(30, TimeUnit.MINUTES)
                 .build()
 
             request = request.newBuilder()
