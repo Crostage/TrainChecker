@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +24,6 @@ import com.crostage.trainchecker.presentation.interfaces.TrainItemClickListener
 import com.crostage.trainchecker.presentation.util.Helper.Companion.showSnackBar
 import com.crostage.trainchecker.presentation.viewmodel.TrainViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.TrainViewModelFactory
-import com.crostage.trainchecker.utils.Constant
 import java.util.*
 import javax.inject.Inject
 
@@ -32,6 +32,8 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
     private lateinit var viewModel: TrainViewModel
     private lateinit var adapter: TrainListAdapter
     private lateinit var binding: FragmentResultBinding
+
+    private val args: ResultFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,7 +53,7 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         setObservers()
-        setFromArguments(arguments)
+        setFromArguments()
 
     }
 
@@ -60,38 +62,33 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
         viewModel = ViewModelProvider(this, factory).get(TrainViewModel::class.java)
     }
 
-    private fun setFromArguments(arguments: Bundle?) {
-        val cityFrom = arguments?.getString(Constant.SEARCH_CITY_FROM)
-        val codeFrom = arguments?.getInt(Constant.SEARCH_CODE_FROM)
-        val cityTo = arguments?.getString(Constant.SEARCH_CITY_TO)
-        val codeTo = arguments?.getInt(Constant.SEARCH_CODE_TO)
-        val date = arguments?.getString(Constant.SEARCH_DATE)
+    private fun setFromArguments() {
 
-        if (cityFrom != null && cityTo != null
-            && date != null && codeFrom != null && codeTo != null
-        ) {
+        val cityFrom = args.search.cityFrom
+        val cityTo = args.search.cityTo
+        val codeFrom = args.search.codeFrom
+        val codeTo = args.search.codeTo
+        val date = args.search.date
 
-            binding.toolbarResult.apply {
-                title =
-                    "${cityFrom.uppercase(Locale.getDefault())} " +
-                            "-> ${cityTo.uppercase(Locale.getDefault())}  $date"
+        binding.toolbarResult.apply {
+            title =
+                "${cityFrom.uppercase(Locale.getDefault())} " +
+                        "-> ${cityTo.uppercase(Locale.getDefault())}  $date"
 
-                setNavigationOnClickListener {
-                    activity?.onBackPressed()
-                }
-            }
-
-
-            binding.tryAgain.setOnClickListener {
-                viewModel.trainsFromSearchRequest(codeFrom, codeTo, date)
-                binding.tryAgain.isVisible = false
-            }
-
-            if (viewModel.trains.value == null) {
-                viewModel.trainsFromSearchRequest(codeFrom, codeTo, date)
+            setNavigationOnClickListener {
+                activity?.onBackPressed()
             }
         }
 
+
+        binding.tryAgain.setOnClickListener {
+            viewModel.trainsFromSearchRequest(codeFrom, codeTo, date)
+            binding.tryAgain.isVisible = false
+        }
+
+        if (viewModel.trains.value == null) {
+            viewModel.trainsFromSearchRequest(codeFrom, codeTo, date)
+        }
     }
 
 
@@ -156,10 +153,11 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
 
         viewModel.openDetail.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let { train ->
-                val bundle = Bundle()
-                bundle.putParcelable(Constant.TRAIN_ARG, train)
-                NavHostFragment.findNavController(this)
-                    .navigate(R.id.action_searchResultFragment_to_detailFragment, bundle)
+
+                val direction = ResultFragmentDirections
+                    .actionSearchResultFragmentToDetailFragment(train)
+
+                findNavController().navigate(direction)
             }
         })
     }

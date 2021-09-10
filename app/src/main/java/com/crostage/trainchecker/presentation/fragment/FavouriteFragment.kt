@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +22,6 @@ import com.crostage.trainchecker.presentation.interfaces.TrainItemClickListener
 import com.crostage.trainchecker.presentation.util.Helper.Companion.showSnackBar
 import com.crostage.trainchecker.presentation.viewmodel.FavouriteViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.FavouriteViewModelFactory
-import com.crostage.trainchecker.utils.Constant
 import javax.inject.Inject
 
 class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
@@ -108,10 +107,11 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
 
         viewModel.openDetail.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let { train ->
-                val bundle = Bundle()
-                bundle.putParcelable(Constant.TRAIN_ARG, train)
-                NavHostFragment.findNavController(this)
-                    .navigate(R.id.action_favouriteFragment_to_detailFragment, bundle)
+
+                val direction = FavouriteFragmentDirections
+                    .actionFavouriteFragmentToDetailFragment(train)
+
+                findNavController().navigate(direction)
             }
 
         })

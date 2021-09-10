@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.crostage.trainchecker.R
 import com.crostage.trainchecker.databinding.FragmentDetailBinding
 import com.crostage.trainchecker.domain.model.Train
@@ -16,6 +17,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
 
     private lateinit var binding: FragmentDetailBinding
+    private val args: DetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,27 +30,21 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setFromArguments(arguments)
+        setFromArguments()
     }
 
-    private fun setFromArguments(arguments: Bundle?) {
+    private fun setFromArguments() {
 
-        val train = arguments?.getParcelable<Train>(Constant.TRAIN_ARG)
+        val train = args.train
 
         binding.toolbarDetail.setNavigationOnClickListener {
             activity?.onBackPressed()
         }
 
-
-        train?.let {
-            binding.trainNumber.text = train.trainNumber
-            "${train.nameStationFrom} -> ${train.nameStationTo}".also { binding.fromTo.text = it }
-            binding.date.text = train.dateStart
-
-            initViewPager(it)
-
-        }
-
+        binding.trainNumber.text = train.trainNumber
+        "${train.nameStationFrom} -> ${train.nameStationTo}".also { binding.fromTo.text = it }
+        binding.date.text = train.dateStart
+        initViewPager(train)
     }
 
     private fun initViewPager(train: Train) {

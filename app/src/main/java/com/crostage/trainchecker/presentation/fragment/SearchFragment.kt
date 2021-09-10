@@ -16,6 +16,7 @@ import com.crostage.trainchecker.R
 import com.crostage.trainchecker.databinding.FragmentSearchBinding
 import com.crostage.trainchecker.domain.model.Station
 import com.crostage.trainchecker.presentation.activity.StationChoiceActivity
+import com.crostage.trainchecker.presentation.model.Search
 import com.crostage.trainchecker.presentation.util.Helper.Companion.showSnackBar
 import com.crostage.trainchecker.presentation.viewmodel.SearchViewModel
 import com.crostage.trainchecker.utils.Constant
@@ -151,15 +152,16 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             return
         }
 
-        val bundle = Bundle()
+        val search = Search(
+            binding.cityFrom.text.toString(),
+            codeFrom,
+            binding.cityTo.text.toString(),
+            codeTo,
+            binding.tvDate.text.toString()
+        )
 
-        bundle.putString(Constant.SEARCH_CITY_FROM, "${binding.cityFrom.text}")
-        bundle.putInt(Constant.SEARCH_CODE_FROM, codeFrom)
-        bundle.putString(Constant.SEARCH_CITY_TO, "${binding.cityTo.text}")
-        bundle.putInt(Constant.SEARCH_CODE_TO, codeTo)
-        bundle.putString(Constant.SEARCH_DATE, "${binding.tvDate.text}")
-
-        findNavController().navigate(R.id.action_searchFragment_to_searchResultFragment, bundle)
+        val direction = SearchFragmentDirections.actionSearchFragmentToSearchResultFragment(search)
+        findNavController().navigate(direction)
     }
 
     companion object {

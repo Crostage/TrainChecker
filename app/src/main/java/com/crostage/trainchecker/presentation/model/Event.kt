@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.presentation.viewmodel
+package com.crostage.trainchecker.presentation.model
 
 /**
  * Класс событие - обертка над объектом, без повторного использования

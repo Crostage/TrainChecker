@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.crostage.trainchecker.domain.interactors.interfaces.IFavouriteInteractor
 import com.crostage.trainchecker.domain.model.Train
+import com.crostage.trainchecker.presentation.model.Event
 import com.crostage.trainchecker.presentation.util.Helper
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
