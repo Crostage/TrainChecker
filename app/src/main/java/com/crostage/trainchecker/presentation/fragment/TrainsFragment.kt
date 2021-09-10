@@ -155,7 +155,7 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
             it.getContentIfNotHandled()?.let { train ->
 
                 val direction = ResultFragmentDirections
-                    .actionSearchResultFragmentToDetailFragment(train)
+                    .actionResultFragmentToDetailFragment(train)
 
                 findNavController().navigate(direction)
             }

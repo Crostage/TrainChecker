@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/favourites"
+    app:startDestination="@id/favouriteFragment">
+
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="com.crostage.trainchecker.presentation.fragment.FavouriteFragment"
+        android:label="fragment_favourite"
+        tools:layout="@layout/fragment_favourite">
+        <action
+            android:id="@+id/action_favouriteFragment_to_detailFavouriteFragment"
+            app:destination="@id/detailFavouriteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFavouriteFragment"
+        android:name="com.crostage.trainchecker.presentation.fragment.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="train"
+            app:argType="com.crostage.trainchecker.domain.model.Train" />
+        <action
+            android:id="@+id/action_detailFavouriteFragment_to_favouriteFragment"
+            app:destination="@id/favouriteFragment" />
+    </fragment>
+</navigation>

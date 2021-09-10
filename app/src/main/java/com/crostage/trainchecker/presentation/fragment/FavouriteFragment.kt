@@ -109,7 +109,7 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
             it.getContentIfNotHandled()?.let { train ->
 
                 val direction = FavouriteFragmentDirections
-                    .actionFavouriteFragmentToDetailFragment(train)
+                    .actionFavouriteFragmentToDetailFavouriteFragment(train)
 
                 findNavController().navigate(direction)
             }

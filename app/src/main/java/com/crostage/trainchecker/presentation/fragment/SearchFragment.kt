@@ -160,7 +160,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             binding.tvDate.text.toString()
         )
 
-        val direction = SearchFragmentDirections.actionSearchFragmentToSearchResultFragment(search)
+        val direction = SearchFragmentDirections.actionSearchFragmentToResultFragment(search)
         findNavController().navigate(direction)
     }
 
