@@ -2,12 +2,11 @@ package com.crostage.trainchecker.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.crostage.trainchecker.data.db.dao.TrainDao
 import com.crostage.trainchecker.data.converter.IConverter
+import com.crostage.trainchecker.data.db.dao.TrainDao
 import com.crostage.trainchecker.data.model.train.FavouriteEntity
-import com.crostage.trainchecker.domain.repository.ITrainRepository
-import com.crostage.trainchecker.data.model.train.TrainEntity
 import com.crostage.trainchecker.domain.model.Train
+import com.crostage.trainchecker.domain.repository.ITrainRepository
 import javax.inject.Inject
 
 class TrainRepository @Inject constructor(

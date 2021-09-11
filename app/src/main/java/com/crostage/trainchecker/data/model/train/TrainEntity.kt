@@ -1,13 +1,9 @@
 package com.crostage.trainchecker.data.model.train
 
-import androidx.room.Entity
 import com.crostage.trainchecker.domain.model.Ticket
-import com.crostage.trainchecker.utils.Constant.Companion.TABLE_NAME_TRAINS
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-@Entity(tableName = TABLE_NAME_TRAINS, primaryKeys = ["trainNumber", "dateStart", "timeStart"])
 data class TrainEntity(
     val carrier: String, //тип поезда ФПК
     val brand: String, //название поезда

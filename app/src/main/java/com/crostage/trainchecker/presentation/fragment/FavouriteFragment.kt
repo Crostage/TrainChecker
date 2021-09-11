@@ -28,7 +28,6 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
 
     private lateinit var viewModel: FavouriteViewModel
     private lateinit var adapter: FavouriteAdapter
-
     private lateinit var binding: FragmentFavouriteBinding
 
     override fun onCreateView(
@@ -67,7 +66,6 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
 
     }
 
-    //todo убрать одинаковый код
     private fun initAdapter() =
         FavouriteAdapter(object : FavouriteRemoveListener {
 

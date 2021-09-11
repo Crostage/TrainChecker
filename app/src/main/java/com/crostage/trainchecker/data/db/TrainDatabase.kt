@@ -20,7 +20,6 @@ import com.crostage.trainchecker.utils.Constant.Companion.DB_NAME
 @Database(
     entities = [
         StationSearchResponse::class,
-        TrainEntity::class,
         StationEntity::class,
         FavouriteEntity::class
     ],

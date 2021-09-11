@@ -3,7 +3,6 @@ package com.crostage.trainchecker.data.network
 import android.util.Log
 import com.crostage.trainchecker.data.model.rout.Response
 import com.crostage.trainchecker.data.network.adapter.RouteResponseDeserializer
-import com.crostage.trainchecker.presentation.MainApp
 import com.crostage.trainchecker.utils.Constant.Companion.BASE_URL
 import com.crostage.trainchecker.utils.Constant.Companion.CACHE_SIZE
 import com.crostage.trainchecker.utils.Constant.Companion.HEADER_CACHE_CONTROL
@@ -18,6 +17,7 @@ import java.io.File
 import java.net.CookieManager
 import java.net.CookiePolicy
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 
 /**
@@ -25,9 +25,15 @@ import java.util.concurrent.TimeUnit
  */
 
 
-object RetrofitBuilder {
+class RetrofitBuilder {
 
-    private const val TAG = "RetrofitBuilder"
+    companion object {
+        private const val TAG = "RetrofitBuilder"
+    }
+
+
+    var connectionType: Int = 0
+
 
     /**
      * Получаем объект для отрпавления сетевых запросов
@@ -85,9 +91,9 @@ object RetrofitBuilder {
     private var offlineInterceptor = Interceptor { chain ->
 
         var request = chain.request()
-        //todo убрать апп слой отсюда
-        if (!MainApp.hasNetwork()!!) {
-            Log.d(TAG, "OFFlineInterceptor called")
+        //todo как заинжектить поле, чтобы каждый раз было актуальное значение?
+        if (connectionType == 0) {
+            Log.d(TAG, "OFFlineInterceptor called $connectionType")
 
             val cacheControl = CacheControl.Builder()
                 .maxStale(30, TimeUnit.MINUTES)

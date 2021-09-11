@@ -1,6 +1,5 @@
 package com.crostage.trainchecker.data.network.services
 
-import android.util.Log
 import com.crostage.trainchecker.data.converter.IConverter
 import com.crostage.trainchecker.data.model.train.SearchResult
 import com.crostage.trainchecker.data.model.train.TrainEntity
@@ -45,8 +44,8 @@ class TrainService @Inject constructor(
             if (it.isSuccessful) {
                 val body = it.body() as SearchResult
 
-                val message = body.listResponse?.get(0)?.msgList?.get(0)?.message
-                if (message != null) throw ServerSendError(message)
+                val errorMessage = body.listResponse?.get(0)?.msgList?.get(0)?.message
+                if (errorMessage != null) throw ServerSendError(errorMessage)
 
 
                 rid = body.requestId

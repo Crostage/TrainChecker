@@ -23,12 +23,6 @@ interface TrainBindModule {
     @Binds
     fun bindTrainInteractorToITrainInteractor(trainInteractor: TrainInteractor): ITrainInteractor
 
-//    @Binds
-//    fun bindTrainInteractorToIFavouriteInteractor(
-//        trainInteractor: TrainInteractor,
-//    ): IFavouriteInteractor
-
-
     @Binds
     fun bindTrainServiceToITrainService(trainService: TrainService): ITrainService
 
