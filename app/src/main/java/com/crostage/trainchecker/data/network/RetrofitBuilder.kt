@@ -17,7 +17,6 @@ import java.io.File
 import java.net.CookieManager
 import java.net.CookiePolicy
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
 
 /**
@@ -25,14 +24,11 @@ import javax.inject.Inject
  */
 
 
-class RetrofitBuilder {
+class RetrofitBuilder(connectionType: Int?) {
 
     companion object {
         private const val TAG = "RetrofitBuilder"
     }
-
-
-    var connectionType: Int = 0
 
 
     /**
@@ -87,14 +83,10 @@ class RetrofitBuilder {
             .build()
     }
 
-
-    private var offlineInterceptor = Interceptor { chain ->
+    private var offlineInterceptor: Interceptor = Interceptor { chain ->
 
         var request = chain.request()
-        //todo как заинжектить поле, чтобы каждый раз было актуальное значение?
         if (connectionType == 0) {
-            Log.d(TAG, "OFFlineInterceptor called $connectionType")
-
             val cacheControl = CacheControl.Builder()
                 .maxStale(30, TimeUnit.MINUTES)
                 .build()
@@ -108,6 +100,7 @@ class RetrofitBuilder {
         chain.proceed(request)
 
     }
+
 
     private var httpLoggingInterceptor = HttpLoggingInterceptor { Log.d(TAG, "http:log $it") }
         .setLevel(HttpLoggingInterceptor.Level.BODY)

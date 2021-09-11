@@ -4,12 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
 import com.crostage.trainchecker.presentation.viewmodel.TrainViewModel
-import com.crostage.trainchecker.utils.Constant.Companion.TRAIN
 import javax.inject.Inject
-import javax.inject.Named
 
 
-//todo можно ли что то вынести в даггер?
 class TrainViewModelFactory @Inject constructor(
     private val trainInteractor: ITrainInteractor,
 ) : ViewModelProvider.Factory {

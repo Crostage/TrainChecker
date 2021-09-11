@@ -28,6 +28,10 @@
     <string name="test_type">Пассажирский</string>
     <string name="routes">Маршрут</string>
     <string name="seats">Места</string>
+    <string name="app_description">
+        Приложение TrainChecker поможет найти нужный поезд по интересующему направлению и в нужную дату.
+        Также можно посмотреть маршрут конкретного поезда
+    </string>
     <string name="tariff_test">10325 руб</string>
     <string name="cls_type_test">3Э</string>
     <string name="car_type_test">Плацкарт</string>

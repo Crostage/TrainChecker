@@ -2,13 +2,11 @@ package com.crostage.trainchecker.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.crostage.trainchecker.domain.interactors.interfaces.IStationInteractor
 import com.crostage.trainchecker.domain.model.Station
 import com.crostage.trainchecker.presentation.model.Event
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 /**
@@ -19,7 +17,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 class StationViewModel(
     private val interactor: IStationInteractor,
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _stations = MutableLiveData<List<Station>>()
 
@@ -27,21 +25,12 @@ class StationViewModel(
      *  LiveData списка станций, меняется при изменении поискового запроса
      */
     val stations: LiveData<List<Station>> = _stations
-
-    private var _error = MutableLiveData<Throwable>()
-    val error: LiveData<Throwable> = _error
-
-    private var _progress = MutableLiveData<Boolean>()
-    val progress: LiveData<Boolean> = _progress
-
     private var _resultStation = MutableLiveData<Event<Station>>()
 
     /**
      *  LiveData события выбора станции
      */
     var resultStation: LiveData<Event<Station>> = _resultStation
-
-    private val compositeDisposable = CompositeDisposable()
 
     init {
         getLastPickStations()
@@ -129,8 +118,4 @@ class StationViewModel(
         _resultStation.postValue(Event(station))
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        compositeDisposable.dispose()
-    }
 }

@@ -5,7 +5,6 @@ class Constant {
 
         const val BASE_URL = "https://pass.rzd.ru/"
         const val TRAIN_ARG = "TRAIN_ARG"
-        const val TRAIN_ROUTS = "TRAIN_ROUTS"
         const val STATION_RESULT = "STATION"
         const val STATION_FROM_REQUEST_KEY = "STATION_FROM_REQUEST_KEY"
         const val STATION_TO_REQUEST_KEY = "STATION_TO_REQUEST_KEY"
@@ -20,11 +19,9 @@ class Constant {
         const val CACHE_CHILD = "HttpCache"
         const val DB_NAME = "stations_trains.db"
         const val TABLE_NAME_FAVOURITES = "favourites"
-        const val TABLE_NAME_TRAINS = "trains"
         const val TABLE_NAME_STATION_SEARCH = "station_search"
         const val TABLE_NAME_LAST_PICK = "last_pick_stations"
         const val FAVOURITE = "FAVOURITE"
-        const val TRAIN = "TRAIN"
 
     }
 

@@ -12,7 +12,6 @@ import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.domain.repository.ITrainRepository
 import com.crostage.trainchecker.utils.Constant.Companion.FAVOURITE
-import com.crostage.trainchecker.utils.Constant.Companion.TRAIN
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

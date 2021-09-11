@@ -7,8 +7,8 @@ import com.crostage.trainchecker.presentation.interfaces.TrainItemClickListener
 
 class TrainListAdapter(
     private val favouriteInsertListener: FavouriteInsertListener,
-    private val favouriteRemoveListener: FavouriteRemoveListener,
-    private val trainItemClickListener: TrainItemClickListener,
+    favouriteRemoveListener: FavouriteRemoveListener,
+    trainItemClickListener: TrainItemClickListener,
 ) : FavouriteAdapter(favouriteRemoveListener, trainItemClickListener) {
 
     override fun onBindViewHolder(holder: TrainViewHolder, position: Int) {
