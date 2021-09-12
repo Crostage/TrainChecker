@@ -1,5 +1,6 @@
 package com.crostage.trainchecker.presentation.viewmodel
 
+import androidx.lifecycle.SavedStateHandle
 import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
 import com.crostage.trainchecker.domain.model.Train
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -14,9 +15,10 @@ import io.reactivex.rxjava3.schedulers.Schedulers
  */
 
 
-open class TrainViewModel(
+class TrainViewModel(
     private val trainInteractor: ITrainInteractor,
-) : FavouriteViewModel(trainInteractor) {
+    savedStateHandle: SavedStateHandle,
+) : FavouriteViewModel(trainInteractor, savedStateHandle) {
 
     /**
      * Получение списка поездов по поисковому запросу

@@ -22,7 +22,7 @@ import com.crostage.trainchecker.presentation.adapter.StationListAdapter
 import com.crostage.trainchecker.presentation.appComponent
 import com.crostage.trainchecker.presentation.util.Helper.Companion.showSnackBar
 import com.crostage.trainchecker.presentation.viewmodel.StationViewModel
-import com.crostage.trainchecker.presentation.viewmodel.factory.StationViewModelFactory
+import com.crostage.trainchecker.presentation.viewmodel.factory.StationViewModelAssistedFactory
 import com.crostage.trainchecker.utils.Constant.Companion.STATION_RESULT
 import com.jakewharton.rxbinding4.widget.textChanges
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -34,6 +34,9 @@ class StationFragment : Fragment(R.layout.fragment_station) {
     private lateinit var adapter: StationListAdapter
     private lateinit var binding: FragmentStationBinding
     private lateinit var viewModel: StationViewModel
+
+    @Inject
+    lateinit var assistedFactory: StationViewModelAssistedFactory
 
     private val args: StationFragmentArgs by navArgs()
 
@@ -53,7 +56,7 @@ class StationFragment : Fragment(R.layout.fragment_station) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        createViewModel()
         initRecyclerView()
         setObservers()
         initStationSearch()
@@ -72,8 +75,8 @@ class StationFragment : Fragment(R.layout.fragment_station) {
 
     }
 
-    @Inject
-    fun createViewModel(factory: StationViewModelFactory) {
+    private fun createViewModel() {
+        val factory = assistedFactory.create(this)
         viewModel = ViewModelProvider(this, factory).get(StationViewModel::class.java)
     }
 

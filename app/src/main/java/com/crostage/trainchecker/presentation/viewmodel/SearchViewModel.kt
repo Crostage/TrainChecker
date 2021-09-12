@@ -1,41 +1,40 @@
 package com.crostage.trainchecker.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.crostage.trainchecker.domain.model.Station
 import com.crostage.trainchecker.presentation.util.Helper
 
-class SearchViewModel : ViewModel() {
+class SearchViewModel(
+    savedStateHandle: SavedStateHandle,
+) : ViewModel() {
 
-    private var stationTo: Station? = null
-    private var stationFrom: Station? = null
-
-    private val _newDate = MutableLiveData<String>()
+    private var _stationFrom = savedStateHandle.getLiveData<Station>("stationFrom")
+    var stationFrom: LiveData<Station> = _stationFrom
+    private var _stationTo = savedStateHandle.getLiveData<Station>("stationTo")
+    var stationTo: LiveData<Station> = _stationTo
+    private val _newDate = savedStateHandle.getLiveData<String>("date")
     val newDate: LiveData<String> = _newDate
 
     init {
-        _newDate.value = Helper.getActualDate()
+
+        if (_newDate.value == null)
+            _newDate.value = Helper.getActualDate()
     }
+
 
     fun setDate(date: String) {
         _newDate.value = date
     }
 
     fun setStationTo(station: Station) {
-        stationTo = station
+        _stationTo.value = station
     }
 
     fun setStationFrom(station: Station) {
-        stationFrom = station
+        _stationFrom.value = station
     }
 
-    fun getStationTo(): Station? {
-        return stationTo
-    }
-
-    fun getStationFrom(): Station? {
-        return stationFrom
-    }
 
 }

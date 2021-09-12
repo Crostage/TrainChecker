@@ -23,7 +23,7 @@ import com.crostage.trainchecker.presentation.interfaces.FavouriteRemoveListener
 import com.crostage.trainchecker.presentation.interfaces.TrainItemClickListener
 import com.crostage.trainchecker.presentation.util.Helper.Companion.showSnackBar
 import com.crostage.trainchecker.presentation.viewmodel.TrainViewModel
-import com.crostage.trainchecker.presentation.viewmodel.factory.TrainViewModelFactory
+import com.crostage.trainchecker.presentation.viewmodel.factory.TrainViewModelAssistedFactory
 import java.util.*
 import javax.inject.Inject
 
@@ -32,6 +32,9 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
     private lateinit var viewModel: TrainViewModel
     private lateinit var adapter: TrainListAdapter
     private lateinit var binding: FragmentResultBinding
+
+    @Inject
+    lateinit var assistedFactory: TrainViewModelAssistedFactory
 
     private val args: ResultFragmentArgs by navArgs()
 
@@ -51,14 +54,16 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        createViewModel()
         initRecyclerView()
         setObservers()
         setFromArguments()
 
     }
 
-    @Inject
-    fun createViewModel(factory: TrainViewModelFactory) {
+
+    private fun createViewModel() {
+        val factory = assistedFactory.create(this)
         viewModel = ViewModelProvider(this, factory).get(TrainViewModel::class.java)
     }
 

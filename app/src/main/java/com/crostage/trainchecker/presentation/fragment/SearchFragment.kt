@@ -15,18 +15,22 @@ import com.crostage.trainchecker.domain.model.Station
 import com.crostage.trainchecker.presentation.model.Search
 import com.crostage.trainchecker.presentation.util.Helper.Companion.showSnackBar
 import com.crostage.trainchecker.presentation.viewmodel.SearchViewModel
-import com.crostage.trainchecker.utils.Constant
 import com.crostage.trainchecker.utils.Constant.Companion.STATION_FROM_REQUEST_KEY
+import com.crostage.trainchecker.utils.Constant.Companion.STATION_RESULT
 import com.crostage.trainchecker.utils.Constant.Companion.STATION_TO_REQUEST_KEY
 import java.util.*
 
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
 
-    private var codeFrom = 0
-    private var codeTo = 0
     private lateinit var binding: FragmentSearchBinding
     private val viewModel: SearchViewModel by viewModels()
+
+
+    private var stationFrom: Station? = null
+    private var stationTo: Station? = null
+    private var date: String? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
@@ -38,16 +42,15 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initViewModel()
 
         initObserver()
 
-        initClickListeners()
+        initListeners()
 
     }
 
 
-    private fun initClickListeners() {
+    private fun initListeners() {
         binding.tvDate.setOnClickListener {
             datePick()
         }
@@ -56,45 +59,31 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             btnSearchClick()
         }
 
-        binding.cityFrom.setOnClickListener {
+        binding.stationFrom.setOnClickListener {
             pickStation(STATION_FROM_REQUEST_KEY)
         }
-        binding.cityTo.setOnClickListener {
+        binding.stationTo.setOnClickListener {
             pickStation(STATION_TO_REQUEST_KEY)
         }
 
         setFragmentResultListener(STATION_FROM_REQUEST_KEY) { _, bundle ->
-            val station = bundle.getParcelable<Station>(Constant.STATION_RESULT)
+            val station = bundle.getParcelable<Station>(STATION_RESULT)
             if (station != null) {
-                binding.cityFrom.text = station.stationName
-                codeFrom = station.stationCode
+
                 viewModel.setStationFrom(station)
             }
         }
 
         setFragmentResultListener(STATION_TO_REQUEST_KEY) { _, bundle ->
-            val station = bundle.getParcelable<Station>(Constant.STATION_RESULT)
+            val station = bundle.getParcelable<Station>(STATION_RESULT)
             if (station != null) {
-                binding.cityTo.text = station.stationName
-                codeTo = station.stationCode
+
                 viewModel.setStationTo(station)
             }
         }
 
     }
 
-    private fun initViewModel() {
-
-        viewModel.getStationFrom()?.let {
-            codeFrom = it.stationCode
-            binding.cityFrom.text = it.stationName
-        }
-
-        viewModel.getStationTo()?.let {
-            codeTo = it.stationCode
-            binding.cityTo.text = it.stationName
-        }
-    }
 
     private fun pickStation(requestKey: String) {
         val direction = SearchFragmentDirections.actionSearchFragmentToStationFragment(requestKey)
@@ -132,28 +121,42 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun initObserver() {
         viewModel.newDate.observe(viewLifecycleOwner, {
             binding.tvDate.text = it
+            date = it
+        })
+        viewModel.stationTo.observe(viewLifecycleOwner, {
+            if (it != null) {
+                binding.stationTo.text = it.stationName
+                stationTo = it
+            }
+        })
+        viewModel.stationFrom.observe(viewLifecycleOwner, {
+            if (it != null) {
+                binding.stationFrom.text = it.stationName
+                stationFrom = it
+            }
         })
     }
 
     private fun btnSearchClick() {
 
-        if (binding.cityFrom.text.isEmpty() || binding.cityTo.text.isEmpty() || binding.tvDate.text.isEmpty()) {
-
+        if (stationFrom != null
+            && stationTo != null
+            && date != null
+        ) {
+            val search = Search(
+                stationFrom!!.stationName,
+                stationFrom!!.stationCode,
+                stationTo!!.stationName,
+                stationTo!!.stationCode,
+                date!!
+            )
+            val direction = SearchFragmentDirections.actionSearchFragmentToResultFragment(search)
+            findNavController().navigate(direction)
+        } else {
             requireView()
                 .showSnackBar(getString(R.string.fill_all_fields))
-            return
+
         }
-
-        val search = Search(
-            binding.cityFrom.text.toString(),
-            codeFrom,
-            binding.cityTo.text.toString(),
-            codeTo,
-            binding.tvDate.text.toString()
-        )
-
-        val direction = SearchFragmentDirections.actionSearchFragmentToResultFragment(search)
-        findNavController().navigate(direction)
     }
 
 

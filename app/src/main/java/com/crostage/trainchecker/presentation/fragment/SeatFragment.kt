@@ -18,7 +18,7 @@ import com.crostage.trainchecker.presentation.adapter.SeatListAdapter
 import com.crostage.trainchecker.presentation.appComponent
 import com.crostage.trainchecker.presentation.util.Helper.Companion.showSnackBar
 import com.crostage.trainchecker.presentation.viewmodel.SeatViewModel
-import com.crostage.trainchecker.presentation.viewmodel.factory.SeatViewModelFactory
+import com.crostage.trainchecker.presentation.viewmodel.factory.SeatViewModelAssistedFactory
 import com.crostage.trainchecker.utils.Constant
 import javax.inject.Inject
 
@@ -27,6 +27,9 @@ class SeatFragment : Fragment(R.layout.fragment_seat) {
     private lateinit var viewModel: SeatViewModel
     private lateinit var adapter: SeatListAdapter
     private lateinit var binding: FragmentSeatBinding
+
+    @Inject
+    lateinit var assistedFactory: SeatViewModelAssistedFactory
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -44,7 +47,7 @@ class SeatFragment : Fragment(R.layout.fragment_seat) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        createViewModel()
         initRecyclerview()
         setFromArguments(arguments)
 
@@ -80,8 +83,8 @@ class SeatFragment : Fragment(R.layout.fragment_seat) {
         binding.seatRecyclerview.adapter = adapter
     }
 
-    @Inject
-    fun createViewModel(factory: SeatViewModelFactory) {
+    private fun createViewModel() {
+        val factory = assistedFactory.create(this)
         viewModel = ViewModelProvider(this, factory).get(SeatViewModel::class.java)
     }
 

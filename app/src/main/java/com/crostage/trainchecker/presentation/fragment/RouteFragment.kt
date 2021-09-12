@@ -18,7 +18,7 @@ import com.crostage.trainchecker.presentation.adapter.RouteListAdapter
 import com.crostage.trainchecker.presentation.appComponent
 import com.crostage.trainchecker.presentation.util.Helper.Companion.showSnackBar
 import com.crostage.trainchecker.presentation.viewmodel.RouteViewModel
-import com.crostage.trainchecker.presentation.viewmodel.factory.RouteViewModelFactory
+import com.crostage.trainchecker.presentation.viewmodel.factory.RouteViewModelAssistedFactory
 import com.crostage.trainchecker.utils.Constant
 import javax.inject.Inject
 
@@ -28,6 +28,9 @@ class RouteFragment : Fragment(R.layout.fragment_route) {
     private lateinit var viewModel: RouteViewModel
     private lateinit var adapter: RouteListAdapter
     private lateinit var binding: FragmentRouteBinding
+
+    @Inject
+    lateinit var assistedFactory: RouteViewModelAssistedFactory
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -47,6 +50,7 @@ class RouteFragment : Fragment(R.layout.fragment_route) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        createViewModel()
         initRecyclerview()
         setFromArguments(arguments)
 
@@ -83,8 +87,9 @@ class RouteFragment : Fragment(R.layout.fragment_route) {
         binding.routeRecyclerview.adapter = adapter
     }
 
-    @Inject
-    fun createViewModel(factory: RouteViewModelFactory) {
+
+    private fun createViewModel() {
+        val factory = assistedFactory.create(this)
         viewModel = ViewModelProvider(this, factory).get(RouteViewModel::class.java)
     }
 

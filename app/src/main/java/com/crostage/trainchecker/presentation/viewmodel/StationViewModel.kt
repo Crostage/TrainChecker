@@ -2,9 +2,11 @@ package com.crostage.trainchecker.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import com.crostage.trainchecker.domain.interactors.interfaces.IStationInteractor
 import com.crostage.trainchecker.domain.model.Station
 import com.crostage.trainchecker.presentation.model.Event
+import com.crostage.trainchecker.utils.Constant.Companion.SAVED_STATE_STATIONS
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -17,9 +19,10 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 class StationViewModel(
     private val interactor: IStationInteractor,
+    savedStateHandle: SavedStateHandle,
 ) : BaseViewModel() {
 
-    private val _stations = MutableLiveData<List<Station>>()
+    private val _stations = savedStateHandle.getLiveData<List<Station>>(SAVED_STATE_STATIONS)
 
     /**
      *  LiveData списка станций, меняется при изменении поискового запроса
@@ -33,8 +36,9 @@ class StationViewModel(
     var resultStation: LiveData<Event<Station>> = _resultStation
 
     init {
-        getLastPickStations()
-
+        if (_stations.value == null) {
+            getLastPickStations()
+        }
     }
 
     /**

@@ -1,22 +1,37 @@
 package com.crostage.trainchecker.presentation.viewmodel.factory
 
+import androidx.lifecycle.AbstractSavedStateViewModelFactory
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.savedstate.SavedStateRegistryOwner
 import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
 import com.crostage.trainchecker.presentation.viewmodel.TrainViewModel
-import javax.inject.Inject
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 
-
-class TrainViewModelFactory @Inject constructor(
+class TrainViewModelFactory @AssistedInject constructor(
     private val trainInteractor: ITrainInteractor,
-) : ViewModelProvider.Factory {
+    @Assisted owner: SavedStateRegistryOwner,
+) : AbstractSavedStateViewModelFactory(owner, null) {
     @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel?> create(
+        key: String,
+        modelClass: Class<T>,
+        handle: SavedStateHandle,
+    ): T {
         return when {
             modelClass.isAssignableFrom(TrainViewModel::class.java) -> TrainViewModel(
                 trainInteractor,
+                handle
             ) as T
             else -> throw  IllegalArgumentException("Unknown View Model class")
         }
     }
+}
+
+
+@AssistedFactory
+interface TrainViewModelAssistedFactory {
+    fun create(owner: SavedStateRegistryOwner): TrainViewModelFactory
 }
