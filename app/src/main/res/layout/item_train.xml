@@ -7,127 +7,128 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/train_margin"
         android:divider="@drawable/linear_divider"
-        android:dividerPadding="5dp"
-        android:showDividers="middle"
+        android:dividerPadding="@dimen/train_padding"
         android:gravity="center"
-        android:layout_margin="5dp">
+        android:showDividers="middle">
 
 
         <LinearLayout
-        android:layout_margin="@dimen/train_margin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/trainType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/test_type" />
+            android:layout_margin="@dimen/train_margin"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/trainNumber"
+            <TextView
+                android:id="@+id/trainType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/test_type" />
+
+            <TextView
+                android:id="@+id/trainNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="8"
+                android:text="@string/train_number" />
+
+            <TextView
+                android:id="@+id/dayMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="8"
+                android:lines="1"
+                android:text="@string/test_mode"
+                android:textColor="@color/green" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/train_margin"
+            android:gravity="end"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/departure" />
+
+            <TextView
+                android:id="@+id/startTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/test_time" />
+
+            <TextView
+                android:id="@+id/startDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/test_date" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="8"
-            android:text="@string/train_number" />
+            android:layout_gravity="top"
+            android:layout_margin="@dimen/train_margin"
+            android:gravity="end"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/dayMode"
-            android:ems="8"
-            android:lines="1"
-            android:textColor="@color/green"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/in_way" />
+
+            <TextView
+                android:id="@+id/inWay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/test_time" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/test_mode" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_margin="@dimen/train_margin"
-
-        android:gravity="end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="отпр" />
-
-        <TextView
-            android:id="@+id/startTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="14:20" />
-
-        <TextView
-            android:id="@+id/startDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="11.08.2021" />
+            android:layout_margin="@dimen/train_margin"
+            android:gravity="end"
+            android:orientation="vertical">
 
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/arrival" />
 
-    <LinearLayout
-        android:layout_margin="@dimen/train_margin"
-        android:gravity="end"
-        android:layout_gravity="top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+            <TextView
+                android:id="@+id/endTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/test_time" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="в пути" />
+            <TextView
+                android:id="@+id/endDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/test_date" />
 
-        <TextView
-            android:id="@+id/inWay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="3:23" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_margin="@dimen/train_margin"
-        android:gravity="end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"
-            android:text="прибыт"/>
-
-        <TextView
-            android:id="@+id/endTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="17:43" />
-
-        <TextView
-            android:id="@+id/endDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="12.08.2021" />
-
-    </LinearLayout>
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/favourite"
-            android:layout_marginStart="5dp"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/train_margin"
+            android:contentDescription="@string/hart_img"
             android:src="@drawable/ic_favourite_false" />
 
     </LinearLayout>

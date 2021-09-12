@@ -9,21 +9,14 @@
     tools:context=".presentation.fragment.StationFragment">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
         <EditText
             android:id="@+id/stationName"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:hint="@string/write_station_name"
             android:importantForAutofill="no"
             android:inputType="textAutoComplete" />
 
-    </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"

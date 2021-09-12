@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,39 +7,45 @@
     android:orientation="vertical"
     tools:context=".presentation.fragment.RouteFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <TextView
+        android:id="@+id/tvStations"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:divider="@drawable/linear_divider"
-        android:orientation="horizontal"
-        android:showDividers="middle">
+        android:gravity="center"
+        android:text="@string/station"
+        app:layout_constraintEnd_toStartOf="@id/tvLength"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/station" />
+    <TextView
+        android:id="@+id/tvLength"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/distance"
+        app:layout_constraintEnd_toStartOf="@id/tvTime"
+        app:layout_constraintStart_toEndOf="@+id/tvStations"
+        app:layout_constraintTop_toTopOf="@+id/tvStations" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/distance" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/Time" />
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/Time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvLength"
+        app:layout_constraintTop_toTopOf="@+id/tvLength" />
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLength">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/routeRecyclerview"
@@ -61,20 +67,20 @@
             android:id="@+id/listIsEmpty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:textSize="@dimen/m_text_size"
             android:layout_gravity="center"
-            android:text="@string/nothing_found" />
+            android:text="@string/nothing_found"
+            android:textSize="@dimen/m_text_size"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/tryAgain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:textSize="@dimen/m_text_size"
             android:layout_gravity="center"
-            android:text="@string/try_again" />
+            android:text="@string/try_again"
+            android:textSize="@dimen/m_text_size"
+            android:visibility="gone" />
 
 
     </FrameLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

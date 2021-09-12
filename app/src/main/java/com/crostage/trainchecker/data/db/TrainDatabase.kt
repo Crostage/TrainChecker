@@ -23,7 +23,7 @@ import com.crostage.trainchecker.utils.Constant.Companion.DB_NAME
         StationEntity::class,
         FavouriteEntity::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(StationListConverter::class, TicketListConverter::class)

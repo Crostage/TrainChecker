@@ -29,8 +29,10 @@
     <string name="routes">Маршрут</string>
     <string name="seats">Места</string>
     <string name="app_description">
-        Приложение TrainChecker поможет найти нужный поезд по интересующему направлению и в нужную дату.
-        Также можно посмотреть маршрут конкретного поезда
+        Приложение TrainChecker поможет найти поезд по
+        интересующему направлению и в нужную дату.
+        Можно посмотреть маршрут и свободные билеты.
+        Добавьте поезд в отслеживаемые и получайте всю информациюю быстрее.
     </string>
     <string name="tariff_test">10325 руб</string>
     <string name="cls_type_test">3Э</string>
@@ -39,4 +41,8 @@
     <string name="city_to_hint">Город назначения</string>
     <string name="try_again">Попробовать снова</string>
     <string name="about_app">О приложении</string>
+    <string name="departure">отпр</string>
+    <string name="in_way">в пути</string>
+    <string name="arrival">прибыт</string>
+    <string name="hart_img">hart img</string>
 </resources>
