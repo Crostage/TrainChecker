@@ -27,10 +27,6 @@ class RouteService @Inject constructor(
     private val converter: IConverter<List<TrainStopDto>, List<TrainStop>>,
 ) : IRouteService {
 
-    companion object {
-        private const val TAG = "RouteService"
-    }
-
     override fun getRouteListRequestId(train: Train): Long? {
 
         var rid: Long? = null
@@ -40,10 +36,6 @@ class RouteService @Inject constructor(
         ).executeAndExceptionChek()
 
         response?.let {
-            Log.d(TAG, "ROUTE")
-            Log.d(TAG, "${response.raw()}")
-            Log.d(TAG, "${response.body()}")
-            Log.d(TAG, response.message())
 
             if (it.isSuccessful) {
                 val body = it.body() as RouteRidResult

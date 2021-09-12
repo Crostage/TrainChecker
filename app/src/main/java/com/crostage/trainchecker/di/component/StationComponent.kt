@@ -10,14 +10,10 @@ import javax.inject.Scope
 interface StationComponent {
     fun inject(fragment: StationFragment)
 
-
     @Subcomponent.Builder
     interface Builder {
-
         fun build(): StationComponent
-
     }
-
 
 }
 

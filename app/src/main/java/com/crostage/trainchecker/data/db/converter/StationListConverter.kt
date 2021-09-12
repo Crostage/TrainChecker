@@ -13,7 +13,7 @@ import java.util.*
 class StationListConverter {
 
     @TypeConverter
-    fun listToJson(value: List<StationEntity>?) = Gson().toJson(value)
+    fun listToJson(value: List<StationEntity>?): String = Gson().toJson(value)
 
     @TypeConverter
     fun jsonToList(value: String) =

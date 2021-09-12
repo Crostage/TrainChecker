@@ -13,12 +13,8 @@ interface SeatComponent {
 
     @Subcomponent.Builder
     interface Builder {
-
         fun build(): SeatComponent
-
     }
-
-
 }
 
 @Scope

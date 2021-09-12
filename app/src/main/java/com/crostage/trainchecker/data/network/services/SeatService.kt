@@ -1,12 +1,11 @@
 package com.crostage.trainchecker.data.network.services
 
-import android.util.Log
 import com.crostage.trainchecker.data.converter.IConverter
 import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.data.network.util.NetworkUtil
 import com.crostage.trainchecker.data.network.util.NetworkUtil.Companion.executeAndExceptionChek
 import com.crostage.trainchecker.domain.network.ISeatService
-import com.crostage.trainchecker.data.model.rid.BaseRidResult
+import com.crostage.trainchecker.data.model.rid.SeatRidResult
 import com.crostage.trainchecker.data.model.seat.CarDto
 import com.crostage.trainchecker.domain.model.Car
 import com.crostage.trainchecker.domain.model.Train
@@ -40,13 +39,8 @@ class SeatService @Inject constructor(
 
         responseRid?.let {
 
-            Log.d(TAG, "SEAT")
-            Log.d(TAG, "${responseRid.raw()}")
-            Log.d(TAG, "${responseRid.body()}")
-            Log.d(TAG, responseRid.message())
-
             if (it.isSuccessful) {
-                val body = it.body() as BaseRidResult
+                val body = it.body() as SeatRidResult
                 rid = body.requestId
             }
         }

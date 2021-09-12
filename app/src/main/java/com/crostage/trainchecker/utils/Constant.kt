@@ -30,6 +30,9 @@ class Constant {
         const val SAVED_STATE_STOPS = "SAVED_STATE_STOPS"
         const val SAVED_STATE_CARS = "SAVED_STATE_CARS"
         const val SAVED_STATE_STATIONS = "SAVED_STATE_STATIONS"
+        const val SEARCH_SAVED_STATE_FROM = "SEARCH_SAVED_STATE_FROM"
+        const val SEARCH_SAVED_STATE_TO = "SEARCH_SAVED_STATE_TO"
+        const val SEARCH_SAVED_STATE_DATE = "SEARCH_SAVED_STATE_DATE"
 
     }
 

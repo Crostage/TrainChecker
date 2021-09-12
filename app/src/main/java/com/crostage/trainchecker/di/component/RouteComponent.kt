@@ -1,8 +1,6 @@
 package com.crostage.trainchecker.di.component
 
 import com.crostage.trainchecker.di.module.RouteModule
-import com.crostage.trainchecker.presentation.fragment.DetailFragment
-import com.crostage.trainchecker.presentation.fragment.ResultFragment
 import com.crostage.trainchecker.presentation.fragment.RouteFragment
 import dagger.Subcomponent
 import javax.inject.Scope

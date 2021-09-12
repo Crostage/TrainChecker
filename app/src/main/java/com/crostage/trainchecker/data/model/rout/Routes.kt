@@ -1,11 +1,9 @@
 package com.crostage.trainchecker.data.model.rout
 
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class Routes(
     @SerializedName("Stop")
-    @Expose
     val routList: List<TrainStopDto>,
 )
 

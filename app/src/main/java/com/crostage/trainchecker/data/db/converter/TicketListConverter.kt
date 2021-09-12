@@ -14,7 +14,7 @@ import java.util.*
 class TicketListConverter {
 
     @TypeConverter
-    fun listToJson(value: List<Ticket>?) = Gson().toJson(value)
+    fun listToJson(value: List<Ticket>?): String = Gson().toJson(value)
 
     @TypeConverter
     fun jsonToList(value: String) = Gson().fromJson(value, Array<Ticket>::class.java).toList()

@@ -13,7 +13,6 @@ import com.crostage.trainchecker.data.db.dao.TrainDao
 import com.crostage.trainchecker.data.model.station.StationEntity
 import com.crostage.trainchecker.data.model.station.StationSearchResponse
 import com.crostage.trainchecker.data.model.train.FavouriteEntity
-import com.crostage.trainchecker.data.model.train.TrainEntity
 import com.crostage.trainchecker.utils.Constant.Companion.DB_NAME
 
 

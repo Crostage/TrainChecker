@@ -1,7 +1,7 @@
 package com.crostage.trainchecker.data.network
 
 import com.crostage.trainchecker.data.model.GeneralResult
-import com.crostage.trainchecker.data.model.rid.BaseRidResult
+import com.crostage.trainchecker.data.model.rid.SeatRidResult
 import com.crostage.trainchecker.data.model.rid.RouteRidResult
 import com.crostage.trainchecker.data.model.station.StationEntity
 import com.crostage.trainchecker.utils.Constant.Companion.ROUTE_LAYER_ID
@@ -66,7 +66,7 @@ interface ApiRequests {
      * @param date дата отправления
      * @param time время отправления поезда
      * @param number номер поезда
-     * @return возварщает requestID [BaseRidResult]
+     * @return возварщает requestID [SeatRidResult]
      */
     @GET("timetable/public/ru?")
     fun getSeats(
@@ -78,7 +78,7 @@ interface ApiRequests {
         @Query("dt0") date: String,
         @Query("time0") time: String,
         @Query("tnum0") number: String,
-    ): Call<BaseRidResult>
+    ): Call<SeatRidResult>
 
     /**
      * Запрос на получения списка поездов по поисковому запросу, в ответе от сервера будет RID
@@ -89,7 +89,7 @@ interface ApiRequests {
      * @param codeFrom код города отправления
      * @param codeTo код города прибытия
      * @param date дата отправления
-     * @return возварщает requestID [SearchResult]
+     * @return возварщает [GeneralResult] для преобразования в список поездов
      */
     @GET("timetable/public/ru?")
     fun getTrains(

@@ -4,7 +4,6 @@ import com.crostage.trainchecker.di.module.FavouriteModule
 import com.crostage.trainchecker.di.module.TrainModule
 import com.crostage.trainchecker.presentation.fragment.ResultFragment
 import dagger.Subcomponent
-import javax.inject.Scope
 
 @Subcomponent(modules = [TrainModule::class, FavouriteModule::class])
 @FavouriteScope

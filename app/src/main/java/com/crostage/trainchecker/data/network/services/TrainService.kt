@@ -24,10 +24,6 @@ class TrainService @Inject constructor(
     private val converter: IConverter<TrainEntity, Train>,
 ) : ITrainService {
 
-    companion object {
-        private const val TAG = "TrainService"
-    }
-
     override fun getTrainListRid(codeFrom: Int, codeTo: Int, date: String): Long? {
 
         var rid: Long? = null

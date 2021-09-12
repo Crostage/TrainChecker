@@ -2,8 +2,6 @@ package com.crostage.trainchecker.presentation
 
 import android.app.Application
 import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import com.crostage.trainchecker.di.AppComponent
 import com.crostage.trainchecker.di.DaggerAppComponent
 

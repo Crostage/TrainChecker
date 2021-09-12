@@ -3,14 +3,12 @@ package com.crostage.trainchecker.presentation.viewmodel.factory
 import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.savedstate.SavedStateRegistryOwner
 import com.crostage.trainchecker.domain.interactors.interfaces.IStationInteractor
 import com.crostage.trainchecker.presentation.viewmodel.StationViewModel
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import javax.inject.Inject
 
 class StationViewModelFactory @AssistedInject constructor(
     private val interactor: IStationInteractor,

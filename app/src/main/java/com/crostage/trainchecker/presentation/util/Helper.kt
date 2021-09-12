@@ -4,7 +4,6 @@ import android.view.View
 import com.crostage.trainchecker.domain.model.Train
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
-import java.lang.ref.WeakReference
 import java.text.SimpleDateFormat
 import java.util.*
 

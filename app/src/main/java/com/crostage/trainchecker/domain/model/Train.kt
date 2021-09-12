@@ -1,8 +1,6 @@
 package com.crostage.trainchecker.domain.model
 
 import android.os.Parcelable
-import androidx.room.Entity
-import com.crostage.trainchecker.utils.Constant
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
