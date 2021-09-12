@@ -8,14 +8,18 @@
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.2786458333333333" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/ic_calendar.xml" value="0.42864583333333334" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/ic_favorite.xml" value="0.2786458333333333" />
-        <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/ic_favorite_true.xml" value="0.1" />
+        <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/ic_favorite_true.xml" value="0.536" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/ic_favourite_false.xml" value="0.2786458333333333" />
+        <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/ic_glass_search.xml" value="0.20572916666666666" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/ic_home.xml" value="0.2786458333333333" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/ic_information.xml" value="0.3768518518518518" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.42864583333333334" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/ic_question.xml" value="0.42864583333333334" />
+        <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/ic_train_for_item.xml" value="0.20572916666666666" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/ic_train_for_itme.xml" value="0.42864583333333334" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/ic_train_for_text.xml" value="0.42864583333333334" />
+        <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/linear_divider.xml" value="0.20572916666666666" />
+        <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/drawable/linear_divider_horizontal.xml" value="0.20572916666666666" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/activity_main.xml" value="0.16" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/activity_station_choice.xml" value="0.24365942028985507" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/activity_station_choise.xml" value="0.1276595744680851" />
@@ -28,7 +32,7 @@
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/fragment_seat.xml" value="0.1276595744680851" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/fragment_station.xml" value="0.4125" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/item_route.xml" value="0.4" />
-        <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/item_seat.xml" value="0.264" />
+        <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/item_seat.xml" value="0.536" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/item_station.xml" value="0.28177083333333336" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/layout/item_train.xml" value="0.28177083333333336" />
         <entry key="..\:/Users/gs_ba/AndroidStudioProjects/TrainChecker/app/src/main/res/menu/nav_menu.xml" value="0.3435185185185185" />

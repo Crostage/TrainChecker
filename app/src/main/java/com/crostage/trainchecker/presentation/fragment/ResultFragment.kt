@@ -24,7 +24,6 @@ import com.crostage.trainchecker.presentation.interfaces.TrainItemClickListener
 import com.crostage.trainchecker.presentation.util.Helper.Companion.showSnackBar
 import com.crostage.trainchecker.presentation.viewmodel.TrainViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.TrainViewModelAssistedFactory
-import java.util.*
 import javax.inject.Inject
 
 class ResultFragment : Fragment(R.layout.fragment_result) {
@@ -61,7 +60,6 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
 
     }
 
-
     private fun createViewModel() {
         val factory = assistedFactory.create(this)
         viewModel = ViewModelProvider(this, factory).get(TrainViewModel::class.java)
@@ -77,9 +75,7 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
 
         binding.toolbarResult.apply {
             title =
-                "${cityFrom.uppercase(Locale.getDefault())} " +
-                        "-> ${cityTo.uppercase(Locale.getDefault())}  $date"
-
+                "$cityFrom -> $cityTo"
             setNavigationOnClickListener {
                 activity?.onBackPressed()
             }

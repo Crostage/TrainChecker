@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/train_margin"
@@ -16,60 +17,62 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tariff_test"
-            android:textColor="@color/red" />
+            android:textColor="@color/red"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/carType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/car_type_test"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tariff" />
+
+        <TextView
+            android:id="@+id/textCarNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/car_number"
+            android:layout_marginTop="@dimen/train_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/carType" />
+
+        <TextView
+            android:id="@+id/carNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/train_margin"
+            android:text="@string/test_car"
+            app:layout_constraintStart_toEndOf="@+id/textCarNumber"
+            app:layout_constraintTop_toTopOf="@+id/textCarNumber" />
+
+        <TextView
+            android:id="@+id/clsType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/train_margin"
+            android:text="@string/cls_type_test"
+            android:textColor="@color/green"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/carNumber" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/ticketList"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/train_margin"
-            android:divider="@drawable/linear_divider"
-            android:dividerPadding="@dimen/train_padding"
-            android:showDividers="middle"
-            android:baselineAligned="false">
+            android:gravity="end"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tariff"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_margin="@dimen/train_margin"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/carType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/car_type_test" />
-
-                <TextView
-                    android:id="@+id/carNumber"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="8"
-                    android:text="@string/train_number" />
-
-                <TextView
-                    android:id="@+id/clsType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="8"
-                    android:lines="1"
-                    android:text="@string/cls_type_test"
-                    android:textColor="@color/green" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ticketList"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/train_margin"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:orientation="vertical">
-
-            </LinearLayout>
         </LinearLayout>
 
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
