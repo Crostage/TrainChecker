@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.crostage.trainchecker.R
 import com.crostage.trainchecker.databinding.FragmentSearchBinding
@@ -26,7 +26,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private var codeFrom = 0
     private var codeTo = 0
     private lateinit var binding: FragmentSearchBinding
-    private lateinit var viewModel: SearchViewModel
+    private val viewModel: SearchViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
@@ -84,7 +84,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
 
         viewModel.getStationFrom()?.let {
             codeFrom = it.stationCode
