@@ -9,7 +9,15 @@ import javax.inject.Scope
 @Subcomponent(modules = [SeatModule::class])
 interface SeatComponent {
 
-    fun inject(fragment: SeatFragment): SeatFragment
+    fun inject(fragment: SeatFragment)
+
+    @Subcomponent.Builder
+    interface Builder {
+
+        fun build(): SeatComponent
+
+    }
+
 
 }
 

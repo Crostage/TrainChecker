@@ -32,7 +32,7 @@ class RouteFragment : Fragment(R.layout.fragment_route) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        context.appComponent.getRouteComponent().inject(this)
+        context.appComponent.getRouteComponent().build().inject(this)
     }
 
 

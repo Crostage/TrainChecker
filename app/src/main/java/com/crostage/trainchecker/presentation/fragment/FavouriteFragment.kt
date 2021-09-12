@@ -42,7 +42,7 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        context.appComponent.getFavouriteComponent().inject(this)
+        context.appComponent.getFavouriteComponent().build().inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

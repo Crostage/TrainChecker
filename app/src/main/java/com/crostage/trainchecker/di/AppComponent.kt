@@ -11,11 +11,11 @@ import javax.inject.Singleton
 @Singleton
 interface AppComponent {
 
-    fun getTrainComponent(): TrainComponent
-    fun getRouteComponent(): RouteComponent
-    fun getStationComponent(): StationComponent
-    fun getSeatComponent(): SeatComponent
-    fun getFavouriteComponent(): FavouriteComponent
+    fun getTrainComponent(): ResultComponent.Builder
+    fun getRouteComponent(): RouteComponent.Builder
+    fun getStationComponent(): StationComponent.Builder
+    fun getSeatComponent(): SeatComponent.Builder
+    fun getFavouriteComponent(): FavouriteComponent.Builder
 
 
     @Component.Builder
@@ -29,3 +29,5 @@ interface AppComponent {
     }
 
 }
+
+

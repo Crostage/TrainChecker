@@ -39,7 +39,7 @@ class StationFragment : Fragment(R.layout.fragment_station) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        context.appComponent.getStationComponent().inject(this)
+        context.appComponent.getStationComponent().build().inject(this)
     }
 
     override fun onCreateView(

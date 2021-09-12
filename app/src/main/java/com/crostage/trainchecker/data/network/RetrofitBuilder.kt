@@ -5,6 +5,7 @@ import com.crostage.trainchecker.data.model.rout.Response
 import com.crostage.trainchecker.data.network.adapter.RouteResponseDeserializer
 import com.crostage.trainchecker.utils.Constant.Companion.BASE_URL
 import com.crostage.trainchecker.utils.Constant.Companion.CACHE_SIZE
+import com.crostage.trainchecker.utils.Constant.Companion.CONNECTION_TYPE
 import com.crostage.trainchecker.utils.Constant.Companion.HEADER_CACHE_CONTROL
 import com.crostage.trainchecker.utils.Constant.Companion.HEADER_PRAGMA
 import com.google.gson.Gson
@@ -17,6 +18,9 @@ import java.io.File
 import java.net.CookieManager
 import java.net.CookiePolicy
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+import javax.inject.Named
+import javax.inject.Provider
 
 
 /**
@@ -24,12 +28,15 @@ import java.util.concurrent.TimeUnit
  */
 
 
-class RetrofitBuilder(connectionType: Int?) {
+class RetrofitBuilder(private val offlineInterceptor: Interceptor) {
 
     companion object {
         private const val TAG = "RetrofitBuilder"
     }
 
+    @Inject
+    @Named(CONNECTION_TYPE)
+    lateinit var connectionType: Provider<Int>
 
     /**
      * Получаем объект для отрпавления сетевых запросов
@@ -81,24 +88,6 @@ class RetrofitBuilder(connectionType: Int?) {
             .removeHeader(HEADER_CACHE_CONTROL)
             .header(HEADER_CACHE_CONTROL, cacheControl.toString())
             .build()
-    }
-
-    private var offlineInterceptor: Interceptor = Interceptor { chain ->
-
-        var request = chain.request()
-        if (connectionType == 0) {
-            val cacheControl = CacheControl.Builder()
-                .maxStale(30, TimeUnit.MINUTES)
-                .build()
-
-            request = request.newBuilder()
-                .removeHeader(HEADER_PRAGMA)
-                .removeHeader(HEADER_CACHE_CONTROL)
-                .header(HEADER_CACHE_CONTROL, cacheControl.toString())
-                .build()
-        }
-        chain.proceed(request)
-
     }
 
 

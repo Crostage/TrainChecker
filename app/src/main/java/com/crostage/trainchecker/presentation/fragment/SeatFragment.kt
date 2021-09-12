@@ -30,7 +30,7 @@ class SeatFragment : Fragment(R.layout.fragment_seat) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        context.appComponent.getSeatComponent().inject(this)
+        context.appComponent.getSeatComponent().build().inject(this)
     }
 
     override fun onCreateView(

@@ -1,16 +1,24 @@
 package com.crostage.trainchecker.di.component
 
+import com.crostage.trainchecker.di.module.FavouriteModule
 import com.crostage.trainchecker.di.module.TrainModule
 import com.crostage.trainchecker.presentation.fragment.ResultFragment
 import dagger.Subcomponent
 import javax.inject.Scope
 
-@TrainScope
-@Subcomponent(modules = [TrainModule::class])
-interface TrainComponent {
+@Subcomponent(modules = [TrainModule::class, FavouriteModule::class])
+@FavouriteScope
+interface ResultComponent {
 
     fun inject(fragment: ResultFragment)
+
+    @Subcomponent.Builder
+    interface Builder {
+
+        fun build(): ResultComponent
+
+    }
+
+
 }
 
-@Scope
-annotation class TrainScope

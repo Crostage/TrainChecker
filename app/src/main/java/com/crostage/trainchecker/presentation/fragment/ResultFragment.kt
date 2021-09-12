@@ -46,7 +46,7 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        context.appComponent.getTrainComponent().inject(this)
+        context.appComponent.getTrainComponent().build().inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
