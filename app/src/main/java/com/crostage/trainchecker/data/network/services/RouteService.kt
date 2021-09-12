@@ -7,10 +7,10 @@ import com.crostage.trainchecker.data.network.util.NetworkUtil
 import com.crostage.trainchecker.data.network.util.NetworkUtil.Companion.executeAndExceptionChek
 import com.crostage.trainchecker.domain.network.IRouteService
 import com.crostage.trainchecker.data.model.rid.RouteRidResult
-import com.crostage.trainchecker.data.model.rout.RoutesResult
 import com.crostage.trainchecker.data.model.rout.TrainStopDto
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.domain.model.TrainStop
+import com.crostage.trainchecker.utils.Constant.Companion.ROUTE_LAYER_ID
 import com.crostage.trainchecker.utils.ServerSendError
 import javax.inject.Inject
 
@@ -56,7 +56,7 @@ class RouteService @Inject constructor(
 
     override fun getResultFormRoutesId(rid: Long): List<TrainStop> {
         var stopsList: List<TrainStop> = mutableListOf()
-        val data = NetworkUtil.getResponseFromId(rid, retrofitApi, RoutesResult::class.java)
+        val data = NetworkUtil.getResponseFromId(ROUTE_LAYER_ID, rid, retrofitApi)
 
 
         data?.response?.error?.let {

@@ -1,14 +1,14 @@
 package com.crostage.trainchecker.data.network.services
 
 import com.crostage.trainchecker.data.converter.IConverter
-import com.crostage.trainchecker.data.model.train.SearchResult
+import com.crostage.trainchecker.data.model.GeneralResult
 import com.crostage.trainchecker.data.model.train.TrainEntity
 import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.data.network.util.NetworkUtil.Companion.executeAndExceptionChek
 import com.crostage.trainchecker.data.network.util.NetworkUtil.Companion.getResponseFromId
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.domain.network.ITrainService
-import com.crostage.trainchecker.utils.Constant
+import com.crostage.trainchecker.utils.Constant.Companion.TRAIN_LAYER_ID
 import com.crostage.trainchecker.utils.ServerSendError
 import javax.inject.Inject
 
@@ -33,7 +33,6 @@ class TrainService @Inject constructor(
         var rid: Long? = null
 
         val responseRid = retrofitApi.getTrains(
-            layerId = Constant.TRAIN_LAYER_ID,
             codeFrom = codeFrom,
             codeTo = codeTo,
             date = date
@@ -42,7 +41,7 @@ class TrainService @Inject constructor(
         responseRid?.let {
 
             if (it.isSuccessful) {
-                val body = it.body() as SearchResult
+                val body = it.body() as GeneralResult
 
                 val errorMessage = body.listResponse?.get(0)?.msgList?.get(0)?.message
                 if (errorMessage != null) throw ServerSendError(errorMessage)
@@ -58,7 +57,7 @@ class TrainService @Inject constructor(
         var trainList: List<Train> = mutableListOf()
         if (rid == null) return trainList
 
-        val data = getResponseFromId(rid, retrofitApi, SearchResult::class.java)
+        val data = getResponseFromId(TRAIN_LAYER_ID, rid, retrofitApi)
 
         val l = data?.listResponse?.get(0)?.list
         l?.let { trainList = l.map { entity -> converter.convert(entity) } }

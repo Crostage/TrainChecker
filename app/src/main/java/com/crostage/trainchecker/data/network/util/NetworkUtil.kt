@@ -1,8 +1,6 @@
 package com.crostage.trainchecker.data.network.util
 
-import com.crostage.trainchecker.data.model.rout.RoutesResult
-import com.crostage.trainchecker.data.model.seat.SeatResult
-import com.crostage.trainchecker.data.model.train.SearchResult
+import com.crostage.trainchecker.data.model.GeneralResult
 import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.utils.Error401
 import com.crostage.trainchecker.utils.Error404
@@ -13,36 +11,20 @@ import retrofit2.Response
 
 class NetworkUtil {
     companion object {
-        @Suppress("UNCHECKED_CAST")
-        fun <T> getResponseFromId(rid: Long, retrofitApi: ApiRequests, clazz: Class<T>): T? {
+        fun getResponseFromId(layerId: Int, rid: Long, retrofitApi: ApiRequests): GeneralResult? {
 
-            var data: T? = null
+            var data: GeneralResult? = null
 
-            val response = when {
+            val response =
+                retrofitApi.getResultFromRid(
+                    layerId = layerId,
+                    requestId = rid
+                ).executeAndExceptionChek()
 
-                clazz.isAssignableFrom(SearchResult::class.java) -> {
-                    retrofitApi.getResultFromSearchRid(
-                        requestId = rid
-                    ).executeAndExceptionChek()
-                }
-
-                clazz.isAssignableFrom(RoutesResult::class.java) -> {
-                    retrofitApi.getResultFromRoutesRid(
-                        requestId = rid
-                    ).executeAndExceptionChek()
-                }
-                clazz.isAssignableFrom(SeatResult::class.java) -> {
-                    retrofitApi.getResultFromSeatRid(
-                        requestId = rid
-                    ).executeAndExceptionChek()
-                }
-                else -> throw  IllegalArgumentException("Unknown Rid class")
-
-            }
 
             response?.let {
                 if (response.isSuccessful) {
-                    data = response.body() as T
+                    data = response.body() as GeneralResult
                 }
             }
 

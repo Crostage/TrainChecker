@@ -8,9 +8,9 @@ import com.crostage.trainchecker.data.network.util.NetworkUtil.Companion.execute
 import com.crostage.trainchecker.domain.network.ISeatService
 import com.crostage.trainchecker.data.model.rid.BaseRidResult
 import com.crostage.trainchecker.data.model.seat.CarDto
-import com.crostage.trainchecker.data.model.seat.SeatResult
 import com.crostage.trainchecker.domain.model.Car
 import com.crostage.trainchecker.domain.model.Train
+import com.crostage.trainchecker.utils.Constant.Companion.SEAT_LAYER_ID
 import javax.inject.Inject
 
 /**
@@ -56,9 +56,9 @@ class SeatService @Inject constructor(
 
     override fun getSeatsList(rid: Long): List<Car> {
         var carList: List<Car> = listOf()
-        val data = NetworkUtil.getResponseFromId(rid, retrofitApi, SeatResult::class.java)
+        val data = NetworkUtil.getResponseFromId(SEAT_LAYER_ID, rid, retrofitApi)
 
-        val carDtoList = data?.response?.get(0)?.cars
+        val carDtoList = data?.listCarResponse?.get(0)?.cars
         carDtoList?.let { carList = converter.convert(carDtoList) }
 
         return carList
