@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 
 class GeneralResult(
     @SerializedName("lst")
-    val listCarResponse: List<CarResponse>,
+    val listCarResponse: List<CarResponse>?,
     @SerializedName("GtExpress_Response")
     val response: Response?,
     @SerializedName("tp")

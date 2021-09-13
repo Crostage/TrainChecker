@@ -43,6 +43,10 @@ class NetworkUtil {
                 }
             } catch (e: ServerSendError) {
                 throw e
+            } catch (e: Error401) {
+                throw e
+            } catch (e: Error404) {
+                throw e
             } catch (e: Exception) {
                 throw ErrorConnections()
             }

@@ -27,6 +27,6 @@ interface IRouteService {
      * @return список остановок [TrainStop]
      */
 
-    fun getResultFormRoutesId(rid: Long): List<TrainStop>
+    fun getRoutesList(rid: Long): List<TrainStop>
 
 }

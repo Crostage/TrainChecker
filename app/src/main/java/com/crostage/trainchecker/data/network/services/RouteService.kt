@@ -46,7 +46,7 @@ class RouteService @Inject constructor(
         return rid
     }
 
-    override fun getResultFormRoutesId(rid: Long): List<TrainStop> {
+    override fun getRoutesList(rid: Long): List<TrainStop> {
         var stopsList: List<TrainStop> = mutableListOf()
         val data = NetworkUtil.getResponseFromId(ROUTE_LAYER_ID, rid, retrofitApi)
 

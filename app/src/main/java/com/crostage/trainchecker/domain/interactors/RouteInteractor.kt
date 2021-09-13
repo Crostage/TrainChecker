@@ -20,7 +20,7 @@ class RouteInteractor @Inject constructor(
     }
 
     override fun getRoutesList(rid: Long): List<TrainStop> {
-        return service.getResultFormRoutesId(rid)
+        return service.getRoutesList(rid)
     }
 
 }
