@@ -1,22 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
-    <style name="appTextViewStyle">
+    <style name="searchTextViewStyle">
         <item name="android:textSize">@dimen/l_text_size</item>
+        <item name="android:drawablePadding">@dimen/train_padding</item>
         <item name="android:textColor">@color/base_text_color</item>
         <item name="android:background">@drawable/background_text_view</item>
-        <item name="android:padding">5dp</item>
+        <item name="android:padding">@dimen/train_padding</item>
         <item name="android:ems">10</item>
-        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginTop">@dimen/train_margin</item>
+    </style>
 
+    <style name="columnTitleStyle">
+        <item name="android:textSize">@dimen/m_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
     </style>
 
 
     <style name="MySnackbar" parent="Widget.Design.Snackbar">
-<!--        <item name="android:layout_marginBottom">60dp</item>-->
-        <item name="android:layout_marginStart">5dp</item>
-        <item name="android:layout_marginEnd">5dp</item>
+        <!--        <item name="android:layout_marginBottom">60dp</item>-->
+        <item name="android:layout_marginStart">@dimen/train_margin</item>
+        <item name="android:layout_marginEnd">@dimen/train_margin</item>
     </style>
+
+    <style name="progressAnimStyle">
+        <item name="android:layout_width">@dimen/progress_size</item>
+        <item name="android:layout_height">@dimen/progress_size</item>
+        <item name="android:layout_gravity">top|center</item>
+        <item name="lottie_autoPlay">true</item>
+        <item name="lottie_loop">true</item>
+        <item name="lottie_rawRes">@raw/custom_progress</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+
+    <style name="tvEmptyListStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/m_text_size</item>
+        <item name="android:text">@string/nothing_found</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="btnTryAgainStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/m_text_size</item>
+        <item name="android:text">@string/try_again</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:visibility">gone</item>
+
+    </style>
+
+
+    <style name="textViewInToolbarStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 
 </resources>

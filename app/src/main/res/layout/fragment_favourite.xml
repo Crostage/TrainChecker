@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,24 +11,13 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/item_train" />
 
-    <TextView
-        android:id="@+id/listIsEmpty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:textSize="@dimen/m_text_size"
-        android:layout_gravity="center"
-        android:text="@string/nothing_found" />
-
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/progress"
-        android:visibility="gone"
-        app:lottie_rawRes="@raw/custom_progress"
-        android:layout_width="@dimen/progress_size"
-        android:layout_height="@dimen/progress_size"
-        android:layout_gravity="center"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true" />
+        style="@style/progressAnimStyle" />
+
+    <TextView
+        android:id="@+id/listIsEmpty"
+        style="@style/tvEmptyListStyle" />
 
 
 </FrameLayout>

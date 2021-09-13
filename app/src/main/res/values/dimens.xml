@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="m_text_size">18sp</dimen>
-    <dimen name="parent_padding">15dp</dimen>
+    <dimen name="parent_padding">16dp</dimen>
     <dimen name="l_text_size">22sp</dimen>
     <dimen name="date_text_size">20sp</dimen>
     <dimen name="corner_radius">4dp</dimen>
-    <dimen name="item_margin">10dp</dimen>
-    <dimen name="layout_padding">10dp</dimen>
+    <dimen name="item_margin">8dp</dimen>
+    <dimen name="layout_padding">8dp</dimen>
     <dimen name="train_margin">4dp</dimen>
-    <dimen name="margin_top_search_fragment">50dp</dimen>
+    <dimen name="margin_top_search_fragment">52dp</dimen>
     <dimen name="progress_size">100dp</dimen>
     <dimen name="text_drawable_padding">4dp</dimen>
-    <dimen name="tv_station_padding">5dp</dimen>
+    <dimen name="tv_station_padding">4dp</dimen>
     <dimen name="train_padding">4dp</dimen>
+    <dimen name="about_image_size">200dp</dimen>
 </resources>

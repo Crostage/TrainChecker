@@ -1,136 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/train_margin"
-        android:divider="@drawable/linear_divider"
-        android:dividerPadding="@dimen/train_padding"
-        android:gravity="center"
-        android:showDividers="middle">
+        android:layout_margin="@dimen/train_margin">
 
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/trainType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/train_margin"
-            android:orientation="vertical">
+            android:layout_marginStart="@dimen/item_margin"
+            android:text="@string/test_type"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/trainType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/test_type" />
-
-            <TextView
-                android:id="@+id/trainNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="8"
-                android:text="@string/train_number" />
-
-            <TextView
-                android:id="@+id/dayMode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="8"
-                android:lines="1"
-                android:text="@string/test_mode"
-                android:textColor="@color/green" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/train_margin"
-            android:gravity="end"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/departure" />
-
-            <TextView
-                android:id="@+id/startTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/test_time" />
-
-            <TextView
-                android:id="@+id/startDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/test_date" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/trainNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:layout_margin="@dimen/train_margin"
-            android:gravity="end"
-            android:orientation="vertical">
+            android:layout_marginTop="@dimen/train_margin"
+            android:ems="5"
+            android:text="@string/train_number"
+            app:layout_constraintStart_toStartOf="@+id/trainType"
+            app:layout_constraintTop_toBottomOf="@+id/trainType" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/in_way" />
-
-            <TextView
-                android:id="@+id/inWay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/test_time" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/dayMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/train_margin"
-            android:gravity="end"
-            android:orientation="vertical">
+            android:layout_marginTop="@dimen/train_margin"
+            android:ems="6"
+            android:lines="1"
+            android:text="@string/test_mode"
+            android:textColor="@color/green"
+            app:layout_constraintStart_toStartOf="@+id/trainNumber"
+            app:layout_constraintTop_toBottomOf="@+id/trainNumber" />
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/arrival" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/departure"
+            app:layout_constraintEnd_toStartOf="@+id/guideline50"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/endTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/test_time" />
+        <TextView
+            android:id="@+id/startTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/train_margin"
+            android:text="@string/test_time"
+            app:layout_constraintEnd_toEndOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-            <TextView
-                android:id="@+id/endDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/test_date" />
 
-        </LinearLayout>
+        <TextView
+            android:id="@+id/startDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/train_margin"
+            android:text="@string/test_date"
+            app:layout_constraintEnd_toEndOf="@+id/startTime"
+            app:layout_constraintTop_toBottomOf="@+id/startTime" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/in_way"
+            app:layout_constraintEnd_toStartOf="@+id/guideline65"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/inWay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/train_margin"
+            android:text="@string/test_time"
+            app:layout_constraintEnd_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/arrival"
+            app:layout_constraintEnd_toStartOf="@+id/guideline85"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/endTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/train_margin"
+            android:text="@string/test_time"
+            app:layout_constraintEnd_toEndOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <TextView
+            android:id="@+id/endDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/train_margin"
+            android:text="@string/test_date"
+            app:layout_constraintEnd_toEndOf="@+id/endTime"
+            app:layout_constraintTop_toBottomOf="@+id/endTime" />
 
         <ImageView
             android:id="@+id/favourite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="@dimen/train_margin"
             android:contentDescription="@string/hart_img"
-            android:src="@drawable/ic_favourite_false" />
+            android:src="@drawable/ic_favourite_false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline85"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.3" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline65"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.65" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline85"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.85" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

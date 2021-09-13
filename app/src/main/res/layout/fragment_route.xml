@@ -7,12 +7,11 @@
     android:orientation="vertical"
     tools:context=".presentation.fragment.RouteFragment">
 
-
     <TextView
         android:id="@+id/tvStations"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        style="@style/columnTitleStyle"
         android:text="@string/station"
         app:layout_constraintEnd_toStartOf="@id/tvLength"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +21,7 @@
         android:id="@+id/tvLength"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        style="@style/columnTitleStyle"
         android:text="@string/distance"
         app:layout_constraintEnd_toStartOf="@id/tvTime"
         app:layout_constraintStart_toEndOf="@+id/tvStations"
@@ -33,7 +32,7 @@
         android:id="@+id/tvTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        style="@style/columnTitleStyle"
         android:text="@string/Time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvLength"
@@ -55,31 +54,15 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/progress"
-            android:layout_width="@dimen/progress_size"
-            android:layout_height="@dimen/progress_size"
-            android:layout_gravity="top|center"
-            android:visibility="gone"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/custom_progress" />
+            style="@style/progressAnimStyle" />
 
         <TextView
             android:id="@+id/listIsEmpty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/nothing_found"
-            android:textSize="@dimen/m_text_size"
-            android:visibility="gone" />
+            style="@style/tvEmptyListStyle" />
 
         <Button
             android:id="@+id/tryAgain"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/try_again"
-            android:textSize="@dimen/m_text_size"
-            android:visibility="gone" />
+            style="@style/btnTryAgainStyle" />
 
 
     </FrameLayout>

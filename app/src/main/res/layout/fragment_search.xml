@@ -19,8 +19,7 @@
 
     <TextView
         android:id="@+id/station_from"
-        android:drawablePadding="@dimen/text_drawable_padding"
-        style="@style/appTextViewStyle"
+        style="@style/searchTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/city_from_hint"
@@ -29,8 +28,7 @@
 
     <TextView
         android:id="@+id/station_to"
-        style="@style/appTextViewStyle"
-        android:drawablePadding="@dimen/text_drawable_padding"
+        style="@style/searchTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/city_to_hint"
@@ -39,8 +37,7 @@
 
     <TextView
         android:id="@+id/tvDate"
-        style="@style/appTextViewStyle"
-        android:drawablePadding="@dimen/text_drawable_padding"
+        style="@style/searchTextViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="8"
