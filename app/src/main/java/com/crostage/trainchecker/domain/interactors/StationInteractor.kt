@@ -4,6 +4,8 @@ import com.crostage.trainchecker.domain.interactors.interfaces.IStationInteracto
 import com.crostage.trainchecker.domain.model.Station
 import com.crostage.trainchecker.domain.network.IStationService
 import com.crostage.trainchecker.domain.repository.IStationRepository
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 
@@ -23,12 +25,20 @@ class StationInteractor @Inject constructor(
         return repository.getListFromName(name) ?: listOf()
     }
 
-    override fun getStationListFromService(name: String): List<Station> {
-        val list = getStationsFromNetwork(name)
-        list?.let {
-            if (it.isNotEmpty()) repository.insertStationResponse(name, it)
+    override fun getStationListFromService(name: String): Single<List<Station>> {
+        //todo поправить тест
+        return Single.fromCallable {
+            service.getStationList(name)
+        }.flatMap {
+            if (it != null && it.isNotEmpty()) {
+                Completable.fromCallable {
+                    repository.insertStationResponse(name, it)
+                }
+            }
+            Single.just(it ?: listOf())
+
         }
-        return list ?: listOf()
+
     }
 
     override fun insertStation(station: Station) {
@@ -39,6 +49,4 @@ class StationInteractor @Inject constructor(
         return repository.getLastStationsPick()
     }
 
-    private fun getStationsFromNetwork(name: String): List<Station>? =
-        service.getStationList(name)
 }

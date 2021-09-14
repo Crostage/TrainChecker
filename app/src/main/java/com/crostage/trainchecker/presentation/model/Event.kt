@@ -6,7 +6,7 @@ package com.crostage.trainchecker.presentation.model
  * @param T
  * @property content тип рассматриваемого объекта
  */
-open class Event<out T>(private val content: T) {
+class Event<out T>(private val content: T) {
 
     var hasBeenHandled = false
         private set //только чтение

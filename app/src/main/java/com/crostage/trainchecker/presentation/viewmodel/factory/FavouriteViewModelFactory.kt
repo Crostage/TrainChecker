@@ -1,39 +1,25 @@
 package com.crostage.trainchecker.presentation.viewmodel.factory
 
-import androidx.lifecycle.AbstractSavedStateViewModelFactory
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.savedstate.SavedStateRegistryOwner
+import androidx.lifecycle.ViewModelProvider
 import com.crostage.trainchecker.domain.interactors.interfaces.IFavouriteInteractor
 import com.crostage.trainchecker.presentation.viewmodel.FavouriteViewModel
 import com.crostage.trainchecker.utils.Constant.Companion.FAVOURITE
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
+import javax.inject.Inject
 import javax.inject.Named
 
-class FavouriteViewModelFactory @AssistedInject constructor(
+class FavouriteViewModelFactory @Inject constructor(
     @Named(FAVOURITE)
     private val favouriteInteractor: IFavouriteInteractor,
-    @Assisted owner: SavedStateRegistryOwner,
-) : AbstractSavedStateViewModelFactory(owner, null) {
+) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(
-        key: String,
-        modelClass: Class<T>,
-        handle: SavedStateHandle,
-    ): T {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(FavouriteViewModel::class.java) -> FavouriteViewModel(
-                favouriteInteractor,
-                handle
+                favouriteInteractor
             ) as T
             else -> throw  IllegalArgumentException("Unknown View Model class")
         }
     }
 }
 
-@AssistedFactory
-interface FavouriteViewModelAssistedFactory {
-    fun create(owner: SavedStateRegistryOwner): FavouriteViewModelFactory
-}

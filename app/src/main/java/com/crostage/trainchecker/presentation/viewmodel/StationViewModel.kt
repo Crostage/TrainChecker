@@ -8,6 +8,7 @@ import com.crostage.trainchecker.domain.model.Station
 import com.crostage.trainchecker.presentation.model.Event
 import com.crostage.trainchecker.utils.Constant.Companion.SAVED_STATE_STATIONS
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 
@@ -48,23 +49,17 @@ class StationViewModel(
      */
     fun getStationResponse(stationName: String) {
 
-        // TODO: оставить логику тут? стоит ли разделить?
         compositeDisposable.add(
             Single.fromCallable {
                 interactor.getStationListFromRepo(stationName)
             }.flatMap {
-                Single.fromCallable {
-                    if (it.isEmpty()) {
-                        interactor.getStationListFromService(stationName)
-                    } else it
-                }
+                if (it.isEmpty()) {
+                    interactor.getStationListFromService(stationName)
+                } else Single.just(it)
             }.map {
-                if (it.isNotEmpty())
-                    it.filter { station ->
-                        station.stationName.contains(stationName)
-                    }
-                else listOf()
-
+                it.filter { station ->
+                    station.stationName.contains(stationName)
+                }
             }
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -85,11 +80,12 @@ class StationViewModel(
      */
     private fun insertStation(station: Station) {
         compositeDisposable.add(
-            Single.fromCallable {
+            Completable.fromCallable {
                 interactor.insertStation(station)
             }
                 .subscribeOn(Schedulers.computation())
-                .subscribe()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({}, _error::setValue)
         )
     }
 
@@ -101,8 +97,6 @@ class StationViewModel(
             }
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doFinally { _progress.value = false }
-                .doOnSubscribe { _progress.value = true }
                 .subscribe(
                     _stations::setValue,
                     _error::setValue

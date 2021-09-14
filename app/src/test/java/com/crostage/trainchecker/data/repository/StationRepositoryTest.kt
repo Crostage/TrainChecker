@@ -1,12 +1,14 @@
 package com.crostage.trainchecker.data.repository
 
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.LIST_STATION
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.LIST_STATION_ENTITY
 import com.crostage.trainchecker.data.converter.ConverterConst.Companion.STATION
 import com.crostage.trainchecker.data.converter.ConverterConst.Companion.STATION_ENTITY
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.STATION_NAME
 import com.crostage.trainchecker.data.db.dao.StationDao
 import com.crostage.trainchecker.data.db.dao.StationResponseDao
 import com.crostage.trainchecker.data.model.station.StationEntity
 import com.crostage.trainchecker.data.model.station.StationSearchResponse
-import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.STATION_NAME
 import com.crostage.trainchecker.domain.converter.IConverter
 import com.crostage.trainchecker.domain.model.Station
 import io.mockk.*
@@ -32,17 +34,17 @@ class StationRepositoryTest {
 
     @Test
     fun testInsertStationResponse() {
-        every { listConverter.revers(listOf(STATION)) } returns listOf(STATION_ENTITY)
+        every { listConverter.revers(LIST_STATION) } returns LIST_STATION_ENTITY
         every {
             stationResponseDao.insertStationResponse(StationSearchResponse(STATION_NAME,
-                listOf(STATION_ENTITY)))
+                LIST_STATION_ENTITY))
         } just Runs
 
-        repository.insertStationResponse(STATION_NAME, listOf(STATION))
+        repository.insertStationResponse(STATION_NAME, LIST_STATION)
 
         verify {
             stationResponseDao.insertStationResponse(StationSearchResponse(STATION_NAME,
-                listOf(STATION_ENTITY)))
+                LIST_STATION_ENTITY))
         }
 
     }
@@ -52,12 +54,12 @@ class StationRepositoryTest {
 
         every {
             stationResponseDao.getListFromName(STATION_NAME)?.stationList
-        } returns listOf(STATION_ENTITY)
-        every { listConverter.convert(listOf(STATION_ENTITY)) } returns listOf(STATION)
+        } returns LIST_STATION_ENTITY
+        every { listConverter.convert(LIST_STATION_ENTITY) } returns LIST_STATION
 
         val list = repository.getListFromName(STATION_NAME)
 
-        assert(list == listOf(STATION))
+        assert(list == LIST_STATION)
     }
 
     @Test
@@ -86,11 +88,11 @@ class StationRepositoryTest {
     @Test
     fun testGetLastStationPick() {
 
-        every { stationDao.getLastStationPicks().reversed() } returns listOf(STATION_ENTITY)
-        every { listConverter.convert(listOf(STATION_ENTITY)) } returns listOf(STATION)
+        every { stationDao.getLastStationPicks().reversed() } returns LIST_STATION_ENTITY
+        every { listConverter.convert(LIST_STATION_ENTITY) } returns LIST_STATION
         val list = repository.getLastStationsPick()
 
-        assert(list == listOf(STATION))
+        assert(list == LIST_STATION)
     }
 
 }

@@ -4,9 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import com.crostage.trainchecker.data.converter.ConverterConst.Companion.FAVOURITE_ENTITY
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.LIST_FAVOURITE_ENTITY
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.LIST_TRAIN
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.TRAIN
 import com.crostage.trainchecker.data.db.dao.TrainDao
 import com.crostage.trainchecker.data.model.train.FavouriteEntity
-import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.TRAIN
 import com.crostage.trainchecker.domain.converter.IConverter
 import com.crostage.trainchecker.domain.model.Train
 import io.mockk.*
@@ -34,13 +36,13 @@ class TrainRepositoryTest {
     fun testGetFavouriteLiveData() {
         every {
             trainDao.getFavouriteLiveData()
-        } returns MutableLiveData(listOf(FAVOURITE_ENTITY))
+        } returns MutableLiveData(LIST_FAVOURITE_ENTITY)
 
-        every { listConverter.convert(listOf(FAVOURITE_ENTITY)) } returns listOf(TRAIN)
+        every { listConverter.convert(LIST_FAVOURITE_ENTITY) } returns LIST_TRAIN
 
-        mockkClass(LiveData::class)
+
         every {
-            MutableLiveData(listOf(FAVOURITE_ENTITY)).map {
+            MutableLiveData(LIST_FAVOURITE_ENTITY).map {
                 listConverter.convert(it)
             }
         } returns liveDataTran
@@ -53,10 +55,10 @@ class TrainRepositoryTest {
 
     @Test
     fun testGetFavouriteList() {
-        every { trainDao.getFavouriteList() } returns listOf(FAVOURITE_ENTITY)
-        every { listConverter.convert(listOf(FAVOURITE_ENTITY)) } returns listOf(TRAIN)
+        every { trainDao.getFavouriteList() } returns LIST_FAVOURITE_ENTITY
+        every { listConverter.convert(LIST_FAVOURITE_ENTITY) } returns LIST_TRAIN
         val list = repository.getFavouriteList()
-        assert(list == listOf(TRAIN))
+        assert(list == LIST_TRAIN)
     }
 
     @Test

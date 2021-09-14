@@ -1,8 +1,10 @@
 package com.crostage.trainchecker.presentation.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
 import com.crostage.trainchecker.domain.model.Train
+import com.crostage.trainchecker.utils.Constant
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -18,7 +20,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class TrainViewModel(
     private val trainInteractor: ITrainInteractor,
     savedStateHandle: SavedStateHandle,
-) : FavouriteViewModel(trainInteractor, savedStateHandle) {
+) : FavouriteViewModel(trainInteractor) {
 
     /**
      * Получение списка поездов по поисковому запросу
@@ -27,6 +29,10 @@ class TrainViewModel(
      * @param codeTo станция прибытия
      * @param date дата отправления
      */
+
+
+    private val _trains = savedStateHandle.getLiveData<List<Train>>(Constant.SAVED_STATE_TRAINS)
+    val trains: LiveData<List<Train>> = _trains
 
     fun trainsFromSearchRequest(codeFrom: Int, codeTo: Int, date: String) {
 

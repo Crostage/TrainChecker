@@ -1,13 +1,14 @@
 package com.crostage.trainchecker.data.network.services
 
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.TRAIN_ENTITY
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.LIST_TRAIN
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.LIST_TRAIN_ENTITY
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.RID
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.TRAIN
 import com.crostage.trainchecker.data.model.GeneralResult
 import com.crostage.trainchecker.data.model.train.ErrorMessage
 import com.crostage.trainchecker.data.model.train.TrainEntity
 import com.crostage.trainchecker.data.model.train.TrainResponse
 import com.crostage.trainchecker.data.network.ApiRequests
-import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.RID
-import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.TRAIN
 import com.crostage.trainchecker.data.network.util.NetworkUtil
 import com.crostage.trainchecker.data.network.util.NetworkUtil.Companion.executeAndExceptionChek
 import com.crostage.trainchecker.domain.converter.IConverter
@@ -168,12 +169,12 @@ class TrainServiceTest {
         } returns result
 
         every { result.listResponse } returns trainResponseList
-        every { trainResponseList[0].list } returns listOf(TRAIN_ENTITY)
-        every { converter.convert(listOf(TRAIN_ENTITY)) } returns listOf(TRAIN)
+        every { trainResponseList[0].list } returns LIST_TRAIN_ENTITY
+        every { converter.convert(LIST_TRAIN_ENTITY) } returns LIST_TRAIN
 
         val list = trainService.getTrainList(RID)
 
-        assert(list == listOf(TRAIN))
+        assert(list == LIST_TRAIN)
     }
 
     @Test

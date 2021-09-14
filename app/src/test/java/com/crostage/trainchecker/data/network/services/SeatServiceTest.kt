@@ -1,18 +1,18 @@
 package com.crostage.trainchecker.data.network.services
 
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.CAR
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.CAR_DTO
-import com.crostage.trainchecker.domain.converter.IConverter
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.LIST_CAR
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.LIST_CAR_DTO
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.RID
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.SEAT_RID_RESULT
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.TRAIN
 import com.crostage.trainchecker.data.model.GeneralResult
 import com.crostage.trainchecker.data.model.rid.SeatRidResult
 import com.crostage.trainchecker.data.model.seat.CarDto
 import com.crostage.trainchecker.data.model.seat.CarResponse
 import com.crostage.trainchecker.data.network.ApiRequests
-import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.RID
-import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.SEAT_RID_RESULT
-import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.TRAIN
 import com.crostage.trainchecker.data.network.util.NetworkUtil
 import com.crostage.trainchecker.data.network.util.NetworkUtil.Companion.executeAndExceptionChek
+import com.crostage.trainchecker.domain.converter.IConverter
 import com.crostage.trainchecker.domain.model.Car
 import com.crostage.trainchecker.utils.Constant.Companion.SEAT_LAYER_ID
 import io.mockk.every
@@ -34,7 +34,6 @@ class SeatServiceTest {
     private val responseList: GeneralResult = mockk()
     private val carResponse: CarResponse = mockk()
     private val listCarResponse: List<CarResponse> = mockk()
-    private val listCar: List<Car> = mockk()
     private val call: Call<SeatRidResult> = mockk()
 
     private lateinit var seatService: SeatService
@@ -103,12 +102,12 @@ class SeatServiceTest {
 
         every { responseList.listCarResponse } returns listCarResponse
         every { listCarResponse[0] } returns carResponse
-        every { carResponse.cars } returns listOf(CAR_DTO)
-        every { converter.convert(listOf(CAR_DTO)) } returns listOf(CAR)
+        every { carResponse.cars } returns LIST_CAR_DTO
+        every { converter.convert(LIST_CAR_DTO) } returns LIST_CAR
 
         val list = seatService.getSeatsList(RID)
 
-        assert(list == listOf(CAR))
+        assert(list == LIST_CAR)
     }
 
 

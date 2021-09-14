@@ -1,15 +1,15 @@
 package com.crostage.trainchecker.data.network.services
 
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.TRAIN_STOP
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.TRAIN_STOP_DTO
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.LIST_TRAIN_STOP
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.LIST_TRAIN_STOP_DTO
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.RID
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.ROUTES_ERROR
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.ROUTE_RID_RESULT
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.TRAIN
 import com.crostage.trainchecker.data.model.GeneralResult
 import com.crostage.trainchecker.data.model.rid.RouteRidResult
 import com.crostage.trainchecker.data.model.rout.TrainStopDto
 import com.crostage.trainchecker.data.network.ApiRequests
-import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.RID
-import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.ROUTES_ERROR
-import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.ROUTE_RID_RESULT
-import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.TRAIN
 import com.crostage.trainchecker.data.network.util.NetworkUtil
 import com.crostage.trainchecker.data.network.util.NetworkUtil.Companion.executeAndExceptionChek
 import com.crostage.trainchecker.domain.converter.IConverter
@@ -98,12 +98,12 @@ class RouteServiceTest {
         } returns responseList
 
         every { responseList.response?.error } returns null
-        every { responseList.response?.routes } returns listOf(TRAIN_STOP_DTO)
-        every { converter.convert(listOf(TRAIN_STOP_DTO)) } returns listOf(TRAIN_STOP)
+        every { responseList.response?.routes } returns LIST_TRAIN_STOP_DTO
+        every { converter.convert(LIST_TRAIN_STOP_DTO) } returns LIST_TRAIN_STOP
 
         val list = routeService.getRoutesList(RID)
 
-        assert(list == listOf(TRAIN_STOP))
+        assert(list == LIST_TRAIN_STOP)
 
     }
 

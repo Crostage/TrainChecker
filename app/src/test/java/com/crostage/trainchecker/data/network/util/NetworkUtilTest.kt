@@ -1,8 +1,8 @@
 package com.crostage.trainchecker.data.network.util
 
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.RID
 import com.crostage.trainchecker.data.model.GeneralResult
 import com.crostage.trainchecker.data.network.ApiRequests
-import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.RID
 import com.crostage.trainchecker.data.network.util.NetworkUtil.Companion.executeAndExceptionChek
 import com.crostage.trainchecker.data.network.util.NetworkUtil.Companion.getResponseFromId
 import com.crostage.trainchecker.utils.Constant.Companion.TRAIN_LAYER_ID

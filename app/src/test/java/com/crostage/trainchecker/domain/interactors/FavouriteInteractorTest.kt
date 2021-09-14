@@ -1,7 +1,7 @@
 package com.crostage.trainchecker.domain.interactors
 
 import androidx.lifecycle.LiveData
-import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.TRAIN
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.TRAIN
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.domain.repository.ITrainRepository
 import io.mockk.*

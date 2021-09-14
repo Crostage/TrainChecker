@@ -1,17 +1,13 @@
 package com.crostage.trainchecker.data.network.services
 
-import com.crostage.trainchecker.domain.converter.IConverter
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.LIST_STATION
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.LIST_STATION_ENTITY
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.STATION_NAME
 import com.crostage.trainchecker.data.model.station.StationEntity
 import com.crostage.trainchecker.data.network.ApiRequests
-import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.LIST_STATION
-import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.LIST_STATION_ENTITY
-import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.STATION_ENTITY_MOSCOW
-import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.STATION_ENTITY_SOCHI
-import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.STATION_MOSCOW
-import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.STATION_NAME
-import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.STATION_SOCHI
 import com.crostage.trainchecker.data.network.util.NetworkUtil
 import com.crostage.trainchecker.data.network.util.NetworkUtil.Companion.executeAndExceptionChek
+import com.crostage.trainchecker.domain.converter.IConverter
 import com.crostage.trainchecker.domain.model.Station
 import io.mockk.every
 import io.mockk.mockk

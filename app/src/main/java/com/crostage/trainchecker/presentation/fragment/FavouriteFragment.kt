@@ -21,7 +21,7 @@ import com.crostage.trainchecker.presentation.interfaces.FavouriteRemoveListener
 import com.crostage.trainchecker.presentation.interfaces.TrainItemClickListener
 import com.crostage.trainchecker.presentation.util.Helper.Companion.showSnackBar
 import com.crostage.trainchecker.presentation.viewmodel.FavouriteViewModel
-import com.crostage.trainchecker.presentation.viewmodel.factory.FavouriteViewModelAssistedFactory
+import com.crostage.trainchecker.presentation.viewmodel.factory.FavouriteViewModelFactory
 import javax.inject.Inject
 
 class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
@@ -29,9 +29,6 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
     private lateinit var viewModel: FavouriteViewModel
     private lateinit var adapter: FavouriteAdapter
     private lateinit var binding: FragmentFavouriteBinding
-
-    @Inject
-    lateinit var assistedFactory: FavouriteViewModelAssistedFactory
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,7 +46,6 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        createViewModel()
         initRecyclerView()
         setObservers()
     }
@@ -87,9 +83,8 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
                 }
             })
 
-
-    private fun createViewModel() {
-        val factory = assistedFactory.create(this)
+    @Inject
+    fun createViewModel(factory: FavouriteViewModelFactory) {
         viewModel = ViewModelProvider(this, factory).get(FavouriteViewModel::class.java)
     }
 

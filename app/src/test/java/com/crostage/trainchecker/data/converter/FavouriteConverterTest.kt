@@ -1,7 +1,7 @@
 package com.crostage.trainchecker.data.converter
 
 import com.crostage.trainchecker.data.converter.ConverterConst.Companion.FAVOURITE_ENTITY
-import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.TRAIN
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.TRAIN
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner

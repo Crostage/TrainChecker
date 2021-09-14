@@ -8,19 +8,16 @@ import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.presentation.model.Event
 import com.crostage.trainchecker.presentation.util.Helper
 import com.crostage.trainchecker.utils.Constant.Companion.SAVED_STATE_TRAINS
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 open class FavouriteViewModel(
     private val favouriteInteractor: IFavouriteInteractor,
-    savedStateHandle: SavedStateHandle,
 ) : BaseViewModel() {
 
     private val _openDetail = MutableLiveData<Event<Train>>()
     val openDetail: LiveData<Event<Train>> = _openDetail
-
-    protected val _trains = savedStateHandle.getLiveData<List<Train>>(SAVED_STATE_TRAINS)
-    val trains: LiveData<List<Train>> = _trains
 
 
     /**
@@ -34,7 +31,7 @@ open class FavouriteViewModel(
                 favouriteInteractor.removeFavourite(train)
             }
                 .subscribeOn(Schedulers.computation())
-                .onErrorReturn { }
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { },
                     _error::setValue
