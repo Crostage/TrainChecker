@@ -1,5 +1,8 @@
 package com.crostage.trainchecker.data.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import com.crostage.trainchecker.data.converter.ConverterConst.Companion.FAVOURITE_ENTITY
 import com.crostage.trainchecker.data.db.dao.TrainDao
 import com.crostage.trainchecker.data.model.train.FavouriteEntity
@@ -17,6 +20,8 @@ class TrainRepositoryTest {
     private val trainDao: TrainDao = mockk()
     private val converter: IConverter<FavouriteEntity, Train> = mockk()
     private val listConverter: IConverter<List<FavouriteEntity>, List<Train>> = mockk()
+    private val liveDataFavourite: LiveData<List<FavouriteEntity>> = mockk()
+    private val liveDataTran: LiveData<List<Train>> = mockk()
 
     private lateinit var repository: TrainRepository
 
@@ -25,24 +30,26 @@ class TrainRepositoryTest {
         repository = TrainRepository(trainDao, converter, listConverter)
     }
 
-//    @Test
-//    fun testGetFavouriteLiveData(){
-//        //todo
-//        every {
-//            trainDao.getFavouriteLiveData()
-//        } returns MutableLiveData(listOf(FAVOURITE_ENTITY))
-//
-//        every { listConverter.convert(listOf(FAVOURITE_ENTITY)) } returns listOf(TRAIN)
-//        mockkClass(Transformations::class)
-//        every { Transformations.map(MutableLiveData(listOf(FAVOURITE_ENTITY))){
-//            listConverter.convert(it)
-//        } } returns MutableLiveData(listOf(TRAIN))
-//
-//       val liveData = repository.getFavouriteLiveData()
-//
-//        assert(liveData==MutableLiveData(listOf(TRAIN)))
-//
-//    }
+    @Test
+    fun testGetFavouriteLiveData() {
+        every {
+            trainDao.getFavouriteLiveData()
+        } returns MutableLiveData(listOf(FAVOURITE_ENTITY))
+
+        every { listConverter.convert(listOf(FAVOURITE_ENTITY)) } returns listOf(TRAIN)
+
+        mockkClass(LiveData::class)
+        every {
+            MutableLiveData(listOf(FAVOURITE_ENTITY)).map {
+                listConverter.convert(it)
+            }
+        } returns liveDataTran
+
+        val liveData = repository.getFavouriteLiveData()
+
+        assert(liveData == liveDataTran)
+
+    }
 
     @Test
     fun testGetFavouriteList() {

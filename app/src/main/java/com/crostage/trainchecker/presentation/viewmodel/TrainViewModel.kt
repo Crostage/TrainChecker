@@ -52,7 +52,7 @@ class TrainViewModel(
     fun insertToFavourite(train: Train) {
         compositeDisposable.add(
             Completable.fromCallable {
-                trainInteractor.insertTrain(train)
+                trainInteractor.insertFavourite(train)
             }
                 .subscribeOn(Schedulers.computation())
                 .subscribe(

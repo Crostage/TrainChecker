@@ -31,7 +31,7 @@ open class FavouriteViewModel(
     fun removeFromFavourite(train: Train) {
         compositeDisposable.add(
             Completable.fromCallable {
-                favouriteInteractor.removeTrain(train)
+                favouriteInteractor.removeFavourite(train)
             }
                 .subscribeOn(Schedulers.computation())
                 .onErrorReturn { }

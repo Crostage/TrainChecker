@@ -22,12 +22,12 @@ interface IFavouriteInteractor {
      *
      * @param train
      */
-    fun removeTrain(train: Train)
+    fun removeFavourite(train: Train)
 
     /**
      * Сохарнение поезда в избранное
      *
      * @param train
      */
-    fun insertTrain(train: Train)
+    fun insertFavourite(train: Train)
 }

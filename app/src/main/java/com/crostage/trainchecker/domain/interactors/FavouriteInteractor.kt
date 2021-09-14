@@ -21,11 +21,11 @@ open class FavouriteInteractor @Inject constructor(
         return trainRepository.getFavouriteLiveData()
     }
 
-    override fun removeTrain(train: Train) {
+    override fun removeFavourite(train: Train) {
         trainRepository.removeFavourite(train)
     }
 
-    override fun insertTrain(train: Train) {
+    override fun insertFavourite(train: Train) {
         trainRepository.insertFavourite(train)
     }
 }

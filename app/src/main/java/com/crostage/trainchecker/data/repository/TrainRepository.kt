@@ -2,6 +2,7 @@ package com.crostage.trainchecker.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.crostage.trainchecker.data.db.dao.TrainDao
 import com.crostage.trainchecker.data.model.train.FavouriteEntity
 import com.crostage.trainchecker.domain.converter.IConverter
@@ -17,9 +18,7 @@ class TrainRepository @Inject constructor(
 
     override fun getFavouriteLiveData(): LiveData<List<Train>> {
         val trainEntityLiveData: LiveData<List<FavouriteEntity>> = trainDao.getFavouriteLiveData()
-
-
-        return Transformations.map(trainEntityLiveData) {
+        return trainEntityLiveData.map {
             listConverter.convert(it)
         }
 
