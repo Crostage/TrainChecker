@@ -1,6 +1,6 @@
 package com.crostage.trainchecker.data.network.services
 
-import com.crostage.trainchecker.data.converter.IConverter
+import com.crostage.trainchecker.domain.converter.IConverter
 import com.crostage.trainchecker.data.model.GeneralResult
 import com.crostage.trainchecker.data.model.train.TrainEntity
 import com.crostage.trainchecker.data.network.ApiRequests
@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 class TrainService @Inject constructor(
     private val retrofitApi: ApiRequests,
-    private val converter: IConverter<TrainEntity, Train>,
+    private val converter: IConverter<List<TrainEntity>, List<Train>>,
 ) : ITrainService {
 
     override fun getTrainListRid(codeFrom: Int, codeTo: Int, date: String): Long? {
@@ -56,7 +56,7 @@ class TrainService @Inject constructor(
         val data = getResponseFromId(TRAIN_LAYER_ID, rid, retrofitApi)
 
         val l = data?.listResponse?.get(0)?.list
-        l?.let { trainList = l.map { entity -> converter.convert(entity) } }
+        l?.let { trainList = converter.convert(l) }
 
         return trainList
     }

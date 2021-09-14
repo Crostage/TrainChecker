@@ -32,7 +32,6 @@ class TestNetworkConst {
 
         val ROUTE_RID_RESULT = RouteRidResult(RID)
         val SEAT_RID_RESULT = SeatRidResult(RID)
-        val GENERAL_RID_RESULT = GeneralResult(null, null, null, RID)
 
         val ROUTES_ERROR = RoutesError("Error")
 

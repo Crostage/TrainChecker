@@ -1,22 +1,19 @@
 package com.crostage.trainchecker.data.network.services
 
-import com.crostage.trainchecker.data.converter.IConverter
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.CAR
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.CAR_DTO
+import com.crostage.trainchecker.domain.converter.IConverter
 import com.crostage.trainchecker.data.model.GeneralResult
-import com.crostage.trainchecker.data.model.rid.RouteRidResult
 import com.crostage.trainchecker.data.model.rid.SeatRidResult
-import com.crostage.trainchecker.data.model.rout.TrainStopDto
 import com.crostage.trainchecker.data.model.seat.CarDto
 import com.crostage.trainchecker.data.model.seat.CarResponse
 import com.crostage.trainchecker.data.network.ApiRequests
-import com.crostage.trainchecker.data.network.TestNetworkConst
 import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.RID
 import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.SEAT_RID_RESULT
 import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.TRAIN
 import com.crostage.trainchecker.data.network.util.NetworkUtil
 import com.crostage.trainchecker.data.network.util.NetworkUtil.Companion.executeAndExceptionChek
 import com.crostage.trainchecker.domain.model.Car
-import com.crostage.trainchecker.domain.model.TrainStop
-import com.crostage.trainchecker.utils.Constant
 import com.crostage.trainchecker.utils.Constant.Companion.SEAT_LAYER_ID
 import io.mockk.every
 import io.mockk.mockk
@@ -106,12 +103,30 @@ class SeatServiceTest {
 
         every { responseList.listCarResponse } returns listCarResponse
         every { listCarResponse[0] } returns carResponse
-        every { carResponse.cars } returns listOf()
-        every { converter.convert(listOf()) } returns listCar
+        every { carResponse.cars } returns listOf(CAR_DTO)
+        every { converter.convert(listOf(CAR_DTO)) } returns listOf(CAR)
 
         val list = seatService.getSeatsList(RID)
 
-        assert(list == listCar)
+        assert(list == listOf(CAR))
+    }
+
+
+    @Test
+    fun testGetSeatsList_null() {
+        every {
+            NetworkUtil.getResponseFromId(SEAT_LAYER_ID,
+                RID,
+                retrofitApi)
+        } returns responseList
+
+        every { responseList.listCarResponse } returns listCarResponse
+        every { listCarResponse[0] } returns carResponse
+        every { carResponse.cars } returns null
+
+        val list = seatService.getSeatsList(RID)
+
+        assert(list == emptyList<Car>())
     }
 
 }

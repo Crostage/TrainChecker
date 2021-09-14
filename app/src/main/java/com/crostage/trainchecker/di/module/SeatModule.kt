@@ -1,7 +1,7 @@
 package com.crostage.trainchecker.di.module
 
 import com.crostage.trainchecker.data.converter.CarListConverter
-import com.crostage.trainchecker.data.converter.IConverter
+import com.crostage.trainchecker.domain.converter.IConverter
 import com.crostage.trainchecker.data.network.services.SeatService
 import com.crostage.trainchecker.domain.interactors.SeatInteractor
 import com.crostage.trainchecker.domain.interactors.interfaces.ISeatInteractor

@@ -1,7 +1,6 @@
 package com.crostage.trainchecker.data.network.services
 
-import android.util.Log
-import com.crostage.trainchecker.data.converter.IConverter
+import com.crostage.trainchecker.domain.converter.IConverter
 import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.data.network.util.NetworkUtil
 import com.crostage.trainchecker.data.network.util.NetworkUtil.Companion.executeAndExceptionChek

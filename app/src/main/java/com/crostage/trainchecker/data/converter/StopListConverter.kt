@@ -1,10 +1,11 @@
 package com.crostage.trainchecker.data.converter
 
 import com.crostage.trainchecker.data.model.rout.TrainStopDto
+import com.crostage.trainchecker.domain.converter.IConverter
 import com.crostage.trainchecker.domain.model.TrainStop
 import javax.inject.Inject
 
-class TrainStopListConverter @Inject constructor() :
+class StopListConverter @Inject constructor() :
     IConverter<@JvmSuppressWildcards List<TrainStopDto>, @JvmSuppressWildcards List<TrainStop>> {
 
     override fun convert(input: List<TrainStopDto>): List<TrainStop> {

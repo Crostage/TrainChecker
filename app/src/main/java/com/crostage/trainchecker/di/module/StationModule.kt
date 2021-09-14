@@ -1,7 +1,8 @@
 package com.crostage.trainchecker.di.module
 
-import com.crostage.trainchecker.data.converter.IConverter
+import com.crostage.trainchecker.domain.converter.IConverter
 import com.crostage.trainchecker.data.converter.StationConverter
+import com.crostage.trainchecker.data.converter.StationListConverter
 import com.crostage.trainchecker.data.db.TrainDatabase
 import com.crostage.trainchecker.data.db.dao.StationDao
 import com.crostage.trainchecker.data.db.dao.StationResponseDao
@@ -50,6 +51,10 @@ interface StationBindModule {
     @Binds
     fun bindStationConverterToIConverter(stationConverter: StationConverter)
             : IConverter<StationEntity, Station>
+
+    @Binds
+    fun bindStationListConverterToIConverter(stationListConverter: StationListConverter)
+            : IConverter<List<StationEntity>, List<Station>>
 
 
 }

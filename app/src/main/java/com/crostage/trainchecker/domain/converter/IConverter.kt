@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.data.converter
+package com.crostage.trainchecker.domain.converter
 
 interface IConverter<T, R> {
 

@@ -1,6 +1,7 @@
 package com.crostage.trainchecker.data.network.services
 
-import com.crostage.trainchecker.data.converter.IConverter
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.TRAIN_STOP
+import com.crostage.trainchecker.data.converter.ConverterConst.Companion.TRAIN_STOP_DTO
 import com.crostage.trainchecker.data.model.GeneralResult
 import com.crostage.trainchecker.data.model.rid.RouteRidResult
 import com.crostage.trainchecker.data.model.rout.TrainStopDto
@@ -11,6 +12,7 @@ import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.ROUTE_R
 import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.TRAIN
 import com.crostage.trainchecker.data.network.util.NetworkUtil
 import com.crostage.trainchecker.data.network.util.NetworkUtil.Companion.executeAndExceptionChek
+import com.crostage.trainchecker.domain.converter.IConverter
 import com.crostage.trainchecker.domain.model.TrainStop
 import com.crostage.trainchecker.utils.Constant.Companion.ROUTE_LAYER_ID
 import com.crostage.trainchecker.utils.ServerSendError
@@ -33,7 +35,6 @@ class RouteServiceTest {
     private val converter: IConverter<List<TrainStopDto>, List<TrainStop>> = mockk()
     private val responseRid: Response<RouteRidResult> = mockk()
     private val responseList: GeneralResult = mockk()
-    private val listStop: List<TrainStop> = mockk()
     private val call: Call<RouteRidResult> = mockk()
 
     private lateinit var routeService: RouteService
@@ -97,12 +98,30 @@ class RouteServiceTest {
         } returns responseList
 
         every { responseList.response?.error } returns null
-        every { responseList.response?.routes } returns listOf()
-        every { converter.convert(listOf()) } returns listStop
+        every { responseList.response?.routes } returns listOf(TRAIN_STOP_DTO)
+        every { converter.convert(listOf(TRAIN_STOP_DTO)) } returns listOf(TRAIN_STOP)
 
         val list = routeService.getRoutesList(RID)
 
-        assert(list == listStop)
+        assert(list == listOf(TRAIN_STOP))
+
+    }
+
+    @Test
+    fun testGetRoutesList_null() {
+
+        every {
+            NetworkUtil.getResponseFromId(ROUTE_LAYER_ID,
+                RID,
+                retrofitApi)
+        } returns responseList
+
+        every { responseList.response?.error } returns null
+        every { responseList.response?.routes } returns null
+
+        val list = routeService.getRoutesList(RID)
+
+        assert(list == emptyList<TrainStop>())
 
     }
 

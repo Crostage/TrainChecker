@@ -37,6 +37,21 @@ class NetworkUtilTest {
 
 
     @Test
+    fun testGetResponseFromId_null() {
+        every {
+            retrofitApi.getResultFromRid(
+                layerId = TRAIN_LAYER_ID,
+                requestId = RID
+            )
+        } returns call
+        every { call.executeAndExceptionChek() } returns null
+        val data = getResponseFromId(TRAIN_LAYER_ID, RID, retrofitApi)
+
+        assert(data == null)
+    }
+
+
+    @Test
     fun testGetResponseFromId_isSuccessful_true() {
         every {
             retrofitApi.getResultFromRid(
@@ -81,6 +96,18 @@ class NetworkUtilTest {
         val response = call.executeAndExceptionChek()
 
         assert(response == generalResponse)
+
+    }
+
+    @Test
+    fun testExecuteAndExceptionChek_code_228() {
+
+        every { call.execute() } returns generalResponse
+        every { generalResponse.code() } returns 228
+
+        val response = call.executeAndExceptionChek()
+
+        assert(response == null)
 
     }
 

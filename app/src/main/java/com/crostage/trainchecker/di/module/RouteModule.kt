@@ -1,7 +1,7 @@
 package com.crostage.trainchecker.di.module
 
-import com.crostage.trainchecker.data.converter.IConverter
-import com.crostage.trainchecker.data.converter.TrainStopListConverter
+import com.crostage.trainchecker.domain.converter.IConverter
+import com.crostage.trainchecker.data.converter.StopListConverter
 import com.crostage.trainchecker.data.network.services.RouteService
 import com.crostage.trainchecker.domain.interactors.RouteInteractor
 import com.crostage.trainchecker.domain.interactors.interfaces.IRouteInteractor
@@ -23,7 +23,7 @@ interface RouteBindModule {
     fun bindRouteServiceToIRouteService(routeService: RouteService): IRouteService
 
     @Binds
-    fun bindTrainStopToIConverter(trainStopList: TrainStopListConverter)
+    fun bindTrainStopToIConverter(trainStopList: StopListConverter)
             : IConverter<List<TrainStopDto>, List<TrainStop>>
 
 }

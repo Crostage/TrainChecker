@@ -32,7 +32,7 @@ interface TrainDao {
      */
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTrain(train: FavouriteEntity)
+    fun insertFavourite(train: FavouriteEntity)
 
     /**
      * Удаление элемента из БД
@@ -41,5 +41,5 @@ interface TrainDao {
      */
 
     @Delete
-    fun removeTrain(train: FavouriteEntity)
+    fun removeFavourite(train: FavouriteEntity)
 }

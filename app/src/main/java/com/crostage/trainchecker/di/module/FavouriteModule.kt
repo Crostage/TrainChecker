@@ -1,12 +1,13 @@
 package com.crostage.trainchecker.di.module
 
 import com.crostage.trainchecker.data.converter.FavouriteConverter
-import com.crostage.trainchecker.data.converter.IConverter
+import com.crostage.trainchecker.data.converter.FavouriteListConverter
 import com.crostage.trainchecker.data.db.TrainDatabase
 import com.crostage.trainchecker.data.db.dao.TrainDao
 import com.crostage.trainchecker.data.model.train.FavouriteEntity
 import com.crostage.trainchecker.data.repository.TrainRepository
 import com.crostage.trainchecker.di.component.FavouriteScope
+import com.crostage.trainchecker.domain.converter.IConverter
 import com.crostage.trainchecker.domain.interactors.FavouriteInteractor
 import com.crostage.trainchecker.domain.interactors.interfaces.IFavouriteInteractor
 import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
@@ -50,4 +51,8 @@ interface FavouriteBindModule {
     fun bindFavouriteConverterToIConverter(
         favouriteConverter: FavouriteConverter,
     ): IConverter<FavouriteEntity, Train>
+
+    @Binds
+    fun bindFavouriteListConverterToIConverter(favouriteListConverter: FavouriteListConverter)
+            : IConverter<List<FavouriteEntity>, List<Train>>
 }

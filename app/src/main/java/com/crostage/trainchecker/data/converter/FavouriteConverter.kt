@@ -1,6 +1,7 @@
 package com.crostage.trainchecker.data.converter
 
 import com.crostage.trainchecker.data.model.train.FavouriteEntity
+import com.crostage.trainchecker.domain.converter.IConverter
 import com.crostage.trainchecker.domain.model.Train
 import javax.inject.Inject
 

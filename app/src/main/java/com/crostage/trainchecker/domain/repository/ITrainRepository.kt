@@ -27,12 +27,12 @@ interface ITrainRepository {
      *
      * @param train
      */
-    fun insertTrain(train: Train)
+    fun insertFavourite(train: Train)
 
     /**
      * Удаление поезда
      *
      * @param train
      */
-    fun removeTrain(train: Train)
+    fun removeFavourite(train: Train)
 }

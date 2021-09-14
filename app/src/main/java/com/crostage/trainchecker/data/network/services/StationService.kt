@@ -1,6 +1,6 @@
 package com.crostage.trainchecker.data.network.services
 
-import com.crostage.trainchecker.data.converter.IConverter
+import com.crostage.trainchecker.domain.converter.IConverter
 import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.data.network.util.NetworkUtil.Companion.executeAndExceptionChek
 import com.crostage.trainchecker.domain.network.IStationService
@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 class StationService @Inject constructor(
     private val retrofitApi: ApiRequests,
-    private val converter: IConverter<StationEntity, Station>,
+    private val converter: IConverter<List<StationEntity>, List<Station>>,
 ) : IStationService {
     override fun getStationList(stationName: String): List<Station> {
         val name = stationName.uppercase(Locale.getDefault()).trim()
@@ -31,7 +31,7 @@ class StationService @Inject constructor(
             if (it.isSuccessful) {
                 val data = it.body()
                 if (data != null) {
-                    return data.map { entity -> converter.convert(entity) }
+                    return converter.convert(data)
                 }
             }
         }

@@ -2,9 +2,9 @@ package com.crostage.trainchecker.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.crostage.trainchecker.data.converter.IConverter
 import com.crostage.trainchecker.data.db.dao.TrainDao
 import com.crostage.trainchecker.data.model.train.FavouriteEntity
+import com.crostage.trainchecker.domain.converter.IConverter
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.domain.repository.ITrainRepository
 import javax.inject.Inject
@@ -12,25 +12,29 @@ import javax.inject.Inject
 class TrainRepository @Inject constructor(
     private val trainDao: TrainDao,
     private val converter: IConverter<FavouriteEntity, Train>,
+    private val listConverter: IConverter<List<FavouriteEntity>, List<Train>>,
 ) : ITrainRepository {
 
     override fun getFavouriteLiveData(): LiveData<List<Train>> {
         val trainEntityLiveData: LiveData<List<FavouriteEntity>> = trainDao.getFavouriteLiveData()
-        return Transformations.map(trainEntityLiveData) { list ->
-            list.map { converter.convert(it) }
+
+
+        return Transformations.map(trainEntityLiveData) {
+            listConverter.convert(it)
         }
+
     }
 
     override fun getFavouriteList(): List<Train> {
-        return trainDao.getFavouriteList().map { converter.convert(it) }
+        return listConverter.convert(trainDao.getFavouriteList())
     }
 
-    override fun insertTrain(train: Train) {
-        trainDao.insertTrain(converter.revers(train))
+    override fun insertFavourite(train: Train) {
+        trainDao.insertFavourite(converter.revers(train))
     }
 
-    override fun removeTrain(train: Train) {
-        trainDao.removeTrain(converter.revers(train))
+    override fun removeFavourite(train: Train) {
+        trainDao.removeFavourite(converter.revers(train))
     }
 
 

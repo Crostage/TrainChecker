@@ -22,10 +22,10 @@ open class FavouriteInteractor @Inject constructor(
     }
 
     override fun removeTrain(train: Train) {
-        trainRepository.removeTrain(train)
+        trainRepository.removeFavourite(train)
     }
 
     override fun insertTrain(train: Train) {
-        trainRepository.insertTrain(train)
+        trainRepository.insertFavourite(train)
     }
 }

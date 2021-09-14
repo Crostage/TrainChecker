@@ -1,6 +1,7 @@
 package com.crostage.trainchecker.data.converter
 
 import com.crostage.trainchecker.data.model.seat.CarDto
+import com.crostage.trainchecker.domain.converter.IConverter
 import com.crostage.trainchecker.domain.model.Car
 import javax.inject.Inject
 

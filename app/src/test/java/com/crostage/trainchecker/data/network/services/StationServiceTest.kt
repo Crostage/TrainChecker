@@ -1,9 +1,8 @@
 package com.crostage.trainchecker.data.network.services
 
-import com.crostage.trainchecker.data.converter.IConverter
+import com.crostage.trainchecker.domain.converter.IConverter
 import com.crostage.trainchecker.data.model.station.StationEntity
 import com.crostage.trainchecker.data.network.ApiRequests
-import com.crostage.trainchecker.data.network.TestNetworkConst
 import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.LIST_STATION
 import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.LIST_STATION_ENTITY
 import com.crostage.trainchecker.data.network.TestNetworkConst.Companion.STATION_ENTITY_MOSCOW
@@ -30,7 +29,7 @@ class StationServiceTest {
 
 
     private val retrofitApi: ApiRequests = mockk()
-    private val converter: IConverter<StationEntity, Station> = mockk()
+    private val converter: IConverter<List<StationEntity>, List<Station>> = mockk()
     private val responseList: Response<List<StationEntity>> = mockk()
     private val call: Call<List<StationEntity>> = mockk()
 
@@ -54,8 +53,7 @@ class StationServiceTest {
 
         every { responseList.isSuccessful } returns true
         every { responseList.body() } returns LIST_STATION_ENTITY
-        every { converter.convert(STATION_ENTITY_MOSCOW) } returns STATION_MOSCOW
-        every { converter.convert(STATION_ENTITY_SOCHI) } returns STATION_SOCHI
+        every { converter.convert(LIST_STATION_ENTITY) } returns LIST_STATION
 
         val list = stationService.getStationList(STATION_NAME)
 
@@ -76,7 +74,7 @@ class StationServiceTest {
 
         val list = stationService.getStationList(STATION_NAME)
 
-        assert(list == listOf<Station>())
+        assert(list == emptyList<Station>())
         verify(exactly = 0) { responseList.body() }
 
     }
