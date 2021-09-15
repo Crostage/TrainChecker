@@ -8,6 +8,7 @@ import com.crostage.trainchecker.data.model.train.FavouriteEntity
 import com.crostage.trainchecker.domain.converter.IConverter
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.domain.repository.ITrainRepository
+import io.reactivex.rxjava3.core.Observable
 import javax.inject.Inject
 
 class TrainRepository @Inject constructor(
@@ -24,8 +25,8 @@ class TrainRepository @Inject constructor(
 
     }
 
-    override fun getFavouriteList(): List<Train> {
-        return listConverter.convert(trainDao.getFavouriteList())
+    override fun getFavouriteObservable(): Observable<List<Train>> {
+        return trainDao.getFavouriteObservable().map { listConverter.convert(it) }
     }
 
     override fun insertFavourite(train: Train) {

@@ -22,7 +22,6 @@ class TrainRepositoryTest {
     private val trainDao: TrainDao = mockk()
     private val converter: IConverter<FavouriteEntity, Train> = mockk()
     private val listConverter: IConverter<List<FavouriteEntity>, List<Train>> = mockk()
-    private val liveDataFavourite: LiveData<List<FavouriteEntity>> = mockk()
     private val liveDataTran: LiveData<List<Train>> = mockk()
 
     private lateinit var repository: TrainRepository
@@ -53,13 +52,6 @@ class TrainRepositoryTest {
 
     }
 
-    @Test
-    fun testGetFavouriteList() {
-        every { trainDao.getFavouriteList() } returns LIST_FAVOURITE_ENTITY
-        every { listConverter.convert(LIST_FAVOURITE_ENTITY) } returns LIST_TRAIN
-        val list = repository.getFavouriteList()
-        assert(list == LIST_TRAIN)
-    }
 
     @Test
     fun testInsertFavourite() {

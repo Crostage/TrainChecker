@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.SavedStateHandle
-import com.crostage.trainchecker.ConstForTest
 import com.crostage.trainchecker.ConstForTest.Companion.CODE_FROM
 import com.crostage.trainchecker.ConstForTest.Companion.CODE_TO
 import com.crostage.trainchecker.ConstForTest.Companion.DATE_START
@@ -12,11 +11,10 @@ import com.crostage.trainchecker.ConstForTest.Companion.LIST_TRAIN
 import com.crostage.trainchecker.ConstForTest.Companion.TRAIN
 import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
 import com.crostage.trainchecker.domain.model.Train
-import com.crostage.trainchecker.domain.model.TrainStop
-import com.crostage.trainchecker.utils.Constant
 import com.crostage.trainchecker.utils.Constant.Companion.SAVED_STATE_TRAINS
 import io.mockk.*
 import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -37,7 +35,7 @@ class TrainViewModelTest {
 
     private val interactor: ITrainInteractor = mockk()
     private val savedStateHandle: SavedStateHandle = mockk()
-    private val exception: Exception = mockk()
+    private val exception: Exception = Exception()
 
     private val trains: Observer<List<Train>> = mockk()
     private val error: Observer<Throwable> = mockk()
@@ -91,6 +89,8 @@ class TrainViewModelTest {
         every {
             interactor.getTrainList(CODE_FROM, CODE_TO, DATE_START)
         } throws exception
+
+        every { interactor.getFavouriteObservable() } returns Observable.just(LIST_TRAIN)
 
         viewModel.trainsFromSearchRequest(CODE_FROM, CODE_TO, DATE_START)
 

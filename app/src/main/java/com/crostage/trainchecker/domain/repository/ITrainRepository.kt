@@ -3,6 +3,7 @@ package com.crostage.trainchecker.domain.repository
 import androidx.lifecycle.LiveData
 import com.crostage.trainchecker.data.model.train.TrainEntity
 import com.crostage.trainchecker.domain.model.Train
+import io.reactivex.rxjava3.core.Observable
 
 
 /**
@@ -19,8 +20,7 @@ interface ITrainRepository {
      */
     fun getFavouriteLiveData(): LiveData<List<Train>>
 
-
-    fun getFavouriteList(): List<Train>
+    fun getFavouriteObservable(): Observable<List<Train>>
 
     /**
      * Сохранение поезда

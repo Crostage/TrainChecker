@@ -1,6 +1,7 @@
 package com.crostage.trainchecker.domain.interactors.interfaces
 
 import com.crostage.trainchecker.domain.model.Train
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 
 interface ITrainInteractor : IFavouriteInteractor {
@@ -16,9 +17,5 @@ interface ITrainInteractor : IFavouriteInteractor {
 
     fun getTrainList(codeFrom: Int, codeTo: Int, date: String): Single<List<Train>>
 
-
-    fun checkFavouritesContainsTrains(trains: List<Train>, favourite: List<Train>): List<Train>
-
-
-
+    fun getFavouriteObservable(): Observable<List<Train>>
 }

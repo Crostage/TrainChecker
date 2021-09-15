@@ -2,6 +2,7 @@ package com.crostage.trainchecker.presentation.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -138,19 +139,9 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
             binding.tryAgain.isVisible = true
         })
 
-        viewModel.trains.observe(viewLifecycleOwner, { trains ->
-
-            viewModel.getFavouriteLiveData().observe(viewLifecycleOwner, { favourite ->
-
-                val actual = viewModel.checkFavouritesContainsTrains(favourite, trains)
-                if (actual != null) {
-                    adapter.setData(actual)
-                    binding.listIsEmpty.isVisible = actual.isEmpty()
-                } else {
-                    binding.listIsEmpty.isVisible = true
-                }
-
-            })
+        viewModel.trains.observe(viewLifecycleOwner, {
+            adapter.setData(it)
+            binding.listIsEmpty.isVisible = it.isEmpty()
 
         })
 

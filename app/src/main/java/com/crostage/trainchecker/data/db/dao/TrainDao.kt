@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.crostage.trainchecker.data.model.train.FavouriteEntity
 import com.crostage.trainchecker.utils.Constant.Companion.TABLE_NAME_FAVOURITES
+import io.reactivex.rxjava3.core.Observable
 
 /**
  * Работа с данными поездов, Room
@@ -22,8 +23,8 @@ interface TrainDao {
     @Query("SELECT*FROM $TABLE_NAME_FAVOURITES ORDER BY dateStart,timeStart ")
     fun getFavouriteLiveData(): LiveData<List<FavouriteEntity>>
 
-    @Query("SELECT*FROM $TABLE_NAME_FAVOURITES ORDER BY dateStart ")
-    fun getFavouriteList(): List<FavouriteEntity>
+    @Query("SELECT*FROM $TABLE_NAME_FAVOURITES ORDER BY dateStart,timeStart ")
+    fun getFavouriteObservable(): Observable<List<FavouriteEntity>>
 
     /**
      * Запись элемента в БД

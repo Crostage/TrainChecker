@@ -34,7 +34,7 @@ class RouteService @Inject constructor(
             number = train.trainNumber
         ).executeAndExceptionChek()
 
-        response?.let {
+        response.let {
 
             if (it.isSuccessful) {
                 val body = it.body() as RouteRidResult
