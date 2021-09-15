@@ -36,20 +36,6 @@ class NetworkUtilTest {
     }
 
 
-    @Test
-    fun testGetResponseFromId_null() {
-        every {
-            retrofitApi.getResultFromRid(
-                layerId = TRAIN_LAYER_ID,
-                requestId = RID
-            )
-        } returns call
-        every { call.executeAndExceptionChek() } returns null
-        val data = getResponseFromId(TRAIN_LAYER_ID, RID, retrofitApi)
-
-        assert(data == null)
-    }
-
 
     @Test
     fun testGetResponseFromId_isSuccessful_true() {
@@ -91,7 +77,7 @@ class NetworkUtilTest {
     fun testExecuteAndExceptionChek_code_200() {
 
         every { call.execute() } returns generalResponse
-        every { generalResponse.code() } returns 200
+        every { generalResponse.code() } returns ServerCodeEnum.OK.code
 
         val response = call.executeAndExceptionChek()
 
@@ -105,9 +91,8 @@ class NetworkUtilTest {
         every { call.execute() } returns generalResponse
         every { generalResponse.code() } returns 228
 
-        val response = call.executeAndExceptionChek()
 
-        assert(response == null)
+        assertFailsWith<ErrorConnections> { call.executeAndExceptionChek() }
 
     }
 
@@ -115,7 +100,7 @@ class NetworkUtilTest {
     fun testExecuteAndExceptionChek_code_401() {
 
         every { call.execute() } returns generalResponse
-        every { generalResponse.code() } returns 401
+        every { generalResponse.code() } returns ServerCodeEnum.NOT_FOUND.code
 
         assertFailsWith<Error401> { call.executeAndExceptionChek() }
     }
@@ -124,7 +109,7 @@ class NetworkUtilTest {
     fun testExecuteAndExceptionChek_code_404() {
 
         every { call.execute() } returns generalResponse
-        every { generalResponse.code() } returns 404
+        every { generalResponse.code() } returns ServerCodeEnum.NO_AUTH.code
 
         assertFailsWith<Error404> { call.executeAndExceptionChek() }
     }

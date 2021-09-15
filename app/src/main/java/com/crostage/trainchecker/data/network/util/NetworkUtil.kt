@@ -21,24 +21,22 @@ class NetworkUtil {
                     requestId = rid
                 ).executeAndExceptionChek()
 
-
-            response?.let {
-                if (response.isSuccessful) {
-                    data = response.body() as GeneralResult
-                }
+            if (response.isSuccessful) {
+                data = response.body() as GeneralResult
             }
 
             return data
         }
 
-        fun <T> Call<T>.executeAndExceptionChek(): Response<T>? {
+        fun <T> Call<T>.executeAndExceptionChek(): Response<T> {
             try {
                 val response = execute()
                 when (response.code()) {
 
-                    200 -> return response
-                    401 -> throw Error401()
-                    404 -> throw Error404()
+                    ServerCodeEnum.OK.code -> return response
+                    ServerCodeEnum.NOT_FOUND.code -> throw Error401()
+                    ServerCodeEnum.NO_AUTH.code -> throw Error404()
+                    else -> throw ErrorConnections()
 
                 }
             } catch (e: ServerSendError) {
@@ -50,7 +48,6 @@ class NetworkUtil {
             } catch (e: Exception) {
                 throw ErrorConnections()
             }
-            return null
         }
     }
 }

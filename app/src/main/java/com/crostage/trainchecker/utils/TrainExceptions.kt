@@ -8,6 +8,6 @@ sealed class TrainExceptions: Exception()
 class ErrorConnections(override val message: String? = "Не удалось получить данные") :
     TrainExceptions()
 
-class ServerSendError(override val message: String? = "Ошибка сервера") :
+class ServerSendError(override val message: String? = "Ошибка полученя данных") :
     TrainExceptions()
 

@@ -15,6 +15,7 @@ import com.crostage.trainchecker.data.network.util.NetworkUtil.Companion.execute
 import com.crostage.trainchecker.domain.converter.IConverter
 import com.crostage.trainchecker.domain.model.Car
 import com.crostage.trainchecker.utils.Constant.Companion.SEAT_LAYER_ID
+import com.crostage.trainchecker.utils.ServerSendError
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkObject
@@ -25,6 +26,7 @@ import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
 import retrofit2.Call
 import retrofit2.Response
+import kotlin.test.assertFailsWith
 
 @RunWith(MockitoJUnitRunner::class)
 class SeatServiceTest {
@@ -119,13 +121,26 @@ class SeatServiceTest {
                 retrofitApi)
         } returns responseList
 
-        every { responseList.listCarResponse } returns listCarResponse
-        every { listCarResponse[0] } returns carResponse
-        every { carResponse.cars } returns null
+        every { responseList.listCarResponse } returns null
 
         val list = seatService.getSeatsList(RID)
 
         assert(list == emptyList<Car>())
+    }
+
+    @Test
+    fun testGetSeatsList_throw_exception() {
+        every {
+            NetworkUtil.getResponseFromId(SEAT_LAYER_ID,
+                RID,
+                retrofitApi)
+        } returns responseList
+
+        every { responseList.listCarResponse } returns listCarResponse
+        every { listCarResponse[0] } throws IndexOutOfBoundsException()
+
+        assertFailsWith<ServerSendError> { seatService.getSeatsList(RID) }
+
     }
 
 }

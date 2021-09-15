@@ -26,6 +26,7 @@
         <TextView
             android:id="@+id/carType"
             android:layout_width="wrap_content"
+            android:layout_marginStart="@dimen/item_margin"
             android:layout_height="wrap_content"
             android:text="@string/car_type_test"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,9 +36,9 @@
             android:id="@+id/textCarNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/car_number"
             android:layout_marginTop="@dimen/train_margin"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/car_number"
+            app:layout_constraintStart_toStartOf="@+id/carType"
             app:layout_constraintTop_toBottomOf="@+id/carType" />
 
         <TextView
@@ -56,7 +57,8 @@
             android:layout_marginTop="@dimen/train_margin"
             android:text="@string/cls_type_test"
             android:textColor="@color/green"
-            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintStart_toStartOf="@+id/textCarNumber"
             app:layout_constraintTop_toBottomOf="@+id/carNumber" />
 
         <LinearLayout

@@ -24,6 +24,7 @@ import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
 import retrofit2.Call
 import retrofit2.Response
+import java.lang.IndexOutOfBoundsException
 import kotlin.test.assertFailsWith
 
 @RunWith(MockitoJUnitRunner::class)
@@ -135,8 +136,37 @@ class TrainServiceTest {
             )
         }
 
+    }
+
+
+    @Test
+    fun testGetTrainListRid_throw_exception() {
+        every {
+            retrofitApi.getTrains(
+                codeFrom = TRAIN.codeStationFrom,
+                codeTo = TRAIN.codeStationTo,
+                date = TRAIN.dateStart
+            )
+        } returns call
+
+        every { call.executeAndExceptionChek() } returns response
+        every { response.isSuccessful } returns true
+        every { response.body() } returns body
+
+        every { body.listResponse } returns trainResponseList
+        every { trainResponseList[0] } throws IndexOutOfBoundsException()
+
+
+        assertFailsWith<ServerSendError> {
+            trainService.getTrainListRid(
+                codeFrom = TRAIN.codeStationFrom,
+                codeTo = TRAIN.codeStationTo,
+                date = TRAIN.dateStart
+            )
+        }
 
     }
+
 
     @Test
     fun testGetTrainListRid_isSuccessful_false() {
@@ -177,14 +207,27 @@ class TrainServiceTest {
         assert(list == LIST_TRAIN)
     }
 
+
+    @Test
+    fun testGetTrainList_throw_exception() {
+        every {
+            NetworkUtil.getResponseFromId(TRAIN_LAYER_ID, RID, retrofitApi)
+        } returns result
+
+        every { result.listResponse } returns trainResponseList
+        every { trainResponseList[0] } throws IndexOutOfBoundsException()
+
+        assertFailsWith<ServerSendError> { trainService.getTrainList(RID) }
+    }
+
+
     @Test
     fun testGetTrainList_null() {
         every {
             NetworkUtil.getResponseFromId(TRAIN_LAYER_ID, RID, retrofitApi)
         } returns result
 
-        every { result.listResponse } returns trainResponseList
-        every { trainResponseList[0].list } returns null
+        every { result.listResponse } returns null
 
         val list = trainService.getTrainList(RID)
 
