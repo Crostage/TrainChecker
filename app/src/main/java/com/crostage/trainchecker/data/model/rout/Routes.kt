@@ -8,6 +8,7 @@ data class Routes(
 )
 
 data class Response(
+    @SerializedName("Routes")
     val routes: List<TrainStopDto>,
     @SerializedName("Error")
     val error: RoutesError?,

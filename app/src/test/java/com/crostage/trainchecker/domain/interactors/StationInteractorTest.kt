@@ -1,8 +1,8 @@
 package com.crostage.trainchecker.domain.interactors
 
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.LIST_STATION
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.STATION
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.STATION_NAME
+import com.crostage.trainchecker.ConstForTest.Companion.LIST_STATION
+import com.crostage.trainchecker.ConstForTest.Companion.STATION
+import com.crostage.trainchecker.ConstForTest.Companion.STATION_NAME
 import com.crostage.trainchecker.domain.model.Station
 import com.crostage.trainchecker.domain.network.IStationService
 import com.crostage.trainchecker.domain.repository.IStationRepository

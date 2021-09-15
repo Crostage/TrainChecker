@@ -1,10 +1,10 @@
 package com.crostage.trainchecker.data.network.services
 
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.LIST_CAR
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.LIST_CAR_DTO
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.RID
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.SEAT_RID_RESULT
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.TRAIN
+import com.crostage.trainchecker.ConstForTest.Companion.LIST_CAR
+import com.crostage.trainchecker.ConstForTest.Companion.LIST_CAR_DTO
+import com.crostage.trainchecker.ConstForTest.Companion.RID
+import com.crostage.trainchecker.ConstForTest.Companion.SEAT_RID_RESULT
+import com.crostage.trainchecker.ConstForTest.Companion.TRAIN
 import com.crostage.trainchecker.data.model.GeneralResult
 import com.crostage.trainchecker.data.model.rid.SeatRidResult
 import com.crostage.trainchecker.data.model.seat.CarDto

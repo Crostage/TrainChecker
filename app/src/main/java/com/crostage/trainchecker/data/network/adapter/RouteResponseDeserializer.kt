@@ -21,7 +21,7 @@ class RouteResponseDeserializer : JsonDeserializer<Response> {
                 errorElement.asJsonObject,
                 RoutesError::class.java
             )
-            return Response(mutableListOf(), error)
+            return Response(emptyList(), error)
 
         }
 
@@ -47,7 +47,7 @@ class RouteResponseDeserializer : JsonDeserializer<Response> {
             }
         }
 
-        return Response(mutableListOf(), null)
+        return Response(emptyList(), null)
     }
 
 

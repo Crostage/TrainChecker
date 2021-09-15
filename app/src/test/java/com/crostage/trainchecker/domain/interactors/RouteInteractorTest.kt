@@ -1,9 +1,8 @@
 package com.crostage.trainchecker.domain.interactors
 
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.LIST_TRAIN_STOP
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.RID
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.TRAIN
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.TRAIN_STOP
+import com.crostage.trainchecker.ConstForTest.Companion.LIST_TRAIN_STOP
+import com.crostage.trainchecker.ConstForTest.Companion.RID
+import com.crostage.trainchecker.ConstForTest.Companion.TRAIN
 import com.crostage.trainchecker.domain.network.IRouteService
 import io.mockk.every
 import io.mockk.mockk

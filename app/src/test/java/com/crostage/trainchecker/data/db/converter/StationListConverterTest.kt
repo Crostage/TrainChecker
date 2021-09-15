@@ -1,7 +1,7 @@
 package com.crostage.trainchecker.data.db.converter
 
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.JSON_STATION_ENTITY
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.STATION_ENTITY
+import com.crostage.trainchecker.ConstForTest.Companion.JSON_STATION_ENTITY
+import com.crostage.trainchecker.ConstForTest.Companion.STATION_ENTITY
 import com.crostage.trainchecker.data.model.station.StationEntity
 import com.google.gson.Gson
 import io.mockk.every

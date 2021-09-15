@@ -1,11 +1,11 @@
 package com.crostage.trainchecker.data.network.services
 
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.LIST_TRAIN_STOP
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.LIST_TRAIN_STOP_DTO
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.RID
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.ROUTES_ERROR
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.ROUTE_RID_RESULT
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.TRAIN
+import com.crostage.trainchecker.ConstForTest.Companion.LIST_TRAIN_STOP
+import com.crostage.trainchecker.ConstForTest.Companion.LIST_TRAIN_STOP_DTO
+import com.crostage.trainchecker.ConstForTest.Companion.RID
+import com.crostage.trainchecker.ConstForTest.Companion.ROUTES_ERROR
+import com.crostage.trainchecker.ConstForTest.Companion.ROUTE_RID_RESULT
+import com.crostage.trainchecker.ConstForTest.Companion.TRAIN
 import com.crostage.trainchecker.data.model.GeneralResult
 import com.crostage.trainchecker.data.model.rid.RouteRidResult
 import com.crostage.trainchecker.data.model.rout.TrainStopDto

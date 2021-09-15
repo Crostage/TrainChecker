@@ -5,6 +5,7 @@ import androidx.lifecycle.SavedStateHandle
 import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.utils.Constant
+import com.crostage.trainchecker.utils.Constant.Companion.SAVED_STATE_TRAINS
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -12,15 +13,19 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 /**
  * ViewModel для работы со списками поездов
  *
- * @property trainInteractor бизнес логика получения списка поездов по запросу
+ * @property interactor бизнес логика получения списка поездов по запросу
  * @property favouriteInteractor бизнес логика получения списка избранного
  */
 
 
 class TrainViewModel(
-    private val trainInteractor: ITrainInteractor,
+    private val interactor: ITrainInteractor,
     savedStateHandle: SavedStateHandle,
-) : FavouriteViewModel(trainInteractor) {
+) : FavouriteViewModel(interactor) {
+
+
+    private val _trains = savedStateHandle.getLiveData<List<Train>>(SAVED_STATE_TRAINS)
+    val trains: LiveData<List<Train>> = _trains
 
     /**
      * Получение списка поездов по поисковому запросу
@@ -30,14 +35,10 @@ class TrainViewModel(
      * @param date дата отправления
      */
 
-
-    private val _trains = savedStateHandle.getLiveData<List<Train>>(Constant.SAVED_STATE_TRAINS)
-    val trains: LiveData<List<Train>> = _trains
-
     fun trainsFromSearchRequest(codeFrom: Int, codeTo: Int, date: String) {
 
         compositeDisposable.add(
-            trainInteractor.getTrainList(codeFrom, codeTo, date)
+            interactor.getTrainList(codeFrom, codeTo, date)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally { _progress.value = false }
@@ -58,9 +59,10 @@ class TrainViewModel(
     fun insertToFavourite(train: Train) {
         compositeDisposable.add(
             Completable.fromCallable {
-                trainInteractor.insertFavourite(train)
+                interactor.insertFavourite(train)
             }
                 .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {},
                     _error::setValue
@@ -75,8 +77,11 @@ class TrainViewModel(
      * @param favourites список отслеживаемых
      */
     fun checkFavouritesContainsTrains(favourites: List<Train>) {
+        //todo в отдельном потоке
         val list =
-            _trains.value?.let { trainInteractor.checkFavouritesContainsTrains(it, favourites) }
+            trains.value?.let {
+                interactor.checkFavouritesContainsTrains(it, favourites)
+            }
         list?.let(_trains::setValue)
     }
 

@@ -1,7 +1,7 @@
 package com.crostage.trainchecker.data.converter
 
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.TRAIN_STOP
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.TRAIN_STOP_DTO
+import com.crostage.trainchecker.ConstForTest.Companion.TRAIN_STOP
+import com.crostage.trainchecker.ConstForTest.Companion.TRAIN_STOP_DTO
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner

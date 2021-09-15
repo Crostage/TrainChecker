@@ -3,8 +3,8 @@ package com.crostage.trainchecker.presentation.viewmodel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.LIST_TRAIN
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.TRAIN
+import com.crostage.trainchecker.ConstForTest.Companion.LIST_TRAIN
+import com.crostage.trainchecker.ConstForTest.Companion.TRAIN
 import com.crostage.trainchecker.domain.interactors.interfaces.IFavouriteInteractor
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.presentation.model.Event

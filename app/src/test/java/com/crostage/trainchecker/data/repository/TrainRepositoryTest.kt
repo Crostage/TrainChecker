@@ -3,10 +3,10 @@ package com.crostage.trainchecker.data.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.FAVOURITE_ENTITY
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.LIST_FAVOURITE_ENTITY
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.LIST_TRAIN
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.TRAIN
+import com.crostage.trainchecker.ConstForTest.Companion.FAVOURITE_ENTITY
+import com.crostage.trainchecker.ConstForTest.Companion.LIST_FAVOURITE_ENTITY
+import com.crostage.trainchecker.ConstForTest.Companion.LIST_TRAIN
+import com.crostage.trainchecker.ConstForTest.Companion.TRAIN
 import com.crostage.trainchecker.data.db.dao.TrainDao
 import com.crostage.trainchecker.data.model.train.FavouriteEntity
 import com.crostage.trainchecker.domain.converter.IConverter

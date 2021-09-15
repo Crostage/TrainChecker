@@ -4,8 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.SavedStateHandle
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.RID
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.TRAIN
+import com.crostage.trainchecker.ConstForTest.Companion.RID
+import com.crostage.trainchecker.ConstForTest.Companion.TRAIN
 import com.crostage.trainchecker.domain.interactors.interfaces.ISeatInteractor
 import com.crostage.trainchecker.domain.model.Car
 import com.crostage.trainchecker.utils.Constant.Companion.SAVED_STATE_CARS

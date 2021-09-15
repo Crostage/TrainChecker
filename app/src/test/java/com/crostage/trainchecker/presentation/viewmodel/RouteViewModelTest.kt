@@ -4,8 +4,9 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.SavedStateHandle
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.RID
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.TRAIN
+import com.crostage.trainchecker.ConstForTest.Companion.LIST_TRAIN_STOP
+import com.crostage.trainchecker.ConstForTest.Companion.RID
+import com.crostage.trainchecker.ConstForTest.Companion.TRAIN
 import com.crostage.trainchecker.domain.interactors.interfaces.IRouteInteractor
 import com.crostage.trainchecker.domain.model.TrainStop
 import com.crostage.trainchecker.utils.Constant.Companion.SAVED_STATE_STOPS
@@ -31,7 +32,6 @@ class RouteViewModelTest {
 
     private val interactor: IRouteInteractor = mockk()
     private val savedStateHandle: SavedStateHandle = mockk()
-    private val listTrainStop: List<TrainStop> = mockk()
     private val exception: Exception = mockk()
 
     private val routes: Observer<List<TrainStop>> = mockk()
@@ -63,13 +63,13 @@ class RouteViewModelTest {
     @Test
     fun testGetRoutes() {
         every { interactor.getRouteListRid(TRAIN) } returns RID
-        every { interactor.getRoutesList(RID) } returns listTrainStop
+        every { interactor.getRoutesList(RID) } returns LIST_TRAIN_STOP
 
         viewModel.getRoutes(TRAIN)
 
         verifySequence {
             progress.onChanged(true)
-            routes.onChanged(listTrainStop)
+            routes.onChanged(LIST_TRAIN_STOP)
             progress.onChanged(false)
         }
 

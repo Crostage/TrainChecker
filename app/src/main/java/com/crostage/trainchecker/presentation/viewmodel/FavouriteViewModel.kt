@@ -2,18 +2,16 @@ package com.crostage.trainchecker.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
 import com.crostage.trainchecker.domain.interactors.interfaces.IFavouriteInteractor
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.presentation.model.Event
 import com.crostage.trainchecker.presentation.util.Helper
-import com.crostage.trainchecker.utils.Constant.Companion.SAVED_STATE_TRAINS
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 open class FavouriteViewModel(
-    private val favouriteInteractor: IFavouriteInteractor,
+    private val interactor: IFavouriteInteractor,
 ) : BaseViewModel() {
 
     private val _openDetail = MutableLiveData<Event<Train>>()
@@ -28,7 +26,7 @@ open class FavouriteViewModel(
     fun removeFromFavourite(train: Train) {
         compositeDisposable.add(
             Completable.fromCallable {
-                favouriteInteractor.removeFavourite(train)
+                interactor.removeFavourite(train)
             }
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -55,7 +53,7 @@ open class FavouriteViewModel(
      *
      */
     fun getFavouriteLiveData() =
-        favouriteInteractor.getFavouriteLiveData()
+        interactor.getFavouriteLiveData()
 
 
     /**

@@ -1,8 +1,8 @@
 package com.crostage.trainchecker.data.network.services
 
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.LIST_STATION
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.LIST_STATION_ENTITY
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.STATION_NAME
+import com.crostage.trainchecker.ConstForTest.Companion.LIST_STATION
+import com.crostage.trainchecker.ConstForTest.Companion.LIST_STATION_ENTITY
+import com.crostage.trainchecker.ConstForTest.Companion.STATION_NAME
 import com.crostage.trainchecker.data.model.station.StationEntity
 import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.data.network.util.NetworkUtil

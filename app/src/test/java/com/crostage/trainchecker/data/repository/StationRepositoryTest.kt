@@ -1,10 +1,10 @@
 package com.crostage.trainchecker.data.repository
 
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.LIST_STATION
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.LIST_STATION_ENTITY
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.STATION
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.STATION_ENTITY
-import com.crostage.trainchecker.data.converter.ConverterConst.Companion.STATION_NAME
+import com.crostage.trainchecker.ConstForTest.Companion.LIST_STATION
+import com.crostage.trainchecker.ConstForTest.Companion.LIST_STATION_ENTITY
+import com.crostage.trainchecker.ConstForTest.Companion.STATION
+import com.crostage.trainchecker.ConstForTest.Companion.STATION_ENTITY
+import com.crostage.trainchecker.ConstForTest.Companion.STATION_NAME
 import com.crostage.trainchecker.data.db.dao.StationDao
 import com.crostage.trainchecker.data.db.dao.StationResponseDao
 import com.crostage.trainchecker.data.model.station.StationEntity

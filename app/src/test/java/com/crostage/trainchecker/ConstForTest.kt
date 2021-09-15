@@ -1,4 +1,4 @@
-package com.crostage.trainchecker.data.converter
+package com.crostage.trainchecker
 
 import com.crostage.trainchecker.data.model.rid.RouteRidResult
 import com.crostage.trainchecker.data.model.rid.SeatRidResult
@@ -10,7 +10,7 @@ import com.crostage.trainchecker.data.model.train.FavouriteEntity
 import com.crostage.trainchecker.data.model.train.TrainEntity
 import com.crostage.trainchecker.domain.model.*
 
-class ConverterConst {
+class ConstForTest {
     companion object {
 
         val CAR = Car(
@@ -50,6 +50,10 @@ class ConverterConst {
             false
 
         )
+
+        const val CODE_FROM = 100
+        const val CODE_TO = 200
+        const val DATE_START = "20.10.2021"
 
         val LIST_FAVOURITE_ENTITY = listOf(FAVOURITE_ENTITY)
 
@@ -134,21 +138,6 @@ class ConverterConst {
         val ROUTES_ERROR = RoutesError("Error")
 
         const val STATION_NAME = "МОСКВА"
-
-        val STATION_ENTITY_MOSCOW = StationEntity(100, "МОСКВА")
-        val STATION_ENTITY_SOCHI = StationEntity(200, "СОЧИ")
-
-        //            val LIST_STATION_ENTITY = listOf(
-//                STATION_ENTITY_MOSCOW,
-//                STATION_ENTITY_SOCHI
-//            )
-        val STATION_MOSCOW = Station(100, "МОСКВА")
-        val STATION_SOCHI = Station(200, "СОЧИ")
-
-//            val LIST_STATION = listOf(
-//                STATION_MOSCOW,
-//                STATION_SOCHI
-//            )
 
     }
 }
