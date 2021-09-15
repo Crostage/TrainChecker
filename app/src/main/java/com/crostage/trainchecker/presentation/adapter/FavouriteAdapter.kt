@@ -1,5 +1,6 @@
 package com.crostage.trainchecker.presentation.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -19,17 +20,17 @@ open class FavouriteAdapter(
     private var dataList = listOf<Train>()
 
     fun setData(list: List<Train>) {
-        val diffCallback = TrainDiffUtil(dataList, list)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        val diffUtil = TrainDiffUtil(dataList, list)
+        val diffResult = DiffUtil.calculateDiff(diffUtil)
         dataList = list
         diffResult.dispatchUpdatesTo(this)
+        println()
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrainViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_train, parent, false)
-
         return TrainViewHolder(view)
     }
 

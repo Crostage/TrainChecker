@@ -23,8 +23,9 @@ class TrainInteractor @Inject constructor(
         favourite: List<Train>,
     ): List<Train> {
         return trains.map {
-            it.isFavourite = favourite.contains(it)
-            it
+            val train = it.copy()
+            train.isFavourite = favourite.contains(train)
+            train
         }
     }
 

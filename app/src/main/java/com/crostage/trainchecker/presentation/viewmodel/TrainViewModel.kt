@@ -77,9 +77,8 @@ class TrainViewModel(
      * @param favourites список отслеживаемых
      */
     fun checkFavouritesContainsTrains(favourites: List<Train>) {
-        //todo в отдельном потоке
         val list =
-            trains.value?.let {
+            _trains.value?.let {
                 interactor.checkFavouritesContainsTrains(it, favourites)
             }
         list?.let(_trains::setValue)

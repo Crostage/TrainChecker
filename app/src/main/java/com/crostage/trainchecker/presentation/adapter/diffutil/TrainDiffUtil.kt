@@ -21,7 +21,7 @@ class TrainDiffUtil(
         return oldItem == newItem
     }
 
-    //в моем случае необходимо только проверять поле isFavourite, тк в остальыне моменты списки
+    //в моем случае необходимо только проверять поле isFavourite, тк в остальные моменты списки
     //поездов меняются целиком
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldItem = oldList[oldItemPosition]

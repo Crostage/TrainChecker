@@ -46,19 +46,15 @@ class TrainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         binding.favourite.setOnClickListener {
             if (!train.isFavourite) {
                 favouriteInsertListener?.addTrainToFavourite(train)
-                changeFavourite(true)
-                train.isFavourite = true
             } else {
                 favouriteRemoveListener.removeTrainToFavourite(train)
-                changeFavourite(false)
-                train.isFavourite = false
             }
         }
 
     }
 
-    private fun changeFavourite(favouriteRemoveListener: Boolean) {
-        if (favouriteRemoveListener) {
+    private fun changeFavourite(isFavourite: Boolean) {
+        if (isFavourite) {
             binding.favourite.setImageDrawable(ContextCompat.getDrawable(
                 itemView.context,
                 R.drawable.ic_favorite_true
