@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
 import com.crostage.trainchecker.domain.model.Train
-import com.crostage.trainchecker.utils.Constant
 import com.crostage.trainchecker.utils.Constant.Companion.SAVED_STATE_TRAINS
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
@@ -76,12 +75,10 @@ class TrainViewModel(
      *
      * @param favourites список отслеживаемых
      */
-    fun checkFavouritesContainsTrains(favourites: List<Train>) {
-        val list =
-            _trains.value?.let {
-                interactor.checkFavouritesContainsTrains(it, favourites)
-            }
-        list?.let(_trains::setValue)
+    fun checkFavouritesContainsTrains(favourites: List<Train>, trains: List<Train>): List<Train>? {
+        return trains.let {
+            interactor.checkFavouritesContainsTrains(it, favourites)
+        }
     }
 
 

@@ -36,15 +36,15 @@ class TrainInteractor @Inject constructor(
             .delay(4, TimeUnit.SECONDS) //сервер не успевает обработать запрос
             .flatMap { rid ->
                 Single.fromCallable { service.getTrainList(rid) }
-                    .flatMap { list ->
-                        Single.fromCallable {
-                            val favourite = repository.getFavouriteList()
-                            list.map {
-                                it.isFavourite = favourite.contains(it)
-                                it
-                            }
-                        }
-                    }
+//                    .flatMap { list ->
+//                        Single.fromCallable {
+//                            val favourite = repository.getFavouriteList()
+//                            list.map {
+//                                it.isFavourite = favourite.contains(it)
+//                                it
+//                            }
+//                        }
+//                    }
 
             }
 
