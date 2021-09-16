@@ -35,7 +35,6 @@ class FavouriteViewModelTest {
     private val progress: Observer<Boolean> = mockk()
     private val openDetail: Observer<Event<Train>> = mockk()
 
-
     @Before
     fun setUp() {
 

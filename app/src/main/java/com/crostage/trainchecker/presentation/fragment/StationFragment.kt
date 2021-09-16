@@ -32,7 +32,8 @@ import javax.inject.Inject
 
 class StationFragment : Fragment(R.layout.fragment_station) {
     private lateinit var adapter: StationListAdapter
-    private lateinit var binding: FragmentStationBinding
+    private var _binding: FragmentStationBinding? = null
+    private val binding get() = _binding!!
     private lateinit var viewModel: StationViewModel
 
     @Inject
@@ -50,7 +51,7 @@ class StationFragment : Fragment(R.layout.fragment_station) {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = FragmentStationBinding.inflate(inflater, container, false)
+        _binding = FragmentStationBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -60,6 +61,11 @@ class StationFragment : Fragment(R.layout.fragment_station) {
         initRecyclerView()
         setObservers()
         initStationSearch()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun initStationSearch() {

@@ -6,6 +6,7 @@ import com.crostage.trainchecker.data.model.rout.RoutesError
 import com.crostage.trainchecker.data.model.rout.TrainStopDto
 import com.crostage.trainchecker.data.model.seat.CarDto
 import com.crostage.trainchecker.data.model.station.StationEntity
+import com.crostage.trainchecker.data.model.station.StationSearchResponse
 import com.crostage.trainchecker.data.model.train.FavouriteEntity
 import com.crostage.trainchecker.data.model.train.TrainEntity
 import com.crostage.trainchecker.domain.model.*
@@ -161,5 +162,8 @@ class ConstForTest {
 
         const val DATE_TEST_STRING = "16.09.2021"
         const val DATE_TEST_L = 1631785992265L
+
+        val STATION_SEARCH_RESPONSE = StationSearchResponse(STATION_NAME,
+            LIST_STATION_ENTITY)
     }
 }

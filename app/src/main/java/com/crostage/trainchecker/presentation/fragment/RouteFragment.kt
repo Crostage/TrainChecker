@@ -27,7 +27,8 @@ class RouteFragment : Fragment(R.layout.fragment_route) {
 
     private lateinit var viewModel: RouteViewModel
     private lateinit var adapter: RouteListAdapter
-    private lateinit var binding: FragmentRouteBinding
+    private var _binding: FragmentRouteBinding? = null
+    private val binding get() = _binding!!
 
     @Inject
     lateinit var assistedFactory: RouteViewModelAssistedFactory
@@ -43,7 +44,7 @@ class RouteFragment : Fragment(R.layout.fragment_route) {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = FragmentRouteBinding.inflate(inflater, container, false)
+        _binding = FragmentRouteBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -56,6 +57,10 @@ class RouteFragment : Fragment(R.layout.fragment_route) {
 
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
     private fun setFromArguments(arguments: Bundle?) {
         val train = arguments?.getParcelable<Train>(Constant.TRAIN_ARG)

@@ -28,14 +28,15 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
 
     private lateinit var viewModel: FavouriteViewModel
     private lateinit var adapter: FavouriteAdapter
-    private lateinit var binding: FragmentFavouriteBinding
+    private var _binding: FragmentFavouriteBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = FragmentFavouriteBinding.inflate(inflater, container, false)
+        _binding = FragmentFavouriteBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -50,6 +51,10 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
         setObservers()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
     private fun initRecyclerView() {
         binding.resultRecyclerview.layoutManager =

@@ -26,8 +26,10 @@ class HelperTest {
         every { calendar.timeInMillis } returns DATE_TEST_L
     }
 
+
     @Test
     fun testGetActualDate() {
+
         val currentDate = Helper.getActualDate()
 
         assert(currentDate == DATE_TEST_STRING)
@@ -37,6 +39,7 @@ class HelperTest {
     fun testCheckFavouritesOnActualDate() {
 
         val actualList = Helper.checkFavouritesOnActualDate(LIST_TRAIN)
+
         assert(actualList == LIST_TRAIN)
     }
 
@@ -45,6 +48,7 @@ class HelperTest {
     fun testCheckFavouritesOnActualDate_noActual() {
 
         val actualList = Helper.checkFavouritesOnActualDate(LIST_TRAIN_NO_CAT_DATE)
+
         assert(actualList == emptyList<Train>())
     }
 

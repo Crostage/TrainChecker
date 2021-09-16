@@ -5,10 +5,10 @@ import com.crostage.trainchecker.ConstForTest.Companion.LIST_STATION_ENTITY
 import com.crostage.trainchecker.ConstForTest.Companion.STATION
 import com.crostage.trainchecker.ConstForTest.Companion.STATION_ENTITY
 import com.crostage.trainchecker.ConstForTest.Companion.STATION_NAME
+import com.crostage.trainchecker.ConstForTest.Companion.STATION_SEARCH_RESPONSE
 import com.crostage.trainchecker.data.db.dao.StationDao
 import com.crostage.trainchecker.data.db.dao.StationResponseDao
 import com.crostage.trainchecker.data.model.station.StationEntity
-import com.crostage.trainchecker.data.model.station.StationSearchResponse
 import com.crostage.trainchecker.domain.converter.IConverter
 import com.crostage.trainchecker.domain.model.Station
 import io.mockk.*
@@ -36,15 +36,13 @@ class StationRepositoryTest {
     fun testInsertStationResponse() {
         every { listConverter.revers(LIST_STATION) } returns LIST_STATION_ENTITY
         every {
-            stationResponseDao.insertStationResponse(StationSearchResponse(STATION_NAME,
-                LIST_STATION_ENTITY))
+            stationResponseDao.insertStationResponse(STATION_SEARCH_RESPONSE)
         } just Runs
 
         repository.insertStationResponse(STATION_NAME, LIST_STATION)
 
         verify {
-            stationResponseDao.insertStationResponse(StationSearchResponse(STATION_NAME,
-                LIST_STATION_ENTITY))
+            stationResponseDao.insertStationResponse(STATION_SEARCH_RESPONSE)
         }
 
     }

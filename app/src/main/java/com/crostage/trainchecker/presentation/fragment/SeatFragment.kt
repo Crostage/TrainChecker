@@ -26,7 +26,8 @@ import javax.inject.Inject
 class SeatFragment : Fragment(R.layout.fragment_seat) {
     private lateinit var viewModel: SeatViewModel
     private lateinit var adapter: SeatListAdapter
-    private lateinit var binding: FragmentSeatBinding
+    private var _binding: FragmentSeatBinding? = null
+    private val binding get() = _binding!!
 
     @Inject
     lateinit var assistedFactory: SeatViewModelAssistedFactory
@@ -41,7 +42,7 @@ class SeatFragment : Fragment(R.layout.fragment_seat) {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = FragmentSeatBinding.inflate(inflater, container, false)
+        _binding = FragmentSeatBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -51,6 +52,11 @@ class SeatFragment : Fragment(R.layout.fragment_seat) {
         initRecyclerview()
         setFromArguments(arguments)
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun setFromArguments(arguments: Bundle?) {

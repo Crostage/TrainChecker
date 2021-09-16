@@ -86,27 +86,6 @@ class TrainViewModelTest {
 
     }
 
-
-    @Test
-    fun testTrainsFromSearchRequest_exception() {
-
-        every {
-            interactor.getTrainList(CODE_FROM, CODE_TO, DATE_START)
-        } throws exception
-
-        every { interactor.getFavouriteObservable() } returns Observable.just(LIST_TRAIN)
-
-        viewModel.trainsFromSearchRequest(CODE_FROM, CODE_TO, DATE_START)
-
-        verifySequence {
-            progress.onChanged(true)
-            error.onChanged(exception)
-            progress.onChanged(false)
-        }
-
-    }
-
-
     @Test
     fun testInsertToFavourite() {
         every { interactor.insertFavourite(TRAIN) } just Runs

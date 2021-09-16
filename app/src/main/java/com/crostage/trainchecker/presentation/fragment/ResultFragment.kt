@@ -2,7 +2,6 @@ package com.crostage.trainchecker.presentation.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,7 +30,8 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
 
     private lateinit var viewModel: TrainViewModel
     private lateinit var adapter: TrainListAdapter
-    private lateinit var binding: FragmentResultBinding
+    private var _binding: FragmentResultBinding? = null
+    private val binding get() = _binding!!
 
     @Inject
     lateinit var assistedFactory: TrainViewModelAssistedFactory
@@ -43,7 +43,7 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = FragmentResultBinding.inflate(inflater, container, false)
+        _binding = FragmentResultBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -59,6 +59,11 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
         setObservers()
         setFromArguments()
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun createViewModel() {
