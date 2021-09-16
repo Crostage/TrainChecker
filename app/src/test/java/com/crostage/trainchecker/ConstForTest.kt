@@ -127,6 +127,26 @@ class ConstForTest {
 
         )
 
+        val TRAIN_NO_ACT_DATE = Train(
+            "test",
+            "test",
+            listOf(),
+            100,
+            200,
+            "МОСКВА",
+            "СОЧИ",
+            "08.08.2021",
+            "07.08.2021",
+            "1993",
+            "12:20",
+            "14:35",
+            "40:05",
+            false
+
+        )
+
+
+        val LIST_TRAIN_NO_CAT_DATE = listOf(TRAIN_NO_ACT_DATE)
 
         val LIST_TRAIN = listOf(TRAIN)
 
@@ -139,5 +159,7 @@ class ConstForTest {
 
         const val STATION_NAME = "МОСКВА"
 
+        const val DATE_TEST_STRING = "16.09.2021"
+        const val DATE_TEST_L = 1631785992265L
     }
 }

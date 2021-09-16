@@ -22,7 +22,7 @@ class Helper {
          */
         fun getActualDate(): String {
             val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH)
-            val date = Date()
+            val date = Calendar.getInstance().timeInMillis
             return sdf.format(date)
         }
 
@@ -35,7 +35,7 @@ class Helper {
 
         fun checkFavouritesOnActualDate(list: List<Train>): List<Train> {
             val sdf = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH)
-            val currentDate = Date().time
+            val currentDate = Calendar.getInstance().timeInMillis
 
             return list.filter {
                 val stringTrainTime = it.dateStart + " " + it.timeStart

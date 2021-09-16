@@ -1,7 +1,6 @@
 package com.crostage.trainchecker.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
 import com.crostage.trainchecker.domain.model.Train
@@ -16,7 +15,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
  * ViewModel для работы со списками поездов
  *
  * @property interactor бизнес логика получения списка поездов по запросу
- * @property favouriteInteractor бизнес логика получения списка избранного
+ * @property savedStateHandle сущность содержащая LiveData для сохранения состояний
  */
 
 
@@ -28,7 +27,6 @@ class TrainViewModel(
     private val _trains = savedStateHandle.getLiveData<List<Train>>(SAVED_STATE_TRAINS)
     val trains: LiveData<List<Train>> = _trains
 
-
     /**
      * Получение списка поездов по поисковому запросу
      *
@@ -36,11 +34,8 @@ class TrainViewModel(
      * @param codeTo станция прибытия
      * @param date дата отправления
      */
-
     fun trainsFromSearchRequest(codeFrom: Int, codeTo: Int, date: String) {
 
-        val trainList = interactor.getTrainList(codeFrom, codeTo, date)
-        val favourites = interactor.getFavouriteObservable()
         val zipper =
             BiFunction<List<Train>, List<Train>, List<Train>> { trains, favourite ->
                 trains.map {
@@ -49,8 +44,14 @@ class TrainViewModel(
                     train
                 }
             }
+
         compositeDisposable.add(
-            Observable.combineLatest(trainList.toObservable(), favourites, zipper)
+            Observable
+                .combineLatest(
+                    interactor.getTrainList(codeFrom, codeTo, date).toObservable(),
+                    interactor.getFavouriteObservable(),
+                    zipper
+                )
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doAfterNext { _progress.value = false }
@@ -70,9 +71,10 @@ class TrainViewModel(
      */
     fun insertToFavourite(train: Train) {
         compositeDisposable.add(
-            Completable.fromCallable {
-                interactor.insertFavourite(train)
-            }
+            Completable
+                .fromCallable {
+                    interactor.insertFavourite(train)
+                }
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

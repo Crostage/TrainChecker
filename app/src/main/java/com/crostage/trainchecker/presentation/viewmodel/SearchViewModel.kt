@@ -14,9 +14,9 @@ class SearchViewModel(
 ) : ViewModel() {
 
     private var _stationFrom = savedStateHandle.getLiveData<Station>(SEARCH_SAVED_STATE_FROM)
-    var stationFrom: LiveData<Station> = _stationFrom
+    val stationFrom: LiveData<Station> = _stationFrom
     private var _stationTo = savedStateHandle.getLiveData<Station>(SEARCH_SAVED_STATE_TO)
-    var stationTo: LiveData<Station> = _stationTo
+    val stationTo: LiveData<Station> = _stationTo
     private val _newDate = savedStateHandle.getLiveData<String>(SEARCH_SAVED_STATE_DATE)
     val newDate: LiveData<String> = _newDate
 

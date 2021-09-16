@@ -12,6 +12,7 @@ import com.crostage.trainchecker.ConstForTest.Companion.TRAIN
 import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.utils.Constant.Companion.SAVED_STATE_TRAINS
+import com.crostage.trainchecker.utils.ServerSendError
 import io.mockk.*
 import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
 import io.reactivex.rxjava3.core.Observable
@@ -35,7 +36,7 @@ class TrainViewModelTest {
 
     private val interactor: ITrainInteractor = mockk()
     private val savedStateHandle: SavedStateHandle = mockk()
-    private val exception: Exception = Exception()
+    private val exception = ServerSendError()
 
     private val trains: Observer<List<Train>> = mockk()
     private val error: Observer<Throwable> = mockk()
@@ -69,10 +70,13 @@ class TrainViewModelTest {
             interactor.getTrainList(CODE_FROM, CODE_TO, DATE_START)
         } returns Single.just(LIST_TRAIN)
 
+        every { interactor.getFavouriteObservable() } returns Observable.just(LIST_TRAIN)
+
         viewModel.trainsFromSearchRequest(CODE_FROM, CODE_TO, DATE_START)
 
         verifySequence {
             interactor.getTrainList(CODE_FROM, CODE_TO, DATE_START)
+            interactor.getFavouriteObservable()
             progress.onChanged(true)
             trains.onChanged(LIST_TRAIN)
             progress.onChanged(false)
@@ -95,7 +99,6 @@ class TrainViewModelTest {
         viewModel.trainsFromSearchRequest(CODE_FROM, CODE_TO, DATE_START)
 
         verifySequence {
-            interactor.getTrainList(CODE_FROM, CODE_TO, DATE_START)
             progress.onChanged(true)
             error.onChanged(exception)
             progress.onChanged(false)
@@ -125,11 +128,6 @@ class TrainViewModelTest {
             error.onChanged(exception)
         }
     }
-
-//    @Test
-//    fun testCheckFavouritesContainsTrains(){
-//        every { trains.va }
-//    }
 
 
 }
