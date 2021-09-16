@@ -54,6 +54,7 @@ class TrainViewModel(
                 )
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnError { _progress.value = false }
                 .doAfterNext { _progress.value = false }
                 .doOnSubscribe { _progress.value = true }
                 .subscribe(

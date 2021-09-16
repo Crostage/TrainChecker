@@ -7,9 +7,9 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = TABLE_NAME_LAST_PICK)
 data class StationEntity(
-    @PrimaryKey
     @SerializedName("c")
     val stationCode: Int,    //код станции
+    @PrimaryKey
     @SerializedName("n")
     val stationName: String, //название стацнии
 )
