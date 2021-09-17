@@ -95,7 +95,9 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
 
     private fun setObservers() {
         viewModel.error.observe(viewLifecycleOwner, {
-            it.message?.let { msg -> requireView().showSnackBar(msg) }
+            it.message?.let { msg ->
+                requireActivity().findViewById<View>(android.R.id.content).showSnackBar(msg)
+            }
         })
 
         viewModel.getFavouriteLiveData().observe(viewLifecycleOwner, {

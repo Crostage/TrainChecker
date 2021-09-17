@@ -110,7 +110,9 @@ class StationFragment : Fragment(R.layout.fragment_station) {
 
     private fun setObservers() {
         viewModel.error.observe(viewLifecycleOwner, {
-            it.message?.let { msg -> binding.stationRecyclerview.showSnackBar(msg) }
+            it.message?.let { msg ->
+                requireActivity().findViewById<View>(android.R.id.content).showSnackBar(msg)
+            }
         })
 
         viewModel.stations.observe(viewLifecycleOwner, {

@@ -101,7 +101,9 @@ class SeatFragment : Fragment(R.layout.fragment_seat) {
         })
 
         viewModel.error.observe(viewLifecycleOwner, {
-            it.message?.let { msg -> requireView().showSnackBar(msg) }
+            it.message?.let { msg ->
+                requireActivity().findViewById<View>(android.R.id.content).showSnackBar(msg)
+            }
             binding.tryAgain.isVisible = true
         })
         viewModel.progress.observe(viewLifecycleOwner) { showProgress ->

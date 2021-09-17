@@ -140,7 +140,9 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
 
     private fun setObservers() {
         viewModel.error.observe(viewLifecycleOwner, {
-            it.message?.let { msg -> requireView().showSnackBar(msg) }
+            it.message?.let { msg ->
+                requireActivity().findViewById<View>(android.R.id.content).showSnackBar(msg)
+            }
             binding.tryAgain.isVisible = true
         })
 

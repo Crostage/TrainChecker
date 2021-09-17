@@ -18,9 +18,14 @@
     </style>
 
 
-    <style name="MySnackbar" parent="Widget.Design.Snackbar">
-        <item name="android:layout_marginStart">@dimen/train_margin</item>
-        <item name="android:layout_marginEnd">@dimen/train_margin</item>
+    <style name="MySnackbar" parent="Widget.MaterialComponents.Snackbar">
+        <item name="android:layout_margin">@null</item>
+        <!-- Use default Snackbar margins for top/left/right -->
+        <item name="android:layout_marginTop">@dimen/mtrl_snackbar_margin</item>
+        <item name="android:layout_marginLeft">@dimen/mtrl_snackbar_margin</item>
+        <item name="android:layout_marginRight">@dimen/mtrl_snackbar_margin</item>
+        <!-- Custom bottom margin, this could work for top/left/right too -->
+        <item name="android:layout_marginBottom">60dp</item>
     </style>
 
     <style name="progressAnimStyle">
