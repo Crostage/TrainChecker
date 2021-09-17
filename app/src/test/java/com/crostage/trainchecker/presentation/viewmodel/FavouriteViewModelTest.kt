@@ -2,6 +2,7 @@ package com.crostage.trainchecker.presentation.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.crostage.trainchecker.ConstForTest.Companion.LIST_TRAIN
 import com.crostage.trainchecker.ConstForTest.Companion.TRAIN
@@ -18,6 +19,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
+import kotlin.test.assertEquals
 
 @RunWith(MockitoJUnitRunner::class)
 class FavouriteViewModelTest {
@@ -27,13 +29,13 @@ class FavouriteViewModelTest {
     val rule = InstantTaskExecutorRule()
 
     private lateinit var viewModel: FavouriteViewModel
-
     private val interactor: IFavouriteInteractor = mockk()
     private val exception: Exception = mockk()
-    private val favouriteLiveData: LiveData<List<Train>> = mockk()
     private val error: Observer<Throwable> = mockk()
     private val progress: Observer<Boolean> = mockk()
     private val openDetail: Observer<Event<Train>> = mockk()
+    private val favourites: Observer<List<Train>> = mockk()
+    private val liveDataTran: LiveData<List<Train>> = MutableLiveData(LIST_TRAIN)
 
     @Before
     fun setUp() {
@@ -44,6 +46,7 @@ class FavouriteViewModelTest {
         every { error.onChanged(any()) } just Runs
         every { progress.onChanged(any()) } just Runs
         every { openDetail.onChanged(any()) } just Runs
+        every { favourites.onChanged(any()) } just Runs
 
         viewModel = FavouriteViewModel(interactor)
 
@@ -84,18 +87,21 @@ class FavouriteViewModelTest {
 
         viewModel.trainClicked(TRAIN)
 
-        assert(viewModel.openDetail.value?.getContentIfNotHandled() == TRAIN)
+        assertEquals(viewModel.openDetail.value?.getContentIfNotHandled(), TRAIN)
 
     }
 
+
     @Test
     fun testGetFavouriteLiveData() {
-        every { interactor.getFavouriteLiveData() } returns favouriteLiveData
+        every { interactor.getFavouriteLiveData() } returns liveDataTran
 
-        val liveData = viewModel.getFavouriteLiveData()
+        viewModel.getFavouriteLiveData().observeForever(favourites)
 
-        verify { interactor.getFavouriteLiveData() }
-        assert(liveData == favouriteLiveData)
+        verifySequence {
+            interactor.getFavouriteLiveData()
+            favourites.onChanged(LIST_TRAIN)
+        }
     }
 
     @Test
@@ -108,12 +114,11 @@ class FavouriteViewModelTest {
         verify {
             Helper.checkFavouritesOnActualDate(LIST_TRAIN)
         }
-        assert(list == LIST_TRAIN)
-
+        assertEquals(list, LIST_TRAIN)
     }
 
     @Test
-    fun testChekFavouritesOnActualDate_have_actual() {
+    fun testChekFavouritesOnActualDate_not_actual() {
         mockkObject(Helper)
         every { Helper.checkFavouritesOnActualDate(LIST_TRAIN) } returns emptyList()
 
@@ -124,7 +129,7 @@ class FavouriteViewModelTest {
             viewModel.removeFromFavourite(TRAIN)
         }
 
-        assert(list == emptyList<Train>())
+        assertEquals(list, emptyList())
     }
 
 }

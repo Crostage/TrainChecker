@@ -22,12 +22,12 @@ class SeatViewModel(
 
         compositeDisposable.add(
             Single.fromCallable {
-                interactor.getSeatsRid(train)
+                interactor.getCarsRid(train)
             }
                 .delay(1, TimeUnit.SECONDS)
                 .flatMap { rid ->
                     Single.fromCallable {
-                        rid?.let { interactor.getSeats(it) }
+                        rid?.let { interactor.getCars(it) }
                     }
                 }
                 .subscribeOn(Schedulers.computation())

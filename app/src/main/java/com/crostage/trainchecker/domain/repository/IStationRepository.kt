@@ -6,37 +6,36 @@ import com.crostage.trainchecker.domain.model.Station
  * Репозиторий станций
  *
  */
-
 interface IStationRepository {
 
 
     /**
-     * Сохранить полученный ответ от сервера
+     * Сохранение списка станций по поисковому запросу
      *
-     * @param response ответ от сервера
+     * @param name поисковый запрос
+     * @param stationList список станций [Station]
      */
     fun insertStationResponse(name: String, stationList: List<Station>)
 
 
     /**
-     * Получить сохраненный отвеет от сервера
+     * Получение из кэша список поездов по поисковому запросу
      *
      * @param name поисковый запрос, имя станции
      */
     fun getListFromName(name: String): List<Station>?
 
     /**
-     * Сохранить станции
+     * Сохранить последнюю выбранную стацнию
      *
-     * @param station
+     * @param station стацния
      */
-
     fun insertStation(station: Station)
 
     /**
      * Получить список последних выбраных станций
      *
-     * @return
+     * @return список станций [Station]
      */
     fun getLastStationsPick(): List<Station>
 

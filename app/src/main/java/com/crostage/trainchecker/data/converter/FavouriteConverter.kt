@@ -1,11 +1,17 @@
 package com.crostage.trainchecker.data.converter
 
 import com.crostage.trainchecker.data.model.train.FavouriteEntity
-import com.crostage.trainchecker.domain.converter.IConverter
 import com.crostage.trainchecker.domain.model.Train
 import javax.inject.Inject
 
+/**
+ * @see IConverter конвертер из избранных в поезда
+ */
 class FavouriteConverter @Inject constructor() : IConverter<FavouriteEntity, Train> {
+
+    /**
+     * @see IConverter.convert
+     */
     override fun convert(input: FavouriteEntity): Train {
 
         return Train(
@@ -26,6 +32,9 @@ class FavouriteConverter @Inject constructor() : IConverter<FavouriteEntity, Tra
         )
     }
 
+    /**
+     * @see IConverter.revers
+     */
     override fun revers(input: Train): FavouriteEntity {
 
         return FavouriteEntity(

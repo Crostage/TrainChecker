@@ -19,7 +19,6 @@
 
 
     <style name="MySnackbar" parent="Widget.Design.Snackbar">
-        <!--        <item name="android:layout_marginBottom">60dp</item>-->
         <item name="android:layout_marginStart">@dimen/train_margin</item>
         <item name="android:layout_marginEnd">@dimen/train_margin</item>
     </style>

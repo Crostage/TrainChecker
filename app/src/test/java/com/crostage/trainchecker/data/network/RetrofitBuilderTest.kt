@@ -8,6 +8,7 @@ import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
 import retrofit2.Retrofit
 import java.io.File
+import kotlin.test.assertEquals
 
 @RunWith(MockitoJUnitRunner::class)
 class RetrofitBuilderTest {
@@ -16,9 +17,7 @@ class RetrofitBuilderTest {
     private val file: File = mockk()
     private val interceptor: Interceptor = mockk()
     private val retrofit: Retrofit = mockk()
-
     private val api: ApiRequests = mockk()
-
     private val retrofitBuilder = spyk(RetrofitBuilder(interceptor), recordPrivateCalls = true)
 
     @Before
@@ -36,9 +35,7 @@ class RetrofitBuilderTest {
             retrofitBuilder["getRetrofit"](file)
             retrofit.create(ApiRequests::class.java)
         }
-
-        assert(a == api)
-
+        assertEquals(a, api)
     }
 
 

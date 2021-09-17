@@ -28,11 +28,9 @@ class StationViewModelTest {
     val rule = InstantTaskExecutorRule()
 
     private lateinit var viewModel: StationViewModel
-
     private val interactor: IStationInteractor = mockk()
     private val savedStateHandle: SavedStateHandle = mockk()
     private val exception: Exception = mockk()
-
     private val stations: Observer<List<Station>> = mockk()
     private val error: Observer<Throwable> = mockk()
     private val progress: Observer<Boolean> = mockk()

@@ -1,5 +1,9 @@
 package com.crostage.trainchecker.utils
 
+/**
+ * Класс с констанами приложения
+ *
+ */
 class Constant {
     companion object {
 
@@ -8,7 +12,6 @@ class Constant {
         const val STATION_RESULT = "STATION"
         const val STATION_FROM_REQUEST_KEY = "STATION_FROM_REQUEST_KEY"
         const val STATION_TO_REQUEST_KEY = "STATION_TO_REQUEST_KEY"
-        const val CONNECTION_TYPE = "CONNECTION_TYPE"
         const val TRAIN_LAYER_ID = 5827
         const val ROUTE_LAYER_ID = 5804
         const val SEAT_LAYER_ID = 5764
@@ -24,7 +27,6 @@ class Constant {
         const val TABLE_NAME_LAST_PICK = "last_pick_stations"
 
         const val FAVOURITE = "FAVOURITE"
-
 
         const val SAVED_STATE_TRAINS = "SAVED_STATE_TRAINS"
         const val SAVED_STATE_STOPS = "SAVED_STATE_STOPS"

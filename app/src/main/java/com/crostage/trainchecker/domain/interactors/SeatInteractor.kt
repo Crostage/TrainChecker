@@ -9,17 +9,23 @@ import javax.inject.Inject
 /**
  * Реализация [ISeatInteractor]
  *
- * @property ISeatService сервис для получения вагонов и мест [Car]
+ * @property ISeatService сервис для получения вагонов [Car]
  */
 class SeatInteractor @Inject constructor(
     private val service: ISeatService,
 ) : ISeatInteractor {
 
-    override fun getSeatsRid(train: Train): Long? {
+    /**
+     * @see ISeatInteractor.getCars
+     */
+    override fun getCarsRid(train: Train): Long? {
         return service.getSeatsRid(train)
     }
 
-    override fun getSeats(rid: Long): List<Car> {
+    /**
+     * @see ISeatInteractor.getCars
+     */
+    override fun getCars(rid: Long): List<Car> {
         return service.getSeatsList(rid)
     }
 

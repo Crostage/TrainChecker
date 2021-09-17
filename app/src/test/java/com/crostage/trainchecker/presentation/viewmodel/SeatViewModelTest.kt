@@ -31,8 +31,6 @@ class SeatViewModelTest {
     private val listCar: List<Car> = mockk()
     private val exception: Exception = mockk()
     private lateinit var viewModel: SeatViewModel
-
-
     private val cars: Observer<List<Car>> = mockk()
     private val error: Observer<Throwable> = mockk()
     private val progress: Observer<Boolean> = mockk()
@@ -50,7 +48,6 @@ class SeatViewModelTest {
             savedStateHandle.getLiveData<List<Car>>(SAVED_STATE_CARS)
         } returns MutableLiveData()
 
-
         viewModel = SeatViewModel(interactor, savedStateHandle)
 
         viewModel.cars.observeForever(cars)
@@ -60,8 +57,9 @@ class SeatViewModelTest {
 
     @Test
     fun testGetCarList() {
-        every { interactor.getSeatsRid(TRAIN) } returns RID
-        every { interactor.getSeats(RID) } returns listCar
+
+        every { interactor.getCarsRid(TRAIN) } returns RID
+        every { interactor.getCars(RID) } returns listCar
 
         viewModel.getCarList(TRAIN)
 
@@ -75,8 +73,8 @@ class SeatViewModelTest {
 
     @Test
     fun testGetCarList_throw_exception() {
-        every { interactor.getSeatsRid(TRAIN) } returns RID
-        every { interactor.getSeats(RID) } throws exception
+        every { interactor.getCarsRid(TRAIN) } returns RID
+        every { interactor.getCars(RID) } throws exception
 
         viewModel.getCarList(TRAIN)
 

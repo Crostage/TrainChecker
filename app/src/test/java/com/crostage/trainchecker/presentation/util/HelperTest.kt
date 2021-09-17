@@ -4,7 +4,6 @@ import com.crostage.trainchecker.ConstForTest.Companion.DATE_TEST_L
 import com.crostage.trainchecker.ConstForTest.Companion.DATE_TEST_STRING
 import com.crostage.trainchecker.ConstForTest.Companion.LIST_TRAIN
 import com.crostage.trainchecker.ConstForTest.Companion.LIST_TRAIN_NO_CAT_DATE
-import com.crostage.trainchecker.domain.model.Train
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkStatic
@@ -13,11 +12,13 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
 import java.util.*
+import kotlin.test.assertEquals
 
 @RunWith(MockitoJUnitRunner::class)
 class HelperTest {
 
     private val calendar: Calendar = mockk()
+
 
     @Before
     fun setUp() {
@@ -32,7 +33,7 @@ class HelperTest {
 
         val currentDate = Helper.getActualDate()
 
-        assert(currentDate == DATE_TEST_STRING)
+        assertEquals(currentDate, DATE_TEST_STRING)
     }
 
     @Test
@@ -40,7 +41,7 @@ class HelperTest {
 
         val actualList = Helper.checkFavouritesOnActualDate(LIST_TRAIN)
 
-        assert(actualList == LIST_TRAIN)
+        assertEquals(actualList, LIST_TRAIN)
     }
 
 
@@ -49,7 +50,7 @@ class HelperTest {
 
         val actualList = Helper.checkFavouritesOnActualDate(LIST_TRAIN_NO_CAT_DATE)
 
-        assert(actualList == emptyList<Train>())
+        assertEquals(actualList, emptyList())
     }
 
 

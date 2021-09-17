@@ -6,16 +6,17 @@ import com.crostage.trainchecker.ConstForTest.Companion.STATION
 import com.crostage.trainchecker.ConstForTest.Companion.STATION_ENTITY
 import com.crostage.trainchecker.ConstForTest.Companion.STATION_NAME
 import com.crostage.trainchecker.ConstForTest.Companion.STATION_SEARCH_RESPONSE
+import com.crostage.trainchecker.data.converter.IConverter
 import com.crostage.trainchecker.data.db.dao.StationDao
 import com.crostage.trainchecker.data.db.dao.StationResponseDao
 import com.crostage.trainchecker.data.model.station.StationEntity
-import com.crostage.trainchecker.domain.converter.IConverter
 import com.crostage.trainchecker.domain.model.Station
 import io.mockk.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
+import kotlin.test.assertEquals
 
 @RunWith(MockitoJUnitRunner::class)
 class StationRepositoryTest {
@@ -24,7 +25,6 @@ class StationRepositoryTest {
     private val stationDao: StationDao = mockk()
     private val converter: IConverter<StationEntity, Station> = mockk()
     private val listConverter: IConverter<List<StationEntity>, List<Station>> = mockk()
-
     private lateinit var repository: StationRepository
 
     @Before
@@ -34,6 +34,7 @@ class StationRepositoryTest {
 
     @Test
     fun testInsertStationResponse() {
+
         every { listConverter.revers(LIST_STATION) } returns LIST_STATION_ENTITY
         every {
             stationResponseDao.insertStationResponse(STATION_SEARCH_RESPONSE)
@@ -57,7 +58,8 @@ class StationRepositoryTest {
 
         val list = repository.getListFromName(STATION_NAME)
 
-        assert(list == LIST_STATION)
+        verify { stationResponseDao.getListFromName(STATION_NAME) }
+        assertEquals(list, LIST_STATION)
     }
 
     @Test
@@ -69,7 +71,8 @@ class StationRepositoryTest {
 
         val list = repository.getListFromName(STATION_NAME)
 
-        assert(list == null)
+        verify { stationResponseDao.getListFromName(STATION_NAME) }
+        assertEquals(list, null)
     }
 
     @Test
@@ -90,7 +93,8 @@ class StationRepositoryTest {
         every { listConverter.convert(LIST_STATION_ENTITY) } returns LIST_STATION
         val list = repository.getLastStationsPick()
 
-        assert(list == LIST_STATION)
+        verify { stationDao.getLastStationPicks() }
+        assertEquals(list, LIST_STATION)
     }
 
 }

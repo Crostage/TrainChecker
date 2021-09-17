@@ -14,25 +14,30 @@ import io.reactivex.rxjava3.core.Observable
 interface ITrainRepository {
 
     /**
-     * Получение поездов
+     * Получение отслеживаемых поездов
      *
-     * @return список [TrainEntity]
+     * @return список [Train]
      */
     fun getFavouriteLiveData(): LiveData<List<Train>>
 
+    /**
+     * Получение отслеживаемых поездов
+     *
+     * @return список [Train]
+     */
     fun getFavouriteObservable(): Observable<List<Train>>
 
     /**
-     * Сохранение поезда
+     * Сохранение поезда в отслеживаемые
      *
-     * @param train
+     * @param train поезд
      */
     fun insertFavourite(train: Train)
 
     /**
-     * Удаление поезда
+     * Удаление поезда из отслеживаемых
      *
-     * @param train
+     * @param train поезд
      */
     fun removeFavourite(train: Train)
 }

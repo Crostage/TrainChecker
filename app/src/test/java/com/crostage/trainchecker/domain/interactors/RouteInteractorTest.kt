@@ -6,15 +6,17 @@ import com.crostage.trainchecker.ConstForTest.Companion.TRAIN
 import com.crostage.trainchecker.domain.network.IRouteService
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
+import kotlin.test.assertEquals
 
 @RunWith(MockitoJUnitRunner::class)
 class RouteInteractorTest {
-    private val service: IRouteService = mockk()
 
+    private val service: IRouteService = mockk()
     private lateinit var interactor: RouteInteractor
 
     @Before
@@ -28,7 +30,8 @@ class RouteInteractorTest {
 
         val rid = interactor.getRouteListRid(TRAIN)
 
-        assert(rid == RID)
+        verify { service.getRouteListRequestId(TRAIN) }
+        assertEquals(rid, RID)
     }
 
     @Test
@@ -37,7 +40,8 @@ class RouteInteractorTest {
 
         val rid = interactor.getRouteListRid(TRAIN)
 
-        assert(rid == null)
+        verify { service.getRouteListRequestId(TRAIN) }
+        assertEquals(rid, null)
     }
 
     @Test
@@ -46,6 +50,7 @@ class RouteInteractorTest {
 
         val list = interactor.getRoutesList(RID)
 
-        assert(list == LIST_TRAIN_STOP)
+        verify { service.getRoutesList(RID) }
+        assertEquals(list, LIST_TRAIN_STOP)
     }
 }

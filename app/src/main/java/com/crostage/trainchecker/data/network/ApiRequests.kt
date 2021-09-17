@@ -12,19 +12,18 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 /**
- * Отвечает за получение данных онлайн из API РЖД
+ * Отвечает за получение данных из неофициального API РЖД
  *
  */
-
 
 interface ApiRequests {
 
 
     /**
-     * Запрос на получение списка станций с кодами по запросу
+     * Запрос на получение списка станций с кодами по поисковому запросу
      *
      * @param lang язык ввода\вывода
-     * @param stationName часть имени станции
+     * @param stationName часть имени станции(поисковый запрос)
      * @return список станций [StationEntity]
      */
     @GET("suggester?")
@@ -37,14 +36,13 @@ interface ApiRequests {
     /**
      * Запрос на получение маршрута конкретного поезда
      *
-     * @param layerId тип запроса
+     * @param layerId подкатегория запроса
      * @param number номер поезда
      * @param date дата отправления
      * @param json вид данных вывода
      * @param format формат вывода
      * @return возварщает requestID [RouteRidResult]
      */
-
     @GET("timetable/public/ru?")
     fun getRouters(
         @Query("layer_id") layerId: Int = ROUTE_LAYER_ID,
@@ -58,9 +56,9 @@ interface ApiRequests {
     /**
      * Запрос на получения вагонов поезда с информацией о местах
      *
-     * @param layerId тип запроса
-     * @param dir с пересадками или без
-     * @param tfl тип транспорта: электрички, поезда, и оба типа
+     * @param layerId подкатегория запроса
+     * @param dir с пересадками или без [0] - без, [1] - c
+     * @param tfl тип транспорта:[2] электрички,[1] поезда, и [3] оба типа
      * @param codeFrom код города отправления
      * @param codeTo код города прибытия
      * @param date дата отправления
@@ -72,7 +70,7 @@ interface ApiRequests {
     fun getSeats(
         @Query("layer_id") layerId: Int = SEAT_LAYER_ID,
         @Query("dir") dir: Int = 0,
-        @Query("tfl") tfl: Int = 1, //только поезда
+        @Query("tfl") tfl: Int = 1,
         @Query("code0") codeFrom: Int,
         @Query("code1") codeTo: Int,
         @Query("dt0") date: String,
@@ -83,9 +81,9 @@ interface ApiRequests {
     /**
      * Запрос на получения списка поездов по поисковому запросу, в ответе от сервера будет RID
      *
-     * @param layerId тип запроса
-     * @param dir с пересадками или без
-     * @param tfl тип транспорта: электрички, поезда, и оба типа
+     * @param layerId подкатегория запроса
+     * @param dir с пересадками или без [0] - без, [1] - c
+     * @param tfl тип транспорта:[2] электрички,[1] поезда, и [3] оба типа
      * @param codeFrom код города отправления
      * @param codeTo код города прибытия
      * @param date дата отправления
@@ -104,13 +102,12 @@ interface ApiRequests {
     /**
      * Повторный запрос с rid для получения списка поездов
      *
-     * @param layerId тип запроса
+     * @param layerId подкатегория запроса
      * @param requestId id запроса
      * @param json вид данных вывода
      * @param format формат вывода
      * @return модель содержащая список поездов [GeneralResult]
      */
-
     @GET("timetable/public/ru?")
     fun getResultFromRid(
         @Query("layer_id") layerId: Int,

@@ -27,9 +27,7 @@ class SearchViewModelTest {
     private val stationFrom: Observer<Station> = mockk()
     private val stationTo: Observer<Station> = mockk()
     private val newDate: Observer<String> = mockk()
-
     private val savedStateHandle: SavedStateHandle = mockk()
-
     private lateinit var viewModel: SearchViewModel
 
     @Before
@@ -48,7 +46,7 @@ class SearchViewModelTest {
         } returns MutableLiveData()
 
         mockkObject(Helper)
-        every { Helper.getActualDate() } returns "YESTERDAY"
+        every { Helper.getActualDate() } returns ACTUAL_DATE
 
         viewModel = SearchViewModel(savedStateHandle)
 
@@ -60,10 +58,10 @@ class SearchViewModelTest {
     @Test
     fun testSetDate() {
 
-        viewModel.setDate("20.12.2021")
+        viewModel.setDate(NEW_DATE)
         verifySequence {
-            newDate.onChanged("YESTERDAY")
-            newDate.onChanged("20.12.2021")
+            newDate.onChanged(ACTUAL_DATE)
+            newDate.onChanged(NEW_DATE)
         }
     }
 
@@ -81,4 +79,9 @@ class SearchViewModelTest {
         verify { stationFrom.onChanged(STATION) }
     }
 
+
+    companion object {
+        private const val ACTUAL_DATE = "YESTERDAY"
+        private const val NEW_DATE = "20.12.2021"
+    }
 }

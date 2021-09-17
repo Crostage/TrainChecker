@@ -8,7 +8,7 @@ import com.crostage.trainchecker.data.model.station.StationSearchResponse
 import com.crostage.trainchecker.utils.Constant.Companion.TABLE_NAME_STATION_SEARCH
 
 /**
- * Кэширование поиска по станциям, Room
+ * Закэшированные данные поиска по станциям, Room
  *
  */
 @Dao
@@ -17,7 +17,7 @@ interface StationResponseDao {
     /**
      * Запись запроса станций в БД
      *
-     * @param response
+     * @param response ответ от сервера на поисковый запрос [StationSearchResponse]
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertStationResponse(response: StationSearchResponse)
@@ -25,7 +25,7 @@ interface StationResponseDao {
     /**
      * Получение станций по запросу из БД
      *
-     * @param name имя станции
+     * @param name запрос
      * @return сохраненный ответ от сервера [StationSearchResponse]
      */
 

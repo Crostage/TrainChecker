@@ -44,7 +44,6 @@ class Helper {
             }
         }
 
-
         /**
          * Демонстрация snack bar
          *

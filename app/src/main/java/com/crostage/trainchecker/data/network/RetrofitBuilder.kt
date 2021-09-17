@@ -5,7 +5,6 @@ import com.crostage.trainchecker.data.model.rout.Response
 import com.crostage.trainchecker.data.network.adapter.RouteResponseDeserializer
 import com.crostage.trainchecker.utils.Constant.Companion.BASE_URL
 import com.crostage.trainchecker.utils.Constant.Companion.CACHE_SIZE
-import com.crostage.trainchecker.utils.Constant.Companion.CONNECTION_TYPE
 import com.crostage.trainchecker.utils.Constant.Companion.HEADER_CACHE_CONTROL
 import com.crostage.trainchecker.utils.Constant.Companion.HEADER_PRAGMA
 import com.google.gson.Gson
@@ -18,25 +17,17 @@ import java.io.File
 import java.net.CookieManager
 import java.net.CookiePolicy
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
-import javax.inject.Named
-import javax.inject.Provider
-
 
 /**
- * Класс для работы с сетью
+ * Билдер для получения для работы с сетью
+ *
+ * @property offlineInterceptor перехватчик для оффлайне кэширования
  */
-
-
 class RetrofitBuilder(private val offlineInterceptor: Interceptor) {
 
     companion object {
         private const val TAG = "RetrofitBuilder"
     }
-
-    @Inject
-    @Named(CONNECTION_TYPE)
-    lateinit var connectionType: Provider<Int>
 
     /**
      * Получаем объект для отрпавления сетевых запросов
@@ -44,7 +35,6 @@ class RetrofitBuilder(private val offlineInterceptor: Interceptor) {
      * @param dir место хранения кэша
      * @return [ApiRequests] для отправки запросов
      */
-
     fun getApi(dir: File): ApiRequests =
         getRetrofit(dir).create(ApiRequests::class.java)
 

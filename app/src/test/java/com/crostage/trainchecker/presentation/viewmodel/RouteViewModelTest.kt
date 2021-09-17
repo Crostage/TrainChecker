@@ -27,13 +27,10 @@ class RouteViewModelTest {
     @JvmField
     val rule = InstantTaskExecutorRule()
 
-
     private lateinit var viewModel: RouteViewModel
-
     private val interactor: IRouteInteractor = mockk()
     private val savedStateHandle: SavedStateHandle = mockk()
     private val exception: Exception = mockk()
-
     private val routes: Observer<List<TrainStop>> = mockk()
     private val error: Observer<Throwable> = mockk()
     private val progress: Observer<Boolean> = mockk()
@@ -57,7 +54,6 @@ class RouteViewModelTest {
         viewModel.error.observeForever(error)
         viewModel.progress.observeForever(progress)
 
-
     }
 
     @Test
@@ -72,8 +68,6 @@ class RouteViewModelTest {
             routes.onChanged(LIST_TRAIN_STOP)
             progress.onChanged(false)
         }
-
-
         verify { error wasNot Called }
 
     }
@@ -91,7 +85,6 @@ class RouteViewModelTest {
             error.onChanged(exception)
             progress.onChanged(false)
         }
-
     }
 
 }

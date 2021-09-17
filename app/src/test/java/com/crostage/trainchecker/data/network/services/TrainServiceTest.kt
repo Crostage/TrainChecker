@@ -11,20 +11,18 @@ import com.crostage.trainchecker.data.model.train.TrainResponse
 import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.data.network.util.NetworkUtil
 import com.crostage.trainchecker.data.network.util.NetworkUtil.Companion.executeAndExceptionChek
-import com.crostage.trainchecker.domain.converter.IConverter
+import com.crostage.trainchecker.data.converter.IConverter
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.utils.Constant.Companion.TRAIN_LAYER_ID
 import com.crostage.trainchecker.utils.ServerSendError
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.mockkObject
+import io.mockk.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
 import retrofit2.Call
 import retrofit2.Response
-import java.lang.IndexOutOfBoundsException
+import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
 @RunWith(MockitoJUnitRunner::class)
@@ -33,13 +31,11 @@ class TrainServiceTest {
     private val retrofitApi: ApiRequests = mockk()
     private val converter: IConverter<List<TrainEntity>, List<Train>> = mockk()
     private val response: Response<GeneralResult> = mockk()
-
     private val body: GeneralResult = mockk()
     private val trainResponseList: List<TrainResponse> = mockk()
     private val errorList: List<ErrorMessage> = mockk()
     private val call: Call<GeneralResult> = mockk()
     private val result: GeneralResult = mockk()
-
     private lateinit var trainService: TrainService
 
     @Before
@@ -57,15 +53,12 @@ class TrainServiceTest {
                 date = TRAIN.dateStart
             )
         } returns call
-
         every { call.executeAndExceptionChek() } returns response
         every { response.isSuccessful } returns true
         every { response.body() } returns body
-
-        every { body.listResponse } returns trainResponseList
+        every { body.trainResponse } returns trainResponseList
         every { trainResponseList[0].msgList } returns errorList
         every { errorList[0].message } returns null
-
         every { body.requestId } returns RID
 
         val rid = trainService.getTrainListRid(
@@ -74,7 +67,14 @@ class TrainServiceTest {
             date = TRAIN.dateStart
         )
 
-        assert(rid == RID)
+        verifySequence {
+            retrofitApi.getTrains(
+                codeFrom = TRAIN.codeStationFrom,
+                codeTo = TRAIN.codeStationTo,
+                date = TRAIN.dateStart
+            )
+        }
+        assertEquals(rid, RID)
 
     }
 
@@ -87,15 +87,12 @@ class TrainServiceTest {
                 date = TRAIN.dateStart
             )
         } returns call
-
         every { call.executeAndExceptionChek() } returns response
         every { response.isSuccessful } returns true
         every { response.body() } returns body
-
-        every { body.listResponse } returns trainResponseList
+        every { body.trainResponse } returns trainResponseList
         every { trainResponseList[0].msgList } returns errorList
         every { errorList[0].message } returns null
-
         every { body.requestId } returns null
 
         val rid = trainService.getTrainListRid(
@@ -104,13 +101,21 @@ class TrainServiceTest {
             date = TRAIN.dateStart
         )
 
-        assert(rid == null)
+        verify {
+            retrofitApi.getTrains(
+                codeFrom = TRAIN.codeStationFrom,
+                codeTo = TRAIN.codeStationTo,
+                date = TRAIN.dateStart
+            )
+        }
+        assertEquals(rid, null)
 
     }
 
 
     @Test
     fun testGetTrainListRid_throw_ServerSendError() {
+
         every {
             retrofitApi.getTrains(
                 codeFrom = TRAIN.codeStationFrom,
@@ -118,12 +123,10 @@ class TrainServiceTest {
                 date = TRAIN.dateStart
             )
         } returns call
-
         every { call.executeAndExceptionChek() } returns response
         every { response.isSuccessful } returns true
         every { response.body() } returns body
-
-        every { body.listResponse } returns trainResponseList
+        every { body.trainResponse } returns trainResponseList
         every { trainResponseList[0].msgList } returns errorList
         every { errorList[0].message } returns "error"
 
@@ -135,7 +138,13 @@ class TrainServiceTest {
                 date = TRAIN.dateStart
             )
         }
-
+        verify {
+            retrofitApi.getTrains(
+                codeFrom = TRAIN.codeStationFrom,
+                codeTo = TRAIN.codeStationTo,
+                date = TRAIN.dateStart
+            )
+        }
     }
 
 
@@ -148,17 +157,21 @@ class TrainServiceTest {
                 date = TRAIN.dateStart
             )
         } returns call
-
         every { call.executeAndExceptionChek() } returns response
         every { response.isSuccessful } returns true
         every { response.body() } returns body
-
-        every { body.listResponse } returns trainResponseList
+        every { body.trainResponse } returns trainResponseList
         every { trainResponseList[0] } throws IndexOutOfBoundsException()
-
 
         assertFailsWith<ServerSendError> {
             trainService.getTrainListRid(
+                codeFrom = TRAIN.codeStationFrom,
+                codeTo = TRAIN.codeStationTo,
+                date = TRAIN.dateStart
+            )
+        }
+        verify {
+            retrofitApi.getTrains(
                 codeFrom = TRAIN.codeStationFrom,
                 codeTo = TRAIN.codeStationTo,
                 date = TRAIN.dateStart
@@ -177,7 +190,6 @@ class TrainServiceTest {
                 date = TRAIN.dateStart
             )
         } returns call
-
         every { call.executeAndExceptionChek() } returns response
         every { response.isSuccessful } returns false
 
@@ -187,8 +199,14 @@ class TrainServiceTest {
             date = TRAIN.dateStart
         )
 
-        assert(rid == null)
-
+        verify {
+            retrofitApi.getTrains(
+                codeFrom = TRAIN.codeStationFrom,
+                codeTo = TRAIN.codeStationTo,
+                date = TRAIN.dateStart
+            )
+        }
+        assertEquals(rid, null)
     }
 
 
@@ -197,14 +215,16 @@ class TrainServiceTest {
         every {
             NetworkUtil.getResponseFromId(TRAIN_LAYER_ID, RID, retrofitApi)
         } returns result
-
-        every { result.listResponse } returns trainResponseList
+        every { result.trainResponse } returns trainResponseList
         every { trainResponseList[0].list } returns LIST_TRAIN_ENTITY
         every { converter.convert(LIST_TRAIN_ENTITY) } returns LIST_TRAIN
 
         val list = trainService.getTrainList(RID)
 
-        assert(list == LIST_TRAIN)
+        verify {
+            NetworkUtil.getResponseFromId(TRAIN_LAYER_ID, RID, retrofitApi)
+        }
+        assertEquals(list, LIST_TRAIN)
     }
 
 
@@ -213,11 +233,13 @@ class TrainServiceTest {
         every {
             NetworkUtil.getResponseFromId(TRAIN_LAYER_ID, RID, retrofitApi)
         } returns result
-
-        every { result.listResponse } returns trainResponseList
+        every { result.trainResponse } returns trainResponseList
         every { trainResponseList[0] } throws IndexOutOfBoundsException()
 
         assertFailsWith<ServerSendError> { trainService.getTrainList(RID) }
+        verify {
+            NetworkUtil.getResponseFromId(TRAIN_LAYER_ID, RID, retrofitApi)
+        }
     }
 
 
@@ -226,12 +248,14 @@ class TrainServiceTest {
         every {
             NetworkUtil.getResponseFromId(TRAIN_LAYER_ID, RID, retrofitApi)
         } returns result
-
-        every { result.listResponse } returns null
+        every { result.trainResponse } returns null
 
         val list = trainService.getTrainList(RID)
 
-        assert(list == emptyList<Train>())
+        verify {
+            NetworkUtil.getResponseFromId(TRAIN_LAYER_ID, RID, retrofitApi)
+        }
+        assertEquals(list, emptyList())
     }
 
 }

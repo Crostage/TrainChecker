@@ -7,8 +7,16 @@ import com.google.gson.*
 import java.lang.reflect.Type
 
 
+/**
+ * Клас преобразователь для разных ответов от сервера по маршрутам поезда
+ *
+ */
+
 class RouteResponseDeserializer : JsonDeserializer<Response> {
 
+    /**
+     * @see JsonDeserializer.deserialize
+     */
     override fun deserialize(
         json: JsonElement?,
         typeOfT: Type?,

@@ -4,30 +4,29 @@ import androidx.lifecycle.LiveData
 import com.crostage.trainchecker.domain.model.Train
 
 /**
- * Интерактор для работы с избранными поездвам
+ * Интерактор для работы с отслеживаемыми поездами
  *
  */
-
 interface IFavouriteInteractor {
 
     /**
-     * Получение списка избранных поездов
+     * Получение списка отслеживаемых поездов
      *
      * @return наблюдаемый список [Train]
      */
     fun getFavouriteLiveData(): LiveData<List<Train>>
 
     /**
-     * Удаление поезда из избранного
+     * Удаление поезда из отслеживания
      *
-     * @param train
+     * @param train поезд
      */
     fun removeFavourite(train: Train)
 
     /**
-     * Сохарнение поезда в избранное
+     * Отслеживание поезда
      *
-     * @param train
+     * @param train поезд
      */
     fun insertFavourite(train: Train)
 }

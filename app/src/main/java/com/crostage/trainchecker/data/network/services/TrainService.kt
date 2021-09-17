@@ -5,7 +5,7 @@ import com.crostage.trainchecker.data.model.train.TrainEntity
 import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.data.network.util.NetworkUtil.Companion.executeAndExceptionChek
 import com.crostage.trainchecker.data.network.util.NetworkUtil.Companion.getResponseFromId
-import com.crostage.trainchecker.domain.converter.IConverter
+import com.crostage.trainchecker.data.converter.IConverter
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.domain.network.ITrainService
 import com.crostage.trainchecker.utils.Constant.Companion.TRAIN_LAYER_ID
@@ -18,13 +18,16 @@ import javax.inject.Inject
  * Реализация [ITrainService]
  *
  * @property retrofitApi класс для работы с сетью
+ * @property converter конвертер списка поездов из сети
  */
-
 class TrainService @Inject constructor(
     private val retrofitApi: ApiRequests,
     private val converter: IConverter<List<TrainEntity>, List<Train>>,
 ) : ITrainService {
 
+    /**
+     * @see ITrainService.getTrainListRid
+     */
     override fun getTrainListRid(codeFrom: Int, codeTo: Int, date: String): Long? {
 
         var rid: Long? = null
@@ -41,7 +44,7 @@ class TrainService @Inject constructor(
                 if (it.isSuccessful) {
                     val body = it.body() as GeneralResult
 
-                    val errorMessage = body.listResponse?.get(0)?.msgList?.get(0)?.message
+                    val errorMessage = body.trainResponse?.get(0)?.msgList?.get(0)?.message
                     if (errorMessage != null) throw ServerSendError(errorMessage)
 
 
@@ -54,6 +57,9 @@ class TrainService @Inject constructor(
         return rid
     }
 
+    /**
+     * @see ITrainService.getTrainList
+     */
     override fun getTrainList(rid: Long?): List<Train> {
         var trainList: List<Train> = mutableListOf()
         if (rid == null) return trainList
@@ -61,7 +67,7 @@ class TrainService @Inject constructor(
         val data = getResponseFromId(TRAIN_LAYER_ID, rid, retrofitApi)
 
         try {
-            val l = data?.listResponse?.get(0)?.list
+            val l = data?.trainResponse?.get(0)?.list
             l?.let { trainList = converter.convert(l) }
         } catch (e: IndexOutOfBoundsException) {
             throw ServerSendError()

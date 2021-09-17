@@ -23,7 +23,6 @@ class FavouriteInteractorTest {
     val rule = InstantTaskExecutorRule()
 
     private val trainRepository: ITrainRepository = mockk()
-
     private lateinit var interactor: FavouriteInteractor
     private val liveDataTran: LiveData<List<Train>> = MutableLiveData(LIST_TRAIN)
     private val favourites: Observer<List<Train>> = mockk()

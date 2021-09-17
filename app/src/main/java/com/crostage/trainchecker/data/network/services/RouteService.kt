@@ -1,6 +1,6 @@
 package com.crostage.trainchecker.data.network.services
 
-import com.crostage.trainchecker.domain.converter.IConverter
+import com.crostage.trainchecker.data.converter.IConverter
 import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.data.network.util.NetworkUtil
 import com.crostage.trainchecker.data.network.util.NetworkUtil.Companion.executeAndExceptionChek
@@ -19,6 +19,7 @@ import javax.inject.Inject
  * Реализация [IRouteService]
  *
  * @property retrofitApi класс для работы с сетью
+ * @property converter конвертер для списка остановок
  */
 
 class RouteService @Inject constructor(
@@ -26,6 +27,9 @@ class RouteService @Inject constructor(
     private val converter: IConverter<List<TrainStopDto>, List<TrainStop>>,
 ) : IRouteService {
 
+    /**
+     * @see IRouteService.getRouteListRequestId
+     */
     override fun getRouteListRequestId(train: Train): Long? {
 
         var rid: Long? = null
@@ -45,15 +49,18 @@ class RouteService @Inject constructor(
         return rid
     }
 
+    /**
+     * @see IRouteService.getRoutesList
+     */
     override fun getRoutesList(rid: Long): List<TrainStop> {
         var stopsList: List<TrainStop> = mutableListOf()
         val data = NetworkUtil.getResponseFromId(ROUTE_LAYER_ID, rid, retrofitApi)
 
 
-        data?.response?.error?.let {
+        data?.routeResponse?.error?.let {
             throw ServerSendError(it.content)
         }
-        val stopDtoList = data?.response?.routes
+        val stopDtoList = data?.routeResponse?.routes
 
 
         stopDtoList?.let { stopsList = converter.convert(stopDtoList) }

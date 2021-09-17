@@ -9,8 +9,20 @@ import com.crostage.trainchecker.utils.ServerSendError
 import retrofit2.Call
 import retrofit2.Response
 
+/**
+ * Вспомогательный класс для работы с сетью
+ *
+ */
 class NetworkUtil {
     companion object {
+        /**
+         * Получить результат запроса по ID
+         *
+         * @param layerId подкатегория запроса
+         * @param rid идентификатор запроса
+         * @param retrofitApi класс для работы сетью
+         * @return общий результат по данному запросу [GeneralResult]
+         */
         fun getResponseFromId(layerId: Int, rid: Long, retrofitApi: ApiRequests): GeneralResult? {
 
             var data: GeneralResult? = null
@@ -28,6 +40,12 @@ class NetworkUtil {
             return data
         }
 
+        /**
+         * Функция запуска и проверки запроса на ошибки
+         *
+         * @param T тип запроса
+         * @return ответ от сервера запрашиваемого типа типа
+         */
         fun <T> Call<T>.executeAndExceptionChek(): Response<T> {
             try {
                 val response = execute()

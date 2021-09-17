@@ -5,22 +5,40 @@ import com.crostage.trainchecker.domain.model.Ticket
 import com.crostage.trainchecker.utils.Constant
 
 
+/**
+ * Модель отслеживаемых поездов для хранения в БД
+ *
+ * @property carrier тип поезда
+ * @property brand название поезда
+ * @property ticketList список билетов [Ticket]
+ * @property codeStationFrom код станции отправлени
+ * @property codeStationTo код станции прибытия
+ * @property nameStationFrom название станции отправления
+ * @property nameStationTo название станции прибытия
+ * @property dateEnd дата прибытия
+ * @property dateStart дата оптравления
+ * @property trainNumber номер поезда
+ * @property timeStart время отправления
+ * @property timeEnd время прибытия
+ * @property timeInWay время в пути
+ * @property isFavourite является ли отслеживаемым
+ */
 @Entity(tableName = Constant.TABLE_NAME_FAVOURITES,
     primaryKeys = ["trainNumber", "dateStart", "timeStart"])
 data class FavouriteEntity(
-    val carrier: String, //тип поезда ФПК
-    val brand: String, //название поезда
-    val ticketList: List<Ticket>, //массив билетов
-    val codeStationFrom: Int, //код станции отправления
-    val codeStationTo: Int, //код станции прибытия
-    val nameStationFrom: String, //название станции отправления
-    val nameStationTo: String, //название станции прибытия
-    val dateEnd: String, //дата прибытия
-    val dateStart: String, //дата оптравления
-    val trainNumber: String, //номер поезда
-    val timeStart: String,  //время отправления
-    val timeEnd: String,  //время прибытия
-    val timeInWay: String, //время в пути
+    val carrier: String,
+    val brand: String,
+    val ticketList: List<Ticket>,
+    val codeStationFrom: Int,
+    val codeStationTo: Int,
+    val nameStationFrom: String,
+    val nameStationTo: String,
+    val dateEnd: String,
+    val dateStart: String,
+    val trainNumber: String,
+    val timeStart: String,
+    val timeEnd: String,
+    val timeInWay: String,
     var isFavourite: Boolean,
 ) {
 

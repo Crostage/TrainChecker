@@ -15,10 +15,16 @@ class RouteInteractor @Inject constructor(
     private val service: IRouteService,
 ) : IRouteInteractor {
 
+    /**
+     * @see IRouteInteractor.getRouteListRid
+     */
     override fun getRouteListRid(train: Train): Long? {
         return service.getRouteListRequestId(train)
     }
 
+    /**
+     * @see IRouteInteractor.getRoutesList
+     */
     override fun getRoutesList(rid: Long): List<TrainStop> {
         return service.getRoutesList(rid)
     }

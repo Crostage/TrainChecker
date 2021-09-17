@@ -1,10 +1,11 @@
 package com.crostage.trainchecker.data.converter
 
-import com.crostage.trainchecker.ConstForTest.Companion.TRAIN
-import com.crostage.trainchecker.ConstForTest.Companion.TRAIN_ENTITY
+import com.crostage.trainchecker.ConstForTest.Companion.LIST_TRAIN
+import com.crostage.trainchecker.ConstForTest.Companion.LIST_TRAIN_ENTITY
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
+import kotlin.test.assertEquals
 
 @RunWith(MockitoJUnitRunner::class)
 class TrainListConverterTest {
@@ -12,12 +13,12 @@ class TrainListConverterTest {
 
     @Test
     fun testConvert() {
-        assert(listOf(TRAIN) == converter.convert(listOf(TRAIN_ENTITY)))
+        assertEquals(LIST_TRAIN, converter.convert(LIST_TRAIN_ENTITY))
     }
 
     @Test
     fun testRevers() {
-        assert(listOf(TRAIN_ENTITY) == converter.revers(listOf(TRAIN)))
+        assertEquals(LIST_TRAIN_ENTITY, converter.revers(LIST_TRAIN))
     }
 
 }

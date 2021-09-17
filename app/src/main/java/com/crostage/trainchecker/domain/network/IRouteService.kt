@@ -7,26 +7,22 @@ import com.crostage.trainchecker.domain.model.TrainStop
  * Сервис для получения данных о маршрутах из сети
  *
  */
-
 interface IRouteService {
 
     /**
-     * Запрос для получения ID для  маршрутов
+     * Получение ID для маршрутов
      *
      * @param train наблюдаемый поезд
      * @return request id
      */
-
     fun getRouteListRequestId(train: Train): Long?
 
-
     /**
-     * Запрос для получения маршрута конкретного поезда
+     * Получение маршрута конкретного поезда
      *
      * @param rid  ID запроса
      * @return список остановок [TrainStop]
      */
-
     fun getRoutesList(rid: Long): List<TrainStop>
 
 }

@@ -5,6 +5,7 @@ import com.crostage.trainchecker.ConstForTest.Companion.TRAIN_ENTITY
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
+import kotlin.test.assertEquals
 
 @RunWith(MockitoJUnitRunner::class)
 class TrainConverterTest {
@@ -12,12 +13,12 @@ class TrainConverterTest {
 
     @Test
     fun testConvert() {
-        assert(TRAIN == converter.convert(TRAIN_ENTITY))
+        assertEquals(TRAIN, converter.convert(TRAIN_ENTITY))
     }
 
     @Test
     fun testRevers() {
-        assert(TRAIN_ENTITY == converter.revers(TRAIN))
+        assertEquals(TRAIN_ENTITY, converter.revers(TRAIN))
     }
 
 }

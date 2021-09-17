@@ -5,7 +5,7 @@ import com.crostage.trainchecker.data.model.seat.CarDto
 import com.crostage.trainchecker.data.network.ApiRequests
 import com.crostage.trainchecker.data.network.util.NetworkUtil
 import com.crostage.trainchecker.data.network.util.NetworkUtil.Companion.executeAndExceptionChek
-import com.crostage.trainchecker.domain.converter.IConverter
+import com.crostage.trainchecker.data.converter.IConverter
 import com.crostage.trainchecker.domain.model.Car
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.domain.network.ISeatService
@@ -17,6 +17,7 @@ import javax.inject.Inject
  * Реализация [ISeatService]
  *
  * @property retrofitApi класс для работы с сетью
+ * @property converter конвертер для списка вагонов
  */
 
 class SeatService @Inject constructor(
@@ -24,6 +25,9 @@ class SeatService @Inject constructor(
     private val converter: IConverter<List<CarDto>, List<Car>>,
 ) : ISeatService {
 
+    /**
+     * @see ISeatService.getSeatsRid
+     */
     override fun getSeatsRid(train: Train): Long? {
         var rid: Long? = null
         val responseRid = retrofitApi.getSeats(
@@ -46,12 +50,15 @@ class SeatService @Inject constructor(
     }
 
 
+    /**
+     * @see ISeatService.getSeatsList
+     */
     override fun getSeatsList(rid: Long): List<Car> {
         var carList: List<Car> = listOf()
         val data = NetworkUtil.getResponseFromId(SEAT_LAYER_ID, rid, retrofitApi)
 
         try {
-            val carDtoList = data?.listCarResponse?.get(0)?.cars
+            val carDtoList = data?.carResponse?.get(0)?.cars
             carDtoList?.let { carList = converter.convert(carDtoList) }
         } catch (e: IndexOutOfBoundsException) {
             throw ServerSendError()

@@ -16,6 +16,11 @@ import com.crostage.trainchecker.data.model.train.FavouriteEntity
 import com.crostage.trainchecker.utils.Constant.Companion.DB_NAME
 
 
+/**
+ * Основной класс предоставляющий возможность работать с БД Room
+ *
+ */
+
 @Database(
     entities = [
         StationSearchResponse::class,
@@ -28,11 +33,35 @@ import com.crostage.trainchecker.utils.Constant.Companion.DB_NAME
 @TypeConverters(StationListConverter::class, TicketListConverter::class)
 abstract class TrainDatabase : RoomDatabase() {
 
+    /**
+     * Получение класса для работы с поисковыми запросами станций
+     *
+     * @return [StationResponseDao]
+     */
     abstract fun stationResponseDao(): StationResponseDao
+
+    /**
+     * Получение класса для работы с отслеживаемыми поездами
+     *
+     * @return [TrainDao]
+     */
     abstract fun trainDao(): TrainDao
+
+    /**
+     * Получение класса для работы со списком выбранных станций
+     *
+     * @return [StationDao]
+     */
     abstract fun lastStationsDao(): StationDao
 
     companion object {
+
+        /**
+         * Инициализация базы данных
+         *
+         * @param context конекст приложения
+         * @return база данных [TrainDatabase]
+         */
         fun invoke(context: Context): TrainDatabase {
             return Room.databaseBuilder(context, TrainDatabase::class.java, DB_NAME)
                 .fallbackToDestructiveMigration()

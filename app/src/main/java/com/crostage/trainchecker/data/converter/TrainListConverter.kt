@@ -1,12 +1,18 @@
 package com.crostage.trainchecker.data.converter
 
 import com.crostage.trainchecker.data.model.train.TrainEntity
-import com.crostage.trainchecker.domain.converter.IConverter
 import com.crostage.trainchecker.domain.model.Train
 import javax.inject.Inject
 
+/**
+ * @see IConverter конвертер билетов
+ */
 class TrainListConverter @Inject constructor() :
     IConverter<@JvmSuppressWildcards List<TrainEntity>, @JvmSuppressWildcards List<Train>> {
+
+    /**
+     * @see IConverter.convert
+     */
     override fun convert(input: List<TrainEntity>): List<Train> {
         return input.map {
             Train(
@@ -29,6 +35,9 @@ class TrainListConverter @Inject constructor() :
 
     }
 
+    /**
+     * @see IConverter.revers
+     */
     override fun revers(input: List<Train>): List<TrainEntity> {
         return input.map {
             TrainEntity(

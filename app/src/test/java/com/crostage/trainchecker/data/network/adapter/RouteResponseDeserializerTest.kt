@@ -8,12 +8,13 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
+import kotlin.test.assertEquals
 
 @RunWith(MockitoJUnitRunner::class)
 class RouteResponseDeserializerTest {
 
 
-    lateinit var deserializer: RouteResponseDeserializer
+    private lateinit var deserializer: RouteResponseDeserializer
 
     @Before
     fun setUp() {
@@ -28,18 +29,29 @@ class RouteResponseDeserializerTest {
 
         val result = gson.fromJson(RESPONSE_ERROR_STRING, Response::class.java)
 
-        assert(result == RESPONSE_ERROR)
+        assertEquals(result, RESPONSE_ERROR)
     }
 
     @Test
-    fun testDeserialize() {
+    fun testDeserialize_object() {
         val gson = GsonBuilder().registerTypeAdapter(
             Response::class.java, deserializer
         ).create()
 
-        val result = gson.fromJson(RESPONSE_ROUTE_STRING, Response::class.java)
+        val result = gson.fromJson(RESPONSE_ROUTE_STRING_OBJECT, Response::class.java)
 
-        assert(result == RESPONSE_ROUTE)
+        assertEquals(result, RESPONSE_ROUTE)
+    }
+
+    @Test
+    fun testDeserialize_array() {
+        val gson = GsonBuilder().registerTypeAdapter(
+            Response::class.java, deserializer
+        ).create()
+
+        val result = gson.fromJson(RESPONSE_ROUTE_STRING_ARRAY, Response::class.java)
+
+        assertEquals(result, RESPONSE_ROUTE)
     }
 
     @Test
@@ -50,13 +62,16 @@ class RouteResponseDeserializerTest {
 
         val result = gson.fromJson(RESPONSE_EMPTY_STRING, Response::class.java)
 
-        assert(result == RESPONSE_EMPTY)
+        assertEquals(result, RESPONSE_EMPTY)
     }
 
 
     companion object {
-        private const val RESPONSE_ROUTE_STRING = "{\"Routes\":{\"Stop\":" +
+        private const val RESPONSE_ROUTE_STRING_OBJECT = "{\"Routes\":{\"Stop\":" +
                 "[{\"Code\":100,\"DepTime\":\"14:20\",\"Distance\":200,\"Station\":\"КУКУЕВО\"}]}}"
+
+        private const val RESPONSE_ROUTE_STRING_ARRAY = "{\"Routes\":[{\"Stop\":" +
+                "[{\"Code\":100,\"DepTime\":\"14:20\",\"Distance\":200,\"Station\":\"КУКУЕВО\"}]}]}"
 
         private const val RESPONSE_ERROR_STRING = "{\"Error\":{\"content\":\"ошибочка\"}}"
         private const val RESPONSE_EMPTY_STRING = "{}"

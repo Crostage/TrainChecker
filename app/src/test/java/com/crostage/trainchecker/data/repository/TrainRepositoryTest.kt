@@ -8,9 +8,9 @@ import com.crostage.trainchecker.ConstForTest.Companion.FAVOURITE_ENTITY
 import com.crostage.trainchecker.ConstForTest.Companion.LIST_FAVOURITE_ENTITY
 import com.crostage.trainchecker.ConstForTest.Companion.LIST_TRAIN
 import com.crostage.trainchecker.ConstForTest.Companion.TRAIN
+import com.crostage.trainchecker.data.converter.IConverter
 import com.crostage.trainchecker.data.db.dao.TrainDao
 import com.crostage.trainchecker.data.model.train.FavouriteEntity
-import com.crostage.trainchecker.domain.converter.IConverter
 import com.crostage.trainchecker.domain.model.Train
 import io.mockk.*
 import io.reactivex.rxjava3.core.Observable
@@ -19,6 +19,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
+import kotlin.test.assertEquals
 
 @RunWith(MockitoJUnitRunner::class)
 class TrainRepositoryTest {
@@ -30,9 +31,9 @@ class TrainRepositoryTest {
     private val trainDao: TrainDao = mockk()
     private val converter: IConverter<FavouriteEntity, Train> = mockk()
     private val listConverter: IConverter<List<FavouriteEntity>, List<Train>> = mockk()
-
     private val favourites: Observer<List<Train>> = mockk()
-
+    private val observable: Observable<List<FavouriteEntity>> =
+        Observable.just(LIST_FAVOURITE_ENTITY)
     private lateinit var repository: TrainRepository
 
     @Before
@@ -42,14 +43,11 @@ class TrainRepositoryTest {
 
     @Test
     fun testGetFavouriteLiveData() {
-
         every { favourites.onChanged(any()) } just Runs
-
         mockkStatic(LiveData::class)
         every {
             trainDao.getFavouriteLiveData()
         } returns MutableLiveData(LIST_FAVOURITE_ENTITY)
-
         every { listConverter.convert(LIST_FAVOURITE_ENTITY) } returns LIST_TRAIN
 
         repository.getFavouriteLiveData().observeForever(favourites)
@@ -59,19 +57,17 @@ class TrainRepositoryTest {
             listConverter.convert(LIST_FAVOURITE_ENTITY)
             favourites.onChanged(LIST_TRAIN)
         }
-
     }
-
-    private val obser: Observable<List<FavouriteEntity>> = Observable.just(LIST_FAVOURITE_ENTITY)
 
     @Test
     fun testGetFavouriteObservable() {
-        every { trainDao.getFavouriteObservable() } returns obser
+        every { trainDao.getFavouriteObservable() } returns observable
         every { listConverter.convert(LIST_FAVOURITE_ENTITY) } returns LIST_TRAIN
 
         val result = repository.getFavouriteObservable().blockingFirst()
 
-        assert(result == LIST_TRAIN)
+        verify { trainDao.getFavouriteObservable() }
+        assertEquals(result, LIST_TRAIN)
     }
 
 

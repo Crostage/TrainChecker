@@ -20,6 +20,7 @@ import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
 import retrofit2.Call
 import retrofit2.Response
+import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
 @RunWith(MockitoJUnitRunner::class)
@@ -51,7 +52,13 @@ class NetworkUtilTest {
 
         val data = getResponseFromId(TRAIN_LAYER_ID, RID, retrofitApi)
 
-        assert(data == result)
+        verify {
+            retrofitApi.getResultFromRid(
+                layerId = TRAIN_LAYER_ID,
+                requestId = RID
+            )
+        }
+        assertEquals(data, result)
     }
 
     @Test
@@ -65,11 +72,15 @@ class NetworkUtilTest {
         every { call.executeAndExceptionChek() } returns generalResponse
         every { generalResponse.isSuccessful } returns false
 
-
         val data = getResponseFromId(TRAIN_LAYER_ID, RID, retrofitApi)
 
-        assert(data == null)
-        verify(exactly = 0) { generalResponse.body() }
+        verify {
+            retrofitApi.getResultFromRid(
+                layerId = TRAIN_LAYER_ID,
+                requestId = RID
+            )
+        }
+        assertEquals(data, null)
     }
 
 
@@ -81,8 +92,7 @@ class NetworkUtilTest {
 
         val response = call.executeAndExceptionChek()
 
-        assert(response == generalResponse)
-
+        assertEquals(response, generalResponse)
     }
 
     @Test
@@ -91,9 +101,7 @@ class NetworkUtilTest {
         every { call.execute() } returns generalResponse
         every { generalResponse.code() } returns 228
 
-
         assertFailsWith<ErrorConnections> { call.executeAndExceptionChek() }
-
     }
 
     @Test
@@ -120,7 +128,6 @@ class NetworkUtilTest {
         every { call.execute() } throws ServerSendError()
 
         assertFailsWith<ServerSendError> { call.executeAndExceptionChek() }
-        verify(exactly = 0) { generalResponse.code() }
     }
 
     @Test
@@ -129,8 +136,6 @@ class NetworkUtilTest {
         every { call.execute() } throws Exception()
 
         assertFailsWith<ErrorConnections> { call.executeAndExceptionChek() }
-        verify(exactly = 0) { generalResponse.code() }
-
     }
 
 }

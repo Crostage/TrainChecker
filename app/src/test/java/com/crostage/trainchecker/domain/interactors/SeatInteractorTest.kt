@@ -6,16 +6,17 @@ import com.crostage.trainchecker.ConstForTest.Companion.TRAIN
 import com.crostage.trainchecker.domain.network.ISeatService
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
+import kotlin.test.assertEquals
 
 @RunWith(MockitoJUnitRunner::class)
 class SeatInteractorTest {
 
     private val service: ISeatService = mockk()
-
     private lateinit var interactor: SeatInteractor
 
     @Before
@@ -27,27 +28,30 @@ class SeatInteractorTest {
     fun testGetSeatsRid() {
         every { service.getSeatsRid(TRAIN) } returns RID
 
-        val rid = interactor.getSeatsRid(TRAIN)
+        val rid = interactor.getCarsRid(TRAIN)
 
-        assert(rid == RID)
+        verify { service.getSeatsRid(TRAIN) }
+        assertEquals(rid, RID)
     }
 
     @Test
     fun testGetSeatsRid_null() {
         every { service.getSeatsRid(TRAIN) } returns null
 
-        val rid = interactor.getSeatsRid(TRAIN)
+        val rid = interactor.getCarsRid(TRAIN)
 
-        assert(rid == null)
+        verify { service.getSeatsRid(TRAIN) }
+        assertEquals(rid, null)
     }
 
     @Test
     fun testGetSeats() {
         every { service.getSeatsList(RID) } returns LIST_CAR
 
-        val list = interactor.getSeats(RID)
+        val list = interactor.getCars(RID)
 
-        assert(list == LIST_CAR)
+        verify { service.getSeatsList(RID) }
+        assertEquals(list, LIST_CAR)
     }
 
 

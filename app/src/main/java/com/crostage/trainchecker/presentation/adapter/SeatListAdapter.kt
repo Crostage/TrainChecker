@@ -48,13 +48,13 @@ class SeatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         binding.clsType.text = car.clsType
         binding.tariff.text = car.tariff + " руб"
 
-//        binding.ticketList.removeAllViews()
-//        for (seat in car.tickets) {
-//            val textView = TextView(itemView.context)
-//            textView.gravity = Gravity.START
-//            textView.text = "${seat.label} : ${seat.free}"
-//            binding.ticketList.addView(textView)
-//        }
+        binding.ticketList.removeAllViews()
+        for (seat in car.seats) {
+            val textView = TextView(itemView.context)
+            textView.gravity = Gravity.START
+            textView.text = "${seat.label} : ${seat.free}"
+            binding.ticketList.addView(textView)
+        }
 
 
     }

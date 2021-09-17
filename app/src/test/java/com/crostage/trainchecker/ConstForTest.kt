@@ -105,6 +105,8 @@ class ConstForTest {
 
         val TICKET = Ticket(5, 200, "type", "typeLoc")
 
+        val LIST_TICKET = listOf(TICKET)
+
         const val JSON_TICKET =
             "[{\"freeSeats\":5,\"tariff\":200,\"type\":\"type\",\"typeLoc\":\"typeLoc\"}]"
 

@@ -7,7 +7,6 @@ import androidx.room.Query
 import com.crostage.trainchecker.data.model.station.StationEntity
 import com.crostage.trainchecker.utils.Constant.Companion.TABLE_NAME_LAST_PICK
 
-
 /**
  * Кэширование в БД последних выбраных станций, Room
  *
@@ -18,7 +17,7 @@ interface StationDao {
     /**
      * Запись станции в БД
      *
-     * @param station
+     * @param station станция для записи [StationEntity]
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertStation(station: StationEntity)

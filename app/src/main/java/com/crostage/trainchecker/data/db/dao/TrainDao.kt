@@ -7,7 +7,7 @@ import com.crostage.trainchecker.utils.Constant.Companion.TABLE_NAME_FAVOURITES
 import io.reactivex.rxjava3.core.Observable
 
 /**
- * Работа с данными поездов, Room
+ * Работа с данными отслеживаемых поездов, Room
  *
  */
 
@@ -17,30 +17,32 @@ interface TrainDao {
     /**
      * Получение списка поездов
      *
-     * @return список поездова [FavouriteEntity]
+     * @return  [LiveData] списка отслеживаемых поездов [FavouriteEntity]
      */
-
     @Query("SELECT*FROM $TABLE_NAME_FAVOURITES ORDER BY dateStart,timeStart ")
     fun getFavouriteLiveData(): LiveData<List<FavouriteEntity>>
 
+    /**
+     * Получение списка поездов
+     *
+     * @return  [Observable] списка отслеживаемых поездов [FavouriteEntity]
+     */
     @Query("SELECT*FROM $TABLE_NAME_FAVOURITES ORDER BY dateStart,timeStart ")
     fun getFavouriteObservable(): Observable<List<FavouriteEntity>>
 
     /**
-     * Запись элемента в БД
+     * Запись нового отслеживаемого поезда [FavouriteEntity] в БД
      *
-     * @param train
+     * @param train отслеживаемый поезд [FavouriteEntity]
      */
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFavourite(train: FavouriteEntity)
 
     /**
-     * Удаление элемента из БД
+     * Удаление отслеживаемого поезда [FavouriteEntity] из БД
      *
-     * @param train
+     * @param train отслеживаемый поезд [FavouriteEntity]
      */
-
     @Delete
     fun removeFavourite(train: FavouriteEntity)
 }

@@ -1,6 +1,6 @@
 package com.crostage.trainchecker.di.module
 
-import com.crostage.trainchecker.domain.converter.IConverter
+import com.crostage.trainchecker.data.converter.IConverter
 import com.crostage.trainchecker.data.converter.StationConverter
 import com.crostage.trainchecker.data.converter.StationListConverter
 import com.crostage.trainchecker.data.db.TrainDatabase
