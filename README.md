@@ -1,7 +1,6 @@
-<p align="centr">
+<p align="center">
   <img src="icons/train.png" height="100" />
 </p>
-<br />
 <h1 align="center">TrainChecker</h1>
 
 ## О приложении
