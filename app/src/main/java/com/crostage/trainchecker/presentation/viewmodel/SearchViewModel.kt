@@ -9,6 +9,12 @@ import com.crostage.trainchecker.utils.Constant.Companion.SEARCH_SAVED_STATE_DAT
 import com.crostage.trainchecker.utils.Constant.Companion.SEARCH_SAVED_STATE_FROM
 import com.crostage.trainchecker.utils.Constant.Companion.SEARCH_SAVED_STATE_TO
 
+/**
+ * View Model экрана поиска поездов
+ *
+ *
+ * @param savedStateHandle сущность для сохранения LiveData
+ */
 class SearchViewModel(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
@@ -21,20 +27,33 @@ class SearchViewModel(
     val newDate: LiveData<String> = _newDate
 
     init {
-
         if (_newDate.value == null)
             _newDate.value = Helper.getActualDate()
     }
 
-
+    /**
+     * Установка даты для поиска
+     *
+     * @param date дата отправки
+     */
     fun setDate(date: String) {
         _newDate.value = date
     }
 
+    /**
+     * Установка станции прибытия
+     *
+     * @param station станция прибытия
+     */
     fun setStationTo(station: Station) {
         _stationTo.value = station
     }
 
+    /**
+     * Установка станции отправления
+     *
+     * @param station станция отправления
+     */
     fun setStationFrom(station: Station) {
         _stationFrom.value = station
     }

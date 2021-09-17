@@ -32,7 +32,6 @@ class Helper {
          * @param list список избранных поездов
          * @return актуальный список поездов [Train]
          */
-
         fun checkFavouritesOnActualDate(list: List<Train>): List<Train> {
             val sdf = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault())
             val currentDate = Calendar.getInstance().timeInMillis

@@ -9,6 +9,7 @@ import com.crostage.trainchecker.ConstForTest.Companion.RID
 import com.crostage.trainchecker.ConstForTest.Companion.TRAIN
 import com.crostage.trainchecker.domain.interactors.interfaces.IRouteInteractor
 import com.crostage.trainchecker.domain.model.TrainStop
+import com.crostage.trainchecker.presentation.model.Event
 import com.crostage.trainchecker.utils.Constant.Companion.SAVED_STATE_STOPS
 import io.mockk.*
 import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
@@ -32,7 +33,7 @@ class RouteViewModelTest {
     private val savedStateHandle: SavedStateHandle = mockk()
     private val exception: Exception = mockk()
     private val routes: Observer<List<TrainStop>> = mockk()
-    private val error: Observer<Throwable> = mockk()
+    private val error: Observer<Event<Throwable>> = mockk()
     private val progress: Observer<Boolean> = mockk()
 
     @Before
@@ -82,7 +83,7 @@ class RouteViewModelTest {
 
         verifySequence {
             progress.onChanged(true)
-            error.onChanged(exception)
+//            error.onChanged(exception)
             progress.onChanged(false)
         }
     }

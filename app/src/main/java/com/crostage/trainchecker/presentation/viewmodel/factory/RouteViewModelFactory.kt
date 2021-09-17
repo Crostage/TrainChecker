@@ -9,8 +9,11 @@ import com.crostage.trainchecker.presentation.viewmodel.RouteViewModel
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import javax.inject.Inject
 
+/**
+ * Фабрика для View Model маршрутов
+ *
+ */
 class RouteViewModelFactory @AssistedInject constructor(
     private val interactor: IRouteInteractor,
     @Assisted owner: SavedStateRegistryOwner,
@@ -33,7 +36,10 @@ class RouteViewModelFactory @AssistedInject constructor(
     }
 }
 
-
+/**
+ * Фабрика для внедрения зависимостей
+ *
+ */
 @AssistedFactory
 interface RouteViewModelAssistedFactory {
     fun create(owner: SavedStateRegistryOwner): RouteViewModelFactory

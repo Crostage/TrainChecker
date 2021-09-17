@@ -22,7 +22,10 @@ import com.crostage.trainchecker.presentation.viewmodel.factory.RouteViewModelAs
 import com.crostage.trainchecker.utils.Constant
 import javax.inject.Inject
 
-
+/**
+ * Фрагмент отображающий список маршуртов поезда
+ *
+ */
 class RouteFragment : Fragment(R.layout.fragment_route) {
 
     private lateinit var viewModel: RouteViewModel
@@ -54,7 +57,7 @@ class RouteFragment : Fragment(R.layout.fragment_route) {
         createViewModel()
         initRecyclerview()
         setFromArguments(arguments)
-
+        setObservers()
     }
 
     override fun onDestroyView() {
@@ -67,14 +70,14 @@ class RouteFragment : Fragment(R.layout.fragment_route) {
 
         train?.let {
 
-            setObservers()
+
 
             binding.tryAgain.setOnClickListener {
                 viewModel.getRoutes(train)
                 binding.tryAgain.isVisible = false
             }
 
-            if (viewModel.routes.value == null)
+            if (viewModel.routes.value == null && viewModel.error.value == null)
                 viewModel.getRoutes(train)
         }
     }
@@ -105,7 +108,7 @@ class RouteFragment : Fragment(R.layout.fragment_route) {
         })
 
         viewModel.error.observe(viewLifecycleOwner, {
-            it.message?.let { msg ->
+            it.getContentIfNotHandled()?.message?.let { msg ->
                 requireActivity().findViewById<View>(android.R.id.content).showSnackBar(msg)
             }
             binding.tryAgain.isVisible = true

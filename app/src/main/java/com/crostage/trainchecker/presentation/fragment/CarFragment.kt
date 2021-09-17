@@ -12,21 +12,25 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
-import com.crostage.trainchecker.databinding.FragmentSeatBinding
+import com.crostage.trainchecker.databinding.FragmentCarBinding
 import com.crostage.trainchecker.domain.model.Train
-import com.crostage.trainchecker.presentation.adapter.SeatListAdapter
+import com.crostage.trainchecker.presentation.adapter.CarListAdapter
 import com.crostage.trainchecker.presentation.appComponent
 import com.crostage.trainchecker.presentation.util.Helper.Companion.showSnackBar
-import com.crostage.trainchecker.presentation.viewmodel.SeatViewModel
+import com.crostage.trainchecker.presentation.viewmodel.CarViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.SeatViewModelAssistedFactory
 import com.crostage.trainchecker.utils.Constant
 import javax.inject.Inject
 
 
-class SeatFragment : Fragment(R.layout.fragment_seat) {
-    private lateinit var viewModel: SeatViewModel
-    private lateinit var adapter: SeatListAdapter
-    private var _binding: FragmentSeatBinding? = null
+/**
+ * Фрагмент отображающий список вагонов с информацией
+ *
+ */
+class CarFragment : Fragment(R.layout.fragment_car) {
+    private lateinit var viewModel: CarViewModel
+    private lateinit var adapter: CarListAdapter
+    private var _binding: FragmentCarBinding? = null
     private val binding get() = _binding!!
 
     @Inject
@@ -42,7 +46,7 @@ class SeatFragment : Fragment(R.layout.fragment_seat) {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentSeatBinding.inflate(inflater, container, false)
+        _binding = FragmentCarBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -79,7 +83,7 @@ class SeatFragment : Fragment(R.layout.fragment_seat) {
     private fun initRecyclerview() {
         binding.seatRecyclerview.layoutManager =
             LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-        adapter = SeatListAdapter()
+        adapter = CarListAdapter()
         binding.seatRecyclerview.addItemDecoration(
             DividerItemDecoration(
                 binding.seatRecyclerview.context,
@@ -91,7 +95,7 @@ class SeatFragment : Fragment(R.layout.fragment_seat) {
 
     private fun createViewModel() {
         val factory = assistedFactory.create(this)
-        viewModel = ViewModelProvider(this, factory).get(SeatViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory).get(CarViewModel::class.java)
     }
 
     private fun setObservers() {
@@ -101,7 +105,7 @@ class SeatFragment : Fragment(R.layout.fragment_seat) {
         })
 
         viewModel.error.observe(viewLifecycleOwner, {
-            it.message?.let { msg ->
+            it.getContentIfNotHandled()?.message?.let { msg ->
                 requireActivity().findViewById<View>(android.R.id.content).showSnackBar(msg)
             }
             binding.tryAgain.isVisible = true

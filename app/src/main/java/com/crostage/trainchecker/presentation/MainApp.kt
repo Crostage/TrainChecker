@@ -8,6 +8,11 @@ import com.crostage.trainchecker.di.DaggerAppComponent
 import io.reactivex.rxjava3.exceptions.UndeliverableException
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
 
+
+/**
+ * Класс приложения, помогает внедрить зависимости и обработать UndeliverableException
+ *
+ */
 class MainApp : Application() {
 
     lateinit var appComponent: AppComponent

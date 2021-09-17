@@ -31,11 +31,12 @@ class FavouriteViewModelTest {
     private lateinit var viewModel: FavouriteViewModel
     private val interactor: IFavouriteInteractor = mockk()
     private val exception: Exception = mockk()
-    private val error: Observer<Throwable> = mockk()
+    private val error: Observer<Event<Throwable>> = mockk()
     private val progress: Observer<Boolean> = mockk()
     private val openDetail: Observer<Event<Train>> = mockk()
     private val favourites: Observer<List<Train>> = mockk()
     private val liveDataTran: LiveData<List<Train>> = MutableLiveData(LIST_TRAIN)
+    private val event: Event<Exception> = mockk()
 
     @Before
     fun setUp() {
@@ -72,12 +73,14 @@ class FavouriteViewModelTest {
     @Test
     fun testRemoveFromFavourite_throw_exception() {
         every { interactor.removeFavourite(TRAIN) } throws exception
+        mockkConstructor(Event::class)
+        every { anyConstructed<Event<Exception>>() } returns event
 
         viewModel.removeFromFavourite(TRAIN)
 
         verify {
             interactor.removeFavourite(TRAIN)
-            error.onChanged(exception)
+            error.onChanged(event)
         }
 
     }

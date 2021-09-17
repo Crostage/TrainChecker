@@ -7,6 +7,10 @@ import androidx.navigation.ui.setupWithNavController
 import com.crostage.trainchecker.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
+/**
+ * Главная активити приложения, содержит контейнер для фрагментов и панель табов
+ *
+ */
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

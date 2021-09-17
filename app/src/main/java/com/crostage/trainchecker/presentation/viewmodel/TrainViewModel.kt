@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
 import com.crostage.trainchecker.domain.model.Train
+import com.crostage.trainchecker.presentation.model.Event
 import com.crostage.trainchecker.utils.Constant.Companion.SAVED_STATE_TRAINS
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
@@ -15,10 +16,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers
  * ViewModel для работы со списками поездов
  *
  * @property interactor бизнес логика получения списка поездов по запросу
- * @property savedStateHandle сущность содержащая LiveData для сохранения состояний
+ * @param savedStateHandle сущность содержащая LiveData для сохранения состояний
  */
-
-
 class TrainViewModel(
     private val interactor: ITrainInteractor,
     savedStateHandle: SavedStateHandle,
@@ -58,9 +57,8 @@ class TrainViewModel(
                 .doAfterNext { _progress.value = false }
                 .doOnSubscribe { _progress.value = true }
                 .subscribe(
-                    _trains::setValue,
-                    _error::setValue
-                )
+                    _trains::setValue
+                ) { _error.value = Event(it) }
         )
 
     }
@@ -80,7 +78,7 @@ class TrainViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {},
-                    _error::setValue
+                    { _error.value = Event(it) }
                 )
         )
     }

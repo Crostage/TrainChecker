@@ -3,6 +3,12 @@ package com.crostage.trainchecker.presentation.adapter.diffutil
 import androidx.recyclerview.widget.DiffUtil
 import com.crostage.trainchecker.domain.model.Train
 
+/**
+ * Класс для сравнения списков поездов
+ *
+ * @property oldList старый список поездов
+ * @property newList новый список поездов
+ */
 class TrainDiffUtil(
     private val oldList: List<Train>,
     private val newList: List<Train>,

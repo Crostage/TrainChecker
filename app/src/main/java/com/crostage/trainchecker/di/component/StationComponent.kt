@@ -5,9 +5,18 @@ import com.crostage.trainchecker.presentation.fragment.StationFragment
 import dagger.Subcomponent
 import javax.inject.Scope
 
+/**
+ * Вспомогательный компонент для [StationFragment]
+ *
+ */
 @Subcomponent(modules = [StationModule::class])
 @StationScope
 interface StationComponent {
+
+    /**
+     * Внедрение зависимостей во фрагментв
+     *
+     */
     fun inject(fragment: StationFragment)
 
     @Subcomponent.Builder

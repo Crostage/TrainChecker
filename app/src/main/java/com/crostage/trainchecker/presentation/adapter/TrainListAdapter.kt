@@ -4,7 +4,15 @@ import com.crostage.trainchecker.presentation.interfaces.FavouriteInsertListener
 import com.crostage.trainchecker.presentation.interfaces.FavouriteRemoveListener
 import com.crostage.trainchecker.presentation.interfaces.TrainItemClickListener
 
-
+/**
+ * Адаптер списка найденых поездов
+ *
+ * @property favouriteInsertListener слушатель для вставки в избранные
+ * @constructor
+ *
+ * @param favouriteRemoveListener слушатель удаления из избранных
+ * @param trainItemClickListener слушатель кликов по элементу списка
+ */
 class TrainListAdapter(
     private val favouriteInsertListener: FavouriteInsertListener,
     favouriteRemoveListener: FavouriteRemoveListener,

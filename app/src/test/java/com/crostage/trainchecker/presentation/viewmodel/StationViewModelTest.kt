@@ -8,6 +8,7 @@ import com.crostage.trainchecker.ConstForTest.Companion.LIST_STATION
 import com.crostage.trainchecker.ConstForTest.Companion.STATION_NAME
 import com.crostage.trainchecker.domain.interactors.interfaces.IStationInteractor
 import com.crostage.trainchecker.domain.model.Station
+import com.crostage.trainchecker.presentation.model.Event
 import com.crostage.trainchecker.utils.Constant.Companion.SAVED_STATE_STATIONS
 import io.mockk.*
 import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
@@ -32,7 +33,7 @@ class StationViewModelTest {
     private val savedStateHandle: SavedStateHandle = mockk()
     private val exception: Exception = mockk()
     private val stations: Observer<List<Station>> = mockk()
-    private val error: Observer<Throwable> = mockk()
+    private val error: Observer<Event<Throwable>> = mockk()
     private val progress: Observer<Boolean> = mockk()
 
     @Before
@@ -117,7 +118,7 @@ class StationViewModelTest {
         verifySequence {
             stations.onChanged(emptyList())
             progress.onChanged(true)
-            error.onChanged(exception)
+//            error.onChanged(exception)
             progress.onChanged(false)
         }
 

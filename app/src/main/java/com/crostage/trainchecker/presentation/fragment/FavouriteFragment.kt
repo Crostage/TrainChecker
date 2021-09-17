@@ -24,6 +24,10 @@ import com.crostage.trainchecker.presentation.viewmodel.FavouriteViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.FavouriteViewModelFactory
 import javax.inject.Inject
 
+/**
+ * Фрагмент отображающий список отслеживаемых поездов
+ *
+ */
 class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
 
     private lateinit var viewModel: FavouriteViewModel
@@ -95,7 +99,7 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
 
     private fun setObservers() {
         viewModel.error.observe(viewLifecycleOwner, {
-            it.message?.let { msg ->
+            it.getContentIfNotHandled()?.message?.let { msg ->
                 requireActivity().findViewById<View>(android.R.id.content).showSnackBar(msg)
             }
         })

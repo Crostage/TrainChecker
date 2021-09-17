@@ -5,10 +5,18 @@ import com.crostage.trainchecker.presentation.fragment.FavouriteFragment
 import dagger.Subcomponent
 import javax.inject.Scope
 
+/**
+ * Вспомогательный компонент для [FavouriteFragment]
+ *
+ */
 @Subcomponent(modules = [FavouriteModule::class])
 @FavouriteScope
 interface FavouriteComponent {
 
+    /**
+     * Внедрение зависимостей во фрагментв
+     *
+     */
     fun inject(fragment: FavouriteFragment)
 
     @Subcomponent.Builder

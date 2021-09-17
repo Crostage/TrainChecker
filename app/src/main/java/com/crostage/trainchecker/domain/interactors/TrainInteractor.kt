@@ -1,6 +1,5 @@
 package com.crostage.trainchecker.domain.interactors
 
-import com.crostage.trainchecker.domain.interactors.interfaces.IStationInteractor
 import com.crostage.trainchecker.domain.interactors.interfaces.ITrainInteractor
 import com.crostage.trainchecker.domain.model.Train
 import com.crostage.trainchecker.domain.network.ITrainService

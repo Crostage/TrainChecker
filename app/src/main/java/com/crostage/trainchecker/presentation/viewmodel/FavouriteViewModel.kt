@@ -10,6 +10,11 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
+/**
+ * View Model экрана отслеживаемых поездов
+ *
+ * @property interactor бизнес-логика для отслеживания
+ */
 open class FavouriteViewModel(
     private val interactor: IFavouriteInteractor,
 ) : BaseViewModel() {
@@ -32,7 +37,7 @@ open class FavouriteViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { },
-                    _error::setValue
+                    { _error.value = Event(it) }
                 )
         )
     }
@@ -41,7 +46,7 @@ open class FavouriteViewModel(
     /**
      * Обработка клика по поезду
      *
-     * @param train
+     * @param train поезд по которому нажали
      */
     fun trainClicked(train: Train) {
         _openDetail.value = Event(train)

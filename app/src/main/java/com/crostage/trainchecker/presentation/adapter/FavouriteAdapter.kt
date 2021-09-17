@@ -10,6 +10,12 @@ import com.crostage.trainchecker.presentation.adapter.diffutil.TrainDiffUtil
 import com.crostage.trainchecker.presentation.interfaces.FavouriteRemoveListener
 import com.crostage.trainchecker.presentation.interfaces.TrainItemClickListener
 
+/**
+ * Адаптер для отображения списка отслеживаемых
+ *
+ * @property favouriteRemoveListener слушатель удаления из избранных
+ * @property trainItemClickListener слушатель кликов по элементу списка
+ */
 open class FavouriteAdapter(
     private val favouriteRemoveListener: FavouriteRemoveListener,
     private val trainItemClickListener: TrainItemClickListener,

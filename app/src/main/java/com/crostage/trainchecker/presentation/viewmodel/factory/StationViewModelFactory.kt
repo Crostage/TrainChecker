@@ -10,6 +10,10 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 
+/**
+ * Фабрика для View Model станций
+ *
+ */
 class StationViewModelFactory @AssistedInject constructor(
     private val interactor: IStationInteractor,
     @Assisted owner: SavedStateRegistryOwner,
@@ -31,6 +35,10 @@ class StationViewModelFactory @AssistedInject constructor(
 
 }
 
+/**
+ * Фабрика для внедрения зависимостей
+ *
+ */
 @AssistedFactory
 interface StationViewModelAssistedFactory {
     fun create(owner: SavedStateRegistryOwner): StationViewModelFactory

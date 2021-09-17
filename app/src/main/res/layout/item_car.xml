@@ -61,18 +61,16 @@
             app:layout_constraintStart_toStartOf="@+id/textCarNumber"
             app:layout_constraintTop_toBottomOf="@+id/carNumber" />
 
-        <LinearLayout
+        <TextView
             android:id="@+id/ticketList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/train_margin"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tariff"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/tariff">
 
-        </LinearLayout>
+        </TextView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

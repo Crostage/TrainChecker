@@ -30,6 +30,10 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
+/**
+ * Фрагмент поиска станций. Отображает последние выбранные станции или новые найденые
+ *
+ */
 class StationFragment : Fragment(R.layout.fragment_station) {
     private lateinit var adapter: StationListAdapter
     private var _binding: FragmentStationBinding? = null
@@ -110,7 +114,7 @@ class StationFragment : Fragment(R.layout.fragment_station) {
 
     private fun setObservers() {
         viewModel.error.observe(viewLifecycleOwner, {
-            it.message?.let { msg ->
+            it.getContentIfNotHandled()?.message?.let { msg ->
                 requireActivity().findViewById<View>(android.R.id.content).showSnackBar(msg)
             }
         })

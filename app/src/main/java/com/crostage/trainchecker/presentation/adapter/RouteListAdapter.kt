@@ -9,6 +9,10 @@ import com.crostage.trainchecker.R
 import com.crostage.trainchecker.databinding.ItemRouteBinding
 import com.crostage.trainchecker.domain.model.TrainStop
 
+/**
+ * Адаптер для отображения списка маршрутов
+ *
+ */
 class RouteListAdapter: RecyclerView.Adapter<RouteViewHolder>() {
 
     private var dataList = listOf<TrainStop>()

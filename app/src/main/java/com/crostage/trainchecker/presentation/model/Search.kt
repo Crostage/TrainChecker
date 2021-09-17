@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 /**
- * Класс поискового запроса
+ * Класс поискового запроса, используется для перехода между фрагментами
  *
  * @property cityFrom город отправления
  * @property codeFrom код города отправления

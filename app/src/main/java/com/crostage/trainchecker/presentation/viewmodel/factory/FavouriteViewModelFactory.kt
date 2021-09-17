@@ -8,6 +8,10 @@ import com.crostage.trainchecker.utils.Constant.Companion.FAVOURITE
 import javax.inject.Inject
 import javax.inject.Named
 
+/**
+ * Фабрика для View Model отслеживаемых поездов
+ *
+ */
 class FavouriteViewModelFactory @Inject constructor(
     @Named(FAVOURITE)
     private val favouriteInteractor: IFavouriteInteractor,

@@ -19,15 +19,31 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 
+/**
+ * Модуль для предоставления зависимостей для работы со станциями
+ *
+ */
 @Module(includes = [StationBindModule::class])
 class StationModule {
 
+    /**
+     * Предоставляет [StationResponseDao]
+     *
+     * @param database [TrainDatabase] класс базы данных
+     * @return [StationResponseDao] класс для работы с таблицей запросв поиска станций
+     */
     @Provides
     @StationScope
     fun provideStationResponseDao(database: TrainDatabase): StationResponseDao {
         return database.stationResponseDao()
     }
 
+    /**
+     * Предоставляет [StationDao]
+     *
+     * @param database [TrainDatabase] класс базы данных
+     * @return [StationDao] класс для работы с таблицей последних станций
+     */
     @Provides
     @StationScope
     fun provideStationDao(database: TrainDatabase): StationDao {
@@ -35,23 +51,47 @@ class StationModule {
     }
 }
 
+/**
+ * Вспомогательный модуль для предоставления зависимостей для работы со станциями
+ */
 @Module
 interface StationBindModule {
+
+    /**
+     * Предоставляет [StationInteractor] в качестве [IStationInteractor]
+     *
+     */
     @Binds
     fun bindStationInteractorToIStationInteractor(stationInteractor: StationInteractor)
             : IStationInteractor
 
+    /**
+     * Предоставляет [StationService] в качестве [IStationService]
+     *
+     */
     @Binds
     fun bindStationServiceToIStationService(stationService: StationService): IStationService
 
+    /**
+     * Предоставляет [StationRepository] в качестве [IStationRepository]
+     *
+     */
     @Binds
     fun bindStationRepositoryToIStationRepository(stationRepo: StationRepository)
             : IStationRepository
 
+    /**
+     * Предоставляет [StationConverter] в качестве [IConverter]
+     *
+     */
     @Binds
     fun bindStationConverterToIConverter(stationConverter: StationConverter)
             : IConverter<StationEntity, Station>
 
+    /**
+     * Предоставляет [StationListConverter] в качестве [IConverter]
+     *
+     */
     @Binds
     fun bindStationListConverterToIConverter(stationListConverter: StationListConverter)
             : IConverter<List<StationEntity>, List<Station>>

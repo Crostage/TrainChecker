@@ -13,8 +13,14 @@ import com.crostage.trainchecker.presentation.adapter.PagerAdapter
 import com.crostage.trainchecker.utils.Constant
 import com.google.android.material.tabs.TabLayoutMediator
 
-class DetailFragment : Fragment(R.layout.fragment_detail) {
 
+/**
+ * Фрагмент отображающий детальную информацию о поезде.
+ * Включает в себя два фрагмента [RouteFragment] и [CarFragment]
+ *
+ *
+ */
+class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
@@ -61,7 +67,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         val routeFragment = RouteFragment()
         routeFragment.arguments = bundle
 
-        val seatFragment = SeatFragment()
+        val seatFragment = CarFragment()
         seatFragment.arguments = bundle
 
         val fragmentList = listOf(routeFragment, seatFragment)

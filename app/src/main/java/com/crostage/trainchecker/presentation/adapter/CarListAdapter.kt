@@ -1,17 +1,19 @@
 package com.crostage.trainchecker.presentation.adapter
 
 import android.annotation.SuppressLint
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.crostage.trainchecker.R
-import com.crostage.trainchecker.databinding.ItemSeatBinding
+import com.crostage.trainchecker.databinding.ItemCarBinding
 import com.crostage.trainchecker.domain.model.Car
 
-class SeatListAdapter : RecyclerView.Adapter<SeatViewHolder>() {
+/**
+ * Адаптер для отображения списка вагонов
+ *
+ */
+class CarListAdapter : RecyclerView.Adapter<CarViewHolder>() {
 
     private var dataList = listOf<Car>()
 
@@ -21,13 +23,13 @@ class SeatListAdapter : RecyclerView.Adapter<SeatViewHolder>() {
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SeatViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_seat, parent, false)
-        return SeatViewHolder(view)
+            .inflate(R.layout.item_car, parent, false)
+        return CarViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: SeatViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CarViewHolder, position: Int) {
         holder.bind(dataList[position])
     }
 
@@ -36,9 +38,9 @@ class SeatListAdapter : RecyclerView.Adapter<SeatViewHolder>() {
     }
 }
 
-class SeatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class CarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    private val binding = ItemSeatBinding.bind(itemView)
+    private val binding = ItemCarBinding.bind(itemView)
 
     @SuppressLint("SetTextI18n")
     fun bind(car: Car) {
@@ -48,14 +50,11 @@ class SeatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         binding.clsType.text = car.clsType
         binding.tariff.text = car.tariff + " руб"
 
-        binding.ticketList.removeAllViews()
+        val ticketsBuilder = StringBuilder()
         for (seat in car.seats) {
-            val textView = TextView(itemView.context)
-            textView.gravity = Gravity.START
-            textView.text = "${seat.label} : ${seat.free}"
-            binding.ticketList.addView(textView)
+            ticketsBuilder.append("${seat.label} : ${seat.free}\n")
         }
-
+        binding.ticketList.text = ticketsBuilder.toString()
 
     }
 

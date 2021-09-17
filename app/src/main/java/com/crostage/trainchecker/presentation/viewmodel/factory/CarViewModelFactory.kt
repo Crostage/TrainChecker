@@ -5,12 +5,16 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import com.crostage.trainchecker.domain.interactors.interfaces.ISeatInteractor
-import com.crostage.trainchecker.presentation.viewmodel.SeatViewModel
+import com.crostage.trainchecker.presentation.viewmodel.CarViewModel
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 
-class SeatViewModelFactory @AssistedInject constructor(
+/**
+ * Фабрика для View Model вагонов
+ *
+ */
+class CarViewModelFactory @AssistedInject constructor(
     private val interactor: ISeatInteractor,
     @Assisted owner: SavedStateRegistryOwner,
 ) : AbstractSavedStateViewModelFactory(owner, null) {
@@ -21,7 +25,7 @@ class SeatViewModelFactory @AssistedInject constructor(
         handle: SavedStateHandle,
     ): T {
         return when {
-            modelClass.isAssignableFrom(SeatViewModel::class.java) -> SeatViewModel(
+            modelClass.isAssignableFrom(CarViewModel::class.java) -> CarViewModel(
                 interactor,
                 handle
             ) as T
@@ -31,8 +35,11 @@ class SeatViewModelFactory @AssistedInject constructor(
 
 }
 
-
+/**
+ * Фабрика для внедрения зависимостей
+ *
+ */
 @AssistedFactory
 interface SeatViewModelAssistedFactory {
-    fun create(owner: SavedStateRegistryOwner): SeatViewModelFactory
+    fun create(owner: SavedStateRegistryOwner): CarViewModelFactory
 }

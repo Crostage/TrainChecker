@@ -13,27 +13,20 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 /**
- * ViewModel для работы со станциями отправления
  *
- * @property interactor бизнес логика получения станций из сети и БД
+ * View Model для работы со станциями отправления
+ *
+ * @property interactor [IStationInteractor]  бизнес-логика для работы со станциями
+ * @param savedStateHandle сущность для сохранения LiveData
  */
-
 class StationViewModel(
     private val interactor: IStationInteractor,
     savedStateHandle: SavedStateHandle,
 ) : BaseViewModel() {
 
     private val _stations = savedStateHandle.getLiveData<List<Station>>(SAVED_STATE_STATIONS)
-
-    /**
-     *  LiveData списка станций, меняется при изменении поискового запроса
-     */
     val stations: LiveData<List<Station>> = _stations
     private var _resultStation = MutableLiveData<Event<Station>>()
-
-    /**
-     *  LiveData события выбора станции
-     */
     var resultStation: LiveData<Event<Station>> = _resultStation
 
     init {
@@ -66,9 +59,8 @@ class StationViewModel(
                 .doFinally { _progress.value = false }
                 .doOnSubscribe { _progress.value = true }
                 .subscribe(
-                    _stations::setValue,
-                    _error::setValue
-                )
+                    _stations::setValue
+                ) { _error.value = Event(it) }
         )
     }
 
@@ -85,11 +77,15 @@ class StationViewModel(
             }
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({}, _error::setValue)
+                .subscribe({}, { _error.value = Event(it) })
         )
     }
 
 
+    /**
+     * Получение списка последних выбранных станций
+     *
+     */
     private fun getLastPickStations() {
         compositeDisposable.add(
             Single.fromCallable {
@@ -98,9 +94,8 @@ class StationViewModel(
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    _stations::setValue,
-                    _error::setValue
-                )
+                    _stations::setValue
+                ) { _error.value = Event(it) }
         )
 
     }

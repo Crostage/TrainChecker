@@ -10,6 +10,11 @@ import com.crostage.trainchecker.R
 import com.crostage.trainchecker.domain.model.Station
 import com.crostage.trainchecker.presentation.fragment.OnStationClick
 
+/**
+ * Адаптер для отображения списка станций
+ *
+ * @property onStationClick слушатель клика по станции
+ */
 class StationListAdapter(private val onStationClick: OnStationClick) :
     RecyclerView.Adapter<StationViewHolder>() {
 

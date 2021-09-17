@@ -16,15 +16,27 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Provider
 import javax.inject.Singleton
 
+/**
+ * Модуль для внедрения зависимостей для работы с сетью
+ *
+ */
 @Module
 class NetworkModule {
 
+    /**
+     * Предоставляет [File] файл, содержаший путь к кэшу
+     *
+     */
     @Provides
     fun provideCacheDir(context: Context) = File(context.cacheDir, Constant.CACHE_CHILD)
 
+    /**
+     * Предоставляет [Int] тип соединения 0 - нет сети, 1 - моибльный данные, 2 - wi-fi
+     *
+     */
     @Provides
     fun provideConnectionType(context: Context): Int {
-        var connectionType = 0 // Returns connection type. 0: none; 1: mobile data; 2: wifi
+        var connectionType = 0
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
         cm?.let {
             val capabilities =
@@ -47,6 +59,10 @@ class NetworkModule {
         return connectionType
     }
 
+    /**
+     * Предоставляет [Interceptor] перехватчик для оффлайн кэишрования
+     *
+     */
     @Provides
     fun provideOfflineInterceptor(connectionType: Provider<Int>) = Interceptor { chain ->
         val ct = connectionType.get()
@@ -67,6 +83,10 @@ class NetworkModule {
         chain.proceed(request)
     }
 
+    /**
+     * Предоставляет [ApiRequests] класс для работы с сетевыми запросам
+     *
+     */
     @Provides
     @Singleton
     fun provideRetrofit(cacheDir: File, offlineInterceptor: Interceptor): ApiRequests =

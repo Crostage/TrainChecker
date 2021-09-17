@@ -6,6 +6,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.crostage.trainchecker.utils.Constant.Companion.TAB_ITEM_COUNT
 
+
+/**
+ * Адаптер для переключения фрагментов
+ */
 class PagerAdapter(
     private val fragmentList: List<Fragment>,
     fa: FragmentManager,

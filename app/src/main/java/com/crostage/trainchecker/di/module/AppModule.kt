@@ -7,11 +7,20 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module(subcomponents = [FavouriteComponent::class, RouteComponent::class, SeatComponent::class,
+/**
+ * Главный модуль для внедрения зависимостей
+ *
+ */
+@Module(subcomponents = [FavouriteComponent::class, RouteComponent::class, CarComponent::class,
     StationComponent::class, ResultComponent::class],
     includes = [NetworkModule::class])
 class AppModule {
 
+    /**
+     * Предоставляет [TrainDatabase] основной класс для работы с БД
+     *
+     * @param context контекст приложения
+     */
     @Provides
     @Singleton
     fun provideDatabase(context: Context) = TrainDatabase.invoke(context)

@@ -1,7 +1,7 @@
 package com.crostage.trainchecker.presentation.model
 
 /**
- * Класс событие - обертка над объектом, без повторного использования
+ * Класс событие - обертка над объектом, служит для однократного использования оъекта в LiveData
  *
  * @param T
  * @property content тип рассматриваемого объекта
@@ -24,5 +24,11 @@ class Event<out T>(private val content: T) {
             content
         }
     }
+
+    /**
+     * Возвращает содержимое без условий
+     *
+     */
+    fun getContent() = content
 
 }

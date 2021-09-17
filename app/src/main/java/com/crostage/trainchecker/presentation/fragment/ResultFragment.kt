@@ -26,6 +26,10 @@ import com.crostage.trainchecker.presentation.viewmodel.TrainViewModel
 import com.crostage.trainchecker.presentation.viewmodel.factory.TrainViewModelAssistedFactory
 import javax.inject.Inject
 
+/**
+ * Фрагмент отображающий список найденых поездов
+ *
+ */
 class ResultFragment : Fragment(R.layout.fragment_result) {
 
     private lateinit var viewModel: TrainViewModel
@@ -140,7 +144,7 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
 
     private fun setObservers() {
         viewModel.error.observe(viewLifecycleOwner, {
-            it.message?.let { msg ->
+            it.getContentIfNotHandled()?.message?.let { msg ->
                 requireActivity().findViewById<View>(android.R.id.content).showSnackBar(msg)
             }
             binding.tryAgain.isVisible = true

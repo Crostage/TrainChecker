@@ -20,7 +20,10 @@ import com.crostage.trainchecker.utils.Constant.Companion.STATION_RESULT
 import com.crostage.trainchecker.utils.Constant.Companion.STATION_TO_REQUEST_KEY
 import java.util.*
 
-
+/**
+ * Главный фрагмент, отвечающий за поиск поездов
+ *
+ */
 class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private var _binding: FragmentSearchBinding? = null

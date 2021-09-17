@@ -7,14 +7,21 @@ import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
+/**
+ * Главный интерфейс компонента приложения
+ */
 @Component(modules = [AppModule::class])
 @Singleton
 interface AppComponent {
 
+    /**
+     * Методы для создания вспомогательных компонентов приложения
+     *
+     */
     fun getTrainComponent(): ResultComponent.Builder
     fun getRouteComponent(): RouteComponent.Builder
     fun getStationComponent(): StationComponent.Builder
-    fun getSeatComponent(): SeatComponent.Builder
+    fun getSeatComponent(): CarComponent.Builder
     fun getFavouriteComponent(): FavouriteComponent.Builder
 
 
