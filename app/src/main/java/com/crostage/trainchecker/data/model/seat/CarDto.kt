@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
  *
  * @property carNumber номер вагона
  * @property carType тип вагона
- * @property clsType 2Л, 2Э
+ * @property clsType класс вагона
  * @property tariff цена биллетов в вагоне
  * @property seats список мест [Seat]
  */

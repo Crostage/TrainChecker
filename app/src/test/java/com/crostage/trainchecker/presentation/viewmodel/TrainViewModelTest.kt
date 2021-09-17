@@ -25,6 +25,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
+import kotlin.test.assertEquals
 
 @RunWith(MockitoJUnitRunner::class)
 class TrainViewModelTest {
@@ -105,8 +106,8 @@ class TrainViewModelTest {
 
         verifySequence {
             interactor.insertFavourite(TRAIN)
-//            error.onChanged(exception)
         }
+        assertEquals(viewModel.error.value?.getContent(), exception)
     }
 
 

@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
  *
  * @property carNumber номер вагона
  * @property carType тип вагона
- * @property clsType
+ * @property clsType класс вагона
  * @property tariff цена билета в вагоне
  * @property seats список мест
  */

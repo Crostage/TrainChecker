@@ -20,6 +20,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
+import kotlin.test.assertEquals
 
 @RunWith(MockitoJUnitRunner::class)
 class RouteViewModelTest {
@@ -83,9 +84,9 @@ class RouteViewModelTest {
 
         verifySequence {
             progress.onChanged(true)
-//            error.onChanged(exception)
             progress.onChanged(false)
         }
+        assertEquals(viewModel.error.value?.getContent(), exception)
     }
 
 }
